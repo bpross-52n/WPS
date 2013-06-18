@@ -231,6 +231,12 @@
 					schema="http://schemas.opengis.net/wcps/1.0/wcpsAll.xsd" />
 			</Parser>
 			
+			<Parser name="StreamPassingParser"
+				className="org.n52.wps.io.datahandler.parser.StreamPassingParser"
+				active="true">
+				<Format mimetype="application/octetstream"/>
+			</Parser>
+			
 			<Parser name="WKTParser"
 				className="org.n52.wps.io.datahandler.parser.WKTParser"
 				active="true">
@@ -243,6 +249,12 @@
 				className="org.n52.wps.io.datahandler.generator.WKTGenerator"
 				active="true">
 				<Format mimetype="application/wkt"/>
+			</Generator>
+			
+			<Generator name="StreamPassingGenerator"
+				className="org.n52.wps.io.datahandler.generator.StreamPassingGenerator"
+				active="true">
+				<Format mimetype="application/octetstream"/>
 			</Generator>
 		
 			<Generator name="JSONGeometryGenerator" className="org.n52.wps.io.datahandler.generator.JSONGeometryGenerator" active="true">
@@ -487,6 +499,7 @@
 		<Repository name="LocalAlgorithmRepository"
 			className="org.n52.wps.server.LocalAlgorithmRepository" active="true">
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.SimpleBufferAlgorithm</Property>
+			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.StreaminAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.JTSConvexHullAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.coordinatetransform.CoordinateTransformAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.simplify.DouglasPeuckerAlgorithm</Property>

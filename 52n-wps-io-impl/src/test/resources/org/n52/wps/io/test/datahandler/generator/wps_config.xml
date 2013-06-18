@@ -237,6 +237,12 @@
 				<Format mimetype="application/wkt"/>
 			</Parser>
 			
+			<Parser name="StreamPassingParser"
+				className="org.n52.wps.io.datahandler.parser.StreamPassingParser"
+				active="true">
+				<Format mimetype="application/octetstream"/>
+			</Parser>
+			
 			<Parser name="GeoJSONParser"
 				className="org.n52.wps.io.datahandler.parser.GeoJSONParser"
 				active="true">
