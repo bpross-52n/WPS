@@ -812,6 +812,21 @@
 				<version>0.6-8</version>
 			</dependency>
 			<!-- END R dependencies -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.2.4</version>
+			</dependency>	
+			<dependency>
+				<groupId>com.github.fge</groupId>
+				<artifactId>json-schema-validator</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<artifactId>json-schema-core</artifactId>
+				<groupId>com.github.fge</groupId>
+				<version>1.0.2</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<reporting>
