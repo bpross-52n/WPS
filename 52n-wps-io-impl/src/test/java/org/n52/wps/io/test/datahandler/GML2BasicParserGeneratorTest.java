@@ -45,7 +45,63 @@ import org.n52.wps.io.datahandler.parser.GML2BasicParser;
  */
 public class GML2BasicParserGeneratorTest extends AbstractTestCase<GML2BasicGenerator> {
 
-	public void testParser() {
+
+	
+	public void testParsingSingleWFSGML2Feature(){
+		
+		if(!isDataHandlerActive()){
+			return;
+		}
+		
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/tasmania_roads_single_feature_gml2.xml";
+		
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			fail(e1.getMessage());
+		}
+
+		GML2BasicParser parser = new GML2BasicParser();
+
+		Format[] formats = parser.getSupportedFullFormats();
+		
+		Format format = formats[0];
+		
+		String mimeType = format.getMimetype();
+		String schema = format.getSchema();
+		
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+		
+		GTVectorDataBinding theBinding = parser.parse(input, mimeType, schema);
+
+		assertNotNull(theBinding.getPayload());
+		assertTrue(theBinding.getPayloadAsShpFile().exists());
+		assertTrue(!theBinding.getPayload().isEmpty());
+		
+		try {
+			InputStream stream = dataHandler.generateStream(theBinding, mimeType, schema);
+			
+			theBinding = parser.parse(stream, mimeType, schema);
+
+			assertNotNull(theBinding.getPayload());
+			assertTrue(theBinding.getPayloadAsShpFile().exists());
+			assertTrue(!theBinding.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
+	}
+	
+	public void testParsingMultipleWFSGML2Features() {
 		
 		if(!isDataHandlerActive()){
 			return;
@@ -98,6 +154,114 @@ public class GML2BasicParserGeneratorTest extends AbstractTestCase<GML2BasicGene
 			fail(e.getMessage());
 		}
 
+	}
+	
+	public void testParsingSingleOGRGML2Feature(){
+		
+		if(!isDataHandlerActive()){
+			return;
+		}
+		
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/OGRGML2SingleFeature.xml";
+		
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			fail(e1.getMessage());
+		}
+
+		GML2BasicParser parser = new GML2BasicParser();
+
+		Format[] formats = parser.getSupportedFullFormats();
+		
+		Format format = formats[0];
+		
+		String mimeType = format.getMimetype();
+		String schema = format.getSchema();
+		
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+		
+		GTVectorDataBinding theBinding = parser.parse(input, mimeType, schema);
+
+		assertNotNull(theBinding.getPayload());
+		assertTrue(theBinding.getPayloadAsShpFile().exists());
+		assertTrue(!theBinding.getPayload().isEmpty());
+		
+		try {
+			InputStream stream = dataHandler.generateStream(theBinding, mimeType, schema);
+			
+			theBinding = parser.parse(stream, mimeType, schema);
+
+			assertNotNull(theBinding.getPayload());
+			assertTrue(theBinding.getPayloadAsShpFile().exists());
+			assertTrue(!theBinding.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
+	}
+	
+	public void testParsingMultipleOGRGML2Features(){
+		
+		if(!isDataHandlerActive()){
+			return;
+		}
+		
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/OGRGML2MultipleFeatures.xml";
+		
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			fail(e1.getMessage());
+		}
+
+		GML2BasicParser parser = new GML2BasicParser();
+
+		Format[] formats = parser.getSupportedFullFormats();
+		
+		Format format = formats[0];
+		
+		String mimeType = format.getMimetype();
+		String schema = format.getSchema();
+		
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+		
+		GTVectorDataBinding theBinding = parser.parse(input, mimeType, schema);
+
+		assertNotNull(theBinding.getPayload());
+		assertTrue(theBinding.getPayloadAsShpFile().exists());
+		assertTrue(!theBinding.getPayload().isEmpty());
+		
+		try {
+			InputStream stream = dataHandler.generateStream(theBinding, mimeType, schema);
+			
+			theBinding = parser.parse(stream, mimeType, schema);
+
+			assertNotNull(theBinding.getPayload());
+			assertTrue(theBinding.getPayloadAsShpFile().exists());
+			assertTrue(!theBinding.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
 	}
 
 	@Override

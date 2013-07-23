@@ -167,30 +167,41 @@ public class GML2BasicParser extends AbstractParser {
 			}
 			if (parsedData instanceof SimpleFeatureCollection) {
 				fc = (SimpleFeatureCollection) parsedData;
-			} else {
-				List<?> possibleSimpleFeatureList = ((ArrayList<?>) ((HashMap<?, ?>) parsedData)
-						.get("featureMember"));
+			} else if(parsedData instanceof HashMap){
+				List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
 
-				if (possibleSimpleFeatureList != null) {
-					List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
+				if (((HashMap<?, ?>) parsedData).get("featureMember") instanceof SimpleFeature) {
+					SimpleFeature feature = (SimpleFeature) ((HashMap<?, ?>) parsedData).get("featureMember");
+				 						
+					simpleFeatureList.add(feature);
+					
+					fc = new ListFeatureCollection(feature.getFeatureType(), simpleFeatureList);
+					
+				} else if (((HashMap<?, ?>) parsedData).get("featureMember") instanceof List) {
+										
+					List<?> possibleSimpleFeatureList = ((ArrayList<?>) ((HashMap<?, ?>) parsedData)
+							.get("featureMember"));
 
-					SimpleFeatureType sft = null;
+					if (possibleSimpleFeatureList != null) {
 
-					for (Object possibleSimpleFeature : possibleSimpleFeatureList) {
+						SimpleFeatureType sft = null;
 
-						if (possibleSimpleFeature instanceof SimpleFeature) {
-							SimpleFeature sf = ((SimpleFeature) possibleSimpleFeature);
-							if (sft == null) {
-								sft = sf.getType();
+						for (Object possibleSimpleFeature : possibleSimpleFeatureList) {
+
+							if (possibleSimpleFeature instanceof SimpleFeature) {
+								SimpleFeature sf = ((SimpleFeature) possibleSimpleFeature);
+								if (sft == null) {
+									sft = sf.getType();
+								}
+								simpleFeatureList.add(sf);
 							}
-							simpleFeatureList.add(sf);
 						}
-					}
 
-					fc = new ListFeatureCollection(sft, simpleFeatureList);
-				} else {
-					fc = (SimpleFeatureCollection) ((HashMap<?, ?>) parsedData)
-							.get("FeatureCollection");
+						fc = new ListFeatureCollection(sft, simpleFeatureList);
+					} else {
+						fc = (SimpleFeatureCollection) ((HashMap<?, ?>) parsedData)
+								.get("FeatureCollection");
+					}
 				}
 			}
 
