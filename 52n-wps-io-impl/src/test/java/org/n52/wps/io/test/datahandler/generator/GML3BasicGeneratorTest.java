@@ -15,7 +15,65 @@ import org.n52.wps.io.test.datahandler.AbstractTestCase;
 
 public class GML3BasicGeneratorTest extends AbstractTestCase<GML3BasicGenerator> {
 
-	public void testParser() {
+	public void testParsingMultipleWFSGML3FeatureMembers() {
+		
+        assertTrue(isDataHandlerActive());
+
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/OGRGML3MultipleFeatures.xml";
+
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			fail(e1.getMessage());
+		}
+		
+		GML3BasicParser theParser = new GML3BasicParser();
+
+//		String[] mimetypes = theParser.getSupportedFormats();
+
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+
+		// for (String mimetype : mimetypes) {
+
+		GTVectorDataBinding theBinding = theParser.parse(input,
+				"text/xml; subtype=gml/3.1.1",
+				"http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
+		
+		try {
+			InputStream resultStream = dataHandler.generateStream(theBinding, "text/xml; subtype=gml/3.1.1", "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
+			
+			GTVectorDataBinding parsedGeneratedBinding = theParser.parse(resultStream, "text/xml; subtype=gml/3.1.1", "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
+			
+			assertNotNull(parsedGeneratedBinding.getPayload());
+			assertTrue(theBinding.getPayload().size()==theBinding.getPayload().size());
+			assertTrue(parsedGeneratedBinding.getPayloadAsShpFile().exists());
+			assertTrue(!parsedGeneratedBinding.getPayload().isEmpty());
+
+			InputStream resultStreamBase64 = dataHandler.generateBase64Stream(theBinding, "text/xml; subtype=gml/3.1.1", "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
+			
+			GTVectorDataBinding parsedGeneratedBindingBase64 = (GTVectorDataBinding) theParser.parseBase64(resultStreamBase64, "text/xml; subtype=gml/3.1.1", "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
+			
+			assertNotNull(parsedGeneratedBindingBase64.getPayload());
+			assertTrue(parsedGeneratedBindingBase64.getPayloadAsShpFile().exists());
+			assertTrue(!parsedGeneratedBindingBase64.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+		
+		// }
+
+	}
+	
+	public void testParsingMultipleOGRGML3FeatureMembers() {
 		
         assertTrue(isDataHandlerActive());
 
@@ -42,23 +100,25 @@ public class GML3BasicGeneratorTest extends AbstractTestCase<GML3BasicGenerator>
 
 		// for (String mimetype : mimetypes) {
 
-		GTVectorDataBinding theBinding = theParser.parse(input,
-				"text/xml; subtype=gml/3.2.1",
-				"http://schemas.opengis.net/gml/3.2.1/base/feature.xsd");
+		String mimeType = "text/xml; subtype=gml/3.1.1";
+		
+		String schema = "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd";
+		
+		GTVectorDataBinding theBinding = theParser.parse(input, mimeType, schema);
 		
 		try {
-			InputStream resultStream = dataHandler.generateStream(theBinding, "text/xml; subtype=gml/3.2.1", "http://schemas.opengis.net/gml/3.2.1/base/feature.xsd");
+			InputStream resultStream = dataHandler.generateStream(theBinding, mimeType, schema);
 			
-			GTVectorDataBinding parsedGeneratedBinding = theParser.parse(resultStream, "text/xml; subtype=gml/3.2.1", "http://schemas.opengis.net/gml/3.2.1/base/feature.xsd");
+			GTVectorDataBinding parsedGeneratedBinding = theParser.parse(resultStream, mimeType, schema);
 			
 			assertNotNull(parsedGeneratedBinding.getPayload());
 			assertTrue(theBinding.getPayload().size()==theBinding.getPayload().size());
 			assertTrue(parsedGeneratedBinding.getPayloadAsShpFile().exists());
 			assertTrue(!parsedGeneratedBinding.getPayload().isEmpty());
 
-			InputStream resultStreamBase64 = dataHandler.generateBase64Stream(theBinding, "text/xml; subtype=gml/3.2.1", "http://schemas.opengis.net/gml/3.2.1/base/feature.xsd");
+			InputStream resultStreamBase64 = dataHandler.generateBase64Stream(theBinding, mimeType, schema);
 			
-			GTVectorDataBinding parsedGeneratedBindingBase64 = (GTVectorDataBinding) theParser.parseBase64(resultStreamBase64, "text/xml; subtype=gml/3.2.1", "http://schemas.opengis.net/gml/3.2.1/base/feature.xsd");
+			GTVectorDataBinding parsedGeneratedBindingBase64 = (GTVectorDataBinding) theParser.parseBase64(resultStreamBase64, mimeType, schema);
 			
 			assertNotNull(parsedGeneratedBindingBase64.getPayload());
 			assertTrue(parsedGeneratedBindingBase64.getPayloadAsShpFile().exists());

@@ -67,6 +67,7 @@ import org.opengis.feature.simple.SimpleFeatureType;
 import org.opengis.feature.type.GeometryDescriptor;
 import org.opengis.feature.type.GeometryType;
 import org.opengis.filter.identity.Identifier;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.vividsolutions.jts.geom.Geometry;
@@ -156,16 +157,13 @@ public class GML3BasicParser extends AbstractParser {
 				if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
 					SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
 					configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
+					System.out.println(""+configuration.allDependencies().size());
 				}else{
 					configuration = new GMLConfiguration();
 					shouldSetParserStrict = false;
 				}
 			}
 		}
-		
-		org.geotools.xml.Parser parser = new org.geotools.xml.Parser(configuration);
-		
-		parser.setStrict(shouldSetParserStrict);
 		
 		//parse		
 		SimpleFeatureCollection fc = parseFeatureCollection(file, configuration, shouldSetParserStrict);
@@ -190,7 +188,19 @@ public class GML3BasicParser extends AbstractParser {
 		//parse		
 		SimpleFeatureCollection fc = DefaultFeatureCollections.newCollection();
 		try {
-			Object parsedData =  parser.parse( new FileInputStream(file));
+
+			Object parsedData = null;
+			try {
+				parser.setStrict(shouldSetParserStrict);
+				parsedData = parser.parse(new FileInputStream(file));
+			} catch (SAXException e) {
+				LOGGER.warn("Could not parse GML3 file with strict parser.", e);
+				LOGGER.info("Retry parsing with non strict parser.");
+				//assume the xsd containing the schema was not found
+				parser = new org.geotools.xml.Parser(configuration);
+				parser.setStrict(false);
+				parsedData = parser.parse(new FileInputStream(file));
+			}
 			if(parsedData instanceof FeatureCollection){
 				fc = (SimpleFeatureCollection) parsedData;				
 			}else if(parsedData instanceof HashMap){

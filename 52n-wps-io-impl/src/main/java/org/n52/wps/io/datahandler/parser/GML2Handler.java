@@ -72,7 +72,13 @@ public class GML2Handler extends DefaultHandler {
 			return;
 		}
 		for(int i = 0; i< locationStrings.length; i++) {
-			if(i % 2 == 0 && !locationStrings[i].equals("")){
+			/*
+			 * do not add "http://www.opengis.net/gml" as nameSpaceURI here, because it
+			 * causes a IllegalStateException with GML3 ApplicationSchemaConfiguration in
+			 * GML3BasicParser. Before, there was also "http://www.opengis.net/wfs" excluded here.
+			 * However, this doesn't seem to cause problems (anymore).
+			 */
+			if(i % 2 == 0 && !locationStrings[i].equals("http://www.opengis.net/gml") && !locationStrings[i].equals("")){
 				nameSpaceURI = locationStrings[i];
 				schemaUrl = locationStrings[i + 1];
 				return;
