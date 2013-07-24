@@ -148,21 +148,14 @@ public class GML3BasicParser extends AbstractParser {
 			
 			if (schemaLocationIsRelative) {
 				schemaLocation = new File(file.getParentFile(), schemaLocation).getAbsolutePath();
-			}
-			
-			if(schemaLocation.equals("http://schemas.opengis.net/gml/3.1.1/base/gml.xsd")){
+			}			
+			if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
+				SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
+				configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
+			}else{
 				configuration = new GMLConfiguration();
 				shouldSetParserStrict = false;
-			}else{			
-				if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
-					SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
-					configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
-					System.out.println(""+configuration.allDependencies().size());
-				}else{
-					configuration = new GMLConfiguration();
-					shouldSetParserStrict = false;
-				}
-			}
+			}			
 		}
 		
 		//parse		
@@ -196,7 +189,6 @@ public class GML3BasicParser extends AbstractParser {
 			} catch (SAXException e) {
 				LOGGER.warn("Could not parse GML3 file with strict parser.", e);
 				LOGGER.info("Retry parsing with non strict parser.");
-				//assume the xsd containing the schema was not found
 				parser = new org.geotools.xml.Parser(configuration);
 				parser.setStrict(false);
 				parsedData = parser.parse(new FileInputStream(file));

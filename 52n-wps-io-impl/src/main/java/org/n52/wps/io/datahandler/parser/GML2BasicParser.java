@@ -161,7 +161,6 @@ public class GML2BasicParser extends AbstractParser {
 			} catch (SAXException e) {
 				LOGGER.warn("Could not parse GML2 file with strict parser.", e);
 				LOGGER.info("Retry parsing with non strict parser.");
-				// assume the xsd containing the schema was not found
 				configuration = new GMLConfiguration();
 				parser = new org.geotools.xml.Parser(configuration);
 				parser.setStrict(false);
