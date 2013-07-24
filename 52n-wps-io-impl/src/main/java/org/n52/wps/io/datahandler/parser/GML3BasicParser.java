@@ -74,7 +74,7 @@ import com.vividsolutions.jts.geom.Geometry;
 
 
 /**
- * This parser handles xml files compliant to gmlpacket.xsd 
+ * This parser handles xml files compliant to GML3
  * @author schaeffer
  *
  */
