@@ -134,19 +134,15 @@ public class GML3BasicParser extends AbstractParser {
 	public SimpleFeatureCollection parseFeatureCollection(File file){
 		QName schematypeTuple = determineFeatureTypeSchema(file);
 		
-		boolean schemaLocationIsRelative = false;
-		if (!(schematypeTuple.getLocalPart().contains("://") || schematypeTuple.getLocalPart().contains("file:"))) {
-			schemaLocationIsRelative = true;
-		}
-		
-		Configuration configuration = null;
+		Configuration configuration = null;		
 		
 		boolean shouldSetParserStrict = true;
+		
 		if(schematypeTuple != null) {
 			
-			String schemaLocation =  schematypeTuple.getLocalPart();
+			String schemaLocation = schematypeTuple.getLocalPart();
 			
-			if (schemaLocationIsRelative) {
+			if (!(schemaLocation.contains("://") || schemaLocation.contains("file:"))) {
 				schemaLocation = new File(file.getParentFile(), schemaLocation).getAbsolutePath();
 			}			
 			if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
@@ -156,7 +152,10 @@ public class GML3BasicParser extends AbstractParser {
 				configuration = new GMLConfiguration();
 				shouldSetParserStrict = false;
 			}			
-		}
+		}else{
+			configuration = new GMLConfiguration();
+			shouldSetParserStrict = false;
+		}	
 		
 		//parse		
 		SimpleFeatureCollection fc = parseFeatureCollection(file, configuration, shouldSetParserStrict);
@@ -187,11 +186,16 @@ public class GML3BasicParser extends AbstractParser {
 				parser.setStrict(shouldSetParserStrict);
 				parsedData = parser.parse(new FileInputStream(file));
 			} catch (SAXException e) {
-				LOGGER.warn("Could not parse GML3 file with strict parser.", e);
-				LOGGER.info("Retry parsing with non strict parser.");
-				parser = new org.geotools.xml.Parser(configuration);
-				parser.setStrict(false);
-				parsedData = parser.parse(new FileInputStream(file));
+				LOGGER.error("Could not parse GML3 file.", e);
+				if(shouldSetParserStrict){
+					LOGGER.info("Retry parsing with non strict parser.");
+					parser = new org.geotools.xml.Parser(configuration);
+					parser.setStrict(false);
+					parsedData = parser.parse(new FileInputStream(file));
+					LOGGER.info("Parsing with non strict parser seems to have worked.");
+				}else{
+					throw e;
+				}
 			}
 			if(parsedData instanceof FeatureCollection){
 				fc = (SimpleFeatureCollection) parsedData;				

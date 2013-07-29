@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:FeatureCollection numberOfFeatures="0" timeStamp="2013-07-23T15:44:50.375+02:00" xsi:schemaLocation=" http://geoprocessing.demo.52north.org:8080/geoserver/wfs?service=WFS&amp;version=1.1.0&amp;request=DescribeFeatureType&amp;typeName=topp%3Atasmania_roads" xmlns:ogc="http://www.opengis.net/ogc" xmlns:tiger="http://www.census.gov" xmlns:cite="http://www.opengeospatial.net/cite" xmlns:nurc="http://www.nurc.nato.int" xmlns:sde="http://geoserver.sf.net" xmlns:wfs="http://www.opengis.net/wfs" xmlns:topp="http://www.openplans.org/topp" xmlns:N52="http://N52" xmlns:it.geosolutions="http://www.geo-solutions.it" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diss="diss" xmlns:sf="http://www.openplans.org/spearfish" xmlns:ows="http://www.opengis.net/ows" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<gml:featureMembers>
+		<topp:tasmania_roads gml:id="tasmania_roads.1">
+			<topp:the_geom>
+				<gml:MultiLineString>
+					<gml:lineStringMember>
+						<gml:LineString>
+							<gml:posList>146.46858200000003 -41.241478 146.574768 -41.251186 146.64041099999997 -41.255154 146.76612899999998 -41.332348 146.79418900000002 -41.34417 146.82217400000002 -41.362988 146.86343399999998 -41.380234 146.899521 -41.379452 146.929504 -41.378227 147.008041 -41.356079 147.098343 -41.362919</gml:posList>
+						</gml:LineString>
+					</gml:lineStringMember>
+				</gml:MultiLineString>
+			</topp:the_geom>
+			<topp:TYPE>street</topp:TYPE>
+		</topp:tasmania_roads>
+	</gml:featureMembers>
+</wfs:FeatureCollection>

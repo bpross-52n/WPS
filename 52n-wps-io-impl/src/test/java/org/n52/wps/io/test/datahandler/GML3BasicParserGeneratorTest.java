@@ -263,6 +263,114 @@ public class GML3BasicParserGeneratorTest extends AbstractTestCase<GML3BasicGene
 			fail(e.getMessage());
 		}
 	}
+	
+	public void testParsingGMLCorruptSchemalocation(){
+		
+		if(!isDataHandlerActive()){
+			return;
+		}
+		
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/gml311_schemalocation_corrupt.xml";
+		
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			fail(e1.getMessage());
+		}
+
+		GML3BasicParser parser = new GML3BasicParser();
+
+		Format[] formats = parser.getSupportedFullFormats();
+		
+		Format format = formats[0];
+		
+		String mimeType = format.getMimetype();
+		String schema = format.getSchema();
+		
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+		
+		GTVectorDataBinding theBinding = parser.parse(input, mimeType, schema);
+
+		assertNotNull(theBinding.getPayload());
+		assertTrue(theBinding.getPayloadAsShpFile().exists());
+		assertTrue(!theBinding.getPayload().isEmpty());
+		
+		try {
+			InputStream stream = dataHandler.generateStream(theBinding, mimeType, schema);
+			
+			theBinding = parser.parse(stream, mimeType, schema);
+
+			assertNotNull(theBinding.getPayload());
+			assertTrue(theBinding.getPayloadAsShpFile().exists());
+			assertTrue(!theBinding.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
+	}
+	
+	public void testParsingGMLSchemalocationWithOneElement(){
+		
+		if(!isDataHandlerActive()){
+			return;
+		}
+		
+		String testFilePath = projectRoot
+				+ "/52n-wps-io-impl/src/test/resources/gml311_schemalocation_one_element.xml";
+		
+		try {
+			testFilePath = URLDecoder.decode(testFilePath, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+			fail(e1.getMessage());
+		}
+
+		GML3BasicParser parser = new GML3BasicParser();
+
+		Format[] formats = parser.getSupportedFullFormats();
+		
+		Format format = formats[0];
+		
+		String mimeType = format.getMimetype();
+		String schema = format.getSchema();
+		
+		InputStream input = null;
+
+		try {
+			input = new FileInputStream(new File(testFilePath));
+		} catch (FileNotFoundException e) {
+			fail(e.getMessage());
+		}
+		
+		GTVectorDataBinding theBinding = parser.parse(input, mimeType, schema);
+
+		assertNotNull(theBinding.getPayload());
+		assertTrue(theBinding.getPayloadAsShpFile().exists());
+		assertTrue(!theBinding.getPayload().isEmpty());
+		
+		try {
+			InputStream stream = dataHandler.generateStream(theBinding, mimeType, schema);
+			
+			theBinding = parser.parse(stream, mimeType, schema);
+
+			assertNotNull(theBinding.getPayload());
+			assertTrue(theBinding.getPayloadAsShpFile().exists());
+			assertTrue(!theBinding.getPayload().isEmpty());
+			
+		} catch (IOException e) {
+			System.err.println(e);
+			fail(e.getMessage());
+		}
+	}
 
 	@Override
 	protected void initializeDataHandler() {

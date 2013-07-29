@@ -159,12 +159,17 @@ public class GML2BasicParser extends AbstractParser {
 				parser.setStrict(shouldSetParserStrict);
 				parsedData = parser.parse(new FileInputStream(file));
 			} catch (SAXException e) {
-				LOGGER.warn("Could not parse GML2 file with strict parser.", e);
-				LOGGER.info("Retry parsing with non strict parser.");
-				configuration = new GMLConfiguration();
-				parser = new org.geotools.xml.Parser(configuration);
-				parser.setStrict(false);
-				parsedData = parser.parse(new FileInputStream(file));
+				LOGGER.warn("Could not parse GML2 file.", e);
+				if(shouldSetParserStrict){
+					LOGGER.info("Retry parsing with non strict parser.");
+					configuration = new GMLConfiguration();
+					parser = new org.geotools.xml.Parser(configuration);
+					parser.setStrict(false);
+					parsedData = parser.parse(new FileInputStream(file));
+					LOGGER.info("Parsing with non strict parser seems to have worked.");
+				}else{
+					throw e;
+				}
 			}
 			if (parsedData instanceof SimpleFeatureCollection) {
 				fc = (SimpleFeatureCollection) parsedData;
