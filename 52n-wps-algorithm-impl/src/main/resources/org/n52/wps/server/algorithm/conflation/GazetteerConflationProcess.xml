@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+	<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.1.0">
+		<ows:Identifier>org.n52.wps.server.algorithm.SimpleBufferAlgorithm</ows:Identifier>
+		<ows:Title>org.n52.wps.server.algorithm.SimpleBufferAlgorithm</ows:Title>
+		<DataInputs>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Source_Gazetteer</ows:Identifier>
+				<ows:Title>Source Gazetteer</ows:Title>
+				<ows:Abstract>Names from the target gazetteer will be matched against the source</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:anyURI"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Target_Gazetteer</ows:Identifier>
+				<ows:Title>Target Gazetteer</ows:Title>
+				<ows:Abstract>Names from the target gazetteer will be matched against the source</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:anyURI"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Source_Gazetteer_Description_Filter</ows:Identifier>
+				<ows:Title>Source Gazetteer Description Filter</ows:Title>
+				<ows:Abstract>Comma separated feature descriptions or types to be used for the analysis</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:string"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Target_Gazetteer_Description_Filter</ows:Identifier>
+				<ows:Title>Target Gazetteer Description Filter</ows:Title>
+				<ows:Abstract>Comma separated feature descriptions or types to be used for the analysis</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:string"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Bounding_Box_Filters</ows:Identifier>
+				<ows:Title>Bounding Box Filters</ows:Title>
+				<ows:Abstract>The bounding box used to select source features for the analysis</ows:Abstract>
+				<BoundingBoxData>
+					<Default>
+						<CRS>EPSG:4326</CRS>
+					</Default>
+					<Supported>
+						<CRS>EPSG:4326</CRS>
+					</Supported>
+				</BoundingBoxData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Search_Distance</ows:Identifier>
+				<ows:Title>Search Distance</ows:Title>
+				<ows:Abstract>Distance to search for target features around source feature</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:double"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
+				<ows:Title>FuzzyWuzzy Threshold</ows:Title>
+				<ows:Abstract>Name matching threshold to determine a match</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:double"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+		</DataInputs>
+		<ProcessOutputs>
+			<Output>
+				<ows:Identifier>Output_File</ows:Identifier>
+				<ows:Title>Output File</ows:Title>				
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>application/rdf+xml</MimeType>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>application/rdf+xml</MimeType>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>
