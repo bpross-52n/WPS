@@ -33,7 +33,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		 * request source gazeteer with bbox and filter
 		 * whats the result?
 		 * 
-		 * request target gezeteer with filter
+		 * request target gazeteer with filter
 		 * 
 		 * source gazetteer features are processed (sequentially, one at a time)
 		 * 	get coordinates
