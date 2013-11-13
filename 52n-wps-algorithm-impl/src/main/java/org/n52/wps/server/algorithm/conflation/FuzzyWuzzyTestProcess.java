@@ -7,11 +7,14 @@ import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
+import org.n52.wps.PropertyDocument.Property;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.Execute;
 import org.n52.wps.algorithm.annotation.LiteralDataInput;
 import org.n52.wps.algorithm.annotation.LiteralDataOutput;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
+import org.n52.wps.server.LocalAlgorithmRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +41,35 @@ public class FuzzyWuzzyTestProcess extends AbstractAnnotatedAlgorithm {
 
 	private char fileSeparator = File.separatorChar;
 
-	private String fuzzyHome;
+	private String fuzzyName;
 
+	public FuzzyWuzzyTestProcess(){
+		if (WPSConfig.getInstance().isRepositoryActive(
+				LocalAlgorithmRepository.class.getCanonicalName())) {
+			
+			Property[] propertyArray = WPSConfig.getInstance()
+					.getPropertiesForRepositoryClass(
+							LocalAlgorithmRepository.class.getCanonicalName());
+			
+			/*
+			 * get properties of Repository
+			 */			
+			for (Property property : propertyArray) {
+				if (property.getName().equalsIgnoreCase(
+						"pythonHome")) {
+					pythonHome = property.getStringValue();
+				}else if (property.getName().equalsIgnoreCase(
+						"fuzzyName")) {
+					fuzzyName = property.getStringValue();
+				}
+			}
+		}
+		
+		if (!OS_Name.startsWith("Windows")) {
+			pythonName = "python";
+		}
+	}
+	
 	@LiteralDataInput(identifier = "name1")
     public void setName1(String name1) {
         this.name1 = name1;
@@ -58,13 +88,6 @@ public class FuzzyWuzzyTestProcess extends AbstractAnnotatedAlgorithm {
 	@Execute
 	public void fuzzyTest() {
 
-		pythonHome = "c:\\Python27";
-		fuzzyHome = "d:\\tmp";
-		
-		if (!OS_Name.startsWith("Windows")) {
-			pythonName = "python";
-		}
-
 		result = executeFuzzyWuzzy();
 	}
 
@@ -72,7 +95,7 @@ public class FuzzyWuzzyTestProcess extends AbstractAnnotatedAlgorithm {
 
 		if (command == null) {
 			command = getPythonHome() + fileSeparator + pythonName + " "
-					+ fuzzyHome + fileSeparator + "fuzz.py " + name1 + " " + name2;
+					+ fuzzyName + " " + name1 + " " + name2;
 		}
 
 		return command;

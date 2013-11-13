@@ -508,6 +508,8 @@
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.MultiReferenceInputAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.FuzzyWuzzyTestProcess</Property>
+			<Property name="pythonHome" active="true">c:\Python27</Property>
+			<Property name="fuzzyName" active="true">d:\tmp\fuzz.py</Property>
 		</Repository>
 		<Repository name="UploadedAlgorithmRepository"
 			className="org.n52.wps.server.UploadedAlgorithmRepository" active="false">
@@ -1020,7 +1022,7 @@
   </AlgorithmRepositoryList>
 	<RemoteRepositoryList />
 	
-	<Server hostname="localhost" hostport="8080"
+	<Server hostname="ows.dev.52north.org" hostport="8080"
 		includeDataInputsInResponse="false" computationTimeoutMilliSeconds="5"
 		cacheCapabilites="false" webappPath="wps" repoReloadInterval="0">
 		<!-- Setting to 'true' will enable filtering of responses documents.  Any server URL in
