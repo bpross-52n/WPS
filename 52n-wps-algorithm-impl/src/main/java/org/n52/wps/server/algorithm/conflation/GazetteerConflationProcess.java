@@ -18,10 +18,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
 import org.geotools.geometry.jts.JTS;
+import org.geotools.referencing.CRS;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
@@ -31,17 +34,16 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
-import org.n52.wps.io.datahandler.parser.GML3BasicParser;
+import org.n52.wps.io.datahandler.parser.GML32WFSGBasicParser;
+import org.n52.wps.io.datahandler.parser.GML3WFSGBasicParser;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.LocalAlgorithmRepository;
-import org.n52.wps.server.algorithm.StreamGobbler;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.geometry.Envelope;
-import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
-import org.opengis.referencing.operation.TransformException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +88,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 	
 	private String fuzzyName;
 	
+	private ExecutorService executor = Executors.newFixedThreadPool(10);
+	
 	public GazetteerConflationProcess(){
 		if (WPSConfig.getInstance().isRepositoryActive(
 				LocalAlgorithmRepository.class.getCanonicalName())) {
@@ -111,6 +115,20 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		if (!OS_Name.startsWith("Windows")) {
 			pythonName = "python";
 		}
+
+		try {
+			
+			CoordinateReferenceSystem wgs84 = CRS.decode("EPSG:4326");
+			CoordinateReferenceSystem nad83 = CRS.decode("EPSG:2953");
+			
+			LOGGER.info(wgs84.toString());
+			LOGGER.info(nad83.toString());			
+			
+			tx = CRS.findMathTransform(wgs84, nad83, false);
+			LOGGER.info(tx.toString());
+		} catch (Exception e) {
+			LOGGER.error("Exception while trying to find transformation between WGS84 and NAD83.", e);
+		} 
 	}
 	
 	@Override
@@ -134,6 +152,57 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		 *  
 		 * 
 		 */
+		
+		/*
+		 * get distance threshold
+		 */
+		
+		List<IData> searchDistanceInputs = inputData.get(searchDistance);
+		
+		double searchDistance = -1;
+		
+		try {
+			searchDistance = ((LiteralDoubleBinding)searchDistanceInputs.get(0)).getPayload();			
+		} catch (ClassCastException e) {
+			throw new RuntimeException(this.searchDistance + " input value is not an double.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new RuntimeException("No value for input " + this.searchDistance + " provided.");
+		}
+		
+		/*
+		 * get FuzzyWuzzy threshold
+		 */
+		
+		List<IData> fuzzyWuzzyThresholdInputs = inputData.get(fuzzyWuzzyThreshold);
+		
+		double fuzzyWuzzyThreshold = -1;
+		
+		try {
+			fuzzyWuzzyThreshold = ((LiteralDoubleBinding)fuzzyWuzzyThresholdInputs.get(0)).getPayload();			
+		} catch (ClassCastException e) {
+			throw new RuntimeException(this.fuzzyWuzzyThreshold + " input value is not an double.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new RuntimeException("No value for input " + this.fuzzyWuzzyThreshold + " provided.");
+		}
+		
+		/*
+		 * append bbox
+		 */
+		
+		List<IData> bboxFilterInputs = inputData.get(boundingBoxFilter);
+		
+		Envelope bboxFilterReferenceEnvelope = null;
+		
+		try {
+			bboxFilterReferenceEnvelope = ((GTReferenceEnvelope)bboxFilterInputs.get(0)).getPayload();			
+		} catch (ClassCastException e) {
+			throw new RuntimeException(boundingBoxFilter + " input value can not be cast to GTReferenceEnvelope.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new RuntimeException("No value for input " + boundingBoxFilter + " provided.");
+		}
+		
+		double[] lowerCorner = bboxFilterReferenceEnvelope.getLowerCorner().getCoordinate();
+		double[] upperCorner = bboxFilterReferenceEnvelope.getUpperCorner().getCoordinate();
 		
 		List<IData> sourceGazInputs = inputData.get(sourceGazetteer);
 		
@@ -162,9 +231,9 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
 		}
 		
-		String finalTargetGazetteerRequest = targetGazURI.toString().endsWith("?") ? targetGazURI.toString() : (targetGazURI.toString() + "?") + targetGazetteerRequest;
+		String finalTargetGazetteerRequest = (targetGazURI.toString().endsWith("?") ? targetGazURI.toString() : (targetGazURI.toString() + "?")) + targetGazetteerRequest;
 		
-		GML3BasicParser gml3Parser = new GML3BasicParser();
+		GML32WFSGBasicParser gml32Parser = new GML32WFSGBasicParser();
 		
 		URL finalTargetGazetteerRequestURL;
 		
@@ -173,7 +242,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		try {
 			finalTargetGazetteerRequestURL = new URL(finalTargetGazetteerRequest);
 			
-			targetGazetteerFeatures = gml3Parser.parse(finalTargetGazetteerRequestURL.openStream(), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+			targetGazetteerFeatures = gml32Parser.parse(finalTargetGazetteerRequestURL.openStream(), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 						
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("Malformed target gazeeteer request url: " + finalTargetGazetteerRequest, e);
@@ -185,30 +254,12 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			throw new RuntimeException("No source gazetteer features found.");
 		}
 		
-		/*
-		 * append bbox
-		 */
-		
-		List<IData> bboxFilterInputs = inputData.get(boundingBoxFilter);
-		
-		Envelope bboxFilterReferenceEnvelope = null;
-		
-		try {
-			bboxFilterReferenceEnvelope = ((GTReferenceEnvelope)bboxFilterInputs.get(0)).getPayload();			
-		} catch (ClassCastException e) {
-			throw new RuntimeException(boundingBoxFilter + " input value can not be cast to GTReferenceEnvelope.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + boundingBoxFilter + " provided.");
-		}
-		
-		double[] lowerCorner = bboxFilterReferenceEnvelope.getLowerCorner().getCoordinate();
-		double[] upperCorner = bboxFilterReferenceEnvelope.getUpperCorner().getCoordinate();
-		
-		String finalSourceGazetteerRequest = sourceGazURI.toString().endsWith("?") ? sourceGazURI.toString() : (sourceGazURI.toString() + "?") + sourceGazetteerRequest + lowerCorner[0] + "," +  lowerCorner[1] + "," + upperCorner[0] + "," + upperCorner[1] + ",EPSG:4326";
+		String finalSourceGazetteerRequest = (sourceGazURI.toString().endsWith("?") ? sourceGazURI.toString() : (sourceGazURI.toString() + "?")) + sourceGazetteerRequest + lowerCorner[0] + "," +  lowerCorner[1] + "," + upperCorner[0] + "," + upperCorner[1] + ",EPSG:4326";
 				
 		/*
 		 * load response stream into feature collection
 		 */
+		GML3WFSGBasicParser gml3Parser = new GML3WFSGBasicParser();
 		
 		URL finalSourceGazetteerRequestURL;
 		
@@ -230,38 +281,6 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		}
 		
 		/*
-		 * get distance threshold
-		 */
-		
-		List<IData> searchDistanceInputs = inputData.get(boundingBoxFilter);
-		
-		double searchDistance = -1;
-		
-		try {
-			searchDistance = ((LiteralDoubleBinding)searchDistanceInputs.get(0)).getPayload();			
-		} catch (ClassCastException e) {
-			throw new RuntimeException(this.searchDistance + " input value is not an double.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + this.searchDistance + " provided.");
-		}
-		
-		/*
-		 * get FuzzyWuzzy threshold
-		 */
-		
-		List<IData> fuzzyWuzzyThresholdInputs = inputData.get(boundingBoxFilter);
-		
-		double fuzzyWuzzyThreshold = -1;
-		
-		try {
-			fuzzyWuzzyThreshold = ((LiteralDoubleBinding)fuzzyWuzzyThresholdInputs.get(0)).getPayload();			
-		} catch (ClassCastException e) {
-			throw new RuntimeException(this.fuzzyWuzzyThreshold + " input value is not an double.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + this.fuzzyWuzzyThreshold + " provided.");
-		}
-		
-		/*
 		 * loop over features
 		 */
 		FeatureIterator<?> sourceFeatureIterator = sourceGazetteerFeatures.getPayload().features();
@@ -277,6 +296,11 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			List<String> sourceNameList = getAllAlternativeGeographicIdentifier(sourceFeature);
 
 			Map<SimpleFeature, Double> targetFeaturesInRange = getFeatureInRange(sourceFeature, targetGazetteerFeatures.getPayload(), searchDistance);
+			
+			if(targetFeaturesInRange.size() == 0){
+				LOGGER.info("No features in range for feature with id " + sourceFeature.getID());
+				continue;
+			}
 			
 			List<GazetteerConflationResultEntry> tmpResults = new ArrayList<GazetteerConflationResultEntry>();
 			
@@ -303,7 +327,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 
 						int fwScore = getFuzzyWuzzyScore(sourceName, targetName);
 						
-						System.out.println(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getGeographicIdentifier(targetFeature) + " " + sourceName + " " + targetName);
+						LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getGeographicIdentifier(targetFeature) + " " + sourceName + " " + targetName);
 						
 						/*
 						 * if above fuzzywuzzy threshold:
@@ -316,12 +340,11 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 				}
 				
 			}
+			if(tmpResults.size() >0){
+				Collections.sort(tmpResults);
 			
-			Collections.sort(tmpResults);
-			
-			System.out.println(tmpResults.get(0));
-			
-			finalResults.add(tmpResults.get(0));
+				finalResults.add(tmpResults.get(0));
+			}
 			
 			
 		}
@@ -362,7 +385,13 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		FeatureIterator<?> targetFeatureIterator = candidateFeatures.features();
 		
+		LOGGER.info(getAlternativeGeographicIdentifier(sourceFeature));
+		
+		LOGGER.info("" + sourceFeature.getDefaultGeometry());
+		
 		Point sourceFeaturePointInNad83 = transformSourceFeature(sourceFeature);
+		
+		LOGGER.info("" + sourceFeaturePointInNad83);
 		
 		while (targetFeatureIterator.hasNext()) {
 			SimpleFeature candidateFeature = (SimpleFeature) targetFeatureIterator.next();
@@ -436,7 +465,11 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 
 			Point p1 = (Point) sourceFeature.getDefaultGeometry();
 
-			p1Nad83 = transformWGS84ToNAD83(p1);
+			Coordinate reversedP1Coordinate = new Coordinate(p1.getY(), p1.getX());
+			
+			Point p1Reversed = new GeometryFactory().createPoint(reversedP1Coordinate);
+			
+			p1Nad83 = transformWGS84ToNAD83(p1Reversed);
 		}
 
 		return p1Nad83;
@@ -468,18 +501,20 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			 */
 			Point p2 = (Point) f2.getDefaultGeometry();
 			
-			Coordinate reversedP2Coordinate = new Coordinate(p2.getY(), p2.getX());
-			
-			Point p2Reversed = new GeometryFactory().createPoint(reversedP2Coordinate);
+//			Coordinate reversedP2Coordinate = new Coordinate(p2.getY(), p2.getX());
+//			
+//			Point p2Reversed = new GeometryFactory().createPoint(reversedP2Coordinate);
 			
 			/*
 			 * transform to NAD83 projected coordinate system
 			 */			
-			Point p2Nad83 = transformWGS84ToNAD83(p2Reversed);
+			Point p2Nad83 = transformWGS84ToNAD83(p2);
 			
 			//get the distance in meter
 			double tmpDistance = sourceFeaturePoint
 					.distance(p2Nad83);
+			LOGGER.info(getAlternativeGeographicIdentifier(f2));
+			LOGGER.info(tmpDistance/1000 + " " + (distanceThreshold * kmInMilesFactor));
 			
 			//check against threshold, convert both values to kilometer
 			if ((tmpDistance/1000) < (distanceThreshold * kmInMilesFactor)) {
@@ -522,8 +557,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 					proc.getInputStream(), "OUTPUT", pipedOut1);
 
 			// kick them off
-			errorGobbler.start();
-			outputGobbler.start();
+			executor.execute(errorGobbler);
+			executor.execute(outputGobbler);
 
 			// fetch errors if there are any
 			BufferedReader errorReader = new BufferedReader(

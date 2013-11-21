@@ -375,6 +375,7 @@
 				<Format mimetype="image/png" />
 				<Format mimetype="application/x-geotiff" />
 				<Format mimetype="text/plain" />
+				<Format mimetype="text/csv" />
 				<Format mimetype="application/pdf" />
 				<Format mimetype="application/zip" />
 			</Generator>

@@ -3,6 +3,18 @@
   <ows:Identifier>org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</ows:Identifier>
   <wps:DataInputs>
     <wps:Input>
+      <ows:Identifier>Source_Gazetteer</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>http://services.interactive-instruments.de/xsprojects/ows10/service/gazetteer-simple/wfs</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>Target_Gazetteer</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>http://ows-svc1.compusult.net/nbgaz/services/?</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
       <ows:Identifier>Bounding_Box_Filter</ows:Identifier>
       <wps:Data>
         <wps:BoundingBoxData>
@@ -12,15 +24,21 @@
       </wps:Data>
     </wps:Input>
     <wps:Input>
-      <ows:Identifier>Source_Gazetteer</ows:Identifier>
+      <ows:Identifier>Search_Distance</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>http://services.interactive-instruments.de/xsprojects/ows10/service/gazetteer-simple/wfs</wps:LiteralData>
+        <wps:LiteralData>100</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>5</wps:LiteralData>
       </wps:Data>
     </wps:Input>
   </wps:DataInputs>
   <wps:ResponseForm>
     <wps:ResponseDocument>
-      <wps:Output mimeType="text/xml">
+      <wps:Output mimeType="text/csv">
         <ows:Identifier>Output_File</ows:Identifier>
         <ows:Title>result</ows:Title>
         <ows:Abstract>result</ows:Abstract>

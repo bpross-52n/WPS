@@ -27,8 +27,8 @@ import org.n52.wps.server.algorithm.conflation.GazetteerConflationResultEntry;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
-import org.opengis.referencing.operation.TransformException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,10 +70,25 @@ public class FuzzyTest {
 		}
 
 		try {
-			tx = CRS.findMathTransform(CRS.decode("EPSG:4326"), CRS.decode("EPSG:2953"), false);
+			
+			CoordinateReferenceSystem wgs84 = CRS.decode("EPSG:4326");
+			CoordinateReferenceSystem nad83 = CRS.decode("EPSG:2953");
+			
+			System.out.println(wgs84.toString());
+			System.out.println(nad83.toString());
+			
+			
+			tx = CRS.findMathTransform(wgs84, nad83, false);
+			LOGGER.info(tx.toString());
 		} catch (Exception e) {
 			LOGGER.error("Exception while trying to find transformation between WGS84 and NAD83.", e);
 		} 
+		
+		boolean treu = true;
+		
+		if(treu){
+			return;
+		}
 		
 		String finalTargetGazetteerRequest = "http://ows-svc1.compusult.net/nbgaz/services/?service=WFS&version=2.0.0&request=GetFeature&typeName=SI_LocationInstance&count=10";
 		
@@ -176,7 +191,7 @@ public class FuzzyTest {
 		
 		List<GazetteerConflationResultEntry> finalResults = new ArrayList<GazetteerConflationResultEntry>();
 		
-		while(featureIterator1.hasNext()){
+//		while(featureIterator1.hasNext()){
 //			
 			SimpleFeature sourceFeature = (SimpleFeature) featureIterator1.next();
 			
@@ -188,56 +203,56 @@ public class FuzzyTest {
 			
 			List<GazetteerConflationResultEntry> tmpResults = new ArrayList<GazetteerConflationResultEntry>();
 			
-			for (String sourceName : sourceNameList) {				
-		
-				/*
-				 * iterate over target features
-				 */		
-				
-				Iterator<SimpleFeature> targetFeatureIterator = targetFeaturesInRange.keySet().iterator();
-				
-				while(targetFeatureIterator.hasNext()){
-					
-					SimpleFeature targetFeature = targetFeatureIterator.next();
-						
-						/*
-						 * check names with FuzzyWuzzy
-						 * first get source name
-						 * we have to do this for each alternativeGeogrId
-						 * save the combination with the highest fw score, if tied, use distance 
-						 */
-						
-						String targetName = getAlternativeGeographicIdentifier(targetFeature);
-
-						int fwScore = getFuzzyWuzzyScore(sourceName, targetName);
-						
-						System.out.println(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getGeographicIdentifier(targetFeature) + " " + sourceName + " " + targetName);
-						
-						/*
-						 * if above fuzzywuzzy threshold:
-						 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
-						 */
-						if(fwScore >= fwThreshold){
-							tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, getGeographicIdentifier(targetFeature), sourceName, targetName));
-						}
-					
-				}
-				
-			}
-			
-			Collections.sort(tmpResults);
-			
-			System.out.println(tmpResults.get(0));
-			
-			finalResults.add(tmpResults.get(0));
+//			for (String sourceName : sourceNameList) {				
+//		
+//				/*
+//				 * iterate over target features
+//				 */		
+//				
+//				Iterator<SimpleFeature> targetFeatureIterator = targetFeaturesInRange.keySet().iterator();
+//				
+//				while(targetFeatureIterator.hasNext()){
+//					
+//					SimpleFeature targetFeature = targetFeatureIterator.next();
+//						
+//						/*
+//						 * check names with FuzzyWuzzy
+//						 * first get source name
+//						 * we have to do this for each alternativeGeogrId
+//						 * save the combination with the highest fw score, if tied, use distance 
+//						 */
+//						
+//						String targetName = getAlternativeGeographicIdentifier(targetFeature);
+//
+//						int fwScore = getFuzzyWuzzyScore(sourceName, targetName);
+//						
+//						System.out.println(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getGeographicIdentifier(targetFeature) + " " + sourceName + " " + targetName);
+//						
+//						/*
+//						 * if above fuzzywuzzy threshold:
+//						 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
+//						 */
+//						if(fwScore >= fwThreshold){
+//							tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, getGeographicIdentifier(targetFeature), sourceName, targetName));
+//						}
+//					
+//				}
+//				
+//			}
+//			
+//			Collections.sort(tmpResults);
+//			
+//			System.out.println(tmpResults.get(0));
+//			
+//			finalResults.add(tmpResults.get(0));
 //			
 //			
-		}
-		Collections.sort(finalResults);
-		
-		for (GazetteerConflationResultEntry gazetteerConflationResultEntry : finalResults) {
-			System.out.println(gazetteerConflationResultEntry);
-		}
+//		}
+//		Collections.sort(finalResults);
+//		
+//		for (GazetteerConflationResultEntry gazetteerConflationResultEntry : finalResults) {
+//			System.out.println(gazetteerConflationResultEntry);
+//		}
 		
 //		getFuzzyWuzzyScore(name1, name2);
 	}
@@ -248,7 +263,13 @@ public class FuzzyTest {
 		
 		FeatureIterator<?> targetFeatureIterator = candidateFeatures.features();
 		
+		LOGGER.info(getAlternativeGeographicIdentifier(sourceFeature));
+		
+		LOGGER.info("" + sourceFeature.getDefaultGeometry());
+		
 		Point sourceFeaturePointInNad83 = transformSourceFeature(sourceFeature);
+		
+		LOGGER.info("" + sourceFeaturePointInNad83);
 		
 		while (targetFeatureIterator.hasNext()) {
 			SimpleFeature candidateFeature = (SimpleFeature) targetFeatureIterator.next();
@@ -366,58 +387,13 @@ public class FuzzyTest {
 			//get the distance in meter
 			double tmpDistance = sourceFeaturePoint
 					.distance(p2Nad83);
+			System.out.println(getAlternativeGeographicIdentifier(f2));
+			System.out.println(tmpDistance/1000 + " " + (distanceThreshold * kmInMilesFactor));
 			
 			//check against threshold, convert both values to kilometer
 			if ((tmpDistance/1000) < (distanceThreshold * kmInMilesFactor)) {
 				//return distance in miles
 				return (tmpDistance/1000) * (1/kmInMilesFactor);
-			}
-		}
-		return -1;
-	}
-	
-	private double isInRange(SimpleFeature f1, SimpleFeature f2,
-			double distanceThreshold) {
-
-		if ((f1.getDefaultGeometry() instanceof Point)
-				&& f2.getDefaultGeometry() instanceof Point) {
-
-			/*
-			 * TODO: coordinates from second WFS-G seem to be in a different order
-			 * right now, we just revert the order of the coordinates
-			 * additionally we could check, whether they are not inside the bounding box of the target
-			 *  
-			 */
-			
-			Point p1 = (Point) f1.getDefaultGeometry();
-			Point p2 = (Point) f2.getDefaultGeometry();
-			
-			Coordinate reversedP2Coordinate = new Coordinate(p2.getY(), p2.getX());
-			
-			Point p2Reversed = new GeometryFactory().createPoint(reversedP2Coordinate);
-			
-			/*
-			 * transform to NAD83 projected coordinate system
-			 */
-			
-			Point p1Nad83;
-			Point p2Nad83;
-			try {
-				p1Nad83 = (Point) JTS.transform(p1, tx);
-				p2Nad83 = (Point) JTS.transform(p2Reversed, tx);
-			} catch (MismatchedDimensionException e) {
-				e.printStackTrace();
-				return -1;
-			} catch (TransformException e) {
-				e.printStackTrace();
-				return -1;
-			}
-			//get the distance in meter
-			double tmpDistance = p1Nad83
-					.distance(p2Nad83);
-			//check against threshold, convert both values to kilometer
-			if ((tmpDistance/1000) < (distanceThreshold * 1.609347219)) {
-				return tmpDistance;
 			}
 		}
 		return -1;
