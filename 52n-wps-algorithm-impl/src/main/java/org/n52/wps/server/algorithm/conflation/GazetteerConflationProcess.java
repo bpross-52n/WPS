@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -63,11 +61,6 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 	private final String searchDistance = "Search_Distance";
 	private final String fuzzyWuzzyThreshold = "FuzzyWuzzy_Threshold";
 	private final String outputFile = "Output_File";
-
-//	private String sourceGazetteerFeatureID = "iso19112:SI_LocationInstance";
-	private String sourceGazetteerRequest = "service=WFS&version=1.1.0&request=GetFeature&namespace=xmlns%28iso19112=http://www.isotc211.org/19112%29&typename=iso19112:SI_LocationInstance&BBOX=";
-//	private String targetGazetteerFeatureID = "";
-	private String targetGazetteerRequest = "service=WFS&version=2.0.0&request=GetFeature&typeName=SI_LocationInstance&count=10";
 	
 	private MathTransform tx;
 	
@@ -121,11 +114,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			CoordinateReferenceSystem wgs84 = CRS.decode("EPSG:4326");
 			CoordinateReferenceSystem nad83 = CRS.decode("EPSG:2953");
 			
-			LOGGER.info(wgs84.toString());
-			LOGGER.info(nad83.toString());			
-			
 			tx = CRS.findMathTransform(wgs84, nad83, false);
-			LOGGER.info(tx.toString());
 		} catch (Exception e) {
 			LOGGER.error("Exception while trying to find transformation between WGS84 and NAD83.", e);
 		} 
@@ -231,21 +220,50 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
 		}
 		
-		String finalTargetGazetteerRequest = (targetGazURI.toString().endsWith("?") ? targetGazURI.toString() : (targetGazURI.toString() + "?")) + targetGazetteerRequest;
+		/*
+		 * get source description filter 
+		 */
+		List<IData> sourceDescriptionFilter = inputData.get(sourceGazetteerDescriptionFilter);
+		
+		String[] sourceDescriptionFilterLiterals = null;
+		
+		try {
+			String sourceDescriptionFilterLiteralString = ((LiteralStringBinding)sourceDescriptionFilter.get(0)).getPayload();
+			sourceDescriptionFilterLiterals = sourceDescriptionFilterLiteralString.split(",");
+		} catch (ClassCastException e) {
+			throw new RuntimeException(sourceGazetteerDescriptionFilter + " input value is not a String.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
+		}
+		
+		/*
+		 * get  description filter 
+		 */
+		List<IData> targetDescriptionFilter = inputData.get(targetGazetteerDescriptionFilter);
+		
+		String[] targetDescriptionFilterLiterals = null;
+		
+		try {
+			String targetDescriptionFilterLiteralString = ((LiteralStringBinding)targetDescriptionFilter.get(0)).getPayload();
+			targetDescriptionFilterLiterals = targetDescriptionFilterLiteralString.split(",");
+		} catch (ClassCastException e) {
+			throw new RuntimeException(targetGazetteerDescriptionFilter + " input value is not a String.");
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
+		}
+		
+		String finalTargetGazetteerRequest = targetGazURI.toString();
 		
 		GML32WFSGBasicParser gml32Parser = new GML32WFSGBasicParser();
-		
-		URL finalTargetGazetteerRequestURL;
 		
 		GTVectorDataBinding targetGazetteerFeatures = null;
 		
 		try {
-			finalTargetGazetteerRequestURL = new URL(finalTargetGazetteerRequest);
 			
-			targetGazetteerFeatures = gml32Parser.parse(finalTargetGazetteerRequestURL.openStream(), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+			String request = buildNewBrunswickRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals);
+			
+			targetGazetteerFeatures = gml32Parser.parse(PostClient.sendRequestForInputStream(finalTargetGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 						
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Malformed target gazeeteer request url: " + finalTargetGazetteerRequest, e);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not connect to target gazetteer: " + finalTargetGazetteerRequest, e);
 		}
@@ -254,24 +272,23 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			throw new RuntimeException("No source gazetteer features found.");
 		}
 		
-		String finalSourceGazetteerRequest = (sourceGazURI.toString().endsWith("?") ? sourceGazURI.toString() : (sourceGazURI.toString() + "?")) + sourceGazetteerRequest + lowerCorner[0] + "," +  lowerCorner[1] + "," + upperCorner[0] + "," + upperCorner[1] + ",EPSG:4326";
+		LOGGER.info("Found " + targetGazetteerFeatures.getPayload().size() + " target features.");
+		
+		String finalSourceGazetteerRequest = sourceGazURI.toString();
 				
 		/*
 		 * load response stream into feature collection
 		 */
 		GML3WFSGBasicParser gml3Parser = new GML3WFSGBasicParser();
 		
-		URL finalSourceGazetteerRequestURL;
-		
 		GTVectorDataBinding sourceGazetteerFeatures = null;
 		
 		try {
-			finalSourceGazetteerRequestURL = new URL(finalSourceGazetteerRequest);
 			
-			sourceGazetteerFeatures = gml3Parser.parse(finalSourceGazetteerRequestURL.openStream(), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
-						
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Malformed source gazeeteer request url: " + finalSourceGazetteerRequest, e);
+			String request = buildNGARequest(WFSGRequestStringConstants.WFS100_GET_FEATURE_WITH_QUERY_REQUEST, lowerCorner, upperCorner, "iso19112:locationType/iso19112:SI_LocationType/iso19112:identification", sourceDescriptionFilterLiterals);
+			
+			sourceGazetteerFeatures = gml3Parser.parse(PostClient.sendRequestForInputStream(finalSourceGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+					
 		} catch (IOException e) {
 			throw new RuntimeException("Could not connect to source gazetteer: " + finalSourceGazetteerRequest, e);
 		}
@@ -279,6 +296,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		if(sourceGazetteerFeatures == null){
 			throw new RuntimeException("No source gazetteer features found.");
 		}
+		
+		LOGGER.info("Found " + sourceGazetteerFeatures.getPayload().size() + " source features.");
 		
 		/*
 		 * loop over features
@@ -363,6 +382,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			File resultFile = File.createTempFile("gazConflationResult", ".csv");
 			
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(resultFile));
+			
+			bufferedWriter.write("FW Score,Dist(MI),NGA_UFI,NB_ID,NGA_NAME,NB_NAME" + "\n");
 			
 			for (GazetteerConflationResultEntry gazetteerConflationResultEntry : finalResults) {
 				bufferedWriter.write(gazetteerConflationResultEntry.toString() + "\n");
@@ -534,11 +555,11 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 
 		try {
 
-			LOGGER.info("Executing FuzzyWuzzy with " + name1 + " and " + name2);
+			LOGGER.info("Executing FuzzyWuzzy with " + name1 + " and " + name2  + " using all upper case letters.");
 
 			Runtime rt = Runtime.getRuntime();
 
-			Process proc = rt.exec(getCommand(name1, name2));
+			Process proc = rt.exec(getCommand(name1.toUpperCase(), name2.toUpperCase()));
 
 			PipedOutputStream pipedOut = new PipedOutputStream();
 
@@ -580,7 +601,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			}
 			
 			line = outputReader.readLine();
-
+			
 			String output = "";
 
 			while (line != null) {
@@ -589,8 +610,6 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 
 				line = outputReader.readLine();
 			}
-
-			System.out.println(output);
 			
 			try {
 				proc.waitFor();
@@ -599,8 +618,20 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			} finally {
 				proc.destroy();
 			}
-
-			return Integer.parseInt(output.trim());
+			
+			try {
+				
+				return Integer.parseInt(output.trim());
+				
+			} catch (Exception e) {				
+				
+				if(errors != null && !errors.equals("")){
+					LOGGER.error(
+							"An error occured while executing the FuzzyWuzzy process:" + errors,
+							e);
+					throw new RuntimeException(errors);
+				}
+			}
 			
 		} catch (IOException e) {
 			LOGGER.error(
@@ -608,6 +639,58 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 					e);
 			throw new RuntimeException(e);
 		}
+		return -1;
+	}
+	
+	private String buildNGARequest(String request, double[] lowerCorner, double[] upperCorner, String propertyName, String[] filterLiterals){
+		
+		String bbox = WFSGRequestStringConstants.FE100_BBOX.replace(WFSGRequestStringConstants.LXEXP, "" + lowerCorner[0]);
+		
+		bbox = bbox.replace(WFSGRequestStringConstants.LYEXP,  "" + lowerCorner[1]);
+		bbox = bbox.replace(WFSGRequestStringConstants.UXEXP,  "" + upperCorner[0]);
+		bbox = bbox.replace(WFSGRequestStringConstants.UYEXP,  "" + upperCorner[1]);
+		
+		request = request.replace(WFSGRequestStringConstants.BBOXEXP, bbox);
+	
+		String allOrStatements = createFilter(propertyName, filterLiterals);
+		
+		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
+		
+		return request;	
+		
+	}
+	
+	private String buildNewBrunswickRequest(String request, String propertyName, String[] filterLiterals){
+		
+		String allOrStatements = createFilter(propertyName, filterLiterals);
+		
+		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
+		
+		return request;	
+		
+	}
+
+	private String createFilter(String propertyName, String[] filterLiterals){
+		
+		String allOrStatements = "";
+		
+		for (String literal : filterLiterals) {
+			
+			String orStatement = WFSGRequestStringConstants.FE100_EQUALTO.replace(WFSGRequestStringConstants.PROPERTYVALEXP, propertyName);
+			
+			orStatement = orStatement.replace(WFSGRequestStringConstants.LITERALEXP, literal.trim());
+			
+			allOrStatements = allOrStatements.concat(orStatement);
+			
+		}
+		
+		if(filterLiterals.length > 1){
+			
+			return WFSGRequestStringConstants.FE100_OR.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
+			
+		}
+		
+		return allOrStatements;
 	}
 	
 	@Override

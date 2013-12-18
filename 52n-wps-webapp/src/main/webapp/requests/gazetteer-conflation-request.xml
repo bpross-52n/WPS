@@ -11,7 +11,7 @@
     <wps:Input>
       <ows:Identifier>Target_Gazetteer</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>http://ows-svc1.compusult.net/nbgaz/services/?</wps:LiteralData>
+        <wps:LiteralData>http://ows-svc1.compusult.net/nbgaz/services/</wps:LiteralData>
       </wps:Data>
     </wps:Input>
     <wps:Input>
@@ -24,15 +24,28 @@
       </wps:Data>
     </wps:Input>
     <wps:Input>
+      <ows:Identifier>Source_Gazetteer_Description_Filter</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>PPL, PPLA, PPLA2, PPLA3, PPLA4, PPLC, PPLF, PPLH, PPLL, PPLQ, PPLR, PPLS, PPLW, PPLX, STLMT</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>Target_Gazetteer_Description_Filter</ows:Identifier>
+	  <ows:Abstract>Feel free to add "UNP" here. This is left out in this example, because there are more than 4000 features in the gazetteer.</ows:Abstract>
+      <wps:Data>
+        <wps:LiteralData>CITY, TOWN, VILG, MUN1</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
       <ows:Identifier>Search_Distance</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>100</wps:LiteralData>
+        <wps:LiteralData>15</wps:LiteralData>
       </wps:Data>
     </wps:Input>
     <wps:Input>
       <ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>5</wps:LiteralData>
+        <wps:LiteralData>50</wps:LiteralData>
       </wps:Data>
     </wps:Input>
   </wps:DataInputs>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
-	<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.1.0">
+	<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.2.0">
 		<ows:Identifier>org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</ows:Identifier>
-		<ows:Title>Gazetteer Conflation Process</ows:Title>
+		<ows:Title>OWS-10 Gazetteer Conflation Process</ows:Title>
 		<DataInputs>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Source_Gazetteer</ows:Identifier>
 				<ows:Title>Source Gazetteer</ows:Title>
 				<ows:Abstract>Names from the target gazetteer will be matched against the source</ows:Abstract>
@@ -13,7 +13,7 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Target_Gazetteer</ows:Identifier>
 				<ows:Title>Target Gazetteer</ows:Title>
 				<ows:Abstract>Names from the target gazetteer will be matched against the source</ows:Abstract>
@@ -22,7 +22,7 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Source_Gazetteer_Description_Filter</ows:Identifier>
 				<ows:Title>Source Gazetteer Description Filter</ows:Title>
 				<ows:Abstract>Comma separated feature descriptions or types to be used for the analysis</ows:Abstract>
@@ -31,7 +31,7 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Target_Gazetteer_Description_Filter</ows:Identifier>
 				<ows:Title>Target Gazetteer Description Filter</ows:Title>
 				<ows:Abstract>Comma separated feature descriptions or types to be used for the analysis</ows:Abstract>
@@ -40,7 +40,7 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Bounding_Box_Filter</ows:Identifier>
 				<ows:Title>Bounding Box Filter</ows:Title>
 				<ows:Abstract>The bounding box used to select source features for the analysis</ows:Abstract>
@@ -53,7 +53,7 @@
 					</Supported>
 				</BoundingBoxData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>Search_Distance</ows:Identifier>
 				<ows:Title>Search Distance in miles</ows:Title>
 				<ows:Abstract>Distance to search for target features around source feature</ows:Abstract>
@@ -70,7 +70,7 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
-			<Input minOccurs="0" maxOccurs="1">
+			<Input minOccurs="1" maxOccurs="1">
 				<ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
 				<ows:Title>FuzzyWuzzy Threshold</ows:Title>
 				<ows:Abstract>Name matching threshold to determine a match</ows:Abstract>

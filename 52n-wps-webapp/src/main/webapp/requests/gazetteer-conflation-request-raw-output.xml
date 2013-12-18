@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wps:Execute service="WPS" version="1.0.0"
+	xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1"
+	xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_request.xsd">
+	<ows:Identifier>org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</ows:Identifier>
+	<wps:DataInputs>
+		<wps:Input>
+			<ows:Identifier>Source_Gazetteer</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>http://services.interactive-instruments.de/xsprojects/ows10/service/gazetteer-simple/wfs</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Target_Gazetteer</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>http://ows-svc1.compusult.net/nbgaz/services/</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Bounding_Box_Filter</ows:Identifier>
+			<wps:Data>
+				<wps:BoundingBoxData>
+					<ows:LowerCorner>45.27273 -67.32279</ows:LowerCorner>
+					<ows:UpperCorner>45.77162 -66.35665</ows:UpperCorner>
+				</wps:BoundingBoxData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Source_Gazetteer_Description_Filter</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>PPL, PPLA, PPLA2, PPLA3, PPLA4, PPLC, PPLF, PPLH, PPLL, PPLQ, PPLR, PPLS, PPLW, PPLX, STLMT</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Target_Gazetteer_Description_Filter</ows:Identifier>
+			<ows:Abstract>Feel free to add "UNP" here. This is left out in this example, because there are more than 4000 features in the gazetteer.</ows:Abstract>
+			<wps:Data>
+				<wps:LiteralData>CITY, TOWN, VILG, MUN1</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Search_Distance</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>15</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>50</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+	</wps:DataInputs>
+	<wps:ResponseForm>
+		<wps:RawDataOutput mimeType="text/csv">
+			<ows:Identifier>Output_File</ows:Identifier>
+		</wps:RawDataOutput>
+	</wps:ResponseForm>
+</wps:Execute>
