@@ -79,6 +79,26 @@
 					<ows:AnyValue/>
 				</LiteralData>
 			</Input>
+			<Input minOccurs="0" maxOccurs="1">
+				<ows:Identifier>NGA_Gazetteer_Max_Features</ows:Identifier>
+				<ows:Title>NGA Gazetteer Max Features</ows:Title>
+				<ows:Abstract>Max features requested from NGA gazetteer</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:integer"/>
+					<ows:AnyValue/>
+					<DefaultValue>2500</DefaultValue>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="0" maxOccurs="1">
+				<ows:Identifier>New_Brunswick_Gazetteer_Max_Features</ows:Identifier>
+				<ows:Title>New Brunswick Gazetteer Max Features</ows:Title>
+				<ows:Abstract>Max features requested from New Brunswick gazetteer</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:integer"/>
+					<ows:AnyValue/>
+					<DefaultValue>2500</DefaultValue>
+				</LiteralData>
+			</Input>
 		</DataInputs>
 		<ProcessOutputs>
 			<Output>

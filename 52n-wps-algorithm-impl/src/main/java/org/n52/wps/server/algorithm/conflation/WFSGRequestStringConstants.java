@@ -10,12 +10,13 @@ public class WFSGRequestStringConstants {
 	public static final String EQALTOEXP = "$EQUALTO$";
 	public static final String LITERALEXP = "$LITERAL$";
 	public static final String PROPERTYVALEXP = "$PROPERTYVAL$";
+	public static final String MAXFEATURESEXP = "$MAXFEATURES$";
 
 	public static final String WFS100_GET_FEATURE_WITH_QUERY_REQUEST = "<wfs:GetFeature xmlns:gml=\"http://www.opengis.net/gml\"\n"
 			+ " xmlns:iso19112=\"http://www.isotc211.org/19112\" xmlns:wfs=\"http://www.opengis.net/wfs\"\n"
 			+ " xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
 			+ " service=\"WFS\" version=\"1.1.0\"\n"
-			+ " xsi:schemaLocation=\"http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd\">\n"
+			+ " xsi:schemaLocation=\"http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd\" maxFeatures=\"" + MAXFEATURESEXP + "\">\n"
 			+ "<wfs:Query typeName=\"iso19112:SI_LocationInstance\">\n"
 			+ "<ogc:Filter>\n"
 			+ "<ogc:And>\n"
@@ -29,7 +30,7 @@ public class WFSGRequestStringConstants {
 			+ " xmlns:iso19112=\"http://www.isotc211.org/19112\" xmlns:wfs=\"http://www.opengis.net/wfs\""
 			+ " xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
 			+ " service=\"WFS\" version=\"1.1.0\" outputFormat=\"text/xml; subtype=gml/3.2.1\""
-			+ " xsi:schemaLocation=\"http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd\">"
+			+ " xsi:schemaLocation=\"http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd\" maxFeatures=\"" + MAXFEATURESEXP + "\">"
 			+ "<wfs:Query typeName=\"iso19112:SI_LocationInstance\">"
 			+ "<ogc:Filter>"
 			+ EQALTOEXP

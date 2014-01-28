@@ -31,6 +31,7 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
+import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.io.datahandler.parser.GML32WFSGBasicParser;
 import org.n52.wps.io.datahandler.parser.GML3WFSGBasicParser;
@@ -60,6 +61,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 	private final String boundingBoxFilter = "Bounding_Box_Filter";
 	private final String searchDistance = "Search_Distance";
 	private final String fuzzyWuzzyThreshold = "FuzzyWuzzy_Threshold";
+	private final String ngaGazetteerMaxFeatures = "NGA_Gazetteer_Max_Features";
+	private final String newBrunswickGazetteerMaxFeatures = "New_Brunswick_Gazetteer_Max_Features";
 	private final String outputFile = "Output_File";
 	
 	private MathTransform tx;
@@ -80,6 +83,9 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 	private final String lineSeparator = System.getProperty("line.separator");
 	
 	private String fuzzyName;
+	
+	int maxFeaturesNGAInt = 2500;
+	int maxFeaturesNewBrunswickInt = 2500;
 	
 	private ExecutorService executor = Executors.newFixedThreadPool(10);
 	
@@ -233,7 +239,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		} catch (ClassCastException e) {
 			throw new RuntimeException(sourceGazetteerDescriptionFilter + " input value is not a String.");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
+			throw new RuntimeException("No value for input " + sourceGazetteerDescriptionFilter + " provided.");
 		}
 		
 		/*
@@ -249,7 +255,22 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		} catch (ClassCastException e) {
 			throw new RuntimeException(targetGazetteerDescriptionFilter + " input value is not a String.");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + targetGazetteer + " provided.");
+			throw new RuntimeException("No value for input " + targetGazetteerDescriptionFilter + " provided.");
+		}
+		
+		/*
+		 * get  maxFeatures for new brunswick gazetteer (target)
+		 */
+		List<IData> maxFeaturesNewBrunswick = inputData.get(newBrunswickGazetteerMaxFeatures);
+		
+		try {
+			if(maxFeaturesNewBrunswick != null && maxFeaturesNewBrunswick.size()>0){
+				maxFeaturesNewBrunswickInt = ((LiteralIntBinding)maxFeaturesNewBrunswick.get(0)).getPayload();
+			}else{
+				LOGGER.info("No maxFeatures value for New Brunswick gazetteer provided, using default value: " + maxFeaturesNewBrunswickInt);
+			}
+		} catch (ClassCastException e) {
+			throw new RuntimeException(newBrunswickGazetteerMaxFeatures + " input value is not an integer.");
 		}
 		
 		String finalTargetGazetteerRequest = targetGazURI.toString();
@@ -260,7 +281,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		try {
 			
-			String request = buildNewBrunswickRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals);
+			String request = buildNewBrunswickRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals, maxFeaturesNewBrunswickInt);
 			
 			targetGazetteerFeatures = gml32Parser.parse(PostClient.sendRequestForInputStream(finalTargetGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 						
@@ -274,6 +295,21 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		LOGGER.info("Found " + targetGazetteerFeatures.getPayload().size() + " target features.");
 		
+		/*
+		 * get  maxFeatures for nga gazetteer (source)
+		 */
+		List<IData> maxFeaturesNGA = inputData.get(ngaGazetteerMaxFeatures);
+		
+		try {
+			if(maxFeaturesNGA != null && maxFeaturesNGA.size()>0){
+				maxFeaturesNGAInt = ((LiteralIntBinding)maxFeaturesNGA.get(0)).getPayload();
+			}else{
+				LOGGER.info("No maxFeatures value for NGA gazetteer provided, using default value: " + maxFeaturesNGAInt);
+			}
+		} catch (ClassCastException e) {
+			throw new RuntimeException(ngaGazetteerMaxFeatures + " input value is not an integer.");
+		} 
+		
 		String finalSourceGazetteerRequest = sourceGazURI.toString();
 				
 		/*
@@ -285,7 +321,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		try {
 			
-			String request = buildNGARequest(WFSGRequestStringConstants.WFS100_GET_FEATURE_WITH_QUERY_REQUEST, lowerCorner, upperCorner, "iso19112:locationType/iso19112:SI_LocationType/iso19112:identification", sourceDescriptionFilterLiterals);
+			String request = buildNGARequest(WFSGRequestStringConstants.WFS100_GET_FEATURE_WITH_QUERY_REQUEST, lowerCorner, upperCorner, "iso19112:locationType/iso19112:SI_LocationType/iso19112:identification", sourceDescriptionFilterLiterals, maxFeaturesNGAInt);
 			
 			sourceGazetteerFeatures = gml3Parser.parse(PostClient.sendRequestForInputStream(finalSourceGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 					
@@ -642,7 +678,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		return -1;
 	}
 	
-	private String buildNGARequest(String request, double[] lowerCorner, double[] upperCorner, String propertyName, String[] filterLiterals){
+	private String buildNGARequest(String request, double[] lowerCorner, double[] upperCorner, String propertyName, String[] filterLiterals, int maxFeatures){
 		
 		String bbox = WFSGRequestStringConstants.FE100_BBOX.replace(WFSGRequestStringConstants.LXEXP, "" + lowerCorner[0]);
 		
@@ -655,16 +691,18 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		String allOrStatements = createFilter(propertyName, filterLiterals);
 		
 		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
+		request = request.replace(WFSGRequestStringConstants.MAXFEATURESEXP, maxFeatures + "");
 		
 		return request;	
 		
 	}
 	
-	private String buildNewBrunswickRequest(String request, String propertyName, String[] filterLiterals){
+	private String buildNewBrunswickRequest(String request, String propertyName, String[] filterLiterals, int maxFeatures){
 		
 		String allOrStatements = createFilter(propertyName, filterLiterals);
 		
 		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
+		request = request.replace(WFSGRequestStringConstants.MAXFEATURESEXP, maxFeatures + "");
 		
 		return request;	
 		
@@ -715,6 +753,10 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 			return LiteralDoubleBinding.class;
 		}else if(id.endsWith(fuzzyWuzzyThreshold)){
 			return LiteralDoubleBinding.class;
+		}else if(id.endsWith(ngaGazetteerMaxFeatures)){
+			return LiteralIntBinding.class;
+		}else if(id.endsWith(newBrunswickGazetteerMaxFeatures)){
+			return LiteralIntBinding.class;
 		}
 		
 		return null;
