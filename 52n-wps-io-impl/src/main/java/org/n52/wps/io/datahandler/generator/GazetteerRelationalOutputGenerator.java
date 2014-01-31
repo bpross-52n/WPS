@@ -140,6 +140,8 @@ public class GazetteerRelationalOutputGenerator extends AbstractGenerator {
 				if(iterator.hasNext()){
 					stb.append(",\n");
 					stb2.append("\n");
+				}else{
+					stb.append(".");
 				}
 				
 			}
