@@ -481,6 +481,12 @@
 				active="false">
 				<Format mimetype="application/octet-stream" />
 			</Generator>
+			<Generator name="GazetteerRelationalOutputGenerator"
+				className="org.n52.wps.io.datahandler.generator.GazetteerRelationalOutputGenerator"
+				active="true">
+				<Format mimetype="text/csv" />
+				<Format mimetype="application/rdf+xml" />
+			</Generator>
 		</GeneratorList>
 	</Datahandlers>
 	<AlgorithmRepositoryList>

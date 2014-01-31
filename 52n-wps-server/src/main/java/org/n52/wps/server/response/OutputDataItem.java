@@ -61,6 +61,7 @@ import org.n52.wps.io.BasicXMLTypeFactory;
 import org.n52.wps.io.IOHandler;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.literal.AbstractLiteralDataBinding;
+import org.n52.wps.io.datahandler.generator.GazetteerRelationalOutputGenerator;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.database.IDatabase;
@@ -134,7 +135,7 @@ public class OutputDataItem extends ResponseData {
 				throw new ExceptionReport("Unable to generate encoding " + encoding, ExceptionReport.NO_APPLICABLE_CODE);
 			}
 			complexData = output.addNewData().addNewComplexData();
-			if(mimeType.contains("xml") || mimeType.contains("XML")){
+			if(!mimeType.equals(GazetteerRelationalOutputGenerator.MIME_TYPE_RDF) && (mimeType.contains("xml") || mimeType.contains("XML"))){
 				complexData.set(XmlObject.Factory.parse(stream));
 				stream.close();
 			}else{

@@ -24,10 +24,12 @@ import org.geotools.feature.FeatureIterator;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.referencing.CRS;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.data.GazetteerConflationResultEntry;
 import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.GTReferenceEnvelope;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
+import org.n52.wps.io.data.binding.complex.GazetteerRelationalOutputDataBinding;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
@@ -413,25 +415,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		Map<String, IData> result = new HashMap<String, IData>();
 		
-		try {
-			
-			File resultFile = File.createTempFile("gazConflationResult", ".csv");
-			
-			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(resultFile));
-			
-			bufferedWriter.write("FW Score,Dist(MI),NGA_UFI,NB_ID,NGA_NAME,NB_NAME" + "\n");
-			
-			for (GazetteerConflationResultEntry gazetteerConflationResultEntry : finalResults) {
-				bufferedWriter.write(gazetteerConflationResultEntry.toString() + "\n");
-			}
-			
-			bufferedWriter.close();
-			
-			result.put(outputFile, new GenericFileDataBinding(new GenericFileData(resultFile, "text/csv")));
-
-		} catch (IOException e) {
-			LOGGER.error("Could not create result.", e);
-		}
+		result.put(outputFile, new GazetteerRelationalOutputDataBinding(finalResults));
 		
 		return result;
 	}	
@@ -763,8 +747,8 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 	}
 
 	@Override
-	public Class<GenericFileDataBinding> getOutputDataType(String id) {		
-		return GenericFileDataBinding.class;
+	public Class<GazetteerRelationalOutputDataBinding> getOutputDataType(String id) {		
+		return GazetteerRelationalOutputDataBinding.class;
 	}
 
 }

@@ -1,4 +1,4 @@
-package org.n52.wps.server.algorithm.conflation;
+package org.n52.wps.io.data;
 
 public class GazetteerConflationResultEntry implements Comparable<GazetteerConflationResultEntry>{
 
