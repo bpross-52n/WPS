@@ -275,7 +275,7 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		String finalTargetGazetteerRequest = targetGazURI.toString();
 		
-		GML32WFSGBasicParser gml32Parser = new GML32WFSGBasicParser();
+		GML3WFSGBasicParser gml32Parser = new GML3WFSGBasicParser();
 		
 		GTVectorDataBinding targetGazetteerFeatures = null;
 		
