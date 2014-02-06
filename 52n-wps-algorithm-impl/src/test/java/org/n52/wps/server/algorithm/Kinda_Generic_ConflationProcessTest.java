@@ -23,6 +23,7 @@ import org.n52.wps.io.datahandler.GML3ApplicationSchemaConfiguration;
 import org.n52.wps.io.datahandler.generator.GML311BasicGenerator;
 import org.n52.wps.io.datahandler.generator.GML3ApplicationSchemaGenerator;
 import org.n52.wps.io.datahandler.parser.GML311BasicParser;
+import org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaParser;
 import org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -36,17 +37,19 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		Kinda_Generic_ConflationProcess process = new Kinda_Generic_ConflationProcess();
 		
-		InputStream tdsin = this.getClass().getResourceAsStream("tds311.xml");
+		InputStream tdsin = this.getClass().getResourceAsStream("tds_firestations.xml");
 		
-		GML311BasicParser parser = new GML311BasicParser();
+		GML3ApplicationSchemaParser parser = new GML3ApplicationSchemaParser();
 		
-	    GTVectorDataBinding gtv = parser.parse(tdsin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+	    GTVectorDataBinding gtv = parser.parse(tdsin, "text/xml", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
 	    
 		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
 		
-	    GTVectorDataBinding gtv2 = parser.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+		GML311BasicParser parser2 = new GML311BasicParser();
+		
+	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 	    
 	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();	    
 	    
@@ -94,6 +97,8 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 				
 				process.mapProperties(f, sft, map);
 				
+				process.addDefaultValues(sft, map);
+
 				newFeatures.add(sft);
 			}
 
@@ -109,7 +114,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult.xml")));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
 			
 			String line = "";
 			

@@ -65,7 +65,7 @@ public class SchemaLocationHandler extends DefaultHandler {
 	private Map<String, String> namespaces = new HashMap<String, String>();
 	
 	private static Properties localSchemaMappings = new Properties();
-	private static String localSchemaRepository = "/localSchemaRepository";
+	private static String localSchemaRepository = "localSchemaRepository";
 	private static File localSchemaRepositoryBaseDirectory;
 	private static File mappingsFile;
 	private static Set<String> blackListedFiles = new HashSet<String>();

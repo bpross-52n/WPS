@@ -8,7 +8,8 @@
 	<wps:DataInputs>
 		<wps:Input>
 			<ows:Identifier>Source</ows:Identifier>
-			<wps:Reference mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+			<wps:Reference mimeType="text/xml"
+				schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd"
 				xlink:href="http://services.interactive-instruments.de/xsprojects/ows10/service/tds-dgiwg/wfs">
 				<wps:Body>
 					<wfs:GetFeature xmlns:tds="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0"
@@ -31,26 +32,9 @@
 		</wps:Input>
 		<wps:Input>
 			<ows:Identifier>Target</ows:Identifier>
-			<wps:Reference mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd"
-				xlink:href="http://geoprocessing.demo.52north.org:8080/geoserver/wfs">
-				<wps:Body>
-					<wfs:GetFeature service="WFS" version="1.1.0"
-						xmlns:topp="http://www.openplans.org/topp" xmlns:wfs="http://www.opengis.net/wfs"
-						xmlns:ogc="http://www.opengis.net/ogc" xmlns:osm="http://openstreemap.org"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xsi:schemaLocation="http://www.opengis.net/wfs
-                      http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
-						<wfs:Query typeName="osm:osm_point">
-							<ogc:Filter>
-								<ogc:PropertyIsEqualTo>
-									<ogc:PropertyName>osm:amenity</ogc:PropertyName>
-									<ogc:Literal>fire_station</ogc:Literal>
-								</ogc:PropertyIsEqualTo>
-							</ogc:Filter>
-						</wfs:Query>
-					</wfs:GetFeature>
-				</wps:Body>
-			</wps:Reference>
+			<wps:Reference mimeType="text/xml"
+				schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"
+				xlink:href="http://portal.cubewerx.com/cubewerx/projects/ows9/cubeserv.cgi?service=WFS&amp;datastore=OWS9&amp;request=GetFeature&amp;typename=usgs:fireStationEmsStation&amp;bbox=36.464,-122.003,36.714,-121.667" />
 		</wps:Input>
 		<wps:Input>
 			<ows:Identifier>Rules</ows:Identifier>
@@ -63,7 +47,8 @@
 	</wps:DataInputs>
 	<wps:ResponseForm>
 		<wps:ResponseDocument>
-			<wps:Output mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
+			<wps:Output mimeType="text/xml"
+				schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
 				<ows:Identifier>Output</ows:Identifier>
 				<ows:Title>result</ows:Title>
 				<ows:Abstract>result</ows:Abstract>

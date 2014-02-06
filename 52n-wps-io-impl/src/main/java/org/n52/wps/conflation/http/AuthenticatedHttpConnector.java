@@ -107,7 +107,7 @@ public class AuthenticatedHttpConnector {
 //			}
 //		}
 
-		return !noProxyDefined;
+		return false;
 	}
 
 	private static String getProxyServerQuery(String proxyRequest) throws UnsupportedEncodingException {

@@ -29,6 +29,12 @@
 				<Format mimetype="text/xml"
 					schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
 			</Parser>
+			<Parser name="GML3ApplicationSchemaParser"
+				className="org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaParser"
+				active="true">
+				<Format mimetype="text/xml"
+					schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd" />
+			</Parser>
 			<Parser name="GML32BasicParser"
 				className="org.n52.wps.io.datahandler.parser.GML32BasicParser" active="true">
 				<Format mimetype="text/xml"
@@ -280,6 +286,12 @@
 					schema="http://schemas.opengis.net/gml/3.2.1/base/feature.xsd" />
 				<Property name="featureTransformerIncludeBounding" active="true">false</Property>
 				<Property name="featureTransformerDecimalPlaces" active="true">4</Property>
+			</Generator>			
+			<Generator name="GML3ApplicationSchemaGenerator"
+				className="org.n52.wps.io.datahandler.generator.GML3ApplicationSchemaGenerator"
+				active="true">
+				<Format mimetype="text/xml"
+					schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd" />
 			</Generator>
 			<Generator name="GML2BasicGenerator"
 				className="org.n52.wps.io.datahandler.generator.GML2BasicGenerator"

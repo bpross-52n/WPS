@@ -1,10 +1,14 @@
 package org.n52.wps.server.algorithm.conflation;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.geotools.data.collection.ListFeatureCollection;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureFactory;
 import org.geotools.feature.FeatureIterator;
@@ -35,8 +39,12 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private final String source_id = "Source";
 	private final String target_id = "Target";
 	private final String rules_id = "Rules";
-	private final String output_id = "output";
-	private final String rule_conflate_all = "CONFLATE ALL";
+	private final String output_id = "Output";
+	private final String default_String = "No Information";
+	private final Double default_Double = -999999.0;
+	private final long default_BigInteger = -999999;
+	
+	
 	
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
@@ -57,7 +65,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		FeatureCollection<?, ?> featureCollection = ((GTVectorDataBinding) firstInputData)
 				.getPayload();
 
-		FeatureIterator<?> iter = featureCollection.features();
+//		FeatureIterator<?> iter = featureCollection.features();
 		
 		if (inputData == null || !inputData.containsKey(target_id)) {
 			throw new RuntimeException(
@@ -95,6 +103,12 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 
 		FeatureType ft = featureCollection.features().next().getType();
 		
+		List<SimpleFeature> oldFeatures = Arrays.asList(featureCollection.toArray(new SimpleFeature[]{}));
+		
+		List<SimpleFeature> newFeatures = new ArrayList<SimpleFeature>();
+		
+		newFeatures.addAll(oldFeatures);
+		
 		SimpleFeature f = null;
 
 		while (iter1.hasNext()) {
@@ -102,15 +116,32 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			if (o instanceof SimpleFeature) {
 				f = (SimpleFeature) o;
 				
+				Geometry g = null;
+				
+				if(f.getDefaultGeometry() == null){
+					tryCreatingGeom(f);
+				}else{
+					g = (Geometry)f.getDefaultGeometry();
+				}
+				
 				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature(f.getIdentifier().getID(), (Geometry) f.getDefaultGeometry(), (SimpleFeatureType)ft);
 				
 				mapProperties(f, sft, map);
 				
+				addDefaultValues(sft, map);
+				
+				newFeatures.add(sft);
 			}
 
 		}
 		
-		return null;
+		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);
+		
+		Map<String, IData> resultMap = new HashMap<String, IData>(1);
+		
+		resultMap.put(output_id, new GTVectorDataBinding(result));
+		
+		return resultMap;
 	}
 
 	public Geometry tryCreatingGeom(SimpleFeature feature){
@@ -142,6 +173,31 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}		
 	}
 	
+	public void addDefaultValues(SimpleFeature sft, Map<String, String> map){
+		
+		Collection<Property> properties = sft.getProperties();
+		
+		for (Property property : properties) {
+			
+			if(!map.values().contains(property.getName().getLocalPart())){
+				addDefaultValue(property);
+			}
+			
+		}
+		
+	}
+	
+	public void addDefaultValue(Property property){
+		
+		if(property.getType().getBinding().isAssignableFrom(String.class)){
+			property.setValue(default_String);
+		}else if(property.getType().getBinding().isAssignableFrom(Double.class)){
+			property.setValue(default_Double);
+		}else if(property.getType().getBinding().isAssignableFrom(BigInteger.class)){
+			property.setValue(default_BigInteger);
+		}
+	}
+	
 	public void addPropertyValue(SimpleFeature ft, String propertyName, Object propertyValueToAdd){
 		
 		Collection<Property> properties = ft.getProperties();
@@ -149,6 +205,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		for (Property property : properties) {
 			if(property.getName().getLocalPart().equals(propertyName)){
 				property.setValue(propertyValueToAdd);
+				break;
 			}
 		}	
 	}

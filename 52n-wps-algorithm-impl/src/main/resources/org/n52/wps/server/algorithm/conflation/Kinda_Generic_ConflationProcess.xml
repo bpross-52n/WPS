@@ -28,6 +28,10 @@
 							<MimeType>text/xml</MimeType>
 							<Schema>http://schemas.opengis.net/gml/3.1.1/base/feature.xsd</Schema>
 						</Format>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
 					</Supported>
 				</ComplexData>
 			</Input>
@@ -83,6 +87,10 @@
 						<Format>
 							<MimeType>text/xml</MimeType>
 							<Schema>http://schemas.opengis.net/gml/3.1.1/base/feature.xsd</Schema>
+						</Format>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
 						</Format>
 					</Supported>
 				</ComplexOutput>
