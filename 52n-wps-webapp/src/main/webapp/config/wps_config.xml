@@ -23,6 +23,12 @@
 				<Format mimetype="text/xml; subtype=gml/3.1.1"
 					schema="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" />
 			</Parser>
+			<Parser name="GML311BasicParser"
+				className="org.n52.wps.io.datahandler.parser.GML311BasicParser"
+				active="true">
+				<Format mimetype="text/xml"
+					schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
+			</Parser>
 			<Parser name="GML32BasicParser"
 				className="org.n52.wps.io.datahandler.parser.GML32BasicParser" active="true">
 				<Format mimetype="text/xml"
@@ -490,6 +496,7 @@
 			className="org.n52.wps.server.LocalAlgorithmRepository" active="true">
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.FuzzyWuzzyTestProcess</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</Property>
+			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</Property>
 			<Property name="pythonHome" active="true">c:\Python27</Property>
 			<Property name="fuzzyName" active="true">d:\tmp\fuzz.py</Property>
 		</Repository>

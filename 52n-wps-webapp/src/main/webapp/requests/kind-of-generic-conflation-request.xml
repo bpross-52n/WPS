@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wps:Execute service="WPS" version="1.0.0"
+	xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1"
+	xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_request.xsd">
+	<ows:Identifier>org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</ows:Identifier>
+	<wps:DataInputs>
+		<wps:Input>
+			<ows:Identifier>Source</ows:Identifier>
+			<wps:Reference mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"
+				xlink:href="http://services.interactive-instruments.de/xsprojects/ows10/service/tds-dgiwg/wfs">
+				<wps:Body>
+					<wfs:GetFeature xmlns:tds="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0"
+						xmlns:gml="http://www.opengis.net/gml" xmlns:wfs="http://www.opengis.net/wfs"
+						xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						service="WFS" version="1.1.0" outputFormat="text/xml; subtype=gml/3.2.1"
+						xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd"
+						maxFeatures="10">
+						<wfs:Query typeName="tds:BuildingGeopoint">
+							<ogc:Filter>
+								<ogc:PropertyIsEqualTo>
+									<ogc:PropertyName>tds:featureFunction-1</ogc:PropertyName>
+									<ogc:Literal>firefighting</ogc:Literal>
+								</ogc:PropertyIsEqualTo>
+							</ogc:Filter>
+						</wfs:Query>
+					</wfs:GetFeature>
+				</wps:Body>
+			</wps:Reference>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Target</ows:Identifier>
+			<wps:Reference mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd"
+				xlink:href="http://geoprocessing.demo.52north.org:8080/geoserver/wfs">
+				<wps:Body>
+					<wfs:GetFeature service="WFS" version="1.1.0"
+						xmlns:topp="http://www.openplans.org/topp" xmlns:wfs="http://www.opengis.net/wfs"
+						xmlns:ogc="http://www.opengis.net/ogc" xmlns:osm="http://openstreemap.org"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xsi:schemaLocation="http://www.opengis.net/wfs
+                      http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
+						<wfs:Query typeName="osm:osm_point">
+							<ogc:Filter>
+								<ogc:PropertyIsEqualTo>
+									<ogc:PropertyName>osm:amenity</ogc:PropertyName>
+									<ogc:Literal>fire_station</ogc:Literal>
+								</ogc:PropertyIsEqualTo>
+							</ogc:Filter>
+						</wfs:Query>
+					</wfs:GetFeature>
+				</wps:Body>
+			</wps:Reference>
+		</wps:Input>
+		<wps:Input>
+			<ows:Identifier>Rules</ows:Identifier>
+			<wps:Data>
+				<wps:LiteralData>mappings:[address->address;
+    name->geoNameCollection.memberGeoName.fullName;]
+    rules:[target within 0.1 mi->update source;]</wps:LiteralData>
+			</wps:Data>
+		</wps:Input>
+	</wps:DataInputs>
+	<wps:ResponseForm>
+		<wps:ResponseDocument>
+			<wps:Output mimeType="text/xml" schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd">
+				<ows:Identifier>Output</ows:Identifier>
+				<ows:Title>result</ows:Title>
+				<ows:Abstract>result</ows:Abstract>
+			</wps:Output>
+		</wps:ResponseDocument>
+	</wps:ResponseForm>
+</wps:Execute>
