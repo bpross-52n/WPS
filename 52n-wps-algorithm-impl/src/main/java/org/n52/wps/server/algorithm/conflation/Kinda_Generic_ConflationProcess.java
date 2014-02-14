@@ -227,7 +227,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 					
 					if(mapping.length > 1){
 					
-						map.put(mapping[0], mapping[1]);
+						map.put(mapping[0].trim(), mapping[1].trim());
 					}
 				}
 			}

@@ -40,8 +40,7 @@
 			<ows:Identifier>Rules</ows:Identifier>
 			<wps:Data>
 				<wps:LiteralData>mappings:[address->address;
-    name->geoNameCollection.memberGeoName.fullName;]
-    rules:[target within 0.1 mi->update source;]</wps:LiteralData>
+    name->geoNameCollection.memberGeoName.fullName;]</wps:LiteralData>
 			</wps:Data>
 		</wps:Input>
 	</wps:DataInputs>

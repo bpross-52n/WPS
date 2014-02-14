@@ -58,7 +58,7 @@
 					</Supported>
 				</ComplexData>
 			</Input>
-			<Input minOccurs="1" maxOccurs="1">
+			<Input minOccurs="0" maxOccurs="1">
 				<ows:Identifier>Rules</ows:Identifier>
 				<ows:Title>Conflation rules</ows:Title>
 				<ows:Abstract>Kind of generic conflation rules</ows:Abstract>
