@@ -261,9 +261,25 @@ public class GTHelper {
 		feature = featureBuilder.buildFeature(id, newData);
 	
 		return feature;
-}
+	}
 	
-		public static QName createGML3SchemaForFeatureType(SimpleFeatureType featureType){
+	public static Feature createFeature2(String id, Geometry geometry, SimpleFeatureType featureType) {
+		
+		if(geometry==null || geometry.isEmpty()){
+			return null;
+		}
+		
+		SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder(featureType);
+		SimpleFeature feature = null;			
+		
+		feature = featureBuilder.buildFeature(id, new Object[]{});
+	
+		feature.setDefaultGeometry(geometry);
+		
+		return feature;
+	}
+		
+	public static QName createGML3SchemaForFeatureType(SimpleFeatureType featureType){
 		
 		String uuid = featureType.getName().getNamespaceURI().replace("http://www.52north.org/", "");
 		String namespace = "http://www.52north.org/"+uuid;
