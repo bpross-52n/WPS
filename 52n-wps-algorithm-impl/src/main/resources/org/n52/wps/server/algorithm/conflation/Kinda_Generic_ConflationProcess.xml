@@ -70,7 +70,7 @@
 		</DataInputs>
 		<ProcessOutputs>
 			<Output>
-				<ows:Identifier>Output</ows:Identifier>
+				<ows:Identifier>conflated_result</ows:Identifier>
 				<ows:Title>Conflated result</ows:Title>
 				<ComplexOutput>
 					<Default>
@@ -91,6 +91,22 @@
 						<Format>
 							<MimeType>text/xml</MimeType>
 							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+			<Output>
+				<ows:Identifier>provenance</ows:Identifier>
+				<ows:Title>Provenance information</ows:Title>
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>application/rdf+xml</MimeType>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>application/rdf+xml</MimeType>
 						</Format>
 					</Supported>
 				</ComplexOutput>

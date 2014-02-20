@@ -48,9 +48,10 @@
 		<wps:ResponseDocument>
 			<wps:Output mimeType="text/xml"
 				schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
-				<ows:Identifier>Output</ows:Identifier>
-				<ows:Title>result</ows:Title>
-				<ows:Abstract>result</ows:Abstract>
+				<ows:Identifier>conflated_result</ows:Identifier>
+			</wps:Output>
+			<wps:Output mimeType="application/rdf+xml">
+				<ows:Identifier>provenance</ows:Identifier>
 			</wps:Output>
 		</wps:ResponseDocument>
 	</wps:ResponseForm>

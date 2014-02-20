@@ -501,16 +501,23 @@
 				<Format mimetype="text/csv" />
 				<Format mimetype="application/rdf+xml" />
 			</Generator>
+			<Generator name="RDFOutputGenerator"
+				className="org.n52.wps.io.datahandler.generator.RDFOutputGenerator"
+				active="true">
+				<Format mimetype="application/rdf+xml" />
+			</Generator>
 		</GeneratorList>
 	</Datahandlers>
 	<AlgorithmRepositoryList>
 		<Repository name="LocalAlgorithmRepository"
 			className="org.n52.wps.server.LocalAlgorithmRepository" active="true">
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.FuzzyWuzzyTestProcess</Property>
+			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.JTSConvexHullAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</Property>
-			<Property name="pythonHome" active="true">c:\Python27</Property>
-			<Property name="fuzzyName" active="true">d:\tmp\fuzz.py</Property>
+			<Property name="pythonHome" active="true"></Property>
+			<Property name="fuzzyName" active="true"></Property>
+			<Property name="mappingsfile" active="true"></Property>
 		</Repository>
 		<Repository name="UploadedAlgorithmRepository"
 			className="org.n52.wps.server.UploadedAlgorithmRepository" active="false">
