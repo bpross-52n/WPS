@@ -24,6 +24,7 @@ import org.n52.wps.io.datahandler.generator.GML311BasicGenerator;
 import org.n52.wps.io.datahandler.generator.GML3ApplicationSchemaGenerator;
 import org.n52.wps.io.datahandler.parser.GML311BasicParser;
 import org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaParser;
+import org.n52.wps.io.datahandler.parser.GTBinZippedSHPParser;
 import org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -45,17 +46,18 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
 	    
-		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
+//		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
+		InputStream tnmin = this.getClass().getResourceAsStream("dncshp.zip");		
 		
-		GML311BasicParser parser2 = new GML311BasicParser();
+//		GML311BasicParser parser2 = new GML311BasicParser();
+		GTBinZippedSHPParser parser2 = new GTBinZippedSHPParser();
 		
-	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+//	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "application/x-zipped-shp", null);
 	    
 	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();
 	    
-		String rules = "mappings:[address->address;"
-			    +"name->geoNameCollection.memberGeoName.fullName;],"
-			    +" fixedAttributeValues:[featureFunction-1->firefighting]";
+		String rules = "mappings:[bfc_descri->geoNameCollection.memberGeoName.fullName;]";
 		
 		process.createRules(rules);
 		
@@ -97,25 +99,25 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		assertTrue(result.size() == (ftc2.size() + ftc.size()));
 		
-//		GML3ApplicationSchemaGenerator generator = new GML3ApplicationSchemaGenerator();
-//		
-//		try {
-//			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
-//			
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
-//			
-//			String line = "";
-//			
-//			while((line = reader.readLine()) != null){
-//				writer.write(line + "\n");
-//			}
-//			writer.close();
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		GML3ApplicationSchemaGenerator generator = new GML3ApplicationSchemaGenerator();
+		
+		try {
+			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
+			
+			String line = "";
+			
+			while((line = reader.readLine()) != null){
+				writer.write(line + "\n");
+			}
+			writer.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
