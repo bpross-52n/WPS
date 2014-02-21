@@ -60,7 +60,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private String generatedAt = dateformat.format(new GregorianCalendar().getTime());
 
 	
-	private String type = "f2n:Kinda_Generic_ConflationProcess_v100";
+	private final String type = "f2n:Kinda_Generic_ConflationProcess_v100";
 	private String superType = "f2n:ConflationAlgorithm_52N";	
 	private String algorithmAttributedTo = "f2n:benjamin";		
 	private String agent = "f2n:benjamin";
@@ -86,6 +86,12 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private String endTime = dateformat.format(new GregorianCalendar().getTime());
 	
 	private Properties properties;
+	
+	private Map<String, String> mappingsMap;
+	private Map<String, String> fixedAttributeValuesMap;
+	
+	private final String mappingsStart = "mappings:[";
+	private final String fixedAttributeValuesStart = "fixedAttributeValues:[";
 	
 	public Kinda_Generic_ConflationProcess(){
 		
@@ -115,6 +121,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			}
 		}
 		
+		mappingsMap = new HashMap<String, String>();
+		fixedAttributeValuesMap = new HashMap<String, String>();		
 	}
 	
 	@Override
@@ -204,7 +212,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			throw new RuntimeException("No value for input " + rules_id + " provided.");
 		}
 		
-		Map<String, String> map = createMapping(rules);
+		createRules(rules);
 
 		FeatureType ft = featureCollection.features().next().getType();
 		
@@ -221,19 +229,13 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			if (o instanceof SimpleFeature) {
 				f = (SimpleFeature) o;
 				
-				Geometry g = null;
-				
-				if(f.getDefaultGeometry() == null){
-					tryCreatingGeom(f);
-				}else{
-					g = (Geometry)f.getDefaultGeometry();
-				}
-				
 				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature2(f.getIdentifier().getID(), (Geometry) f.getDefaultGeometry(), (SimpleFeatureType)ft);
 				
-				mapProperties(f, sft, map);
+				mapProperties(f, sft);
 				
-				addDefaultValues(sft, map);
+				addfixedAttributeValues(sft);
+				
+				addDefaultValues(sft);
 				
 				newFeatures.add(sft);
 			}
@@ -277,25 +279,39 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		return g;
 	}
 	
-	public void mapProperties(SimpleFeature target, SimpleFeature newFeature, Map<String, String> map){
+	public void mapProperties(SimpleFeature target, SimpleFeature newFeature){
 		
 		//look for mappings target attribute name -> source attribute name
 		Collection<Property> properties = target.getProperties();
 		
 		for (Property property : properties) {
-			if(map.keySet().contains(property.getName().getLocalPart())){
-				addPropertyValue(newFeature, map.get(property.getName().getLocalPart()), property.getValue());
+			if(mappingsMap.keySet().contains(property.getName().getLocalPart())){
+				addPropertyValue(newFeature, mappingsMap.get(property.getName().getLocalPart()), property.getValue());
 			}
 		}		
 	}
-	
-	public void addDefaultValues(SimpleFeature sft, Map<String, String> map){
+
+	public void addfixedAttributeValues(SimpleFeature sft){
 		
 		Collection<Property> properties = sft.getProperties();
 		
 		for (Property property : properties) {
 			
-			if(!map.values().contains(property.getName().getLocalPart())){
+			if(fixedAttributeValuesMap.keySet().contains(property.getName().getLocalPart())){
+				addPropertyValue(sft, property.getName().getLocalPart(), fixedAttributeValuesMap.get(property.getName().getLocalPart()));
+			}
+			
+		}
+		
+	}
+	
+	public void addDefaultValues(SimpleFeature sft){
+		
+		Collection<Property> properties = sft.getProperties();
+		
+		for (Property property : properties) {
+			
+			if(!mappingsMap.values().contains(property.getName().getLocalPart()) && !fixedAttributeValuesMap.keySet().contains(property.getName().getLocalPart())){
 				addDefaultValue(property);
 			}
 			
@@ -326,31 +342,49 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}	
 	}
 	
-	public Map<String, String> createMapping(String rules){
-		
-		Map<String, String> map = new HashMap<String, String>();
+	public void createRules(String rules){
 		
 		String[] rulesArray = rules.split(",");
 		
 		for (String string : rulesArray) {
-			if(string.startsWith("mappings")){
-				string = string.replace("mappings:[", "");
-				string = string.replace("]", "");
-				String[] singleRulesArray = string.split(";");
-				for (String string2 : singleRulesArray) {
-					
-					String[] mapping = string2.split("->");
-					
-					if(mapping.length > 1){
-					
-						map.put(mapping[0].trim(), mapping[1].trim());
-					}
-				}
+			if(string.trim().startsWith(mappingsStart)){
+				createMappingsMap(string);
+			}else if(string.trim().startsWith(fixedAttributeValuesStart)){
+				createFixedAttributeValuesMap(string);
+			}
+		}		
+	}
+	
+	public void createMappingsMap(String string) {
+
+		string = string.replace(mappingsStart, "");
+		string = string.replace("]", "");
+		String[] singleRulesArray = string.split(";");
+		for (String string2 : singleRulesArray) {
+
+			String[] mapping = string2.split("->");
+
+			if (mapping.length > 1) {
+
+				mappingsMap.put(mapping[0].trim(), mapping[1].trim());
 			}
 		}
-		
-		return map;
-		
+	}
+	
+	public void createFixedAttributeValuesMap(String string) {
+
+		string = string.replace(fixedAttributeValuesStart, "");
+		string = string.replace("]", "");
+		String[] singleRulesArray = string.split(";");
+		for (String string2 : singleRulesArray) {
+
+			String[] mapping = string2.split("->");
+
+			if (mapping.length > 1) {
+
+				fixedAttributeValuesMap.put(mapping[0].trim(), mapping[1].trim());
+			}
+		}
 	}
 	
 	public String createRDFProvenance(){

@@ -51,16 +51,13 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 	    
-	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();	    
-	    
-	    System.out.println(ftc.size());
-	    System.out.println(ftc2.size());
+	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();
 	    
 		String rules = "mappings:[address->address;"
 			    +"name->geoNameCollection.memberGeoName.fullName;],"
-			    +"rules:[target within 0.1 mi->update source;]";
+			    +" fixedAttributeValues:[featureFunction-1->firefighting]";
 		
-		Map<String, String> map = process.createMapping(rules);
+		process.createRules(rules);
 		
 		FeatureIterator<?> iter1 = ftc2.features();
 		
@@ -74,20 +71,10 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		newFeatures.addAll(oldFeatures);
 		
-		System.out.println(newFeatures.size());
-		
 		while (iter1.hasNext()) {
 			Object o = iter1.next();
 			if (o instanceof SimpleFeature) {
 				f = (SimpleFeature) o;
-				
-				Geometry g = null;
-				
-				if(f.getDefaultGeometry() == null){
-					process.tryCreatingGeom(f);
-				}else{
-					g = (Geometry)f.getDefaultGeometry();
-				}
 				
 //				SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder((SimpleFeatureType)ft);
 //				
@@ -95,38 +82,40 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 				
 				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature(f.getIdentifier().getID(), (Geometry)f.getDefaultGeometry(), (SimpleFeatureType)ft);
 				
-				process.mapProperties(f, sft, map);
+				process.mapProperties(f, sft);
 				
-				process.addDefaultValues(sft, map);
+				process.addfixedAttributeValues(sft);
+				
+				process.addDefaultValues(sft);
 
 				newFeatures.add(sft);
 			}
 
 		}
 		
-		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);
+		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);	 
 		
-		System.out.println(result.size());
+		assertTrue(result.size() == (ftc2.size() + ftc.size()));
 		
-		GML3ApplicationSchemaGenerator generator = new GML3ApplicationSchemaGenerator();
-		
-		try {
-			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
-			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
-			
-			String line = "";
-			
-			while((line = reader.readLine()) != null){
-				writer.write(line + "\n");
-			}
-			writer.close();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		GML3ApplicationSchemaGenerator generator = new GML3ApplicationSchemaGenerator();
+//		
+//		try {
+//			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
+//			
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
+//			
+//			String line = "";
+//			
+//			while((line = reader.readLine()) != null){
+//				writer.write(line + "\n");
+//			}
+//			writer.close();
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 	
