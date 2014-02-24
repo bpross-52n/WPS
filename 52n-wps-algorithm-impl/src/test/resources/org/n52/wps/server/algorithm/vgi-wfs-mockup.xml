@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:om="http://www.opengis.net/om/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" timeStamp="2014-02-21T15:40:19.472+01:00" numberMatched="unknown" numberReturned="22" xsi:schemaLocation="http://www.opengis.net/wfs/2.0 schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd http://www.opengis.net/samplingSpatial/2.0 http://schemas.opengis.net/samplingSpatial/2.0/spatialSamplingFeature.xsd http://www.opengis.net/om/2.0 http://schemas.opengis.net/om/2.0/observation.xsd http://www.opengis.net/sampling/2.0 http://schemas.opengis.net/sampling/2.0/samplingFeature.xsd">
+  <wfs:member>
+    <om:OM_Observation gml:id="o_E45DAF5F87B233DDE98372EB3CD7EA429BC6B0BB">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_142">
+          <gml:timePosition>2012-09-27T03:31:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_F7CDF3FBE3D0D957FE5661A74ADBBDBD0379C966">
+          <gml:timePosition>2012-09-30T03:42:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/praveenpn"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_62501E4FF78B3777F710494900A634ED8200D652">
+          <gml:description>point pinos, lighthouse</gml:description>
+          <gml:identifier codeSpace="">photo-8037990844-feature</gml:identifier>
+          <gml:name>Staring at some steel, waiting to get on a tube of metal, and zoom @ .785 Mach ...</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_62501E4FF78B3777F710494900A634ED8200D652">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-100.113 25.774666</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/praveenpn/8037990844/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_B384CEEC454F09398500DF7B59C3137EB64FD2FD">
+      <gml:description>forest fire near monterrey</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_158">
+          <gml:timePosition>2014-02-04T12:02:23.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_FF2619DC797999E30E8E43B95294669496B14948">
+          <gml:timePosition>2014-02-04T12:23:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/residae"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_B9A092F37B6826C7134D05AC301FBDE2DFB9B349">
+          <gml:description>forest fire monterrey</gml:description>
+          <gml:identifier codeSpace="">photo-295155260-feature</gml:identifier>
+          <gml:name>Forest Fire near Monterrey, CA</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_B9A092F37B6826C7134D05AC301FBDE2DFB9B349">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.8847 36.5792</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/residae/295155260" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_CD3514729EC500C458D7303A4B79590A719A0813">
+      <gml:description>fire forest live</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_163">
+          <gml:timePosition>2014-02-04T20:02:23.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_D622D6E79116BC2BF58FB49398612C678E2174CB">
+          <gml:timePosition>2014-02-04T20:13:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/ari"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_F1E584B5E295CFA7C486EA644AF720ECBF35DB96">
+          <gml:description>fire forest live</gml:description>
+          <gml:identifier codeSpace="">photo-9683488764-feature</gml:identifier>
+          <gml:name>recent shot of a forest fire in Monterrey</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_F1E584B5E295CFA7C486EA644AF720ECBF35DB96">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.89287 36.57758</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/ari/9683488764" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_F30E5B089F534B09F26EFD0E08E5700124EB8DA2">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_149">
+          <gml:timePosition>2012-05-06T09:57:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_230997970AD19E62D45A95141B232E4EE2831B76">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_ED629BDF7CC6B54A370EE61214207901F9E41E81">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, blueangels, plaque, military, history, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484671214-feature</gml:identifier>
+          <gml:name>Blue Angels Plaque</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_ED629BDF7CC6B54A370EE61214207901F9E41E81">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.8505 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484671214/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_42CB2D60BE29FD81B6DBDC1B893E6FDD907D4006">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_153">
+          <gml:timePosition>2012-05-06T09:57:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_D5B81310DC9B2FA154BE51AA02C1119BB16BDEC5">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_4451D029E91030F6B6C4DBF50887829263CA5184">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, doolittleraiders, plaque, military, history, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484670704-feature</gml:identifier>
+          <gml:name>Doolittle Raiders Plaque</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_4451D029E91030F6B6C4DBF50887829263CA5184">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484670704/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_678AEDE42A44BFB514D94B4C08B2CAC003A760BC">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_147">
+          <gml:timePosition>2012-05-06T09:55:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_BA68A29CECD75127C27BAC8AFE79EE77567D16E8">
+          <gml:timePosition>2012-07-02T04:44:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_F3AE13DDC6F4F94D1ACA59EB226C83E71FED7584">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, aviation, legends, generaljamesdoolitle, captainroyvoris, biography, history, statues, sculptures, busts, military, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484667352-feature</gml:identifier>
+          <gml:name>Aviation Legends</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_F3AE13DDC6F4F94D1ACA59EB226C83E71FED7584">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.8505 36.587166</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484667352/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_374E0593B8C49B6CF5B7A2AEF19E93E745E6ED2D">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_143">
+          <gml:timePosition>2012-05-06T09:55:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_B4C186A86C7FE7A2E05485399044DDB120E88082">
+          <gml:timePosition>2012-07-02T04:44:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_3F22D5D771AB54544C7C08FA4A3C2C22D74A111C">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, generaljamesdoolittle, statue, sculpture, bust, military, history, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484667764-feature</gml:identifier>
+          <gml:name>General James Doolitle Sculpture</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_3F22D5D771AB54544C7C08FA4A3C2C22D74A111C">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484667764/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_5EE6BE8594A7DE24AA0223B642F127E36DB6C419">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_144">
+          <gml:timePosition>2012-05-06T10:41:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_012F04083F0C6073819893ACA1CEB155E33E9539">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_64D86A5855D8DC1343108451A9C8C6A6750C7E22">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, jet, airplane, tarmac, blue, sky, white, clouds</gml:description>
+          <gml:identifier codeSpace="">photo-7484671740-feature</gml:identifier>
+          <gml:name>Asilomar and Monterrey Airport - 22</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_64D86A5855D8DC1343108451A9C8C6A6750C7E22">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.85067 36.5875</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484671740/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_A389BD09AF9B2A94FD4C9D184E0FF7ED8AAA2CC5">
+      <gml:description>fire forest</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_161">
+          <gml:timePosition>2014-02-04T16:07:47.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_DA2D578BA8EE07073DF7BA1187B753545AC46A4F">
+          <gml:timePosition>2014-02-04T16:23:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/o-wagen"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_92B612969918CC703DCC3D03A4AF18B440E1110F">
+          <gml:description>fire forest</gml:description>
+          <gml:identifier codeSpace="">photo-5312696007-feature</gml:identifier>
+          <gml:name>Fire near Monterrey</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_92B612969918CC703DCC3D03A4AF18B440E1110F">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.88776 36.57649</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/o-wagen/5312696007" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_0C16AE143DAAEE79178E1AC9F79BDE7C9620FA91">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_151">
+          <gml:timePosition>2012-05-06T09:56:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_F7101BA16EB69476C776AA309471237B75236BCF">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_050BAE3222496760545228FD28F562C6423D1CBF">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, generaljamesdoolittle, biography, history, usaf, doolittleraiders, military, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484670182-feature</gml:identifier>
+          <gml:name>General James H. Doolittle Biography</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_050BAE3222496760545228FD28F562C6423D1CBF">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484670182/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_BFA9C033460D4607EDA671851C619317934D8639">
+      <gml:description>fire forest monterrey emergency</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_160">
+          <gml:timePosition>2014-02-04T11:44:23.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_7702954E69A1A2520524D0CC2B87E5373AC2F711">
+          <gml:timePosition>2014-02-04T12:03:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/ezee123"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_1605814B517256745E8271EF3204B3E32256CD7A">
+          <gml:description>fire forest monterrey emergency</gml:description>
+          <gml:identifier codeSpace="">photo-7302528416-feature</gml:identifier>
+          <gml:name>Fire in the forests of Monterrey</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_1605814B517256745E8271EF3204B3E32256CD7A">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.88643 36.58113</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/ezee123/7302528416" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_CEEAA8387F5702C886D8430132126106213085C5">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_148">
+          <gml:timePosition>2012-05-06T09:56:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_498B2C6B9EBA1278FCE09FE78E3D1ECEA17CCD5B">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_5FB6C23D5695B7B30F4B320DF2176F1C2BD8CAA4">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, generaljamesdoolitle, biography, history, military, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484668746-feature</gml:identifier>
+          <gml:name>Short Biography of General James Doolittle</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_5FB6C23D5695B7B30F4B320DF2176F1C2BD8CAA4">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484668746/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_08D942C62ADE419EB184C80E866073BE886F4653">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_146">
+          <gml:timePosition>2012-05-06T09:56:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_207BCF36CAF627263E483B78A29BC67864813C88">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_AD2889DD9C61E3C4A141E97A90CE98E19D0561DA">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, captainroyvoris, blueangels, founder, blueangelsfounder, biography, history, military, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484669174-feature</gml:identifier>
+          <gml:name>Captain Roy "Butch" Voris Biography</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_AD2889DD9C61E3C4A141E97A90CE98E19D0561DA">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484669174/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_F5E954953FE848AEC474E20B750BC4082D8B4B34">
+      <gml:description>forest fire monterrey cali</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_159">
+          <gml:timePosition>2014-02-04T12:55:43.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_C864684F23018D6F0BF075B92213C62A4202710E">
+          <gml:timePosition>2014-02-04T12:59:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/8247365@N07"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_D0033B29EE64C2056E488BFCB40F9C2A4D156394">
+          <gml:description>forest fire monterrey cali</gml:description>
+          <gml:identifier codeSpace="">photo-494385598-feature</gml:identifier>
+          <gml:name>huge Forest Fire in Monterrey</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_D0033B29EE64C2056E488BFCB40F9C2A4D156394">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.88168 36.57373</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/8247365@N07/494385598" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_C031F9B35A982D56F4E42B680AF30DBEB54ECC8D">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_155">
+          <gml:timePosition>2011-03-08T13:28:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_116FBF09BF8CC77F92DAF09BB07BBC55D2E8C8F2">
+          <gml:timePosition>2011-03-11T17:08:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/nahum.lopez"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_76FF0B039C18359A13AF6D9B50B47811DA8401E8">
+          <gml:description>apodaca, aeropuerto, incendio, monterrey, fire, aguafria</gml:description>
+          <gml:identifier codeSpace="">photo-5517867302-feature</gml:identifier>
+          <gml:name>Incendio Agua Fria</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_76FF0B039C18359A13AF6D9B50B47811DA8401E8">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-100.16167 25.792833</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/nahumlv/5517867302/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_613CE9A06BA18EF1F6447033BFCEFD8D5003242E">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_152">
+          <gml:timePosition>2012-05-06T09:56:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_53470D7E65D005223B4A7CBFAADE88A599841EFC">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_52E3DC8619FDB61AB759B8CF471624DF238F80C1">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, captainroymarlin, sculpture, bust, statue, military, history, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484668296-feature</gml:identifier>
+          <gml:name>Captain Roy Marlin Sculpture</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_52E3DC8619FDB61AB759B8CF471624DF238F80C1">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484668296/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_E46D93C3A4677AF1E6146C10D10FA23F7C6A7824">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_145">
+          <gml:timePosition>2012-05-06T10:42:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_E7EBB2A6905C26EF6DA15C876147E1288C377D21">
+          <gml:timePosition>2012-07-02T04:46:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_3D015742D308CA5979FC7ED877CC44C99C908159">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, jet, airplane, tarmac, blue, sky, white, clouds</gml:description>
+          <gml:identifier codeSpace="">photo-7484672272-feature</gml:identifier>
+          <gml:name>Asilomar and Monterrey Airport - 23</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_3D015742D308CA5979FC7ED877CC44C99C908159">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.85067 36.5875</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484672272/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_E373B476AFCE15AAC1CAD5AB5AFB7B93A8A58B86">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_154">
+          <gml:timePosition>2011-12-22T17:54:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_19F52487B73D65C0A1773A2FFAE39AA901397902">
+          <gml:timePosition>2011-12-23T04:33:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/NO_EFFECTS"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_1DAC0D7D815D7E4A6608939833521965D5F545A6">
+          <gml:description>airport, monterrey, pentaxkx</gml:description>
+          <gml:identifier codeSpace="">photo-6557521925-feature</gml:identifier>
+          <gml:name>Flying to the star</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_1DAC0D7D815D7E4A6608939833521965D5F545A6">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-100.14597 25.788319</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/no_effects/6557521925/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_A1ABD1F1D1A9930BF7DE34A4D18F55C4C425A8E9">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_150">
+          <gml:timePosition>2012-05-06T09:56:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_C83B459DECC6C6B682FDB62D2BCE8BD1512A8B59">
+          <gml:timePosition>2012-07-02T04:45:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/bmw328driver"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_BF21387023AB14E65BCCDB5DE20A2D46568CA0FC">
+          <gml:description>monterrey, airport, monterreyairport, california, ca, usa, captainroyvoris, blueangels, founder, blueangelsfounder, biography, history, military, militaryhistory</gml:description>
+          <gml:identifier codeSpace="">photo-7484669660-feature</gml:identifier>
+          <gml:name>Captain Roy "Butch" Voris Biography</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_BF21387023AB14E65BCCDB5DE20A2D46568CA0FC">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.850334 36.587334</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/bmw328driver/7484669660/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_C95CF243738CDB89DF53BFD7EB3DB952049AE89B">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_156">
+          <gml:timePosition>2011-03-08T13:14:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_12082B607C1D9B709CDC395175A6C33298FBF00A">
+          <gml:timePosition>2011-03-08T22:19:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/nahum.lopez"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_120FBDCA2E7288EEFC030E0FF4408DA5AE5E83F3">
+          <gml:description>monterrey, fire, incendio, apodaca, aeropuerto</gml:description>
+          <gml:identifier codeSpace="">photo-5510583918-feature</gml:identifier>
+          <gml:name>Incendio Agua Fria 2</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_120FBDCA2E7288EEFC030E0FF4408DA5AE5E83F3">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-100.162 25.793</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/nahumlv/5510583918/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_391CC4B34F7D2CB0BF14374A61E2C2076463D5CC">
+      <gml:description>fire forest monterrey emergency</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_162">
+          <gml:timePosition>2014-02-04T17:32:23.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_8446D95DE929C9824E579C77241AE9A4284C80D1">
+          <gml:timePosition>2014-02-04T17:43:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/95808980@N04"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_FF0A49D4BCF9428C477738C8AFB5FB77753443EE">
+          <gml:description>fire forest monterrey emergency</gml:description>
+          <gml:identifier codeSpace="">photo-9147995189-feature</gml:identifier>
+          <gml:name>Fire in the forests of Monterrey</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_FF0A49D4BCF9428C477738C8AFB5FB77753443EE">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.88061 36.57733</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/95808980@N04/9147995189" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
+    <om:OM_Observation gml:id="o_FF8D762814E9DA1C481C786F3BBC4148C7422754">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_157">
+          <gml:timePosition>2011-03-08T13:04:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_81AE03A710E03A9C66065EACB91EFBDE62109DA8">
+          <gml:timePosition>2011-03-08T22:09:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/nahum.lopez"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_DB66958E0A9F4E66B9A2A0DA17CC77B266C0343F">
+          <gml:description>monterrey, incendio, fire, mon</gml:description>
+          <gml:identifier codeSpace="">photo-5509958857-feature</gml:identifier>
+          <gml:name>Incendio Agua Fria</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_DB66958E0A9F4E66B9A2A0DA17CC77B266C0343F">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-100.162 25.793</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/nahumlv/5509958857/" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+</wfs:FeatureCollection>

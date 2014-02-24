@@ -1,0 +1,1633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gml:FeatureCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmd="http://www.isotc211.org/2005/gmd"
+	xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:tds="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0"
+	xmlns:con="http://www.opengis.net/ows-9/cci/conflation" xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xsi:schemaLocation="http://www.opengis.net/ows-9/cci/conflation http://test.schemas.opengis.net/ows-9/cci/conflation/conflationMetadataExtension.xsd http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0 http://services.interactive-instruments.de/xsprojects/ows10/schema/TDS_v3.0_SF0_GML321/TDS_v3.0_SF0_GML321.xsd">
+	<gml:featureMembers>
+		<tds:BuildingGeopoint gml:id="StructurePoints.82809">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.585847115 -121.853980238</gml:lowerCorner>
+					<gml:upperCorner>36.585847115 -121.853980238</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.585847115 -121.853980238</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>noInformation</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>9.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83013">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.590419644 -121.862225711</gml:lowerCorner>
+					<gml:upperCorner>36.590419644 -121.862225711</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.590419644 -121.862225711</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>lawEnforcement</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>17.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83083">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.530487309 -121.887677864</gml:lowerCorner>
+					<gml:upperCorner>36.530487309 -121.887677864</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.530487309 -121.887677864</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>rescueParamedical</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>39.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83141">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.503429593 -121.758704142</gml:lowerCorner>
+					<gml:upperCorner>36.503429593 -121.758704142</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.503429593 -121.758704142</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>noInformation</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>3.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83172">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.514487312 -121.761899726</gml:lowerCorner>
+					<gml:upperCorner>36.514487312 -121.761899726</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.514487312 -121.761899726</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>noInformation</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>34.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83256">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.590300783 -121.844238508</gml:lowerCorner>
+					<gml:upperCorner>36.590300783 -121.844238508</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.590300783 -121.844238508</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>noInformation</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>39.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83439">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.537890244 -121.831651522</gml:lowerCorner>
+					<gml:upperCorner>36.537890244 -121.831651522</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.537890244 -121.831651522</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>rescueParamedical</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>61.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83462">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.52972373 -121.838173737</gml:lowerCorner>
+					<gml:upperCorner>36.52972373 -121.838173737</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.52972373 -121.838173737</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>rescueParamedical</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>16.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83471">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.578063048 -121.848777918</gml:lowerCorner>
+					<gml:upperCorner>36.578063048 -121.848777918</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.578063048 -121.848777918</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>lawEnforcement</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>23.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint gml:id="StructurePoints.83508">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.599456261 -121.852800839</gml:lowerCorner>
+					<gml:upperCorner>36.599456261 -121.852800839</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.599456261 -121.852800839</gml:pos>
+				</gml:Point>
+			</tds:geometry>
+			<tds:address>No Information</tds:address>
+			<tds:aeroObstacleLightPresent>noInformation</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>noInformation</tds:conditionOfFacility>
+			<tds:controllingAuthority>noInformation</tds:controllingAuthority>
+			<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+			<tds:featureFunction-2>lawEnforcement</tds:featureFunction-2>
+			<tds:featureFunction-3>noInformation</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>No Information</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>46.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>noInformation</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>noInformation</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>noInformation</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>noInformation</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>noInformation</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>noInformation</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>noInformation</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>noInformation</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>noInformation</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>noInformation</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>noInformation</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>noInformation</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>U</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>noInformation</tds:roofShape-1>
+			<tds:roofShape-2>noInformation</tds:roofShape-2>
+			<tds:roofShape-3>noInformation</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>noInformation</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>noInformation</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>noInformation</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>noInformation</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.1.4D8774CC5CF0A2901F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.5046074297959 -121.9362935586705</gml:lowerCorner>
+					<gml:upperCorner>36.5046074297959 -121.9362935586705</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>73 Fern Canyon Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Department of Forestry and Fire Protection Carmel Highlands Fire Protection District Unit</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.14.4D9220B80FE4EAA41F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.5741140494797 -121.9139745368302</gml:lowerCorner>
+					<gml:upperCorner>36.5741140494797 -121.9139745368302</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>4180 17 Mile Drive</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Department of Forestry and Fire Protection Carmel Hill Unit</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.15.4D9220C1CD99A3161F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.589162134873 -121.9445768461576</gml:lowerCorner>
+					<gml:upperCorner>36.589162134873 -121.9445768461576</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>3101 Forest Lake Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>California Department of Forestry and Fire Protection Pebble Beach</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.16.4D9221B24EF356781F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61929765461787 -121.9194655222383</gml:lowerCorner>
+					<gml:upperCorner>36.61929765461787 -121.9194655222383</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>600 Pine Avenue</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Pacific Grove Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.17.4D9222521B1CF98C1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59639050465347 -121.8977111951887</gml:lowerCorner>
+					<gml:upperCorner>36.59639050465347 -121.8977111951887</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>600 Pacific Street</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 1</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.18.4D92227301081A3C1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59838018485868 -121.8767835639712</gml:lowerCorner>
+					<gml:upperCorner>36.59838018485868 -121.8767835639712</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>1399 Cunningham Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Naval Postgraduate School Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.19.4D92227BB1F216941F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59919694214909 -121.8614438192034</gml:lowerCorner>
+					<gml:upperCorner>36.59919694214909 -121.8614438192034</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>401 Dela Vina Avenue</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 3</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.2.4D8775BF6E5BC4461F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.53964404849154 -121.9073115462155</gml:lowerCorner>
+					<gml:upperCorner>36.53964404849154 -121.9073115462155</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>3775 Rio Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>California Department of Forestry and Fire Protection Cypress Fire Protection District</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.20.4D9222C84B9CF9041F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.58609085466941 -121.8481018598491</gml:lowerCorner>
+					<gml:upperCorner>36.58609085466941 -121.8481018598491</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>200 Fred Kane Drive</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Monterey Peninsula Airport Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.21.4D92230439CF595A1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61292404733609 -121.9019979441404</gml:lowerCorner>
+					<gml:upperCorner>36.61292404733609 -121.9019979441404</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>582 Hawthorne Street</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 2</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.22.4D9223A2DF1583761F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.60909663275874 -121.8290966702953</gml:lowerCorner>
+					<gml:upperCorner>36.60909663275874 -121.8290966702953</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>1635 Broadway Avenue</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>City of Seaside Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.23.4D92288E1C4486A41F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.56913187344577 -121.7552816902015</gml:lowerCorner>
+					<gml:upperCorner>36.56913187344577 -121.7552816902015</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>31 Laureles Grade Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Salinas Rural Fire Protection District Station 2 Laureles Station</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.24.4D92295C14D9295E1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.64606816603469 -121.8051969786657</gml:lowerCorner>
+					<gml:upperCorner>36.64606816603469 -121.8051969786657</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>4400 General Jim Moore Boulevard</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Presidio of Monterey Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.25.4D922B3A3A6D968E1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61824045045284 -121.687518426765</gml:lowerCorner>
+					<gml:upperCorner>36.61824045045284 -121.687518426765</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>19900 Portola Drive</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Salinas Rural Fire Protection District Station 1 Toro Station</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.27.4D922C22504379F61F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.65255644727461 -121.7889098338993</gml:lowerCorner>
+					<gml:upperCorner>36.65255644727461 -121.7889098338993</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>A Street</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>North Tree Fire International Fire Support Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.28.4D922C4D7A3553401F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.68274718576941 -121.8029294807525</gml:lowerCorner>
+					<gml:upperCorner>36.68274718576941 -121.8029294807525</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>Palm Avenue</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Marina Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.3.4D8775F1BD16324A1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.55552934638354 -121.9214345430686</gml:lowerCorner>
+					<gml:upperCorner>36.55552934638354 -121.9214345430686</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>Mission Street and 6th Avenue</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Carmel-by-the-Sea Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.4.4D8777B2B990EA321F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.53044784329745 -121.8278870234221</gml:lowerCorner>
+					<gml:upperCorner>36.53044784329745 -121.8278870234221</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>8455 Carmel Valley Road</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Carmel Valley Fire Protection District Mid - Valley</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+		<tds:BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.7.4D877CAE6A6100961F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.48157269024836 -121.7315188735717</gml:lowerCorner>
+					<gml:upperCorner>36.48157269024836 -121.7315188735717</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<tds:address>26 Via Contenta</tds:address>
+			<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+			<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+			<tds:area>-999999.0</tds:area>
+			<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+			<tds:controllingAuthority>No Information</tds:controllingAuthority>
+			<tds:featureFunction-1>No Information</tds:featureFunction-1>
+			<tds:featureFunction-2>No Information</tds:featureFunction-2>
+			<tds:featureFunction-3>No Information</tds:featureFunction-3>
+			<tds:floorCount>-999999</tds:floorCount>
+			<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<tds:geoNameCollection.memberGeoName.fullName>Carmel Valley Fire Department</tds:geoNameCollection.memberGeoName.fullName>
+			<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+			<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+			<tds:highestElevation>-999999.0</tds:highestElevation>
+			<tds:length>-999999.0</tds:length>
+			<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+			<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+			<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+			<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+			<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+			<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+			<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+			<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+			<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+			<tds:navigationLandmark>No Information</tds:navigationLandmark>
+			<tds:note.memorandum>No Information</tds:note.memorandum>
+			<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+			<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+			<tds:restriction.securityAttributesGroup_resClassification>No Information</tds:restriction.securityAttributesGroup_resClassification>
+			<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<tds:restriction.securityAttributesGroup_resOwnerProducer>No Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+			<tds:roofShape-1>No Information</tds:roofShape-1>
+			<tds:roofShape-2>No Information</tds:roofShape-2>
+			<tds:roofShape-3>No Information</tds:roofShape-3>
+			<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+			<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+			<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+			<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+			<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+			<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+			<tds:width>-999999.0</tds:width>
+			<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+		</tds:BuildingGeopoint>
+	</gml:featureMembers>
+</gml:FeatureCollection>

@@ -56,14 +56,12 @@ public class LinkingProcess extends AbstractAlgorithm {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(LinkingProcess.class);
 	
-	private final String sourceWFS = "Source_WFS";
+	private final String sourceWFS = "Source_Features";
 	private final String targetWFS = "Target_WFS";
-	private final String sourceGazetteerDescriptionFilter = "Source_WFS_Description_Filter";
 	private final String targetGazetteerDescriptionFilter = "Target_WFS_Description_Filter";
 	private final String boundingBoxFilter = "Bounding_Box_Filter";
 	private final String searchDistance = "Search_Distance";
 	private final String fuzzyWuzzyThreshold = "FuzzyWuzzy_Threshold";
-	private final String sourceWFSMaxFeatures = "Source_WFS_Max_Features";
 	private final String targetWFSMaxFeatures = "Target_WFS_Max_Features";
 	private final String outputFile = "links";
 	
@@ -71,8 +69,8 @@ public class LinkingProcess extends AbstractAlgorithm {
 	
 	private double kmInMilesFactor = 1.609347219;
 	
-	private String alternativeGeographicIdentifierName = "alternativeGeographicIdentifier";
-	private String geographicIdentifierName = "geographicIdentifier";
+	private String description = "description";
+	private String fullName = "geoNameCollection.memberGeoName.fullName";
 	
 	private String pythonName = "python.exe";
 
@@ -87,7 +85,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 	private String fuzzyName;
 	
 	int maxFeaturesNGAInt = 2500;
-	int maxFeaturesNewBrunswickInt = 2500;
+	int maxFeaturesTargetWFSInt = 2500;
 	
 	private ExecutorService executor = Executors.newFixedThreadPool(10);
 	
@@ -227,23 +225,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new RuntimeException("No value for input " + targetWFS + " provided.");
 		}
-		
-		/*
-		 * get source description filter 
-		 */
-		List<IData> sourceDescriptionFilter = inputData.get(sourceGazetteerDescriptionFilter);
-		
-		String[] sourceDescriptionFilterLiterals = null;
-		
-		try {
-			String sourceDescriptionFilterLiteralString = ((LiteralStringBinding)sourceDescriptionFilter.get(0)).getPayload();
-			sourceDescriptionFilterLiterals = sourceDescriptionFilterLiteralString.split(",");
-		} catch (ClassCastException e) {
-			throw new RuntimeException(sourceGazetteerDescriptionFilter + " input value is not a String.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + sourceGazetteerDescriptionFilter + " provided.");
-		}
-		
 		/*
 		 * get  description filter 
 		 */
@@ -263,13 +244,13 @@ public class LinkingProcess extends AbstractAlgorithm {
 		/*
 		 * get  maxFeatures for new brunswick gazetteer (target)
 		 */
-		List<IData> maxFeaturesNewBrunswick = inputData.get(targetWFSMaxFeatures);
+		List<IData> maxFeaturesTargetWFS = inputData.get(targetWFSMaxFeatures);
 		
 		try {
-			if(maxFeaturesNewBrunswick != null && maxFeaturesNewBrunswick.size()>0){
-				maxFeaturesNewBrunswickInt = ((LiteralIntBinding)maxFeaturesNewBrunswick.get(0)).getPayload();
+			if(maxFeaturesTargetWFS != null && maxFeaturesTargetWFS.size()>0){
+				maxFeaturesTargetWFSInt = ((LiteralIntBinding)maxFeaturesTargetWFS.get(0)).getPayload();
 			}else{
-				LOGGER.info("No maxFeatures value for New Brunswick gazetteer provided, using default value: " + maxFeaturesNewBrunswickInt);
+				LOGGER.info("No maxFeatures value for Target WFS provided, using default value: " + maxFeaturesTargetWFSInt);
 			}
 		} catch (ClassCastException e) {
 			throw new RuntimeException(targetWFSMaxFeatures + " input value is not an integer.");
@@ -283,7 +264,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		
 		try {
 			
-			String request = buildVGIWFSRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals, maxFeaturesNewBrunswickInt);
+			String request = buildVGIWFSRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals, maxFeaturesTargetWFSInt);
 			
 			targetGazetteerFeatures = gml32Parser.parse(PostClient.sendRequestForInputStream(finalTargetGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
 						
@@ -297,38 +278,14 @@ public class LinkingProcess extends AbstractAlgorithm {
 		
 		LOGGER.info("Found " + targetGazetteerFeatures.getPayload().size() + " target features.");
 		
-		/*
-		 * get  maxFeatures for nga gazetteer (source)
-		 */
-		List<IData> maxFeaturesNGA = inputData.get(sourceWFSMaxFeatures);
-		
-		try {
-			if(maxFeaturesNGA != null && maxFeaturesNGA.size()>0){
-				maxFeaturesNGAInt = ((LiteralIntBinding)maxFeaturesNGA.get(0)).getPayload();
-			}else{
-				LOGGER.info("No maxFeatures value for NGA gazetteer provided, using default value: " + maxFeaturesNGAInt);
-			}
-		} catch (ClassCastException e) {
-			throw new RuntimeException(sourceWFSMaxFeatures + " input value is not an integer.");
-		} 
-		
-		String finalSourceGazetteerRequest = sourceGazURI.toString();
-				
-		/*
-		 * load response stream into feature collection
-		 */
-		GML3WFSGBasicParser gml3Parser = new GML3WFSGBasicParser();
-		
 		GTVectorDataBinding sourceGazetteerFeatures = null;
 		
-		try {
-			
-			String request = buildNGARequest(WFSGRequestStringConstants.WFS100_GET_FEATURE_WITH_QUERY_REQUEST, lowerCorner, upperCorner, "iso19112:locationType/iso19112:SI_LocationType/iso19112:identification", sourceDescriptionFilterLiterals, maxFeaturesNGAInt);
-			
-			sourceGazetteerFeatures = gml3Parser.parse(PostClient.sendRequestForInputStream(finalSourceGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
-					
-		} catch (IOException e) {
-			throw new RuntimeException("Could not connect to source gazetteer: " + finalSourceGazetteerRequest, e);
+		List<IData> sourceFeaturesIDataList = inputData.get(sourceWFS);
+		
+		IData sourceFeaturesIData = sourceFeaturesIDataList.get(0);
+		
+		if(sourceFeaturesIData instanceof GTVectorDataBinding){
+			sourceGazetteerFeatures = (GTVectorDataBinding)sourceFeaturesIData;
 		}
 		
 		if(sourceGazetteerFeatures == null){
@@ -336,6 +293,21 @@ public class LinkingProcess extends AbstractAlgorithm {
 		}
 		
 		LOGGER.info("Found " + sourceGazetteerFeatures.getPayload().size() + " source features.");
+		
+		List<GazetteerConflationResultEntry> finalResults = runMatching(sourceGazetteerFeatures, targetGazetteerFeatures, fuzzyWuzzyThreshold, searchDistance);
+				
+		Collections.sort(finalResults);		
+		
+		LOGGER.debug("Final result count: " + finalResults.size());
+		
+		Map<String, IData> result = new HashMap<String, IData>();
+		
+		result.put(outputFile, new GazetteerRelationalOutputDataBinding(finalResults));
+		
+		return result;
+	}	
+	
+	public List<GazetteerConflationResultEntry> runMatching(GTVectorDataBinding sourceGazetteerFeatures, GTVectorDataBinding targetGazetteerFeatures, double fuzzyWuzzyThreshold, double searchDistance) {
 		
 		/*
 		 * loop over features
@@ -348,9 +320,9 @@ public class LinkingProcess extends AbstractAlgorithm {
 			
 			SimpleFeature sourceFeature = (SimpleFeature) sourceFeatureIterator.next();
 			
-			String sourceFeatureGeogrName = getGeographicIdentifier(sourceFeature);
+			String sourceFeatureGeogrName = sourceFeature.getID();
 			
-			List<String> sourceNameList = getAllAlternativeGeographicIdentifier(sourceFeature);
+			String sourceName = getMatchingAttributeName(sourceFeature);
 
 			Map<SimpleFeature, Double> targetFeaturesInRange = getFeatureInRange(sourceFeature, targetGazetteerFeatures.getPayload(), searchDistance);
 			
@@ -360,9 +332,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 			}
 			
 			List<GazetteerConflationResultEntry> tmpResults = new ArrayList<GazetteerConflationResultEntry>();
-			
-			for (String sourceName : sourceNameList) {				
-		
+					
 				/*
 				 * iterate over target features
 				 */		
@@ -380,23 +350,24 @@ public class LinkingProcess extends AbstractAlgorithm {
 						 * save the combination with the highest fw score, if tied, use distance 
 						 */
 						
-						String targetName = getAlternativeGeographicIdentifier(targetFeature);
+						List<String> targetNames = getAllAlternativeGeographicIdentifier(targetFeature);
 
-						int fwScore = getFuzzyWuzzyScore(sourceName, targetName);
-						
-						LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getGeographicIdentifier(targetFeature) + " " + sourceName + " " + targetName);
-						
-						/*
-						 * if above fuzzywuzzy threshold:
-						 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
-						 */
-						if(fwScore >= fuzzyWuzzyThreshold){
-							tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, getGeographicIdentifier(targetFeature), sourceName, targetName));
-						}
-					
-				}
-				
-			}
+						for (String string : targetNames) {
+							int fwScore = getFuzzyWuzzyScore(sourceName, string);
+							
+							LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getMatchingAttributeName(targetFeature) + " " + sourceName + " " + string);
+							
+							/*
+							 * if above fuzzywuzzy threshold:
+							 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
+							 */
+							if(fwScore >= fuzzyWuzzyThreshold){
+								tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, getMatchingAttributeName(targetFeature), sourceName, string));
+								break;
+							}
+						}					
+				}				
+			
 			if(tmpResults.size() >0){
 				Collections.sort(tmpResults);
 			
@@ -405,28 +376,16 @@ public class LinkingProcess extends AbstractAlgorithm {
 			
 			
 		}
-		Collections.sort(finalResults);
-		
-		LOGGER.debug("Final result count: " + finalResults.size());
-		
-		/*
-		 * create output csv file TODO: RDF?!
-		 */
-		
-		Map<String, IData> result = new HashMap<String, IData>();
-		
-		result.put(outputFile, new GazetteerRelationalOutputDataBinding(finalResults));
-		
-		return result;
-	}	
-	
+		return finalResults;
+	}
+
 	private Map<SimpleFeature, Double> getFeatureInRange(SimpleFeature sourceFeature, FeatureCollection<?, ?> candidateFeatures, double distanceThreshold){
 		
 		Map<SimpleFeature, Double> featuresInRange = new HashMap<SimpleFeature, Double>();
 		
 		FeatureIterator<?> targetFeatureIterator = candidateFeatures.features();
 		
-		LOGGER.info(getAlternativeGeographicIdentifier(sourceFeature));
+		LOGGER.info(getMatchingAttributeName(sourceFeature));
 		
 		LOGGER.info("" + sourceFeature.getDefaultGeometry());
 		
@@ -447,7 +406,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return featuresInRange;
 	}
 	
-	private String getGeographicIdentifier(SimpleFeature feature){
+	private String getMatchingAttributeName(SimpleFeature feature){
 		
 		String geographicIdentifier = "";
 		
@@ -455,7 +414,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		
 		for (Property property : properties) {
 			String propName = property.getName().toString();
-			if(propName.contains(geographicIdentifierName) && !propName.contains(alternativeGeographicIdentifierName)){
+			if(propName.contains(fullName) && !propName.contains(description)){
 				geographicIdentifier = property.getValue().toString();
 				break;
 			}
@@ -472,30 +431,13 @@ public class LinkingProcess extends AbstractAlgorithm {
 		Collection<Property> properties = feature.getProperties();
 		
 		for (Property property : properties) {
-			if(property.getName().toString().contains(alternativeGeographicIdentifierName)){
+			if(property.getName().toString().contains(description)){
 				alternativeGeographicIdentifierList.add(property.getValue().toString());
 				break;
 			}
 		}
 		
 		return alternativeGeographicIdentifierList;
-		
-	}
-	
-	private String getAlternativeGeographicIdentifier(SimpleFeature feature){
-		
-		String alternativeGeographicIdentifier = "";
-		
-		Collection<Property> properties = feature.getProperties();
-		
-		for (Property property : properties) {
-			if(property.getName().toString().contains(alternativeGeographicIdentifierName)){
-				alternativeGeographicIdentifier = property.getValue().toString();
-				break;
-			}
-		}
-		
-		return alternativeGeographicIdentifier;
 		
 	}
 	
@@ -542,10 +484,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 			 */
 			Point p2 = (Point) f2.getDefaultGeometry();
 			
-//			Coordinate reversedP2Coordinate = new Coordinate(p2.getY(), p2.getX());
-//			
-//			Point p2Reversed = new GeometryFactory().createPoint(reversedP2Coordinate);
-			
 			/*
 			 * transform to NAD83 projected coordinate system
 			 */			
@@ -554,7 +492,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 			//get the distance in meter
 			double tmpDistance = sourceFeaturePoint
 					.distance(p2Nad83);
-			LOGGER.info(getAlternativeGeographicIdentifier(f2));
+			LOGGER.info(getMatchingAttributeName(f2));
 			LOGGER.info(tmpDistance/1000 + " " + (distanceThreshold * kmInMilesFactor));
 			
 			//check against threshold, convert both values to kilometer
@@ -724,11 +662,9 @@ public class LinkingProcess extends AbstractAlgorithm {
 	public Class<?> getInputDataType(String id) {
 		
 		if(id.endsWith(sourceWFS)){
-			return LiteralAnyURIBinding.class;
+			return GTVectorDataBinding.class;
 		}else if(id.endsWith(targetWFS)){
 			return LiteralAnyURIBinding.class;			
-		}else if(id.endsWith(sourceGazetteerDescriptionFilter)){
-			return LiteralStringBinding.class;
 		}else if(id.endsWith(targetGazetteerDescriptionFilter)){
 			return LiteralStringBinding.class;
 		}else if(id.endsWith(boundingBoxFilter)){
@@ -737,8 +673,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 			return LiteralDoubleBinding.class;
 		}else if(id.endsWith(fuzzyWuzzyThreshold)){
 			return LiteralDoubleBinding.class;
-		}else if(id.endsWith(sourceWFSMaxFeatures)){
-			return LiteralIntBinding.class;
 		}else if(id.endsWith(targetWFSMaxFeatures)){
 			return LiteralIntBinding.class;
 		}

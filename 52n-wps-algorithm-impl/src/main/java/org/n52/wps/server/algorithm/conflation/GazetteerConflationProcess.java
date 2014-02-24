@@ -409,10 +409,6 @@ public class GazetteerConflationProcess extends AbstractAlgorithm {
 		
 		LOGGER.debug("Final result count: " + finalResults.size());
 		
-		/*
-		 * create output csv file TODO: RDF?!
-		 */
-		
 		Map<String, IData> result = new HashMap<String, IData>();
 		
 		result.put(outputFile, new GazetteerRelationalOutputDataBinding(finalResults));
