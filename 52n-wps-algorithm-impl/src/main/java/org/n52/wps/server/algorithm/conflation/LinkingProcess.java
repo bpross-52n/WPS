@@ -1,9 +1,7 @@
 package org.n52.wps.server.algorithm.conflation;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
@@ -25,21 +23,19 @@ import org.geotools.geometry.jts.JTS;
 import org.geotools.referencing.CRS;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GazetteerConflationResultEntry;
-import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.GTReferenceEnvelope;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GazetteerRelationalOutputDataBinding;
-import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
-import org.n52.wps.io.datahandler.parser.GML32WFSGBasicParser;
 import org.n52.wps.io.datahandler.parser.GML3WFSGBasicParser;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.LocalAlgorithmRepository;
+import org.opengis.feature.Feature;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.geometry.Envelope;
@@ -474,6 +470,11 @@ public class LinkingProcess extends AbstractAlgorithm {
 	private double isInRange(Point sourceFeaturePoint, SimpleFeature f2,
 			double distanceThreshold) {
 
+		
+		if(f2.getDefaultGeometry() == null){
+			tryGetSamplingFeatureGeometrie(f2);
+		}
+		
 		if (f2.getDefaultGeometry() instanceof Point) {
 
 			/*
@@ -504,6 +505,19 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return -1;
 	}
 	
+	private void tryGetSamplingFeatureGeometrie(SimpleFeature f2) {
+		
+		Collection<? extends Property> properties = f2.getValue();
+		
+		for (Property property : properties) {
+			LOGGER.debug(property.getName().getLocalPart());
+			if(property.getType().getBinding().isAssignableFrom(Feature.class)){
+				LOGGER.debug("" + (property instanceof Collection<?>));
+			}
+		}
+		
+	}
+
 	private String getCommand(String name1, String name2) {
 
 		return pythonHome + fileSeparator + pythonName + " " + fuzzyName + " " + name1 + " " + name2;
