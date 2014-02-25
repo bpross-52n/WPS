@@ -36,6 +36,9 @@ import org.opengis.feature.type.FeatureType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vividsolutions.jts.geom.Geometry;
 
 public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
@@ -58,7 +61,6 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private String baseURL = "http://www.opmw.org/ogc/ows10/52n/provenance-52n-march.ttl";
 	private String attributeTo = "f2n:arne";
 	private String generatedAt = dateformat.format(new GregorianCalendar().getTime());
-
 	
 	private final String type = "f2n:Kinda_Generic_ConflationProcess_v100";
 	private String superType = "f2n:ConflationAlgorithm_52N";	
@@ -87,11 +89,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	
 	private Properties properties;
 	
-	private Map<String, String> mappingsMap;
-	private Map<String, String> fixedAttributeValuesMap;
-	
-	private final String mappingsStart = "mappings:[";
-	private final String fixedAttributeValuesStart = "fixedAttributeValues:[";
+	private Map<?, ?> mappingsMap;
+	private Map<?, ?> fixedAttributeValuesMap;
 	
 	public Kinda_Generic_ConflationProcess(){
 		
@@ -286,7 +285,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		for (Property property : properties) {
 			if(mappingsMap.keySet().contains(property.getName().getLocalPart())){
-				addPropertyValue(newFeature, mappingsMap.get(property.getName().getLocalPart()), property.getValue());
+				addPropertyValue(newFeature, (String)mappingsMap.get(property.getName().getLocalPart()), property.getValue());
 			}
 		}		
 	}
@@ -344,49 +343,25 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	
 	public void createRules(String rules){
 		
-		String[] rulesArray = rules.split(",");
-		
-		for (String string : rulesArray) {
-			if(string.trim().startsWith(mappingsStart)){
-				createMappingsMap(string);
-			}else if(string.trim().startsWith(fixedAttributeValuesStart)){
-				createFixedAttributeValuesMap(string);
-			}
-		}		
+		ObjectMapper objMapper = new ObjectMapper();
+
+		try {
+			Map<?, ?> map = objMapper.readValue(rules, Map.class);
+
+			mappingsMap = (Map<?, ?>) map.get("mappings");
+			fixedAttributeValuesMap = (Map<?, ?>) map.get("fixedAttributeValues");			
+			
+			LOGGER.debug(map.size() + "");
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+		} catch (JsonMappingException e){
+		LOGGER.error(e.getMessage());
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage());
+		}	
 	}
-	
-	public void createMappingsMap(String string) {
 
-		string = string.replace(mappingsStart, "");
-		string = string.replace("]", "");
-		String[] singleRulesArray = string.split(";");
-		for (String string2 : singleRulesArray) {
-
-			String[] mapping = string2.split("->");
-
-			if (mapping.length > 1) {
-
-				mappingsMap.put(mapping[0].trim(), mapping[1].trim());
-			}
-		}
-	}
-	
-	public void createFixedAttributeValuesMap(String string) {
-
-		string = string.replace(fixedAttributeValuesStart, "");
-		string = string.replace("]", "");
-		String[] singleRulesArray = string.split(";");
-		for (String string2 : singleRulesArray) {
-
-			String[] mapping = string2.split("->");
-
-			if (mapping.length > 1) {
-
-				fixedAttributeValuesMap.put(mapping[0].trim(), mapping[1].trim());
-			}
-		}
-	}
-	
 	public String createRDFProvenance(){
 		
 		String rdfProvenance = createPrefixes(includeBundle, baseURL);		

@@ -46,18 +46,18 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
 	    
-//		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
-		InputStream tnmin = this.getClass().getResourceAsStream("dncshp.zip");		
+		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
+//		InputStream tnmin = this.getClass().getResourceAsStream("dncshp.zip");		
 		
-//		GML311BasicParser parser2 = new GML311BasicParser();
-		GTBinZippedSHPParser parser2 = new GTBinZippedSHPParser();
+		GML311BasicParser parser2 = new GML311BasicParser();
+//		GTBinZippedSHPParser parser2 = new GTBinZippedSHPParser();
 		
-//	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
-	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "application/x-zipped-shp", null);
+	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+//	    GTVectorDataBinding gtv2 = parser2.parse(tnmin, "application/x-zipped-shp", null);
 	    
 	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();
 	    
-		String rules = "mappings:[bfc_descri->geoNameCollection.memberGeoName.fullName;]";
+		String rules = "{ \"mappings\": { \"address\":\"address\", \"name\":\"geoNameCollection.memberGeoName.fullName\" }, \"fixedAttributeValues\": { \"featureFunction-1\":\"firefighting\" } }";
 		
 		process.createRules(rules);
 		
