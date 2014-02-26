@@ -30,7 +30,7 @@ public class LinkingProcessTest extends TestCase{
 		LinkingProcess process = new LinkingProcess("c:\\python27", "d:\\chaos-folder\\fuzz.py");
 		
 //		InputStream tdsin = this.getClass().getResourceAsStream("firestations_conflated.xml");
-		InputStream tdsin = this.getClass().getResourceAsStream("firestations_conflated.xml");
+		InputStream tdsin = this.getClass().getResourceAsStream("firestations_conflated2.xml");
 		
 		GML3ApplicationSchemaParser parser = new GML3ApplicationSchemaParser();
 		

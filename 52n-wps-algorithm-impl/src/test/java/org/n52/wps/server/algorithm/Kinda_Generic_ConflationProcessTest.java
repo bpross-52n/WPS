@@ -82,7 +82,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 //				
 //				SimpleFeature sft = featureBuilder.buildFeature(f.getIdentifier().getID());
 				
-				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature(f.getIdentifier().getID(), (Geometry)f.getDefaultGeometry(), (SimpleFeatureType)ft);
+				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature2(f.getIdentifier().getID(), (Geometry)f.getDefaultGeometry(), (SimpleFeatureType)ft);
 				
 				process.mapProperties(f, sft);
 				

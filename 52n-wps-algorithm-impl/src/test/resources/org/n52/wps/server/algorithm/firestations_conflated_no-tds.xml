@@ -1,0 +1,1633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gml:FeatureCollection xmlns="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmd="http://www.isotc211.org/2005/gmd"
+	xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:tds="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0"
+	xmlns:con="http://www.opengis.net/ows-9/cci/conflation" xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xsi:schemaLocation="http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0 http://services.interactive-instruments.de/xsprojects/ows10/schema/TDS_v3.0_SF0_GML321/TDS_v3.0_SF0_GML321.xsd http://www.opengis.net/ows-9/cci/conflation http://test.schemas.opengis.net/ows-9/cci/conflation/conflationMetadataExtension.xsd">
+	<gml:featureMembers>
+		<BuildingGeopoint gml:id="StructurePoints.82809">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.585847115 -121.853980238</gml:lowerCorner>
+					<gml:upperCorner>36.585847115 -121.853980238</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.585847115 -121.853980238</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>noInformation</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>9.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83013">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.590419644 -121.862225711</gml:lowerCorner>
+					<gml:upperCorner>36.590419644 -121.862225711</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.590419644 -121.862225711</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>lawEnforcement</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>17.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83083">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.530487309 -121.887677864</gml:lowerCorner>
+					<gml:upperCorner>36.530487309 -121.887677864</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.530487309 -121.887677864</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>rescueParamedical</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>39.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83141">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.503429593 -121.758704142</gml:lowerCorner>
+					<gml:upperCorner>36.503429593 -121.758704142</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.503429593 -121.758704142</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>noInformation</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>3.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83172">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.514487312 -121.761899726</gml:lowerCorner>
+					<gml:upperCorner>36.514487312 -121.761899726</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.514487312 -121.761899726</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>noInformation</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>34.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83256">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.590300783 -121.844238508</gml:lowerCorner>
+					<gml:upperCorner>36.590300783 -121.844238508</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.590300783 -121.844238508</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>noInformation</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>39.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83439">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.537890244 -121.831651522</gml:lowerCorner>
+					<gml:upperCorner>36.537890244 -121.831651522</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.537890244 -121.831651522</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>rescueParamedical</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>61.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83462">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.52972373 -121.838173737</gml:lowerCorner>
+					<gml:upperCorner>36.52972373 -121.838173737</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.52972373 -121.838173737</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>rescueParamedical</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>16.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83471">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.578063048 -121.848777918</gml:lowerCorner>
+					<gml:upperCorner>36.578063048 -121.848777918</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.578063048 -121.848777918</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>lawEnforcement</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>23.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint gml:id="StructurePoints.83508">
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.599456261 -121.852800839</gml:lowerCorner>
+					<gml:upperCorner>36.599456261 -121.852800839</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<geometry>
+				<gml:Point srsDimension="2">
+					<gml:pos>36.599456261 -121.852800839</gml:pos>
+				</gml:Point>
+			</geometry>
+			<address>No Information</address>
+			<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>noInformation</conditionOfFacility>
+			<controllingAuthority>noInformation</controllingAuthority>
+			<featureFunction-1>firefighting</featureFunction-1>
+			<featureFunction-2>lawEnforcement</featureFunction-2>
+			<featureFunction-3>noInformation</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>No Information</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>46.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>noInformation</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>noInformation</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>noInformation</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>U</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>noInformation</roofShape-1>
+			<roofShape-2>noInformation</roofShape-2>
+			<roofShape-3>noInformation</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+			<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+			<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>noInformation</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.1.4D8774CC5CF0A2901F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.5046074297959 -121.9362935586705</gml:lowerCorner>
+					<gml:upperCorner>36.5046074297959 -121.9362935586705</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>73 Fern Canyon Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Department of Forestry and Fire Protection Carmel Highlands Fire Protection District Unit</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.14.4D9220B80FE4EAA41F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.5741140494797 -121.9139745368302</gml:lowerCorner>
+					<gml:upperCorner>36.5741140494797 -121.9139745368302</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>4180 17 Mile Drive</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Department of Forestry and Fire Protection Carmel Hill Unit</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.15.4D9220C1CD99A3161F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.589162134873 -121.9445768461576</gml:lowerCorner>
+					<gml:upperCorner>36.589162134873 -121.9445768461576</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>3101 Forest Lake Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>California Department of Forestry and Fire Protection Pebble Beach</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.16.4D9221B24EF356781F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61929765461787 -121.9194655222383</gml:lowerCorner>
+					<gml:upperCorner>36.61929765461787 -121.9194655222383</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>600 Pine Avenue</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Pacific Grove Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.17.4D9222521B1CF98C1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59639050465347 -121.8977111951887</gml:lowerCorner>
+					<gml:upperCorner>36.59639050465347 -121.8977111951887</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>600 Pacific Street</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 1</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.18.4D92227301081A3C1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59838018485868 -121.8767835639712</gml:lowerCorner>
+					<gml:upperCorner>36.59838018485868 -121.8767835639712</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>1399 Cunningham Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Naval Postgraduate School Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.19.4D92227BB1F216941F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.59919694214909 -121.8614438192034</gml:lowerCorner>
+					<gml:upperCorner>36.59919694214909 -121.8614438192034</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>401 Dela Vina Avenue</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 3</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.2.4D8775BF6E5BC4461F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.53964404849154 -121.9073115462155</gml:lowerCorner>
+					<gml:upperCorner>36.53964404849154 -121.9073115462155</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>3775 Rio Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>California Department of Forestry and Fire Protection Cypress Fire Protection District</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.20.4D9222C84B9CF9041F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.58609085466941 -121.8481018598491</gml:lowerCorner>
+					<gml:upperCorner>36.58609085466941 -121.8481018598491</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>200 Fred Kane Drive</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Monterey Peninsula Airport Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.21.4D92230439CF595A1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61292404733609 -121.9019979441404</gml:lowerCorner>
+					<gml:upperCorner>36.61292404733609 -121.9019979441404</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>582 Hawthorne Street</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Monterey Fire Department Station 2</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.22.4D9223A2DF1583761F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.60909663275874 -121.8290966702953</gml:lowerCorner>
+					<gml:upperCorner>36.60909663275874 -121.8290966702953</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>1635 Broadway Avenue</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>City of Seaside Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.23.4D92288E1C4486A41F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.56913187344577 -121.7552816902015</gml:lowerCorner>
+					<gml:upperCorner>36.56913187344577 -121.7552816902015</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>31 Laureles Grade Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Salinas Rural Fire Protection District Station 2 Laureles Station</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.24.4D92295C14D9295E1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.64606816603469 -121.8051969786657</gml:lowerCorner>
+					<gml:upperCorner>36.64606816603469 -121.8051969786657</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>4400 General Jim Moore Boulevard</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Presidio of Monterey Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.25.4D922B3A3A6D968E1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.61824045045284 -121.687518426765</gml:lowerCorner>
+					<gml:upperCorner>36.61824045045284 -121.687518426765</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>19900 Portola Drive</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Salinas Rural Fire Protection District Station 1 Toro Station</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.27.4D922C22504379F61F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.65255644727461 -121.7889098338993</gml:lowerCorner>
+					<gml:upperCorner>36.65255644727461 -121.7889098338993</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>A Street</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>North Tree Fire International Fire Support Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.28.4D922C4D7A3553401F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.68274718576941 -121.8029294807525</gml:lowerCorner>
+					<gml:upperCorner>36.68274718576941 -121.8029294807525</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>Palm Avenue</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Marina Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.3.4D8775F1BD16324A1F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.55552934638354 -121.9214345430686</gml:lowerCorner>
+					<gml:upperCorner>36.55552934638354 -121.9214345430686</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>Mission Street and 6th Avenue</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Carmel-by-the-Sea Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.4.4D8777B2B990EA321F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.53044784329745 -121.8278870234221</gml:lowerCorner>
+					<gml:upperCorner>36.53044784329745 -121.8278870234221</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>8455 Carmel Valley Road</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Carmel Valley Fire Protection District Mid - Valley</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+		<BuildingGeopoint
+			gml:id="CWFID.ST_FIRE_STATION.0.7.4D877CAE6A6100961F20020000">
+			<gml:metaDataProperty />
+			<gml:description>No Information</gml:description>
+			<gml:identifier>No Information</gml:identifier>
+			<gml:name>No Information</gml:name>
+			<gml:boundedBy>
+				<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+					<gml:lowerCorner>36.48157269024836 -121.7315188735717</gml:lowerCorner>
+					<gml:upperCorner>36.48157269024836 -121.7315188735717</gml:upperCorner>
+				</gml:Envelope>
+			</gml:boundedBy>
+			<address>26 Via Contenta</address>
+			<aeroObstacleLightPresent>No Information</aeroObstacleLightPresent>
+			<angleOfOrientation>-999999.0</angleOfOrientation>
+			<area>-999999.0</area>
+			<conditionOfFacility>No Information</conditionOfFacility>
+			<controllingAuthority>No Information</controllingAuthority>
+			<featureFunction-1>No Information</featureFunction-1>
+			<featureFunction-2>No Information</featureFunction-2>
+			<featureFunction-3>No Information</featureFunction-3>
+			<floorCount>-999999</floorCount>
+			<geointAssuranceMetadata.processStep.source.resourceContentOrigin>No Information</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+			<geoNameCollection.memberGeoName.fullName>Carmel Valley Fire Department</geoNameCollection.memberGeoName.fullName>
+			<geoNameCollection.memberGeoName.nameIdentifier>No Information</geoNameCollection.memberGeoName.nameIdentifier>
+			<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+			<highestElevation>-999999.0</highestElevation>
+			<length>-999999.0</length>
+			<manufacturingInfo.byProduct-1>No Information</manufacturingInfo.byProduct-1>
+			<manufacturingInfo.byProduct-2>No Information</manufacturingInfo.byProduct-2>
+			<manufacturingInfo.byProduct-3>No Information</manufacturingInfo.byProduct-3>
+			<manufacturingInfo.product-1>No Information</manufacturingInfo.product-1>
+			<manufacturingInfo.product-2>No Information</manufacturingInfo.product-2>
+			<manufacturingInfo.product-3>No Information</manufacturingInfo.product-3>
+			<manufacturingInfo.rawMaterial-1>No Information</manufacturingInfo.rawMaterial-1>
+			<manufacturingInfo.rawMaterial-2>No Information</manufacturingInfo.rawMaterial-2>
+			<manufacturingInfo.rawMaterial-3>No Information</manufacturingInfo.rawMaterial-3>
+			<navigationLandmark>No Information</navigationLandmark>
+			<note.memorandum>No Information</note.memorandum>
+			<religiousInfo.religiousDesignation>No Information</religiousInfo.religiousDesignation>
+			<religiousInfo.religiousFacilityType>No Information</religiousInfo.religiousFacilityType>
+			<restriction.securityAttributesGroup_resClassification>No Information</restriction.securityAttributesGroup_resClassification>
+			<restriction.securityAttributesGroup_resNonIntelComMarkings>No Information</restriction.securityAttributesGroup_resNonIntelComMarkings>
+			<restriction.securityAttributesGroup_resOwnerProducer>No Information</restriction.securityAttributesGroup_resOwnerProducer>
+			<roofShape-1>No Information</roofShape-1>
+			<roofShape-2>No Information</roofShape-2>
+			<roofShape-3>No Information</roofShape-3>
+			<specifiedEnumerants>No Information</specifiedEnumerants>
+			<uniqueEntityIdentifier>No Information</uniqueEntityIdentifier>
+			<verticalConstMaterial-1>No Information</verticalConstMaterial-1>
+			<verticalConstMaterial-2>No Information</verticalConstMaterial-2>
+			<verticalConstMaterial-3>No Information</verticalConstMaterial-3>
+			<verticalObstIdentifier>No Information</verticalObstIdentifier>
+			<width>-999999.0</width>
+			<wirelessTelecomInfo.wirelessTelecomType>No Information</wirelessTelecomInfo.wirelessTelecomType>
+		</BuildingGeopoint>
+	</gml:featureMembers>
+</gml:FeatureCollection>

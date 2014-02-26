@@ -39,9 +39,10 @@ import org.geotools.gml2.SrsSyntax;
 import org.geotools.gml3.ApplicationSchemaXSD;
 import org.geotools.gml3.bindings.AbstractFeatureCollectionTypeBinding;
 import org.geotools.gml3.bindings.LineStringTypeBinding;
+import org.geotools.gml3.bindings.PointTypeBinding;
 import org.geotools.gml3.v3_2.GML;
-import org.geotools.gml3.v3_2.GMLConfiguration;
 import org.geotools.gml3.v3_2.bindings.EnvelopeTypeBinding;
+import org.geotools.wfs.v2_0.WFSConfiguration;
 import org.geotools.xml.AbstractComplexBinding;
 import org.geotools.xml.Configuration;
 import org.geotools.xml.Encoder;
@@ -73,14 +74,14 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		addDependency(new XSConfiguration());
 
 		if (gmlNamespace.equals(FeatureTypeSchema.GML_32_NAMESPACE)) {
-			GMLConfiguration gmlConfiguration = new GMLConfiguration();
+			Configuration gmlConfiguration = new WFSConfiguration();
 			gmlConfiguration.getProperties().add(
 					org.geotools.gml3.GMLConfiguration.NO_FEATURE_BOUNDS);
 			gmlConfiguration.getProperties().add(
 					org.geotools.gml3.GMLConfiguration.ENCODE_FEATURE_MEMBER);
 			addDependency(gmlConfiguration);
 		} else {
-			org.geotools.gml3.GMLConfiguration gmlConfiguration = new org.geotools.gml3.GMLConfiguration();
+			Configuration gmlConfiguration = new WFSConfiguration();
 			gmlConfiguration.getProperties().add(
 					org.geotools.gml3.GMLConfiguration.NO_FEATURE_BOUNDS);
 			gmlConfiguration.getProperties().add(
@@ -92,11 +93,12 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		bindings.put(GML.AbstractFeatureCollectionType,
 				AbstractFeatureCollectionTypeBindingGML3Fix.class);
 		bindings.put(GML.LineStringType, LineStringWithIdFix.class);
+		bindings.put(GML.PointType, PointWithIdFix.class);
 		bindings.put(GML.EnvelopeType, EnvelopeWithSrsNameFix.class);
-		if (gmlNamespace.equals(FeatureTypeSchema.GML_32_NAMESPACE)) {
-			bindings.put(MetaDataPropertyBinding.NAME,
-					MetaDataPropertyBinding.class);
-		}
+//		if (gmlNamespace.equals(FeatureTypeSchema.GML_32_NAMESPACE)) {
+//			bindings.put(MetaDataPropertyBinding.NAME,
+//					MetaDataPropertyBinding.class);
+//		}
 	}
 
 
@@ -175,30 +177,24 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		
 		return namespacePrefixes;
 	}
-
-
-	public static class AbstractFeatureCollectionTypeBindingGML3Fix extends AbstractFeatureCollectionTypeBinding {
+	
+	public static class AbstractFeatureCollectionTypeBindingGML3Fix extends
+			AbstractFeatureCollectionTypeBinding {
 
 		@Override
 		public Object getProperty(Object object, QName name) {
 			if (GML.featureMembers.equals(name)) {
-				return (SimpleFeatureCollection) object;
+				return ((SimpleFeatureCollection) object);
 			} else if (GML.boundedBy.equals(name)) {
-	        	SimpleFeatureCollection featureCollection = (SimpleFeatureCollection) object;
+				SimpleFeatureCollection featureCollection = (SimpleFeatureCollection) object;
 
-	            ReferencedEnvelope env = featureCollection.getBounds();
-	         		                
-	            
-	                if ( env != null ) {
-	                    //JD: here we don't return the envelope if it is null or empty, this is to work 
-	                    // around and issue with validation in the cite engine. I have opened a jira task 
-	                    // to track this, and hopefully eventually fix the cite engine
-	                    //    http://jira.codehaus.org/browse/GEOS-2700
-	                    return !( env.isNull() || env.isEmpty() ) ? env : null; 
-	                }
-	            
-	        }
+				ReferencedEnvelope env = featureCollection.getBounds();
 
+				if (env != null) {
+					return !(env.isNull() || env.isEmpty()) ? env : null;
+				}
+
+			}
 			return super.getProperty(object, name);
 		}
 
@@ -218,6 +214,23 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 			}
 			else if ("srsName".equals(name.getLocalPart())) {
 				return GML3ApplicationSchemaConfiguration.this.getSrsName();
+			}
+
+			return super.getProperty(object, name);
+		}
+
+	}
+
+	public class PointWithIdFix extends PointTypeBinding {
+
+		public PointWithIdFix(GeometryFactory gFactory) {
+			super(gFactory);
+		}
+
+		@Override
+		public Object getProperty(Object object, QName name) {
+			if ("id".equals(name.getLocalPart())) {
+				return "uuid."+ UUID.randomUUID().toString();
 			}
 
 			return super.getProperty(object, name);
