@@ -39,8 +39,7 @@
 		<wps:Input>
 			<ows:Identifier>Rules</ows:Identifier>
 			<wps:Data>
-				<wps:LiteralData>mappings:[address->address;
-    name->geoNameCollection.memberGeoName.fullName;], fixedAttributeValues:[featureFunction-1->firefighting]</wps:LiteralData>
+				<wps:LiteralData>{ "mappings": { "address":"address", "name":"geoNameCollection.memberGeoName.fullName" }, "fixedAttributeValues": { "featureFunction-1":"firefighting" } }</wps:LiteralData>
 			</wps:Data>
 		</wps:Input>
 	</wps:DataInputs>

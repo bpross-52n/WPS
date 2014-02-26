@@ -62,7 +62,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private String attributeTo = "f2n:arne";
 	private String generatedAt = dateformat.format(new GregorianCalendar().getTime());
 	
-	private final String type = "f2n:Kinda_Generic_ConflationProcess_v100";
+	private final String type = "f2n:Kinda_Generic_ConflationProcess_v110";
 	private String superType = "f2n:ConflationAlgorithm_52N";	
 	private String algorithmAttributedTo = "f2n:benjamin";		
 	private String agent = "f2n:benjamin";

@@ -35,15 +35,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import net.opengis.gml.x32.AbstractGeometryType;
 import net.opengis.gml.x32.FeaturePropertyType;
-import net.opengis.gml.x32.PointType;
 import net.opengis.om.x20.OMObservationDocument;
 import net.opengis.om.x20.OMObservationType;
 import net.opengis.om.x20.impl.OMObservationDocumentImpl;
 import net.opengis.samplingSpatial.x20.SFSpatialSamplingFeatureDocument;
 import net.opengis.samplingSpatial.x20.SFSpatialSamplingFeatureType;
-import net.opengis.samplingSpatial.x20.ShapeType;
 import net.opengis.samplingSpatial.x20.impl.SFSpatialSamplingFeatureTypeImpl;
 
 import org.apache.xerces.parsers.DOMParser;

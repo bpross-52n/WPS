@@ -1,25 +1,18 @@
 package org.n52.wps.server.algorithm;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
-
 import net.opengis.om.x20.OMObservationType;
 
-import org.geotools.feature.FeatureCollection;
 import org.n52.wps.io.data.GazetteerConflationResultEntry;
 import org.n52.wps.io.data.binding.complex.GML32OMWFSDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.datahandler.parser.GML32OMWFSGBasicParser;
 import org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaParser;
-import org.n52.wps.io.datahandler.parser.GML3OMApplicationSchemaParser;
 import org.n52.wps.server.algorithm.conflation.LinkingProcess;
-import org.opengis.feature.Property;
-import org.opengis.feature.simple.SimpleFeature;
 
 public class LinkingProcessTest extends TestCase{
 
