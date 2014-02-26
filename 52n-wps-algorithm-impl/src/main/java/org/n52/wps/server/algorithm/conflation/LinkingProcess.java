@@ -17,7 +17,16 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.geotools.feature.FeatureCollection;
+import net.opengis.gml.x32.AbstractFeatureType;
+import net.opengis.gml.x32.AbstractGeometryType;
+import net.opengis.gml.x32.FeaturePropertyType;
+import net.opengis.gml.x32.PointType;
+import net.opengis.gml.x32.StringOrRefType;
+import net.opengis.om.x20.OMObservationType;
+import net.opengis.samplingSpatial.x20.SFSpatialSamplingFeatureType;
+import net.opengis.samplingSpatial.x20.ShapeType;
+import net.opengis.samplingSpatial.x20.impl.SFSpatialSamplingFeatureTypeImpl;
+
 import org.geotools.feature.FeatureIterator;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.referencing.CRS;
@@ -25,20 +34,19 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.GazetteerConflationResultEntry;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.GTReferenceEnvelope;
+import org.n52.wps.io.data.binding.complex.GML32OMWFSDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GazetteerRelationalOutputDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
-import org.n52.wps.io.datahandler.parser.GML3WFSGBasicParser;
+import org.n52.wps.io.datahandler.parser.GML32OMWFSGBasicParser;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.LocalAlgorithmRepository;
-import org.opengis.feature.Feature;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.geometry.Envelope;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.opengis.referencing.operation.MathTransform;
 import org.slf4j.Logger;
@@ -106,6 +114,25 @@ public class LinkingProcess extends AbstractAlgorithm {
 				}
 			}
 		}
+		if (!OS_Name.startsWith("Windows")) {
+			pythonName = "python";
+		}
+		
+		try {
+			
+			CoordinateReferenceSystem wgs84 = CRS.decode("EPSG:4326");
+			CoordinateReferenceSystem nad83 = CRS.decode("EPSG:26944");
+			
+			tx = CRS.findMathTransform(wgs84, nad83, false);
+		} catch (Exception e) {
+			LOGGER.error("Exception while trying to find transformation between WGS84 and NAD83 / California zone 4.", e);
+		} 
+	}
+	
+	public LinkingProcess(String pythonHome, String fuzzyName){
+		
+		this.pythonHome = pythonHome;
+		this.fuzzyName = fuzzyName;
 		
 		if (!OS_Name.startsWith("Windows")) {
 			pythonName = "python";
@@ -177,37 +204,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 		}
 		
 		/*
-		 * append bbox
-		 */
-		
-		List<IData> bboxFilterInputs = inputData.get(boundingBoxFilter);
-		
-		Envelope bboxFilterReferenceEnvelope = null;
-		
-		try {
-			bboxFilterReferenceEnvelope = ((GTReferenceEnvelope)bboxFilterInputs.get(0)).getPayload();			
-		} catch (ClassCastException e) {
-			throw new RuntimeException(boundingBoxFilter + " input value can not be cast to GTReferenceEnvelope.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + boundingBoxFilter + " provided.");
-		}
-		
-		double[] lowerCorner = bboxFilterReferenceEnvelope.getLowerCorner().getCoordinate();
-		double[] upperCorner = bboxFilterReferenceEnvelope.getUpperCorner().getCoordinate();
-		
-		List<IData> sourceGazInputs = inputData.get(sourceWFS);
-		
-		URI sourceGazURI = null;
-		
-		try {
-			sourceGazURI = ((LiteralAnyURIBinding)sourceGazInputs.get(0)).getPayload();			
-		} catch (ClassCastException e) {
-			throw new RuntimeException(sourceWFS + " input value is not an URI.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + sourceWFS + " provided.");
-		}
-		
-		/*
 		 * get target features
 		 */
 		List<IData> targetGazInputs = inputData.get(targetWFS);
@@ -254,9 +250,9 @@ public class LinkingProcess extends AbstractAlgorithm {
 		
 		String finalTargetGazetteerRequest = targetGazURI.toString();
 		
-		GML3WFSGBasicParser gml32Parser = new GML3WFSGBasicParser();
+		GML32OMWFSGBasicParser gml32Parser = new GML32OMWFSGBasicParser();
 		
-		GTVectorDataBinding targetGazetteerFeatures = null;
+		GML32OMWFSDataBinding targetGazetteerFeatures = null;
 		
 		try {
 			
@@ -303,7 +299,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return result;
 	}	
 	
-	public List<GazetteerConflationResultEntry> runMatching(GTVectorDataBinding sourceGazetteerFeatures, GTVectorDataBinding targetGazetteerFeatures, double fuzzyWuzzyThreshold, double searchDistance) {
+	public List<GazetteerConflationResultEntry> runMatching(GTVectorDataBinding sourceGazetteerFeatures, GML32OMWFSDataBinding targetGazetteerFeatures, double fuzzyWuzzyThreshold, double searchDistance) {
 		
 		/*
 		 * loop over features
@@ -320,7 +316,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 			
 			String sourceName = getMatchingAttributeName(sourceFeature);
 
-			Map<SimpleFeature, Double> targetFeaturesInRange = getFeatureInRange(sourceFeature, targetGazetteerFeatures.getPayload(), searchDistance);
+			Map<OMObservationType, Double> targetFeaturesInRange = getFeatureInRange(sourceFeature, targetGazetteerFeatures.getPayload(), searchDistance);
 			
 			if(targetFeaturesInRange.size() == 0){
 				LOGGER.info("No features in range for feature with id " + sourceFeature.getID());
@@ -333,11 +329,11 @@ public class LinkingProcess extends AbstractAlgorithm {
 				 * iterate over target features
 				 */		
 				
-				Iterator<SimpleFeature> targetFeatureIterator = targetFeaturesInRange.keySet().iterator();
+				Iterator<OMObservationType> targetFeatureIterator = targetFeaturesInRange.keySet().iterator();
 				
 				while(targetFeatureIterator.hasNext()){
 					
-					SimpleFeature targetFeature = targetFeatureIterator.next();
+					OMObservationType targetFeature = targetFeatureIterator.next();
 						
 						/*
 						 * check names with FuzzyWuzzy
@@ -346,19 +342,19 @@ public class LinkingProcess extends AbstractAlgorithm {
 						 * save the combination with the highest fw score, if tied, use distance 
 						 */
 						
-						List<String> targetNames = getAllAlternativeGeographicIdentifier(targetFeature);
+						List<String> targetNames = getDescription(targetFeature);
 
 						for (String string : targetNames) {
 							int fwScore = getFuzzyWuzzyScore(sourceName, string);
 							
-							LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + getMatchingAttributeName(targetFeature) + " " + sourceName + " " + string);
+							LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + targetFeature.getId() + " " + sourceName + " " + string);
 							
 							/*
 							 * if above fuzzywuzzy threshold:
 							 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
 							 */
 							if(fwScore >= fuzzyWuzzyThreshold){
-								tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, getMatchingAttributeName(targetFeature), sourceName, string));
+								tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, targetFeature.getId(), sourceName, string));
 								break;
 							}
 						}					
@@ -375,11 +371,33 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return finalResults;
 	}
 
-	private Map<SimpleFeature, Double> getFeatureInRange(SimpleFeature sourceFeature, FeatureCollection<?, ?> candidateFeatures, double distanceThreshold){
+	private List<String> getDescription(OMObservationType targetFeature) {
 		
-		Map<SimpleFeature, Double> featuresInRange = new HashMap<SimpleFeature, Double>();
+		List<String> descriptionList = new ArrayList<String>();
 		
-		FeatureIterator<?> targetFeatureIterator = candidateFeatures.features();
+		StringOrRefType descriptionType = targetFeature.getDescription();
+		
+		if(descriptionType != null){
+			String descriptionString = descriptionType.getStringValue();
+			/*
+			 * tags in the description field are mostly separated by comma
+			 */
+			String[] descriptionArray = descriptionString.split(",");
+			
+			for (String string : descriptionArray) {
+				descriptionList.add(string);
+			}
+			
+		}	
+		
+		return descriptionList;
+	}
+
+	private Map<OMObservationType, Double> getFeatureInRange(SimpleFeature sourceFeature, List<OMObservationType> list, double distanceThreshold){
+		
+		Map<OMObservationType, Double> featuresInRange = new HashMap<OMObservationType, Double>();
+		
+		Iterator<OMObservationType> targetFeatureIterator = list.iterator();
 		
 		LOGGER.info(getMatchingAttributeName(sourceFeature));
 		
@@ -390,7 +408,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		LOGGER.info("" + sourceFeaturePointInNad83);
 		
 		while (targetFeatureIterator.hasNext()) {
-			SimpleFeature candidateFeature = (SimpleFeature) targetFeatureIterator.next();
+			OMObservationType candidateFeature = targetFeatureIterator.next();
 			
 			double range = isInRange(sourceFeaturePointInNad83, candidateFeature, distanceThreshold);
 			
@@ -417,23 +435,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 		}
 		
 		return geographicIdentifier;
-		
-	}
-	
-	private List<String> getAllAlternativeGeographicIdentifier(SimpleFeature feature){
-		
-		List<String> alternativeGeographicIdentifierList = new ArrayList<String>();
-		
-		Collection<Property> properties = feature.getProperties();
-		
-		for (Property property : properties) {
-			if(property.getName().toString().contains(description)){
-				alternativeGeographicIdentifierList.add(property.getValue().toString());
-				break;
-			}
-		}
-		
-		return alternativeGeographicIdentifierList;
 		
 	}
 	
@@ -467,57 +468,57 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return p1Nad83;
 	}
 
-	private double isInRange(Point sourceFeaturePoint, SimpleFeature f2,
+	private double isInRange(Point sourceFeaturePoint, OMObservationType candidateFeature,
 			double distanceThreshold) {
-
 		
-		if(f2.getDefaultGeometry() == null){
-			tryGetSamplingFeatureGeometrie(f2);
-		}
-		
-		if (f2.getDefaultGeometry() instanceof Point) {
+		FeaturePropertyType featureOfInterest = candidateFeature
+				.getFeatureOfInterest();
 
-			/*
-			 * TODO: coordinates from second WFS-G seem to be in a different order
-			 * right now, we just revert the order of the coordinates
-			 * additionally we could check, whether they are not inside the bounding box of the target
-			 *  
-			 */
-			Point p2 = (Point) f2.getDefaultGeometry();
+		AbstractFeatureType abstractFeature = featureOfInterest.getAbstractFeature();
+
+		if (abstractFeature instanceof SFSpatialSamplingFeatureTypeImpl) {
+
+			SFSpatialSamplingFeatureType featureTypeImpl = (SFSpatialSamplingFeatureType)abstractFeature ;
 			
-			/*
-			 * transform to NAD83 projected coordinate system
-			 */			
-			Point p2Nad83 = transformWGS84ToNAD83(p2);
-			
-			//get the distance in meter
-			double tmpDistance = sourceFeaturePoint
-					.distance(p2Nad83);
-			LOGGER.info(getMatchingAttributeName(f2));
-			LOGGER.info(tmpDistance/1000 + " " + (distanceThreshold * kmInMilesFactor));
-			
-			//check against threshold, convert both values to kilometer
-			if ((tmpDistance/1000) < (distanceThreshold * kmInMilesFactor)) {
-				//return distance in miles
-				return (tmpDistance/1000) * (1/kmInMilesFactor);
+			ShapeType shapeType = featureTypeImpl.getShape();
+
+			AbstractGeometryType abstractGeometryType = shapeType
+					.getAbstractGeometry();
+
+			if (abstractGeometryType instanceof PointType) {
+				
+				PointType pointType = (PointType) abstractGeometryType;
+
+				String [] coordinates = pointType.getPos().getStringValue().split(" ");
+				/*
+				 * TODO: coordinates from second WFS-G seem to be in a different order
+				 * right now, we just revert the order of the coordinates
+				 * additionally we could check, whether they are not inside the bounding box of the target
+				 *  
+				 */
+				Point p2 = new GeometryFactory().createPoint(new Coordinate(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])));
+				
+				/*
+				 * transform to NAD83 projected coordinate system
+				 */			
+				Point p2Nad83 = transformWGS84ToNAD83(p2);
+				
+				//get the distance in meter
+				double tmpDistance = sourceFeaturePoint
+						.distance(p2Nad83);
+				LOGGER.info(candidateFeature.getId());
+				LOGGER.info(tmpDistance/1000 + " " + (distanceThreshold * kmInMilesFactor));
+				
+				//check against threshold, convert both values to kilometer
+				if ((tmpDistance/1000) < (distanceThreshold * kmInMilesFactor)) {
+					//return distance in miles
+					return (tmpDistance/1000) * (1/kmInMilesFactor);
+				}
 			}
 		}
 		return -1;
 	}
 	
-	private void tryGetSamplingFeatureGeometrie(SimpleFeature f2) {
-		
-		Collection<? extends Property> properties = f2.getValue();
-		
-		for (Property property : properties) {
-			LOGGER.debug(property.getName().getLocalPart());
-			if(property.getType().getBinding().isAssignableFrom(Feature.class)){
-				LOGGER.debug("" + (property instanceof Collection<?>));
-			}
-		}
-		
-	}
-
 	private String getCommand(String name1, String name2) {
 
 		return pythonHome + fileSeparator + pythonName + " " + fuzzyName + " " + name1 + " " + name2;
@@ -612,25 +613,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 			throw new RuntimeException(e);
 		}
 		return -1;
-	}
-	
-	private String buildNGARequest(String request, double[] lowerCorner, double[] upperCorner, String propertyName, String[] filterLiterals, int maxFeatures){
-		
-		String bbox = WFSGRequestStringConstants.FE100_BBOX.replace(WFSGRequestStringConstants.LXEXP, "" + lowerCorner[0]);
-		
-		bbox = bbox.replace(WFSGRequestStringConstants.LYEXP,  "" + lowerCorner[1]);
-		bbox = bbox.replace(WFSGRequestStringConstants.UXEXP,  "" + upperCorner[0]);
-		bbox = bbox.replace(WFSGRequestStringConstants.UYEXP,  "" + upperCorner[1]);
-		
-		request = request.replace(WFSGRequestStringConstants.BBOXEXP, bbox);
-	
-		String allOrStatements = createFilter(propertyName, filterLiterals);
-		
-		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
-		request = request.replace(WFSGRequestStringConstants.MAXFEATURESEXP, maxFeatures + "");
-		
-		return request;	
-		
 	}
 	
 	private String buildVGIWFSRequest(String request, String propertyName, String[] filterLiterals, int maxFeatures){

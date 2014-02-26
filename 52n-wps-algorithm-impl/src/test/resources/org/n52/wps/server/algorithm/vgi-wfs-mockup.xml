@@ -66,6 +66,39 @@
     </om:OM_Observation>
   </wfs:member>
   <wfs:member>
+    <om:OM_Observation gml:id="o_A384CEEC454F09398500DF7B69C3137EB64FD2FA">
+      <gml:description>forest fire near monterrey</gml:description>
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_1581">
+          <gml:timePosition>2014-02-04T12:02:23.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime>
+        <gml:TimeInstant gml:id="ti_GF2619DC797999E30E8E43B95294669496B14949">
+          <gml:timePosition>2014-02-04T12:23:21.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:resultTime>
+      <om:procedure xlink:href="http://www.flickr.com/photos/residae"/>
+      <om:observedProperty xlink:href="http://www.opengis.net/def/property/humanVisualPerception"/>
+      <om:featureOfInterest>
+        <sams:SF_SpatialSamplingFeature xmlns:sams="http://www.opengis.net/samplingSpatial/2.0" xmlns:sf="http://www.opengis.net/sampling/2.0" gml:id="ssf_H9A092F37B6826C7134D05AC301FBDE2DFB9B347">
+          <gml:description>Firestation, Carmel</gml:description>
+          <gml:identifier codeSpace="">photo-295155260-feature</gml:identifier>
+          <gml:name>Forest Fire near Monterrey, CA</gml:name>
+          <sf:type xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint"/>
+          <sf:sampledFeature xlink:href="http://www.52north.org/sos/featureOfInterest/world"/>
+          <sams:shape>
+            <gml:Point gml:id="point_ssf_H9A092F37B6826C7134D05AC301FBDE2DFB9B347">
+              <gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">-121.8847 36.5792</gml:pos>
+            </gml:Point>
+          </sams:shape>
+        </sams:SF_SpatialSamplingFeature>
+      </om:featureOfInterest>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" xlink:href="http://www.flickr.com/photos/residae/295155260" xsi:type="ns:ReferenceType"/>
+    </om:OM_Observation>
+  </wfs:member>
+  <wfs:member>
     <om:OM_Observation gml:id="o_CD3514729EC500C458D7303A4B79590A719A0813">
       <gml:description>fire forest live</gml:description>
       <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation"/>

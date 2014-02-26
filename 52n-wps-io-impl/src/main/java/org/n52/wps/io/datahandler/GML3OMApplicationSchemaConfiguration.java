@@ -28,12 +28,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.xml.namespace.QName;
 
 import net.opengis.gml.x32.StringOrRefType;
+import net.opengis.om.x20.OMObservationType;
+import net.opengis.om.x20.impl.OMObservationDocumentImpl;
+import net.opengis.om.x20.impl.OMObservationTypeImpl;
 import net.opengis.sampling.x20.SFSamplingFeatureDocument;
 import net.opengis.sampling.x20.SFSamplingFeatureType;
 import net.opengis.sampling.x20.impl.SFSamplingFeatureDocumentImpl;
@@ -49,9 +53,12 @@ import org.geotools.gml3.v3_2.GMLConfiguration;
 import org.geotools.gml3.v3_2.bindings.EnvelopeTypeBinding;
 import org.geotools.xml.AbstractComplexBinding;
 import org.geotools.xml.Configuration;
+import org.geotools.xml.DocumentFactory;
+import org.geotools.xml.DocumentWriter;
 import org.geotools.xml.ElementInstance;
 import org.geotools.xml.Encoder;
 import org.geotools.xml.Node;
+import org.geotools.xml.impl.NodeImpl;
 import org.geotools.xs.XSConfiguration;
 import org.n52.wps.io.datahandler.GML32OMConfiguration.SFSamplingFeatureDocumentImplBinding;
 import org.n52.wps.io.datahandler.SchemaLocationHandler.FeatureTypeSchema;
@@ -88,6 +95,8 @@ public class GML3OMApplicationSchemaConfiguration extends Configuration {
 		this.gmlNamespace = gmlNamespace;
 		bindings.put(new QName("http://www.opengis.net/samplingSpatial/2.0", "SF_SpatialSamplingFeature"),
 				SFSamplingFeatureDocumentImplBinding.class);
+		bindings.put(new QName("http://www.opengis.net/om/2.0", "OM_Observation"),
+				OMObservationTypeImplBinding.class);
 	}
 
 
@@ -166,8 +175,7 @@ public class GML3OMApplicationSchemaConfiguration extends Configuration {
 		
 		return namespacePrefixes;
 	}
-
-
+	
 	public static class SFSamplingFeatureDocumentImplBinding extends AbstractComplexBinding{
 		
 		public static final QName NAME = new QName("http://www.opengis.net/samplingSpatial/2.0", "SF_SpatialSamplingFeature");
@@ -179,14 +187,69 @@ public class GML3OMApplicationSchemaConfiguration extends Configuration {
 
 		@Override
 		public Class<?> getType() {
-			return SFSamplingFeatureType.class;
+			return SFSamplingFeatureTypeImpl.class;
+		}
+		
+		@Override
+		public Object parse(ElementInstance instance, Node node, Object value)
+				throws Exception {
+			
+			List<?> attributes = node.getChildren();
+			
+			for (Object object : attributes) {
+				
+				if(object instanceof NodeImpl){
+					NodeImpl nodeimpl = (NodeImpl)object;
+					
+					String name = nodeimpl.getComponent().getName();
+					
+					Object o = null;
+					
+					if(nodeimpl.getChildren() != null && nodeimpl.getChildren().size() > 0){
+						
+						try {
+							o = ((org.geotools.xml.impl.NodeImpl)nodeimpl.getChildren().get(0)).getValue();
+						} catch (Exception e) {
+							// TODO: handle exception
+						}	
+					}else{
+						o = nodeimpl.getValue();
+					}
+				}
+				
+				System.out.println(object.getClass());
+			}
+			
+			SFSamplingFeatureTypeImpl parsedObject = (SFSamplingFeatureTypeImpl) SFSamplingFeatureType.Factory.newInstance();
+	
+
+			value = parsedObject;
+			return value;
+			
+		}
+		
+	}
+
+
+	public static class OMObservationTypeImplBinding extends AbstractComplexBinding{
+		
+		public static final QName NAME = new QName("http://www.opengis.net/om/2.0", "OM_Observation");
+
+		@Override
+		public QName getTarget() {
+			return NAME;
+		}
+
+		@Override
+		public Class<?> getType() {
+			return OMObservationDocumentImpl.class;
 		}
 		
 		@Override
 		public Object getProperty(Object object, QName name) throws Exception {
 			
 			if(name.equals(NAME)){
-				return (SFSamplingFeatureType) object;
+				return (OMObservationTypeImpl) object;
 			}
 			
 			return super.getProperty(object, name);
@@ -195,13 +258,16 @@ public class GML3OMApplicationSchemaConfiguration extends Configuration {
 		@Override
 		public Object parse(ElementInstance instance, Node node, Object value)
 				throws Exception {
-			SFSamplingFeatureType parsedObject = net.opengis.sampling.x20.SFSamplingFeatureType.Factory.newInstance();
+			
+			
+			List<?> attributes = node.getChildren();
+			
+			for (Object object : attributes) {
+				System.out.println(object.getClass());
+			}
+			
+			OMObservationTypeImpl parsedObject = (OMObservationTypeImpl) OMObservationType.Factory.newInstance();
 	
-			StringOrRefType stringOrRefType = StringOrRefType.Factory.newInstance();
-			
-			stringOrRefType.setStringValue("Description");
-			
-			parsedObject.setDescription(stringOrRefType);
 			value = parsedObject;
 			return value;
 			

@@ -31,39 +31,31 @@ to the WPS version 0.4.0 (OGC 05-007r4).
  ***************************************************************/
 package org.n52.wps.io.datahandler.parser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
-import org.geotools.data.collection.ListFeatureCollection;
-import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.feature.DefaultFeatureCollections;
-import org.geotools.feature.FeatureCollection;
-import org.geotools.feature.FeatureIterator;
-import org.geotools.feature.GeometryAttributeImpl;
-import org.geotools.feature.type.GeometryDescriptorImpl;
-import org.geotools.feature.type.GeometryTypeImpl;
-import org.geotools.filter.identity.GmlObjectIdImpl;
-import org.geotools.xml.Configuration;
-import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-import org.n52.wps.io.datahandler.GML32OMConfiguration;
-import org.opengis.feature.GeometryAttribute;
-import org.opengis.feature.Property;
-import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.feature.simple.SimpleFeatureType;
-import org.opengis.feature.type.GeometryDescriptor;
-import org.opengis.feature.type.GeometryType;
-import org.opengis.filter.identity.Identifier;
+import net.opengis.gml.x32.AbstractGeometryType;
+import net.opengis.gml.x32.FeaturePropertyType;
+import net.opengis.gml.x32.PointType;
+import net.opengis.om.x20.OMObservationDocument;
+import net.opengis.om.x20.OMObservationType;
+import net.opengis.om.x20.impl.OMObservationDocumentImpl;
+import net.opengis.samplingSpatial.x20.SFSpatialSamplingFeatureDocument;
+import net.opengis.samplingSpatial.x20.SFSpatialSamplingFeatureType;
+import net.opengis.samplingSpatial.x20.ShapeType;
+import net.opengis.samplingSpatial.x20.impl.SFSpatialSamplingFeatureTypeImpl;
+
+import org.apache.xerces.parsers.DOMParser;
+import org.apache.xmlbeans.XmlException;
+import org.n52.wps.io.data.binding.complex.GML32OMWFSDataBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vividsolutions.jts.geom.Geometry;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -77,164 +69,70 @@ public class GML32OMWFSGBasicParser extends AbstractParser {
 	
 	public GML32OMWFSGBasicParser() {
 		super();
-		supportedIDataTypes.add(GTVectorDataBinding.class);
+		supportedIDataTypes.add(GML32OMWFSDataBinding.class);
 	}
 	
 	@Override
-	public GTVectorDataBinding parse(InputStream stream, String mimeType, String schema) {
+	public GML32OMWFSDataBinding parse(InputStream stream, String mimeType, String schema) {
 
-		FileOutputStream fos = null;
-		try{
-			File tempFile = File.createTempFile("wps", "tmp");
-			finalizeFiles.add(tempFile); // mark for final delete
-			fos = new FileOutputStream(tempFile);
-			int i = stream.read();
-			while(i != -1){
-				fos.write(i);
-				i = stream.read();
-			}
-			fos.flush();
-			fos.close();
-			GTVectorDataBinding data = parseXML(tempFile);
-			return data;
-		}
-		catch(IOException e) {
-			if (fos != null) try { fos.close(); } catch (Exception e1) { }
-			throw new IllegalArgumentException("Error while creating tempFile", e);
-		}
-	}
-	
-	public GTVectorDataBinding parse(File file, String mimeType, String schema) {
-		return parseXML(file);
-	}
-	
-	private GTVectorDataBinding parseXML(File file) {
+		ArrayList<OMObservationType> observationList = new ArrayList<OMObservationType>();
 		
-		SimpleFeatureCollection fc = parseFeatureCollection(file);
+		GML32OMWFSDataBinding result = new GML32OMWFSDataBinding(observationList);
 		
-		GTVectorDataBinding data = new GTVectorDataBinding(fc);
-		
-		return data;
-	}
-	
-	/**
-	 * Method to parse a SimpleFeatureCollection out of a file. Depending on the schema and schema location the Configuration will be 
-	 * a GML or ApplicationSchemaConfiguration and the Parser will be set strict or not.	 * 
-	 * 
-	 * @param file File containing a SimpleFeatureCollection
-	 * @return The parsed SimpleFeatureCollection
-	 */
-	public SimpleFeatureCollection parseFeatureCollection(File file){
-		
-		Configuration configuration = new GML32OMConfiguration();
-		boolean shouldSetParserStrict = false;
-		
-		//parse		
-		SimpleFeatureCollection fc = parseFeatureCollection(file, configuration, shouldSetParserStrict);
-		
-		return fc;
-	}
-	
-	/**
-	 * Method to parse a SimpleFeatureCollection out of a file. 
-	 * 
-	 * @param file File containing a SimpleFeatureCollection
-	 * @param configuration The Configuration for the Parser
-	 * @param shouldSetParserStrict Boolean specifying whether the Parser should be set to strict or not.
-	 * @return The parsed SimpleFeatureCollection
-	 */
-	public SimpleFeatureCollection parseFeatureCollection(File file, Configuration configuration, boolean shouldSetParserStrict){
-		
-		org.geotools.xml.Parser parser = new org.geotools.xml.Parser(configuration);
-		
-		parser.setStrict(shouldSetParserStrict);
-		
-		//parse		
-		SimpleFeatureCollection fc = DefaultFeatureCollections.newCollection();
 		try {
-			Object parsedData =  parser.parse( new FileInputStream(file));
-			if(parsedData instanceof FeatureCollection){
-				fc = (SimpleFeatureCollection) parsedData;				
-			}else if(parsedData instanceof HashMap){
-				List<?> possibleSimpleFeatureList = ((ArrayList<?>)((HashMap<?,?>) parsedData).get("member"));				
-				
-				if(possibleSimpleFeatureList!=null){
-					List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
-					
-					SimpleFeatureType sft = null;
-					
-					for (Object possibleSimpleFeature : possibleSimpleFeatureList) {
-						
-						if(possibleSimpleFeature instanceof SimpleFeature){
-							SimpleFeature sf = ((SimpleFeature)possibleSimpleFeature);
-							if(sft == null){
-								sft = sf.getType();
-							}
-							simpleFeatureList.add(sf);
-						}						
-					}
-					
-					fc = new ListFeatureCollection(sft, simpleFeatureList);										
-				}else{
-					fc = (SimpleFeatureCollection) ((HashMap<?,?>) parsedData).get("FeatureCollection");
-				}
-			}else if(parsedData instanceof SimpleFeature){
-				
-				Collection<? extends Property> values = ((SimpleFeature) parsedData).getValue();
-				for(Property value : values){
-					Object tempValue = value.getValue();
-					if(value.getType().getBinding().isAssignableFrom(FeatureCollection.class)){
-						if(tempValue instanceof ArrayList){
-							ArrayList<?> list = (ArrayList<?>) tempValue;
-							List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
-							SimpleFeatureType sft = null;
-							for(Object listValue : list){
-								if(listValue instanceof SimpleFeature){									
-									SimpleFeature sf = ((SimpleFeature)listValue);
-									if(sft == null){
-										sft = sf.getType();
-									}
-									simpleFeatureList.add(sf);
-								}
-							}
-							fc = new ListFeatureCollection(sft, simpleFeatureList);	
-						}
-					}
-				}
-				
-			}
+			parseObservations(stream, observationList);
+		} catch (SAXException e) {
+			LOGGER.error(e.getMessage());
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage());
+		}
 		
-		FeatureIterator<?> featureIterator = fc.features();
-		while(featureIterator.hasNext()){
-			SimpleFeature feature = (SimpleFeature) featureIterator.next();
-			if(feature.getDefaultGeometry()==null){
-				Collection<org.opengis.feature.Property>properties = feature.getProperties();
-				for(org.opengis.feature.Property property : properties){
-					try{						
-						Geometry g = (Geometry)property.getValue();
-						if(g!=null){
-							GeometryAttribute oldGeometryDescriptor = feature.getDefaultGeometryProperty();
-							GeometryType type = new GeometryTypeImpl(property.getName(),(Class<?>)oldGeometryDescriptor.getType().getBinding(),oldGeometryDescriptor.getType().getCoordinateReferenceSystem(),oldGeometryDescriptor.getType().isIdentified(),oldGeometryDescriptor.getType().isAbstract(),oldGeometryDescriptor.getType().getRestrictions(),oldGeometryDescriptor.getType().getSuper(),oldGeometryDescriptor.getType().getDescription());
-																
-							GeometryDescriptor newGeometryDescriptor = new GeometryDescriptorImpl(type,property.getName(),0,1,true,null);
-							Identifier identifier = new GmlObjectIdImpl(feature.getID());
-							GeometryAttributeImpl geo = new GeometryAttributeImpl((Object)g,newGeometryDescriptor, identifier);
-							feature.setDefaultGeometryProperty(geo);
-							feature.setDefaultGeometry(g);
-							
-						}
-					}catch(ClassCastException e){
-						//do nothing
-					}
+		return result;
+	}
+	
+	public void parseObservations(InputStream stream, ArrayList<OMObservationType> observationList) throws SAXException, IOException{
+		
+		DOMParser parser = new DOMParser();		
+		
+		InputSource inputSource = new InputSource(stream);
+		
+		parser.parse(inputSource);
+		
+		Document d = parser.getDocument();
+		
+		NodeList features = d.getElementsByTagNameNS("http://www.opengis.net/wfs/2.0", "member");
+	
+        for(int i=0;i<features.getLength();i++){
+        	
+            Node node = features.item(i);
+            
+            if(node.getChildNodes().getLength() > 0){
+            	try { 
+            		OMObservationDocumentImpl observationDocumentImpl = (OMObservationDocumentImpl) OMObservationDocument.Factory.parse(node.getChildNodes().item(1));
 					
+            		OMObservationType observationType = observationDocumentImpl.getOMObservation();
+            		
+					FeaturePropertyType featureOfInterest = observationDocumentImpl.getOMObservation().getFeatureOfInterest();
+					
+					SFSpatialSamplingFeatureType featureTypeImpl = SFSpatialSamplingFeatureType.Factory.newInstance();
+					
+					if(featureOfInterest instanceof SFSpatialSamplingFeatureTypeImpl){
+						featureTypeImpl =  (SFSpatialSamplingFeatureTypeImpl)featureOfInterest;
+					}else{
+						SFSpatialSamplingFeatureDocument spatialSamplingFeatureType = SFSpatialSamplingFeatureDocument.Factory.parse(featureOfInterest.getDomNode().getChildNodes().item(1));
+						
+						featureTypeImpl = spatialSamplingFeatureType.getSFSpatialSamplingFeature();
+					}
+					observationType.getFeatureOfInterest().setAbstractFeature(featureTypeImpl);
+					
+					observationList.add(observationType);
+					
+				} catch (XmlException e) {
+					LOGGER.error(e.getMessage());
 				}
-			}
-		}
-		} catch (Exception e) {
-			LOGGER.error("Exception while handling parsed GML.", e);
-			throw new RuntimeException(e);
-		}
-		return fc;
+            }
+        }
+		
 	}
 
 }
