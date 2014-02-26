@@ -56,7 +56,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	
 	private boolean includeBundle = false;
 	private DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");	
-	private GregorianCalendar calendar = new GregorianCalendar(2014, 1, 6, 9, 18);	
+	private GregorianCalendar calendar = new GregorianCalendar(2014, 2, 26, 14, 23);	
 	private String algorithmGeneratedAt = dateformat.format(calendar.getTime());		
 	private String baseURL = "http://www.opmw.org/ogc/ows10/52n/provenance-52n-march.ttl";
 	private String attributeTo = "f2n:arne";
@@ -67,7 +67,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private String algorithmAttributedTo = "f2n:benjamin";		
 	private String agent = "f2n:benjamin";
 	private String role = "ows10:developer";
-	private String plan = "f2n:Kinda_Generic_ConflationProcess_v100";	
+	private String plan = "f2n:Kinda_Generic_ConflationProcess_v110";	
 	private String specializationOf = "f2n:OWS10conflatedmap_52N";
 	private String outputMapNameAttributedTo = "f2n:benjamin";
 	private String outputMapQualifiedGenerationRole = "ows10:conflatedMapOutput";
