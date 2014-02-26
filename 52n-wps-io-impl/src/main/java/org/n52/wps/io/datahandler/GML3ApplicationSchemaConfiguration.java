@@ -34,6 +34,7 @@ import java.util.UUID;
 import javax.xml.namespace.QName;
 
 import org.geotools.data.simple.SimpleFeatureCollection;
+import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.gml2.SrsSyntax;
 import org.geotools.gml3.ApplicationSchemaXSD;
 import org.geotools.gml3.bindings.AbstractFeatureCollectionTypeBinding;
@@ -72,9 +73,19 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		addDependency(new XSConfiguration());
 
 		if (gmlNamespace.equals(FeatureTypeSchema.GML_32_NAMESPACE)) {
-			addDependency(new GMLConfiguration());
+			GMLConfiguration gmlConfiguration = new GMLConfiguration();
+			gmlConfiguration.getProperties().add(
+					org.geotools.gml3.GMLConfiguration.NO_FEATURE_BOUNDS);
+			gmlConfiguration.getProperties().add(
+					org.geotools.gml3.GMLConfiguration.ENCODE_FEATURE_MEMBER);
+			addDependency(gmlConfiguration);
 		} else {
-			addDependency(new org.geotools.gml3.GMLConfiguration());
+			org.geotools.gml3.GMLConfiguration gmlConfiguration = new org.geotools.gml3.GMLConfiguration();
+			gmlConfiguration.getProperties().add(
+					org.geotools.gml3.GMLConfiguration.NO_FEATURE_BOUNDS);
+			gmlConfiguration.getProperties().add(
+					org.geotools.gml3.GMLConfiguration.ENCODE_FEATURE_MEMBER);
+			addDependency(gmlConfiguration);
 		}
 		this.gmlNamespace = gmlNamespace;
 		
@@ -172,7 +183,21 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		public Object getProperty(Object object, QName name) {
 			if (GML.featureMembers.equals(name)) {
 				return (SimpleFeatureCollection) object;
-			}
+			} else if (GML.boundedBy.equals(name)) {
+	        	SimpleFeatureCollection featureCollection = (SimpleFeatureCollection) object;
+
+	            ReferencedEnvelope env = featureCollection.getBounds();
+	         		                
+	            
+	                if ( env != null ) {
+	                    //JD: here we don't return the envelope if it is null or empty, this is to work 
+	                    // around and issue with validation in the cite engine. I have opened a jira task 
+	                    // to track this, and hopefully eventually fix the cite engine
+	                    //    http://jira.codehaus.org/browse/GEOS-2700
+	                    return !( env.isNull() || env.isEmpty() ) ? env : null; 
+	                }
+	            
+	        }
 
 			return super.getProperty(object, name);
 		}
