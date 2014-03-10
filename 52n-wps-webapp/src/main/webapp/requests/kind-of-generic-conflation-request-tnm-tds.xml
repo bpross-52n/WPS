@@ -49,7 +49,7 @@
 				schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
 				<ows:Identifier>conflated_result</ows:Identifier>
 			</wps:Output>
-			<wps:Output mimeType="application/rdf+xml">
+			<wps:Output mimeType="text/turtle">
 				<ows:Identifier>provenance</ows:Identifier>
 			</wps:Output>
 		</wps:ResponseDocument>

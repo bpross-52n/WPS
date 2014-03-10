@@ -28,12 +28,15 @@ public class RDFUtil {
 	public static final String PROV_QUALIFIED_USAGE_ROLE = "QUALIFIED_USAGE_ROLE";
 
 	public static final String BASE = "@base <" + BASE_URL_EXP + "> .\n";
-	public static final String PREFIX_F2N = "@prefix f2n: <http://www.opmw.org/ogc/ows10/ows10-52n-ontology/> .\n";
+	public static final String PREFIX_F2N = "@prefix f2n: <http://www.opengis.net/ogc/ows10/ows10-52n-ontology/> .\n";
 	public static final String PREFIX_RDFS = "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n";
 	public static final String PREFIX_FOAF = "@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n";
 	public static final String PREFIX_PROV = "@prefix prov: <http://www.w3.org/ns/prov#> .\n";
 	public static final String PREFIX_XSD = "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n";
-	public static final String PREFIX_OWS10 = "@prefix ows10: <http://www.opmw.org/ogc/ows10/ows10-core-ontology/> .\n";
+	public static final String PREFIX_OWS10 = "@prefix ows10: <http://www.opengis.net/ogc/ows10/ows10-core-ontology/> .\n";
+	public static final String PREFIX_OWS = "@prefix ows: <http://www.opmw.org/ogc/ows/ows-core-ontology/> .\n";
+	public static final String PREFIX_NGA = "@prefix nga: <http://www.opengis.net/ogc/ows10/ows10-nga-ontology/> .\n";
+	public static final String PREFIX_OWL = "@prefix owl:  <http://www.w3.org/2002/07/owl#> .\n";
 	
 	
 	public static final String BUNDLE_template = "<> a prov:Bundle;\n" +

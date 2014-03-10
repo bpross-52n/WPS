@@ -101,12 +101,15 @@
 				<ComplexOutput>
 					<Default>
 						<Format>
-							<MimeType>application/rdf+xml</MimeType>
+							<MimeType>text/turtle</MimeType>
 						</Format>
 					</Default>
 					<Supported>
 						<Format>
-							<MimeType>application/rdf+xml</MimeType>
+							<MimeType>text/turtle</MimeType>
+						</Format>
+						<Format>
+							<MimeType>application/x-turtle</MimeType>
 						</Format>
 					</Supported>
 				</ComplexOutput>

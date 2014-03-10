@@ -504,7 +504,8 @@
 			<Generator name="RDFOutputGenerator"
 				className="org.n52.wps.io.datahandler.generator.RDFOutputGenerator"
 				active="true">
-				<Format mimetype="application/rdf+xml" />
+				<Format mimetype="text/turtle" />
+				<Format mimetype="application/x-turtle" />
 			</Generator>
 		</GeneratorList>
 	</Datahandlers>
@@ -515,9 +516,9 @@
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.JTSConvexHullAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</Property>
-			<Property name="pythonHome" active="true"></Property>
-			<Property name="fuzzyName" active="true"></Property>
-			<Property name="mappingsfile" active="true"></Property>
+			<Property name="pythonHome" active="true">c:\python27</Property>
+			<Property name="fuzzyName" active="true">D:\chaos-folder\fuzz.py</Property>
+			<Property name="mappingsfile" active="true">D:\chaos-folder\featureNamespaceProvenanceMappings.properties</Property>
 		</Repository>
 		<Repository name="UploadedAlgorithmRepository"
 			className="org.n52.wps.server.UploadedAlgorithmRepository" active="false">
