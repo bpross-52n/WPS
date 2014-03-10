@@ -24,6 +24,7 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.GTHelper;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
+import org.n52.wps.io.data.binding.complex.GTVectorDataBindingWithSourceURL;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.provenance.RDFUtil;
 import org.n52.wps.server.AbstractAlgorithm;
@@ -146,8 +147,16 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}
 		
 		IData firstInputData = dataList.get(0);
-		FeatureCollection<?, ?> featureCollection = ((GTVectorDataBinding) firstInputData)
-				.getPayload();
+		
+		GTVectorDataBindingWithSourceURL firstInputBindingWithSourceURL = null;
+		
+		if(firstInputData instanceof GTVectorDataBindingWithSourceURL){
+			firstInputBindingWithSourceURL = (GTVectorDataBindingWithSourceURL)firstInputData;
+		}
+		
+		FeatureCollection<?, ?> featureCollection = firstInputBindingWithSourceURL.getPayload();
+		
+		LOGGER.info(firstInputBindingWithSourceURL.getSourceURL());
 
 		String featureCollectionNamespace = featureCollection.getSchema().getName().getNamespaceURI();
 
@@ -176,8 +185,16 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}
 		
 		IData firstInputData1 = dataList1.get(0);
-		FeatureCollection<?, ?> featureCollection1 = ((GTVectorDataBinding) firstInputData1)
-				.getPayload();
+		
+		GTVectorDataBindingWithSourceURL firstInputBindingWithSourceURL1 = null;
+		
+		if(firstInputData1 instanceof GTVectorDataBindingWithSourceURL){
+			firstInputBindingWithSourceURL1 = (GTVectorDataBindingWithSourceURL)firstInputData1;
+		}
+		
+		FeatureCollection<?, ?> featureCollection1 = firstInputBindingWithSourceURL1.getPayload();
+		
+		LOGGER.info(firstInputBindingWithSourceURL1.getSourceURL());
 
 		FeatureIterator<?> iter1 = featureCollection1.features();
 		
@@ -378,7 +395,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		rdfProvenance = rdfProvenance.concat(createQualifiedAssociation(agent, role, plan));	
 		rdfProvenance = rdfProvenance.concat(createTimeUsage(startTime, endTime));		
 		
-		rdfProvenance = rdfProvenance.concat(createOutputMap(outputMapName, specializationOf, outputMapEntityName, outputMapNameAttributedTo, outputMapActivity, outputMapQualifiedGenerationRole, outputMapGeneratedAtTime));
+		rdfProvenance = rdfProvenance.concat(createOutputMap(outputMapName, specializationOf, entityName, outputMapNameAttributedTo, outputMapActivity, outputMapQualifiedGenerationRole, outputMapGeneratedAtTime));
 
 		rdfProvenance = rdfProvenance.concat(createAlgorithm(type, superType, algorithmGeneratedAt, algorithmAttributedTo));
 		
@@ -502,7 +519,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	@Override
 	public Class<?> getInputDataType(String id) {
 		if(id.equals(source_id) || id.equals(target_id)){
-			return GTVectorDataBinding.class;
+			return GTVectorDataBindingWithSourceURL.class;
 		}else if(id.equals(rules_id)){
 			return LiteralStringBinding.class;
 		}

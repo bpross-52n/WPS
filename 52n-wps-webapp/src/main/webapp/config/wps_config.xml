@@ -23,6 +23,18 @@
 				<Format mimetype="text/xml; subtype=gml/3.1.1"
 					schema="http://schemas.opengis.net/gml/3.1.1/base/feature.xsd" />
 			</Parser>
+			<Parser name="GML311BasicIncludingDatasetSourceParser"
+				className="org.n52.wps.io.datahandler.parser.GML311BasicIncludingDatasetSourceParser"
+				active="true">
+				<Format mimetype="text/xml"
+					schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
+			</Parser>
+			<Parser name="GML3ApplicationSchemaIncludingDatasetSourceParser"
+				className="org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaIncludingDatasetSourceParser"
+				active="true">
+				<Format mimetype="text/xml"
+					schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd" />
+			</Parser>
 			<Parser name="GML311BasicParser"
 				className="org.n52.wps.io.datahandler.parser.GML311BasicParser"
 				active="true">

@@ -71,6 +71,7 @@ import org.n52.wps.io.IParser;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.GTReferenceEnvelope;
+import org.n52.wps.io.data.binding.complex.GTVectorDataBindingWithSourceURL;
 import org.n52.wps.io.data.binding.literal.AbstractLiteralDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralByteBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
@@ -1214,6 +1215,10 @@ public class InputHandler {
 
 						
 			IData parsedInputData = parser.parse(stream, mimeType, schema);				
+			
+			if(parsedInputData instanceof GTVectorDataBindingWithSourceURL){
+				((GTVectorDataBindingWithSourceURL)parsedInputData).setSourceURL(dataURLString);
+			}
 			
 			//enable maxxoccurs of parameters with the same name.
 			if(inputData.containsKey(inputID)) {
