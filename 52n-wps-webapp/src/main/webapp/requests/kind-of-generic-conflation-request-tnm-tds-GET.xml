@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<wps:Execute service="WPS" version="1.0.0"
+  xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1"
+  xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_request.xsd">
+  <ows:Identifier>org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</ows:Identifier>
+  <wps:DataInputs>
+    <wps:Input>
+      <ows:Identifier>Source</ows:Identifier>
+      <wps:Reference mimeType="text/xml"
+        schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+        xlink:href="http://services.interactive-instruments.de/xsprojects/ows10/service/tds-dgiwg/wfs?service=WFS&amp;version=1.1.0&amp;request=GetFeature&amp;namespaces=xmlns%28tds,http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0%29&amp;typename=tds:BuildingGeopoint&amp;FILTER=%3CFilter%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Atds%3D%22http%3A%2F%2Fmetadata.dod.mil%2Fmdr%2Fns%2FGSIP%2F3.0%2Ftds%2F3.0%22%3E%3CPropertyIsEqualTo%3E%3CPropertyName%3Etds%3AfeatureFunction-1%3C%2FPropertyName%3E%3CLiteral%3Efirefighting%3C%2FLiteral%3E%3C%2FPropertyIsEqualTo%3E%3C%2FFilter%3E&amp;outputFormat=text/xml;%20subtype=gml/3.2.1">
+      </wps:Reference>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>Target</ows:Identifier>
+      <wps:Reference mimeType="text/xml"
+        schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"
+        xlink:href="http://portal.cubewerx.com/cubewerx/projects/ows9/cubeserv.cgi?service=WFS&amp;datastore=OWS9&amp;request=GetFeature&amp;typename=usgs:fireStationEmsStation&amp;bbox=36.464,-122.003,36.714,-121.667" />
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>Rules</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>{ "mappings": { "address":"address", "name":"geoNameCollection.memberGeoName.fullName" }, "fixedAttributeValues": { "featureFunction-1":"firefighting" } }</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+  </wps:DataInputs>
+  <wps:ResponseForm>
+    <wps:ResponseDocument>
+      <wps:Output mimeType="text/xml"
+        schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
+        <ows:Identifier>conflated_result</ows:Identifier>
+      </wps:Output>
+      <wps:Output mimeType="text/turtle">
+        <ows:Identifier>provenance</ows:Identifier>
+      </wps:Output>
+    </wps:ResponseDocument>
+  </wps:ResponseForm>
+</wps:Execute>
