@@ -395,7 +395,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		rdfProvenance = rdfProvenance.concat(createQualifiedAssociation(agent, role, plan));	
 		rdfProvenance = rdfProvenance.concat(createTimeUsage(startTime, endTime));		
 		
-		rdfProvenance = rdfProvenance.concat(createOutputMap(outputMapName, specializationOf, entityName, outputMapNameAttributedTo, outputMapActivity, outputMapQualifiedGenerationRole, outputMapGeneratedAtTime));
+		rdfProvenance = rdfProvenance.concat(createOutputMap(outputMapName, specializationOf, entityName, outputMapNameAttributedTo, entityName, outputMapQualifiedGenerationRole, outputMapGeneratedAtTime));
 
 		rdfProvenance = rdfProvenance.concat(createAlgorithm(type, superType, algorithmGeneratedAt, algorithmAttributedTo));
 		
