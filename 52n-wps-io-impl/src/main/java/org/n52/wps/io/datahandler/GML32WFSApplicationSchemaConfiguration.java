@@ -42,6 +42,7 @@ import org.geotools.gml3.bindings.LineStringTypeBinding;
 import org.geotools.gml3.bindings.PointTypeBinding;
 import org.geotools.gml3.v3_2.GML;
 import org.geotools.gml3.v3_2.bindings.EnvelopeTypeBinding;
+import org.geotools.wfs.v2_0.WFS;
 import org.geotools.wfs.v2_0.WFSConfiguration;
 import org.geotools.xml.AbstractComplexBinding;
 import org.geotools.xml.Configuration;
@@ -59,17 +60,17 @@ import org.xml.sax.helpers.NamespaceSupport;
 import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
 import com.vividsolutions.jts.geom.GeometryFactory;
 
-public class GML3ApplicationSchemaConfiguration extends Configuration {
+public class GML32WFSApplicationSchemaConfiguration extends Configuration {
 
 	private String gmlNamespace;
 	private String srsName = "urn:ogc:def:crs:EPSG::4326";
 	private Map<QName, Class<?>> bindings = new HashMap<QName, Class<?>>();
 
-	public GML3ApplicationSchemaConfiguration(ApplicationSchemaXSDWithGMLVersion schema) {
+	public GML32WFSApplicationSchemaConfiguration(ApplicationSchemaXSDWithGMLVersion schema) {
 		this(schema, schema.getGmlNamespace());
 	}
 
-	public GML3ApplicationSchemaConfiguration(ApplicationSchemaXSD schema, String gmlNamespace) {
+	public GML32WFSApplicationSchemaConfiguration(ApplicationSchemaXSD schema, String gmlNamespace) {
 		super(schema);
 		addDependency(new XSConfiguration());
 
@@ -90,7 +91,7 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		}
 		this.gmlNamespace = gmlNamespace;
 		
-		bindings.put(GML.AbstractFeatureCollectionType,
+		bindings.put(WFS.FeatureCollectionType,
 				AbstractFeatureCollectionTypeBindingGML3Fix.class);
 		bindings.put(GML.LineStringType, LineStringWithIdFix.class);
 		bindings.put(GML.PointType, PointWithIdFix.class);
@@ -213,7 +214,7 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 				return "uuid."+ UUID.randomUUID().toString();
 			}
 			else if ("srsName".equals(name.getLocalPart())) {
-				return GML3ApplicationSchemaConfiguration.this.getSrsName();
+				return GML32WFSApplicationSchemaConfiguration.this.getSrsName();
 			}
 
 			return super.getProperty(object, name);
@@ -247,7 +248,7 @@ public class GML3ApplicationSchemaConfiguration extends Configuration {
 		@Override
 		public Object getProperty(Object object, QName name) {
 			if ("srsName".equals(name.getLocalPart())) {
-				return GML3ApplicationSchemaConfiguration.this.getSrsName();
+				return GML32WFSApplicationSchemaConfiguration.this.getSrsName();
 			}
 
 			return super.getProperty(object, name);

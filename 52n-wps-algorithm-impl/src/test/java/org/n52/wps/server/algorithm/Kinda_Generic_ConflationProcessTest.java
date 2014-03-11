@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -19,12 +18,10 @@ import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
 import org.n52.wps.io.GTHelper;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
-import org.n52.wps.io.datahandler.GML3ApplicationSchemaConfiguration;
-import org.n52.wps.io.datahandler.generator.GML311BasicGenerator;
+import org.n52.wps.io.data.binding.complex.GTVectorDataBindingWithSourceURL;
 import org.n52.wps.io.datahandler.generator.GML3ApplicationSchemaGenerator;
 import org.n52.wps.io.datahandler.parser.GML311BasicParser;
-import org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaParser;
-import org.n52.wps.io.datahandler.parser.GTBinZippedSHPParser;
+import org.n52.wps.io.datahandler.parser.GML32WFSApplicationSchemaIncludingDatasetSourceParser;
 import org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -34,17 +31,27 @@ import com.vividsolutions.jts.geom.Geometry;
 
 public class Kinda_Generic_ConflationProcessTest extends TestCase {
 
+	private String OWS_10_SC_USGS_FEATURE = "ows10:SC_USGS_Feature_";
+	private String OWS_10_SC_NGA_FEATURE = "ows10:SC_NGA_Feature_";
+	private String F2N_CONFLATED_MAP_FEATURE = "f2n:ConflatedMap_Feature_";
+	private String OWS_10_SC_USGS_FEATURE_TYPE = "ows10:SC_USGS_FeatureType";
+	private String OWS_10_SC_NGA_FEATURE_TYPE = "ows10:SC_NGA_FeatureType";
+	private String OWS_10_SC_NGA = "ows10:SC_NGA_FeatureType";
+	
 	public void testCreateNewFeature(){
 		
 		Kinda_Generic_ConflationProcess process = new Kinda_Generic_ConflationProcess();
 		
-		InputStream tdsin = this.getClass().getResourceAsStream("tds_firestations.xml");
+		InputStream tdsin = this.getClass().getResourceAsStream("tds_firestationsWFS200GML32.xml");
 		
-		GML3ApplicationSchemaParser parser = new GML3ApplicationSchemaParser();
+//		GML3ApplicationSchemaParser parser = new GML3ApplicationSchemaParser();
+		GML32WFSApplicationSchemaIncludingDatasetSourceParser parser = new GML32WFSApplicationSchemaIncludingDatasetSourceParser();
 		
-	    GTVectorDataBinding gtv = parser.parse(tdsin, "text/xml", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
+	    GTVectorDataBindingWithSourceURL gtv = parser.parse(tdsin, "text/xml", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
+	    
+	    System.out.println(ftc.size());
 	    
 		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
 //		InputStream tnmin = this.getClass().getResourceAsStream("dncshp.zip");		
@@ -73,6 +80,8 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		newFeatures.addAll(oldFeatures);
 		
+		List<SimpleFeature> onlyNewFeatures = new ArrayList<SimpleFeature>();
+		
 		while (iter1.hasNext()) {
 			Object o = iter1.next();
 			if (o instanceof SimpleFeature) {
@@ -91,8 +100,25 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 				process.addDefaultValues(sft);
 
 				newFeatures.add(sft);
+				onlyNewFeatures.add(sft);
 			}
 
+		}
+		
+		StringBuilder featureTypeStatementBuilder = new StringBuilder(); 
+		StringBuilder memberStatementBuilder = new StringBuilder(); 
+		StringBuilder generatedByStatementBuilder = new StringBuilder(); 
+		StringBuilder originStatementBuilder = new StringBuilder(); 
+		
+		for (SimpleFeature simpleFeature : newFeatures) {
+			
+			String featureProvenance1 = F2N_CONFLATED_MAP_FEATURE + simpleFeature.getID() + " a " + OWS_10_SC_NGA_FEATURE_TYPE;
+			
+			featureTypeStatementBuilder.append(featureProvenance1);
+			
+			String featureProvenance2 = F2N_CONFLATED_MAP_FEATURE + simpleFeature.getID() + " a " + OWS_10_SC_NGA_FEATURE_TYPE;
+
+			
 		}
 		
 		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);	 
@@ -105,7 +131,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 			InputStream in = generator.generateStream(new GTVectorDataBinding(result), "", "");
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult3.xml")));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("d:/tmp/generatedConflationResult32WFS.xml")));
 			
 			String line = "";
 			
