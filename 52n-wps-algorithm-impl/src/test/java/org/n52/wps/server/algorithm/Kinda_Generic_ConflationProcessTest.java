@@ -64,7 +64,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 	    
 	    FeatureCollection<?, ?> ftc2 = gtv2.getPayload();
 	    
-		String rules = "{ \"mappings\": { \"address\":\"address\", \"name\":\"geoNameCollection.memberGeoName.fullName\" }, \"fixedAttributeValues\": { \"featureFunction-1\":\"firefighting\" } }";
+		String rules = "{ \"mappings\": { \"address\":\"address\", \"name\":\"geoNameCollection.memberGeoName.fullName\" }, \"fixedAttributeValues\": { \"featureFunction-1\":\"firefighting\", \"restriction.securityAttributesGroup_resClassification\" : \"U\" } }";
 		
 		process.createRules(rules);
 		
@@ -82,25 +82,22 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		List<SimpleFeature> onlyNewFeatures = new ArrayList<SimpleFeature>();
 		
+		SimpleFeature targetFeature = null;
+
+		SimpleFeatureType sourceSimpleFeatureType = (SimpleFeatureType)ft;
+
 		while (iter1.hasNext()) {
 			Object o = iter1.next();
 			if (o instanceof SimpleFeature) {
-				f = (SimpleFeature) o;
+				targetFeature = (SimpleFeature) o;
 				
-//				SimpleFeatureBuilder featureBuilder = new SimpleFeatureBuilder((SimpleFeatureType)ft);
-//				
-//				SimpleFeature sft = featureBuilder.buildFeature(f.getIdentifier().getID());
+				SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetFeature.getIdentifier().getID(), (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
 				
-				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature2(f.getIdentifier().getID(), (Geometry)f.getDefaultGeometry(), (SimpleFeatureType)ft);
+				process.mapProperties(targetFeature, newFeature);
 				
-				process.mapProperties(f, sft);
+				process.addfixedAttributeValues(newFeature);
 				
-				process.addfixedAttributeValues(sft);
-				
-				process.addDefaultValues(sft);
-
-				newFeatures.add(sft);
-				onlyNewFeatures.add(sft);
+				newFeatures.add(newFeature);
 			}
 
 		}

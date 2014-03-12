@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -51,7 +52,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private final String rules_id = "Rules";
 	private final String output_id_conflated_result = "conflated_result";
 	private final String output_id_provenance = "provenance";
-	private final String default_String = "No Information";
+	private final String default_String = "noInformation";
 	private final Double default_Double = -999999.0;
 	private final long default_BigInteger = -999999;
 	
@@ -238,22 +239,22 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		newFeatures.addAll(oldFeatures);
 		
-		SimpleFeature f = null;
+		SimpleFeature targetFeature = null;
+
+		SimpleFeatureType sourceSimpleFeatureType = (SimpleFeatureType)ft;
 
 		while (iter1.hasNext()) {
 			Object o = iter1.next();
 			if (o instanceof SimpleFeature) {
-				f = (SimpleFeature) o;
+				targetFeature = (SimpleFeature) o;
 				
-				SimpleFeature sft = (SimpleFeature) GTHelper.createFeature2(f.getIdentifier().getID(), (Geometry) f.getDefaultGeometry(), (SimpleFeatureType)ft);
+				SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetFeature.getIdentifier().getID(), (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
 				
-				mapProperties(f, sft);
+				mapProperties(targetFeature, newFeature);
 				
-				addfixedAttributeValues(sft);
+				addfixedAttributeValues(newFeature);
 				
-				addDefaultValues(sft);
-				
-				newFeatures.add(sft);
+				newFeatures.add(newFeature);
 			}
 
 		}
@@ -309,31 +310,24 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 
 	public void addfixedAttributeValues(SimpleFeature sft){
 		
-		Collection<Property> properties = sft.getProperties();
+		Iterator<Property> properties = sft.getProperties().iterator();
 		
-		for (Property property : properties) {
+		while (properties.hasNext()) {
+			Property property = (Property) properties.next();
+			
+			if(property.getName().getLocalPart().equals("identifier")){
+				continue;
+			}
 			
 			if(fixedAttributeValuesMap.keySet().contains(property.getName().getLocalPart())){
 				addPropertyValue(sft, property.getName().getLocalPart(), fixedAttributeValuesMap.get(property.getName().getLocalPart()));
-			}
-			
-		}
-		
-	}
-	
-	public void addDefaultValues(SimpleFeature sft){
-		
-		Collection<Property> properties = sft.getProperties();
-		
-		for (Property property : properties) {
-			
-			if(!mappingsMap.values().contains(property.getName().getLocalPart()) && !fixedAttributeValuesMap.keySet().contains(property.getName().getLocalPart())){
+			}else if(!mappingsMap.values().contains(property.getName().getLocalPart()) && !fixedAttributeValuesMap.keySet().contains(property.getName().getLocalPart())){
 				addDefaultValue(property);
-			}
+			}			
 			
 		}
 		
-	}
+	}	
 	
 	public void addDefaultValue(Property property){
 		
