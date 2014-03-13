@@ -1,0 +1,62 @@
+
+<BuildingGeopoint id="CWFID.ST_FIRE_STATION.0.4.4D8777B2B990EA321F20020000">
+	<metaDataProperty />
+	<description>noInformation</description>
+	<!--gml:identifier>noInformation</gml:identifier -->
+	<name>noInformation</name>
+	<geometry>
+		<Point id="uuid.ce7d7c80-0b0a-44b9-98ac-c466f89329b6"
+			srsDimension="2">
+			<pos>36.53044784329745 -121.8278870234221</pos>
+		</Point>
+	</geometry>
+	<address>8455 Carmel Valley Road</address>
+	<aeroObstacleLightPresent>noInformation</aeroObstacleLightPresent>
+	<angleOfOrientation>-999999.0</angleOfOrientation>
+	<area>-999999.0</area>
+	<conditionOfFacility>noInformation</conditionOfFacility>
+	<controllingAuthority>noInformation</controllingAuthority>
+	<featureFunction-1>firefighting</featureFunction-1>
+	<featureFunction-2>noInformation</featureFunction-2>
+	<featureFunction-3>noInformation</featureFunction-3>
+	<floorCount>-999999</floorCount>
+	<geointAssuranceMetadata.processStep.source.resourceContentOrigin>noInformation</geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+	<geoNameCollection.memberGeoName.fullName>Carmel Valley Fire Protection District Mid - Valley</geoNameCollection.memberGeoName.fullName>
+	<geoNameCollection.memberGeoName.nameIdentifier>noInformation</geoNameCollection.memberGeoName.nameIdentifier>
+	<heightAboveSurfaceLevel>-999999.0</heightAboveSurfaceLevel>
+	<highestElevation>-999999.0</highestElevation>
+	<length>-999999.0</length>
+	<manufacturingInfo.byProduct-1>noInformation</manufacturingInfo.byProduct-1>
+	<manufacturingInfo.byProduct-2>noInformation</manufacturingInfo.byProduct-2>
+	<manufacturingInfo.byProduct-3>noInformation</manufacturingInfo.byProduct-3>
+	<manufacturingInfo.product-1>noInformation</manufacturingInfo.product-1>
+	<manufacturingInfo.product-2>noInformation</manufacturingInfo.product-2>
+	<manufacturingInfo.product-3>noInformation</manufacturingInfo.product-3>
+	<manufacturingInfo.rawMaterial-1>noInformation</manufacturingInfo.rawMaterial-1>
+	<manufacturingInfo.rawMaterial-2>noInformation</manufacturingInfo.rawMaterial-2>
+	<manufacturingInfo.rawMaterial-3>noInformation</manufacturingInfo.rawMaterial-3>
+	<navigationLandmark>noInformation</navigationLandmark>
+	<note.memorandum>noInformation</note.memorandum>
+	<religiousInfo.religiousDesignation>noInformation
+	</religiousInfo.religiousDesignation>
+	<religiousInfo.religiousFacilityType>noInformation
+	</religiousInfo.religiousFacilityType>
+	<restriction.securityAttributesGroup_resClassification>U
+	</restriction.securityAttributesGroup_resClassification>
+	<restriction.securityAttributesGroup_resNonIntelComMarkings>noInformation
+	</restriction.securityAttributesGroup_resNonIntelComMarkings>
+	<restriction.securityAttributesGroup_resOwnerProducer>noInformation
+	</restriction.securityAttributesGroup_resOwnerProducer>
+	<roofShape-1>noInformation</roofShape-1>
+	<roofShape-2>noInformation</roofShape-2>
+	<roofShape-3>noInformation</roofShape-3>
+	<specifiedEnumerants>noInformation</specifiedEnumerants>
+	<uniqueEntityIdentifier>noInformation</uniqueEntityIdentifier>
+	<verticalConstMaterial-1>noInformation</verticalConstMaterial-1>
+	<verticalConstMaterial-2>noInformation</verticalConstMaterial-2>
+	<verticalConstMaterial-3>noInformation</verticalConstMaterial-3>
+	<verticalObstIdentifier>noInformation</verticalObstIdentifier>
+	<width>-999999.0</width>
+	<wirelessTelecomInfo.wirelessTelecomType>noInformation
+	</wirelessTelecomInfo.wirelessTelecomType>
+</BuildingGeopoint>

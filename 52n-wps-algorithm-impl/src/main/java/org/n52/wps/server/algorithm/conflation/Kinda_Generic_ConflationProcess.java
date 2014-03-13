@@ -27,6 +27,8 @@ import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBindingWithSourceURL;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
+import org.n52.wps.provenance.ProvenanceType;
+import org.n52.wps.provenance.RDFProvenanceFeature;
 import org.n52.wps.provenance.RDFUtil;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
@@ -60,7 +62,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");	
 	private GregorianCalendar calendar = new GregorianCalendar(2014, 2, 26, 14, 23);	
 	private String algorithmGeneratedAt = dateformat.format(calendar.getTime());		
-	private String baseURL = "http://www.opmw.org/ogc/ows10/52n/provenance-52n-march.ttl";
+	private String baseURL = "http://www.opengis.net/ogc/ows10/52n/provenance-52n-march.ttl";
 	private String attributeTo = "f2n:arne";
 	private String generatedAt = dateformat.format(new GregorianCalendar().getTime());
 	
@@ -94,6 +96,20 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private Map<?, ?> mappingsMap;
 	private Map<?, ?> fixedAttributeValuesMap;
 	
+	private StringBuilder featureTypeStatementBuilder = new StringBuilder(); 
+	private StringBuilder sourceMemberStatementBuilder = new StringBuilder(); 
+	private StringBuilder targetMemberStatementBuilder = new StringBuilder(); 
+	private StringBuilder attributeOriginStatementBuilder = new StringBuilder(); 
+	private StringBuilder generatedByStatementBuilder = new StringBuilder(); 
+	private StringBuilder featureOriginStatementBuilder = new StringBuilder();
+	private StringBuilder featureAttributeStatementBuilder = new StringBuilder();
+	private StringBuilder resultFeatureAttributeStatementBuilder = new StringBuilder();
+	
+	private Map<String, RDFProvenanceFeature> targetFeatureMap;
+	private Map<String, RDFProvenanceFeature> sourceFeatureMap;
+	private Map<String, RDFProvenanceFeature> resultFeatureMap;
+	private Map<RDFProvenanceFeature, RDFProvenanceFeature> targetResultFeatureMap;
+	
 	public Kinda_Generic_ConflationProcess(){
 		
 		properties = new Properties();
@@ -124,6 +140,10 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		mappingsMap = new HashMap<String, String>();
 		fixedAttributeValuesMap = new HashMap<String, String>();		
+		sourceFeatureMap = new HashMap<String, RDFProvenanceFeature>();
+		targetFeatureMap = new HashMap<String, RDFProvenanceFeature>();
+		resultFeatureMap = new HashMap<String, RDFProvenanceFeature>();
+		targetResultFeatureMap = new HashMap<RDFProvenanceFeature, RDFProvenanceFeature>();
 	}
 	
 	@Override
@@ -233,31 +253,15 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 
 		FeatureType ft = featureCollection.features().next().getType();
 		
+		createSourceProvenanceFeatureMap(featureCollection.features());
+		
 		List<SimpleFeature> oldFeatures = Arrays.asList(featureCollection.toArray(new SimpleFeature[]{}));
 		
 		List<SimpleFeature> newFeatures = new ArrayList<SimpleFeature>();
 		
 		newFeatures.addAll(oldFeatures);
 		
-		SimpleFeature targetFeature = null;
-
-		SimpleFeatureType sourceSimpleFeatureType = (SimpleFeatureType)ft;
-
-		while (iter1.hasNext()) {
-			Object o = iter1.next();
-			if (o instanceof SimpleFeature) {
-				targetFeature = (SimpleFeature) o;
-				
-				SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetFeature.getIdentifier().getID(), (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
-				
-				mapProperties(targetFeature, newFeature);
-				
-				addfixedAttributeValues(newFeature);
-				
-				newFeatures.add(newFeature);
-			}
-
-		}
+		runConflation(iter1, newFeatures, ft);
 		
 		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);
 		
@@ -269,7 +273,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		LOGGER.info("Conflation process took " + (endMillis - startMillis)/ 1000 + " seconds");
 		
-		String rdfProvenance = createRDFProvenance();
+		String rdfProvenance = createRDFProvenance2();
 		
 		Map<String, IData> resultMap = new HashMap<String, IData>(2);
 		
@@ -277,6 +281,84 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		resultMap.put(output_id_provenance, new LiteralStringBinding(rdfProvenance));
 		
 		return resultMap;
+	}
+
+	public void runConflation(FeatureIterator<?> iter, List<SimpleFeature> newFeatures, FeatureType ft){
+
+		SimpleFeatureType sourceSimpleFeatureType = (SimpleFeatureType)ft;
+		
+		SimpleFeature targetFeature = (SimpleFeature) iter.next();
+		
+//		String targetID = targetFeature.getIdentifier().getID();
+//		
+//		targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", targetID, "usgs", true, false));
+		
+		SimpleFeature newFeature = createNewFeature(targetFeature, sourceSimpleFeatureType);
+		
+		newFeatures.add(newFeature);
+		
+		while (iter.hasNext()) {
+			Object o = iter.next();
+			if (o instanceof SimpleFeature) {
+				targetFeature = (SimpleFeature) o;
+				
+//				targetID = targetFeature.getIdentifier().getID();
+//				
+//				boolean endOfStatement = !iter.hasNext();
+//				
+//				targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", targetID, "usgs", false, endOfStatement));
+				
+				newFeature = createNewFeature(targetFeature, sourceSimpleFeatureType);
+				
+				newFeatures.add(newFeature);
+			}
+
+		}
+	}
+	
+	public void createSourceProvenanceFeatureMap(FeatureIterator<?> features) {
+		
+		while (features.hasNext()) {
+			SimpleFeature sf = (SimpleFeature) features.next();
+			
+			RDFProvenanceFeature provenanceFeature = new RDFProvenanceFeature(sf.getID());
+			
+			provenanceFeature.setProvenanceType(ProvenanceType.SAME_AS);
+			
+			sourceFeatureMap.put(sf.getID(), provenanceFeature);
+			
+			targetResultFeatureMap.put(provenanceFeature, provenanceFeature);
+			
+		}
+		
+	}
+	
+	private SimpleFeature createNewFeature(SimpleFeature targetFeature, SimpleFeatureType sourceSimpleFeatureType){
+		String targetID = targetFeature.getIdentifier().getID();
+		
+		SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetID, (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
+		
+		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(targetID);
+		
+		addProvenancePositionInfo(targetProvenanceFeature);
+		
+		targetFeatureMap.put(targetFeature.getID(), targetProvenanceFeature);
+		
+		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(targetID);
+		
+		addProvenancePositionInfo(resultProvenanceFeature);
+		
+		resultProvenanceFeature.setProvenanceType(ProvenanceType.DERIVED_FROM);
+		
+		resultFeatureMap.put(newFeature.getID(), resultProvenanceFeature);
+		
+		targetResultFeatureMap.put(targetProvenanceFeature, resultProvenanceFeature);
+		
+		mapProperties(targetFeature, newFeature);
+		
+		addfixedAttributeValues(newFeature);
+		
+		return newFeature;
 	}
 
 	public Geometry tryCreatingGeom(SimpleFeature feature){
@@ -296,18 +378,48 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		return g;
 	}
 	
+	private void addProvenancePositionInfo(RDFProvenanceFeature rdfProvenanceFeature){
+		rdfProvenanceFeature.putPropertyID("position", "Position" + createUUIDString());
+	}
+	
 	public void mapProperties(SimpleFeature target, SimpleFeature newFeature){
 		
 		//look for mappings target attribute name -> source attribute name
 		Collection<Property> properties = target.getProperties();
 		
+		String entity1 = RDFUtil.USGS_FEATURE + target.getID();
+		
+//		System.out.println(RDFUtil.createTriple(entity1, RDFUtil.A, RDFUtil.USGS_FEATURE, false));
+//		
+//		System.out.println(RDFUtil.createTriple("", RDFUtil.PREDICATE_OWS_HAD_GEOMETRY, RDFUtil.USGS_POSITION + UUID.randomUUID().toString().substring(0, 5), false));
+		
 		for (Property property : properties) {
-			if(mappingsMap.keySet().contains(property.getName().getLocalPart())){
-				addPropertyValue(newFeature, (String)mappingsMap.get(property.getName().getLocalPart()), property.getValue());
+			
+			String propertyName = property.getName().getLocalPart();
+			
+			if(mappingsMap.keySet().contains(propertyName)){				
+				
+				String mappedPropertyName = (String)mappingsMap.get(propertyName);
+				
+//				System.out.println(RDFUtil.createTriple("", RDFUtil.PREDICATE_OWL_HAD_GEOMETRY, RDFUtil.USGS_ + UUID.randomUUID().toString().substring(0, 5), false));
+				
+				RDFProvenanceFeature targetProvenanceFeature = targetFeatureMap.get(target.getID());
+				
+				targetProvenanceFeature.putPropertyID(propertyName, propertyName + createUUIDString());
+				
+				RDFProvenanceFeature resultProvenanceFeature = resultFeatureMap.get(newFeature.getID());
+				
+				resultProvenanceFeature.putPropertyID(propertyName, mappedPropertyName + createUUIDString());
+				
+				addPropertyValue(newFeature, mappedPropertyName, property.getValue());
 			}
 		}		
 	}
 
+	public String createUUIDString(){
+		return "_" + UUID.randomUUID().toString().substring(0, 5);
+	}
+	
 	public void addfixedAttributeValues(SimpleFeature sft){
 		
 		Iterator<Property> properties = sft.getProperties().iterator();
@@ -373,10 +485,160 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}	
 	}
 
+	public String createRDFProvenance2(){
+		
+		String rdfProvenance = createPrefixes(includeBundle, baseURL);		
+		
+		createSourceFeatureMapProvenance();
+		createTargetFeatureMapProvenance();
+		createResultFeatureOriginProvenance();
+		createFeatureAttributeProvenance(targetFeatureMap.values(), "usgs");
+		createFeatureAttributeProvenance(resultFeatureMap.values(), "usgs");
+		
+		System.out.println(featureOriginStatementBuilder);
+		System.out.println(attributeOriginStatementBuilder);
+		System.out.println(featureAttributeStatementBuilder);
+		
+		return rdfProvenance;
+	}
+	
+	private void createFeatureAttributeProvenance(
+			Collection<RDFProvenanceFeature> values, String prefix) {
+		
+		Iterator<RDFProvenanceFeature> iterator = values.iterator();
+		
+		while (iterator.hasNext()) {
+			RDFProvenanceFeature rdfProvenanceFeature = (RDFProvenanceFeature) iterator
+					.next();
+			
+			Iterator<String> propertyIterator = rdfProvenanceFeature.getPropertyIDMap().keySet().iterator();
+			
+			featureAttributeStatementBuilder.append(RDFUtil.createFeatureTypeTriple(rdfProvenanceFeature.getID(), prefix, "", prefix, !propertyIterator.hasNext()));
+			
+			while (propertyIterator.hasNext()) {
+				String propertyName = (String) propertyIterator.next();
+				
+				if (propertyName.contains("Position")) {				
+					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadGeometryTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
+				}else{
+					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadPropertyTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
+				}
+			}
+			
+			featureAttributeStatementBuilder.append("\n");
+		}
+		
+	}
+
+	private void createResultFeatureOriginProvenance(){
+		Iterator<RDFProvenanceFeature> targetResultFeatureIterator = targetResultFeatureMap.keySet().iterator();
+		
+		while (targetResultFeatureIterator.hasNext()) {
+			RDFProvenanceFeature targetRDFProvenanceFeature = (RDFProvenanceFeature) targetResultFeatureIterator
+					.next();
+			RDFProvenanceFeature resultRDFProvenanceFeature = targetResultFeatureMap.get(targetRDFProvenanceFeature);
+			
+			String triple = "";
+			
+			switch (resultRDFProvenanceFeature.getProvenanceType()) {
+			case SAME_AS:
+				triple = RDFUtil.createFeatureSameAsTriple(resultRDFProvenanceFeature.getID(), "nga_conf", targetRDFProvenanceFeature.getID(), "nga");
+				break;
+			case DERIVED_FROM:
+				triple = RDFUtil.createFeatureDerivedFromTriple(resultRDFProvenanceFeature.getID(), "nga_conf", targetRDFProvenanceFeature.getID(), "usgs");
+				break;
+			case REVISION_OF:
+				triple = RDFUtil.createFeatureRevisionOfTriple(resultRDFProvenanceFeature.getID(), "nga_conf", targetRDFProvenanceFeature.getID(), "usgs");
+				break;
+			default:
+				break;
+			}
+			
+			featureOriginStatementBuilder.append(triple);
+			featureOriginStatementBuilder.append("\n");
+			createResultAttributeOriginProvenance(targetRDFProvenanceFeature, resultRDFProvenanceFeature);
+		}
+	}
+	
+	private void createResultAttributeOriginProvenance(RDFProvenanceFeature targetRDFProvenanceFeature, RDFProvenanceFeature resultRDFProvenanceFeature){
+		
+		Iterator<String> propertyIterator = resultRDFProvenanceFeature.getPropertyIDMap().keySet().iterator();
+
+		while (propertyIterator.hasNext()) {
+			String propertyName = (String) propertyIterator.next();
+			
+			String triple = "";
+			
+			switch (resultRDFProvenanceFeature.getProvenanceType()) {
+			case SAME_AS:
+				triple = RDFUtil.createAttributeSameAsTriple(resultRDFProvenanceFeature.getPropertyID(propertyName), "nga_conf", targetRDFProvenanceFeature.getPropertyID(propertyName), "nga");
+				break;
+			case DERIVED_FROM:
+				triple = RDFUtil.createAttributeDerivedFromTriple(resultRDFProvenanceFeature.getPropertyID(propertyName), "nga_conf", targetRDFProvenanceFeature.getPropertyID(propertyName), "usgs");
+				break;
+			case REVISION_OF:
+				triple = RDFUtil.createAttributeRevisionOfTriple(resultRDFProvenanceFeature.getPropertyID(propertyName), "nga_conf", targetRDFProvenanceFeature.getPropertyID(propertyName), "usgs");
+				break;
+			default:
+				break;
+			}
+			
+			attributeOriginStatementBuilder.append(triple);
+			attributeOriginStatementBuilder.append("\n");
+			
+		}
+		
+		
+	}
+	
+	private void createSourceFeatureMapProvenance(){
+		Iterator<String> sourceFeatureIterator = sourceFeatureMap.keySet().iterator();
+		
+		if(sourceFeatureIterator.hasNext()){
+			
+			String id = (String) sourceFeatureIterator.next();
+			
+			sourceMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("NGA", "nga", id, "nga", true, false));
+			
+			while (sourceFeatureIterator.hasNext()) {
+				id = (String) sourceFeatureIterator.next();
+				
+				boolean endOfStatement = !sourceFeatureIterator.hasNext();
+				
+				sourceMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("NGA", "nga", id, "nga", false, endOfStatement));
+				
+			}
+		}
+		
+		System.out.println(sourceMemberStatementBuilder);
+	}
+	
+	private void createTargetFeatureMapProvenance(){
+		Iterator<String> targetFeatureIterator = targetFeatureMap.keySet().iterator();
+		
+		if(targetFeatureIterator.hasNext()){
+			
+			String id = (String) targetFeatureIterator.next();
+			
+			targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", id, "usgs", true, false));
+			
+			while (targetFeatureIterator.hasNext()) {
+				id = (String) targetFeatureIterator.next();
+				
+				boolean endOfStatement = !targetFeatureIterator.hasNext();
+				
+				targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", id, "usgs", false, endOfStatement));
+				
+			}
+		}
+		
+		System.out.println(targetMemberStatementBuilder);
+	}
+	
 	public String createRDFProvenance(){
 		
 		String rdfProvenance = createPrefixes(includeBundle, baseURL);		
-	
+		
 		if(includeBundle){
 			rdfProvenance = rdfProvenance.concat("\n");
 			rdfProvenance = rdfProvenance.concat(createBundle(attributeTo, generatedAt));
@@ -390,7 +652,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		rdfProvenance = rdfProvenance.concat(createTimeUsage(startTime, endTime));		
 		
 		rdfProvenance = rdfProvenance.concat(createOutputMap(outputMapName, specializationOf, entityName, outputMapNameAttributedTo, entityName, outputMapQualifiedGenerationRole, outputMapGeneratedAtTime));
-
+		
 		rdfProvenance = rdfProvenance.concat(createAlgorithm(type, superType, algorithmGeneratedAt, algorithmAttributedTo));
 		
 		return rdfProvenance;
@@ -481,15 +743,15 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		if(includeBase){
 			prefixes = RDFUtil.BASE.replace(RDFUtil.BASE_URL_EXP, baseURL);
-			prefixes = prefixes.concat(RDFUtil.PREFIX_F2N);
+			prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_F2N);
 		}else{			
-			prefixes = RDFUtil.PREFIX_F2N;			
+			prefixes = RDFUtil.PROV_PREFIX_F2N;			
 		}
-		prefixes = prefixes.concat(RDFUtil.PREFIX_FOAF);
-		prefixes = prefixes.concat(RDFUtil.PREFIX_OWS10);
-		prefixes = prefixes.concat(RDFUtil.PREFIX_PROV);
-		prefixes = prefixes.concat(RDFUtil.PREFIX_RDFS);
-		prefixes = prefixes.concat(RDFUtil.PREFIX_XSD);		
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_FOAF);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_OWS10);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_PROV);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_RDFS);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_XSD);		
 		
 		return prefixes;
 	}

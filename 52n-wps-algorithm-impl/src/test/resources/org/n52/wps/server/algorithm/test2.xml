@@ -1,0 +1,60 @@
+
+<tds:BuildingGeopoint gml:id="CWFID.ST_FIRE_STATION.0.4.4D8777B2B990EA321F20020000">
+	<gml:metaDataProperty />
+	<gml:description>No Information</gml:description>
+	<gml:identifier>No Information</gml:identifier>
+	<gml:name>No Information</gml:name>
+	<tds:geometry>
+		<gml:Point gml:id="uuid.5bc529b6-2f6d-4439-8cb4-97dec9e4cf68" srsDimension="2">
+			<gml:pos>36.53044784329745 -121.8278870234221</gml:pos>
+		</gml:Point>
+	</tds:geometry>
+	<tds:address>8455 Carmel Valley Road</tds:address>
+	<tds:aeroObstacleLightPresent>No Information</tds:aeroObstacleLightPresent>
+	<tds:angleOfOrientation>-999999.0</tds:angleOfOrientation>
+	<tds:area>-999999.0</tds:area>
+	<tds:conditionOfFacility>No Information</tds:conditionOfFacility>
+	<tds:controllingAuthority>No Information</tds:controllingAuthority>
+	<tds:featureFunction-1>firefighting</tds:featureFunction-1>
+	<tds:featureFunction-2>No Information</tds:featureFunction-2>
+	<tds:featureFunction-3>No Information</tds:featureFunction-3>
+	<tds:floorCount>-999999</tds:floorCount>
+	<tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>No
+		Information</tds:geointAssuranceMetadata.processStep.source.resourceContentOrigin>
+	<tds:geoNameCollection.memberGeoName.fullName>Carmel Valley Fire
+		Protection District Mid - Valley</tds:geoNameCollection.memberGeoName.fullName>
+	<tds:geoNameCollection.memberGeoName.nameIdentifier>No Information</tds:geoNameCollection.memberGeoName.nameIdentifier>
+	<tds:heightAboveSurfaceLevel>-999999.0</tds:heightAboveSurfaceLevel>
+	<tds:highestElevation>-999999.0</tds:highestElevation>
+	<tds:length>-999999.0</tds:length>
+	<tds:manufacturingInfo.byProduct-1>No Information</tds:manufacturingInfo.byProduct-1>
+	<tds:manufacturingInfo.byProduct-2>No Information</tds:manufacturingInfo.byProduct-2>
+	<tds:manufacturingInfo.byProduct-3>No Information</tds:manufacturingInfo.byProduct-3>
+	<tds:manufacturingInfo.product-1>No Information</tds:manufacturingInfo.product-1>
+	<tds:manufacturingInfo.product-2>No Information</tds:manufacturingInfo.product-2>
+	<tds:manufacturingInfo.product-3>No Information</tds:manufacturingInfo.product-3>
+	<tds:manufacturingInfo.rawMaterial-1>No Information</tds:manufacturingInfo.rawMaterial-1>
+	<tds:manufacturingInfo.rawMaterial-2>No Information</tds:manufacturingInfo.rawMaterial-2>
+	<tds:manufacturingInfo.rawMaterial-3>No Information</tds:manufacturingInfo.rawMaterial-3>
+	<tds:navigationLandmark>No Information</tds:navigationLandmark>
+	<tds:note.memorandum>No Information</tds:note.memorandum>
+	<tds:religiousInfo.religiousDesignation>No Information</tds:religiousInfo.religiousDesignation>
+	<tds:religiousInfo.religiousFacilityType>No Information</tds:religiousInfo.religiousFacilityType>
+	<tds:restriction.securityAttributesGroup_resClassification>No
+		Information</tds:restriction.securityAttributesGroup_resClassification>
+	<tds:restriction.securityAttributesGroup_resNonIntelComMarkings>No
+		Information</tds:restriction.securityAttributesGroup_resNonIntelComMarkings>
+	<tds:restriction.securityAttributesGroup_resOwnerProducer>No
+		Information</tds:restriction.securityAttributesGroup_resOwnerProducer>
+	<tds:roofShape-1>No Information</tds:roofShape-1>
+	<tds:roofShape-2>No Information</tds:roofShape-2>
+	<tds:roofShape-3>No Information</tds:roofShape-3>
+	<tds:specifiedEnumerants>No Information</tds:specifiedEnumerants>
+	<tds:uniqueEntityIdentifier>No Information</tds:uniqueEntityIdentifier>
+	<tds:verticalConstMaterial-1>No Information</tds:verticalConstMaterial-1>
+	<tds:verticalConstMaterial-2>No Information</tds:verticalConstMaterial-2>
+	<tds:verticalConstMaterial-3>No Information</tds:verticalConstMaterial-3>
+	<tds:verticalObstIdentifier>No Information</tds:verticalObstIdentifier>
+	<tds:width>-999999.0</tds:width>
+	<tds:wirelessTelecomInfo.wirelessTelecomType>No Information</tds:wirelessTelecomInfo.wirelessTelecomType>
+</tds:BuildingGeopoint>

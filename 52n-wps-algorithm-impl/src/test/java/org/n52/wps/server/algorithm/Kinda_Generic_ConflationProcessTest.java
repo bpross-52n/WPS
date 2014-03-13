@@ -22,6 +22,7 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBindingWithSourceURL;
 import org.n52.wps.io.datahandler.generator.GML3ApplicationSchemaGenerator;
 import org.n52.wps.io.datahandler.parser.GML311BasicParser;
 import org.n52.wps.io.datahandler.parser.GML32WFSApplicationSchemaIncludingDatasetSourceParser;
+import org.n52.wps.provenance.RDFUtil;
 import org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
@@ -50,6 +51,8 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 	    GTVectorDataBindingWithSourceURL gtv = parser.parse(tdsin, "text/xml", "http://schemas.opengis.net/gml/3.2.1/gml.xsd");
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
+	    
+	    process.createSourceProvenanceFeatureMap(ftc.features());
 	    
 	    System.out.println(ftc.size());
 	    
@@ -81,26 +84,8 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		newFeatures.addAll(oldFeatures);
 		
 		List<SimpleFeature> onlyNewFeatures = new ArrayList<SimpleFeature>();
-		
-		SimpleFeature targetFeature = null;
 
-		SimpleFeatureType sourceSimpleFeatureType = (SimpleFeatureType)ft;
-
-		while (iter1.hasNext()) {
-			Object o = iter1.next();
-			if (o instanceof SimpleFeature) {
-				targetFeature = (SimpleFeature) o;
-				
-				SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetFeature.getIdentifier().getID(), (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
-				
-				process.mapProperties(targetFeature, newFeature);
-				
-				process.addfixedAttributeValues(newFeature);
-				
-				newFeatures.add(newFeature);
-			}
-
-		}
+		process.runConflation(iter1, newFeatures, ft);
 		
 		StringBuilder featureTypeStatementBuilder = new StringBuilder(); 
 		StringBuilder memberStatementBuilder = new StringBuilder(); 
@@ -114,9 +99,10 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 			featureTypeStatementBuilder.append(featureProvenance1);
 			
 			String featureProvenance2 = F2N_CONFLATED_MAP_FEATURE + simpleFeature.getID() + " a " + OWS_10_SC_NGA_FEATURE_TYPE;
-
 			
 		}
+		
+		process.createRDFProvenance2();
 		
 		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);	 
 		
