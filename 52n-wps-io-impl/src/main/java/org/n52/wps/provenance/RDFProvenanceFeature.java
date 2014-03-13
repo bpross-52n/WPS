@@ -3,20 +3,21 @@ package org.n52.wps.provenance;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RDFProvenanceFeature {
+public class RDFProvenanceFeature implements Comparable<RDFProvenanceFeature>{
 	
 	private String id;
 	private ProvenanceType provenanceType;
-	
+	private String featureType;
 	private Map<String, String> propertyIDMap;
 	
 	public RDFProvenanceFeature(){
 		propertyIDMap = new HashMap<String, String>();
 	}
 	
-	public RDFProvenanceFeature(String id){
+	public RDFProvenanceFeature(String id, String featureType){
 		this();
 		this.id = id;
+		this.featureType = featureType;
 	}
 	
 	public void putPropertyID(String propertyName, String ID){
@@ -41,5 +42,14 @@ public class RDFProvenanceFeature {
 	
 	public String getID(){
 		return id;
+	}
+
+	public String getFeatureType() {
+		return featureType;
+	}
+
+	@Override
+	public int compareTo(RDFProvenanceFeature o) {		
+		return o.getID().compareTo(id);
 	}
 }

@@ -215,23 +215,35 @@ public class RDFUtil {
 		return triple;
 	}
 	
+	public static String createMapHadMemberFeatureTriple(String mapName, String featureID, boolean beginOfStatement, boolean endOfStatement) {
+		
+		String triple = "";
+		
+		if(beginOfStatement){		
+			triple = createTriple(mapName, PREDICATE_PROV_HAD_MEMBER, featureID, false);
+		}else{
+			triple = createTriple("	", PREDICATE_PROV_HAD_MEMBER, featureID, endOfStatement);
+		}
+		return triple;
+	}
+	
 	public static String createFeatureSameAsTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedFeature(resultID, resultPrefix), PREDICATE_OWL_SAME_AS, createFeature(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_OWL_SAME_AS, targetID, true);
 		
 		return triple;		
 	}
 	
 	public static String createFeatureDerivedFromTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedFeature(resultID, resultPrefix), PREDICATE_PROV_DERIVED_FROM, createFeature(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_PROV_DERIVED_FROM, targetID, true);
 		
 		return triple;		
 	}
 	
 	public static String createFeatureRevisionOfTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedFeature(resultID, resultPrefix), PREDICATE_PROV_WAS_REVISION_OF, createFeature(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_PROV_WAS_REVISION_OF, targetID, true);
 		
 		return triple;		
 	}
@@ -257,9 +269,9 @@ public class RDFUtil {
 		return triple;		
 	}
 	
-	public static String createFeatureTypeTriple(String resultID, String resultPrefix, String targetID, String targetPrefix, boolean endofStatement){
+	public static String createFeatureTypeTriple(String resultID, String targetID, boolean endofStatement){
 		
-		String triple = createTriple(createFeature(resultID, resultPrefix), A, createFeature(targetID, targetPrefix), endofStatement);
+		String triple = createTriple(resultID, A, targetID, endofStatement);
 		
 		return triple;		
 	}
@@ -278,4 +290,15 @@ public class RDFUtil {
 		return triple;		
 	}
 	
+	public static String createConflationExecutionProvUsedFeaturesTriple(String entityID, String featureID, boolean beginOfStatement, boolean endOfStatement) {
+		
+		String triple = "";
+		
+		if(beginOfStatement){		
+			triple = createTriple(entityID, PREDICATE_PROV_USED, featureID, false);
+		}else{
+			triple = createTriple("	", PREDICATE_PROV_USED, featureID, endOfStatement);
+		}
+		return triple;
+	}
 }

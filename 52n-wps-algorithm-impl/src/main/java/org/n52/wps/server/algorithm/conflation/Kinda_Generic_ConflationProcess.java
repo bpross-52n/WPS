@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -104,6 +105,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private StringBuilder featureOriginStatementBuilder = new StringBuilder();
 	private StringBuilder featureAttributeStatementBuilder = new StringBuilder();
 	private StringBuilder resultFeatureAttributeStatementBuilder = new StringBuilder();
+	private StringBuilder executionProvUsedFeaturesStatementBuilder = new StringBuilder();
+	private StringBuilder resultMemberStatementBuilder = new StringBuilder();
 	
 	private Map<String, RDFProvenanceFeature> targetFeatureMap;
 	private Map<String, RDFProvenanceFeature> sourceFeatureMap;
@@ -321,13 +324,14 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		while (features.hasNext()) {
 			SimpleFeature sf = (SimpleFeature) features.next();
 			
-			RDFProvenanceFeature provenanceFeature = new RDFProvenanceFeature(sf.getID());
+			RDFProvenanceFeature sourceProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"));
+			RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"));
 			
-			provenanceFeature.setProvenanceType(ProvenanceType.SAME_AS);
+			resultProvenanceFeature.setProvenanceType(ProvenanceType.SAME_AS);
 			
-			sourceFeatureMap.put(sf.getID(), provenanceFeature);
+			sourceFeatureMap.put(sf.getID(), sourceProvenanceFeature);
 			
-			targetResultFeatureMap.put(provenanceFeature, provenanceFeature);
+			targetResultFeatureMap.put(sourceProvenanceFeature, resultProvenanceFeature);
 			
 		}
 		
@@ -338,13 +342,13 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetID, (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
 		
-		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(targetID);
+		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, "usgs"), RDFUtil.createFeature("", "usgs"));
 		
 		addProvenancePositionInfo(targetProvenanceFeature);
 		
 		targetFeatureMap.put(targetFeature.getID(), targetProvenanceFeature);
 		
-		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(targetID);
+		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(targetID, "nga_conf"), RDFUtil.createFeature("", "nga"));
 		
 		addProvenancePositionInfo(resultProvenanceFeature);
 		
@@ -489,23 +493,67 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		String rdfProvenance = createPrefixes(includeBundle, baseURL);		
 		
-		createSourceFeatureMapProvenance();
-		createTargetFeatureMapProvenance();
+		createFeatureMapProvenance(sourceFeatureMap.values(), sourceMemberStatementBuilder, "nga:NGAMap");
+		createFeatureMapProvenance(targetFeatureMap.values(), targetMemberStatementBuilder, "usgs:USGSMap");
+		createFeatureMapProvenance(targetResultFeatureMap.values(), resultMemberStatementBuilder, "nga_conf:ConflatedMap");
+		
+//		createSourceFeatureMapProvenance();
+//		createTargetFeatureMapProvenance();
+//		createResultFeatureMapProvenance();
 		createResultFeatureOriginProvenance();
 		createFeatureAttributeProvenance(targetFeatureMap.values(), "usgs");
-		createFeatureAttributeProvenance(resultFeatureMap.values(), "usgs");
+		createFeatureAttributeProvenance(resultFeatureMap.values(), "nga");
+		createConflationExecutionProvUsedFeatures();
 		
 		System.out.println(featureOriginStatementBuilder);
 		System.out.println(attributeOriginStatementBuilder);
 		System.out.println(featureAttributeStatementBuilder);
+		System.out.println(executionProvUsedFeaturesStatementBuilder);
 		
 		return rdfProvenance;
 	}
 	
+	private void createConflationExecutionProvUsedFeatures() {
+		
+		Collection<RDFProvenanceFeature> sortCollection = sortCollection(targetResultFeatureMap.values());
+		
+		Iterator<RDFProvenanceFeature> iterator = sortCollection.iterator();
+		
+		RDFProvenanceFeature rdfProvenanceFeature = iterator.next();
+		
+		String triple = RDFUtil.createConflationExecutionProvUsedFeaturesTriple(entityName, rdfProvenanceFeature.getID(), true, false);
+		
+		executionProvUsedFeaturesStatementBuilder.append(triple);
+		
+		while (iterator.hasNext()) {
+			rdfProvenanceFeature = (RDFProvenanceFeature) iterator
+					.next();
+			triple = RDFUtil.createConflationExecutionProvUsedFeaturesTriple(entityName, rdfProvenanceFeature.getID(), false, !iterator.hasNext());
+			
+			executionProvUsedFeaturesStatementBuilder.append(triple);
+			
+		}
+		executionProvUsedFeaturesStatementBuilder.append("\n");
+	}
+
+	private Collection<RDFProvenanceFeature> sortCollection(
+			Collection<RDFProvenanceFeature> values) {
+		
+		RDFProvenanceFeature[] provenanceFeatureArray = values.toArray(new RDFProvenanceFeature[]{});
+		
+		List<RDFProvenanceFeature> rdfProvenanceFeatureList = Arrays.asList(provenanceFeatureArray);
+		
+		Collections.sort(rdfProvenanceFeatureList);
+		
+		return rdfProvenanceFeatureList;
+	}
+
 	private void createFeatureAttributeProvenance(
 			Collection<RDFProvenanceFeature> values, String prefix) {
 		
-		Iterator<RDFProvenanceFeature> iterator = values.iterator();
+		Collection<RDFProvenanceFeature> sortCollection = sortCollection(values);
+		
+		Iterator<RDFProvenanceFeature> iterator = sortCollection.iterator();
 		
 		while (iterator.hasNext()) {
 			RDFProvenanceFeature rdfProvenanceFeature = (RDFProvenanceFeature) iterator
@@ -513,7 +561,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			
 			Iterator<String> propertyIterator = rdfProvenanceFeature.getPropertyIDMap().keySet().iterator();
 			
-			featureAttributeStatementBuilder.append(RDFUtil.createFeatureTypeTriple(rdfProvenanceFeature.getID(), prefix, "", prefix, !propertyIterator.hasNext()));
+			featureAttributeStatementBuilder.append(RDFUtil.createFeatureTypeTriple(rdfProvenanceFeature.getID(), rdfProvenanceFeature.getFeatureType(), !propertyIterator.hasNext()));
 			
 			while (propertyIterator.hasNext()) {
 				String propertyName = (String) propertyIterator.next();
@@ -531,7 +579,10 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	}
 
 	private void createResultFeatureOriginProvenance(){
-		Iterator<RDFProvenanceFeature> targetResultFeatureIterator = targetResultFeatureMap.keySet().iterator();
+		
+		Collection<RDFProvenanceFeature> sortCollection = sortCollection(targetResultFeatureMap.keySet());
+		
+		Iterator<RDFProvenanceFeature> targetResultFeatureIterator = sortCollection.iterator();
 		
 		while (targetResultFeatureIterator.hasNext()) {
 			RDFProvenanceFeature targetRDFProvenanceFeature = (RDFProvenanceFeature) targetResultFeatureIterator
@@ -591,48 +642,30 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 	}
 	
-	private void createSourceFeatureMapProvenance(){
-		Iterator<String> sourceFeatureIterator = sourceFeatureMap.keySet().iterator();
+	private void createFeatureMapProvenance(Collection<RDFProvenanceFeature> collection, StringBuilder stringBuilder, String mapName){
+		
+		Collection<RDFProvenanceFeature> sortCollection = sortCollection(collection);
+		
+		Iterator<RDFProvenanceFeature> sourceFeatureIterator = sortCollection.iterator();
 		
 		if(sourceFeatureIterator.hasNext()){
 			
-			String id = (String) sourceFeatureIterator.next();
+			String id = ((RDFProvenanceFeature) sourceFeatureIterator.next()).getID();
 			
-			sourceMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("NGA", "nga", id, "nga", true, false));
+			stringBuilder.append(RDFUtil.createMapHadMemberFeatureTriple(mapName, id, true, false));
 			
 			while (sourceFeatureIterator.hasNext()) {
-				id = (String) sourceFeatureIterator.next();
+				id = ((RDFProvenanceFeature) sourceFeatureIterator.next()).getID();
 				
 				boolean endOfStatement = !sourceFeatureIterator.hasNext();
 				
-				sourceMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("NGA", "nga", id, "nga", false, endOfStatement));
+				stringBuilder.append(RDFUtil.createMapHadMemberFeatureTriple(mapName, id, false, endOfStatement));
 				
 			}
 		}
 		
-		System.out.println(sourceMemberStatementBuilder);
-	}
-	
-	private void createTargetFeatureMapProvenance(){
-		Iterator<String> targetFeatureIterator = targetFeatureMap.keySet().iterator();
+		System.out.println(stringBuilder);
 		
-		if(targetFeatureIterator.hasNext()){
-			
-			String id = (String) targetFeatureIterator.next();
-			
-			targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", id, "usgs", true, false));
-			
-			while (targetFeatureIterator.hasNext()) {
-				id = (String) targetFeatureIterator.next();
-				
-				boolean endOfStatement = !targetFeatureIterator.hasNext();
-				
-				targetMemberStatementBuilder.append(RDFUtil.createMapHadMemberFeatureTriple("USGS", "usgs", id, "usgs", false, endOfStatement));
-				
-			}
-		}
-		
-		System.out.println(targetMemberStatementBuilder);
 	}
 	
 	public String createRDFProvenance(){
