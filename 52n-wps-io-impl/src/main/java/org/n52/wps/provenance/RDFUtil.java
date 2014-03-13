@@ -77,8 +77,10 @@ public class RDFUtil {
 	public static final String NGA_POSITION = PREFIX_NGA_DATA + ":NGA_Position";
 	
 	public static final String CONFLATED_MAP = ":ConflatedMap";
+	public static final String CONFLATED_MAP_OUTPUT = PREFIX_OWS10 + ":ConflatedMapOutput";
 	public static final String CONFLATED_MAP_FEATURE = ":ConflatedMap_Feature";
 	public static final String PROV_USAGE = PREFIX_PROV + ":Usage";
+	public static final String PROV_GENERATION = PREFIX_PROV + ":Generation";
 	
 	
 	
@@ -95,9 +97,11 @@ public class RDFUtil {
 	public static final String PREDICATE_PROV_WAS_GENERATED_BY = PREFIX_PROV + ":wasGeneratedBy";
 	public static final String PREDICATE_PROV_GENERATED_AT_TIME = PREFIX_PROV + ":generatedAtTime";
 	public static final String PREDICATE_PROV_QUALIFIED_USAGE = PREFIX_PROV + ":qualifiedUsage";
+	public static final String PREDICATE_PROV_QUALIFIED_GENERATION = PREFIX_PROV + ":qualifiedGeneration";
 	public static final String PREDICATE_PROV_ENTITY = PREFIX_PROV + ":entity";
 	public static final String PREDICATE_PROV_HAD_ROLE = PREFIX_PROV + ":hadRole";
 	public static final String PREDICATE_RDFS_SUBCLASS_OF = PREFIX_RDFS + ":subClassOf";
+	public static final String PREDICATE_PROV_ACTIVITY = PREFIX_PROV + ":actity";
 	
 	
 	public static final String BUNDLE_template = "<> a prov:Bundle;\n" +
@@ -295,10 +299,46 @@ public class RDFUtil {
 		String triple = "";
 		
 		if(beginOfStatement){		
-			triple = createTriple(entityID, PREDICATE_PROV_USED, featureID, false);
+			triple = createTriple(entityID, PREDICATE_PROV_USED, featureID, endOfStatement);
 		}else{
 			triple = createTriple("	", PREDICATE_PROV_USED, featureID, endOfStatement);
 		}
+		return triple;
+	}
+	
+	public static String createFeaturesGeneratedByExecutionTriple(String featureID, String entityID) {
+		
+		String triple = createTriple(featureID, PREDICATE_PROV_WAS_GENERATED_BY, entityID, true);
+		
+		return triple;
+	}
+	
+	public static String createFeaturesGeneratedAtTriple(String featureID, String time) {
+		
+		String triple = createTriple(featureID, PREDICATE_PROV_GENERATED_AT_TIME, time + XSD_DATE_TIME, true);
+		
+		return triple;
+	}
+	
+	public static String createQualifiedUsageTriple(String entityID, String featureID, String role) {
+		
+		String triple = entityID + " " + PREDICATE_PROV_QUALIFIED_USAGE + " [\n";
+		triple = triple.concat(A + " " + PROV_USAGE + " " + LINE_ENDING + "\n");
+		triple = triple.concat(PREDICATE_PROV_ENTITY + " " + featureID + " " + LINE_ENDING + "\n");
+		triple = triple.concat(PREDICATE_PROV_HAD_ROLE + " " + role + " " + LINE_ENDING + "\n");
+		triple = triple.concat("] " + TRIPLE_ENDING + "\n");
+		
+		return triple;
+	}
+	
+	public static String createQualifiedGenerationTriple(String entityID, String featureID) {
+		
+		String triple = featureID + " " + PREDICATE_PROV_QUALIFIED_GENERATION + " [\n";
+		triple = triple.concat(A + " " + PROV_GENERATION + " " + LINE_ENDING + "\n");
+		triple = triple.concat(PREDICATE_PROV_ACTIVITY + " " + entityID + " " + LINE_ENDING + "\n");
+		triple = triple.concat(PREDICATE_PROV_HAD_ROLE + " " + CONFLATED_MAP_OUTPUT + " " + LINE_ENDING + "\n");
+		triple = triple.concat("] " + TRIPLE_ENDING + "\n");
+		
 		return triple;
 	}
 }

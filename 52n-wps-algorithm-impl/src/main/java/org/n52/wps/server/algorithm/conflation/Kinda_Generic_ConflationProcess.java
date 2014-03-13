@@ -106,7 +106,11 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private StringBuilder featureAttributeStatementBuilder = new StringBuilder();
 	private StringBuilder resultFeatureAttributeStatementBuilder = new StringBuilder();
 	private StringBuilder executionProvUsedFeaturesStatementBuilder = new StringBuilder();
+	private StringBuilder featuresGeneratedByExecutionStatementBuilder = new StringBuilder();
+	private StringBuilder featuresGeneratedAtStatementBuilder = new StringBuilder();
 	private StringBuilder resultMemberStatementBuilder = new StringBuilder();
+	private StringBuilder qualifiedUsageStatementBuilder = new StringBuilder();
+	private StringBuilder qualifiedGenerationStatementBuilder = new StringBuilder();
 	
 	private Map<String, RDFProvenanceFeature> targetFeatureMap;
 	private Map<String, RDFProvenanceFeature> sourceFeatureMap;
@@ -324,8 +328,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		while (features.hasNext()) {
 			SimpleFeature sf = (SimpleFeature) features.next();
 			
-			RDFProvenanceFeature sourceProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"));
-			RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"));
+			RDFProvenanceFeature sourceProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"), new GregorianCalendar().getTime(), "");
+			RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(sf.getID(), "nga"), RDFUtil.createFeature("", "nga"), new GregorianCalendar().getTime(), "");
 			
 			resultProvenanceFeature.setProvenanceType(ProvenanceType.SAME_AS);
 			
@@ -342,13 +346,13 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetID, (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
 		
-		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, "usgs"), RDFUtil.createFeature("", "usgs"));
+		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, "usgs"), RDFUtil.createFeature("", "usgs"), new GregorianCalendar().getTime(), "");
 		
 		addProvenancePositionInfo(targetProvenanceFeature);
 		
 		targetFeatureMap.put(targetFeature.getID(), targetProvenanceFeature);
 		
-		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(targetID, "nga_conf"), RDFUtil.createFeature("", "nga"));
+		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(targetID, "nga_conf"), RDFUtil.createFeature("", "nga"), new GregorianCalendar().getTime(), "");
 		
 		addProvenancePositionInfo(resultProvenanceFeature);
 		
@@ -509,10 +513,14 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		System.out.println(attributeOriginStatementBuilder);
 		System.out.println(featureAttributeStatementBuilder);
 		System.out.println(executionProvUsedFeaturesStatementBuilder);
+		System.out.println(featuresGeneratedByExecutionStatementBuilder);
+		System.out.println(featuresGeneratedAtStatementBuilder);
+		System.out.println(qualifiedUsageStatementBuilder);
+		System.out.println(qualifiedGenerationStatementBuilder);
 		
 		return rdfProvenance;
 	}
-	
+
 	private void createConflationExecutionProvUsedFeatures() {
 		
 		Collection<RDFProvenanceFeature> sortCollection = sortCollection(targetResultFeatureMap.values());
@@ -521,19 +529,43 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		RDFProvenanceFeature rdfProvenanceFeature = iterator.next();
 		
-		String triple = RDFUtil.createConflationExecutionProvUsedFeaturesTriple(entityName, rdfProvenanceFeature.getID(), true, false);
-		
-		executionProvUsedFeaturesStatementBuilder.append(triple);
+		createExecutionRelatedStatements(entityName, rdfProvenanceFeature.getID(), rdfProvenanceFeature.getGeneratedAt(), rdfProvenanceFeature.getRole(), true, false);
 		
 		while (iterator.hasNext()) {
 			rdfProvenanceFeature = (RDFProvenanceFeature) iterator
 					.next();
-			triple = RDFUtil.createConflationExecutionProvUsedFeaturesTriple(entityName, rdfProvenanceFeature.getID(), false, !iterator.hasNext());
 			
-			executionProvUsedFeaturesStatementBuilder.append(triple);
+			createExecutionRelatedStatements(entityName, rdfProvenanceFeature.getID(), rdfProvenanceFeature.getGeneratedAt(), rdfProvenanceFeature.getRole(), false, true);
 			
 		}
+	}
+	
+	private void createExecutionRelatedStatements(String entityName, String targetID, Date date, String role, boolean firstStatement, boolean endStatement){
+	
+		String triple = RDFUtil.createConflationExecutionProvUsedFeaturesTriple(entityName, targetID, firstStatement, endStatement);
+		
+		executionProvUsedFeaturesStatementBuilder.append(triple);
 		executionProvUsedFeaturesStatementBuilder.append("\n");
+		
+		triple = RDFUtil.createFeaturesGeneratedByExecutionTriple(targetID, entityName);
+		
+		featuresGeneratedByExecutionStatementBuilder.append(triple);		
+		featuresGeneratedByExecutionStatementBuilder.append("\n");	
+		
+		triple = RDFUtil.createFeaturesGeneratedAtTriple(targetID, dateformat.format(date));
+		
+		featuresGeneratedAtStatementBuilder.append(triple);		
+		featuresGeneratedAtStatementBuilder.append("\n");
+		
+		triple = RDFUtil.createQualifiedUsageTriple(entityName, targetID, role);
+		
+		qualifiedUsageStatementBuilder.append(triple);		
+		qualifiedUsageStatementBuilder.append("\n");
+		
+		triple = RDFUtil.createQualifiedGenerationTriple(entityName, targetID);
+		
+		qualifiedGenerationStatementBuilder.append(triple);		
+		qualifiedGenerationStatementBuilder.append("\n");
 	}
 
 	private Collection<RDFProvenanceFeature> sortCollection(
