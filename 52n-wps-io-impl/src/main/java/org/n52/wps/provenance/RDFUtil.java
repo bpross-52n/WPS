@@ -82,6 +82,12 @@ public class RDFUtil {
 	public static final String PROV_USAGE = PREFIX_PROV + ":Usage";
 	public static final String PROV_GENERATION = PREFIX_PROV + ":Generation";
 	public static final String OWS_PROPERTY = PREFIX_OWS + ":Property";
+	public static final String OWS_FEATURE = PREFIX_OWS + ":Feature";
+	public static final String OWS_POINT = PREFIX_OWS + ":Point";
+	public static final String OWS_LINE = PREFIX_OWS + ":Line";
+	public static final String OWS_POLYGON = PREFIX_OWS + ":Polygon";
+	public static final String OWS_FEATURE_COLLECTION = PREFIX_OWS + ":FeatureCollection";
+	public static final String WPS_CONFLATION_EXECUTION = PREFIX_F2N + ":52N_WPSConflationExecution";
 	
 	
 	
@@ -175,7 +181,7 @@ public class RDFUtil {
 	
 	public static String createMap(String prefix){
 		
-		String mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Map";
+		String mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Map";
 		
 		return mapString;
 	}
@@ -192,9 +198,9 @@ public class RDFUtil {
 		String mapString = "";
 		
 		if(id != null && !id.equals("")){		
-			mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Feature_" + id;
+			mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Feature_" + id;
 		}else{
-			mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Feature";
+			mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Feature";
 		}
 		
 		
@@ -210,20 +216,22 @@ public class RDFUtil {
 	
 	public static String createAttribute(String id, String prefix){
 		
-		String string = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "_" + id;
+		String string = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "_" + id;
 		
 		return string;		
 	}
 	
 	public static String createPosition(String prefix){
 		
-		String string = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "_Position";
+		String string = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "_Position";
 		
 		return string;		
 	}
 	
-	public static String cleanPrefixFrom_Data(String prefix){
-		return prefix.replace("_data", "");
+	public static String cleanPrefix(String prefix){
+		prefix = prefix.replace("_data", "");
+		prefix = prefix.replace("_conf", "");
+		return prefix;
 	}
 	
 	public static String createConflatedAttribute(String id, String prefix){
