@@ -73,8 +73,8 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		FeatureType ft = ftc.features().next().getType();
 		
-		SimpleFeature f = null;
-
+		process.setNamespaces(ftc, ftc2);
+		
 		List<SimpleFeature> oldFeatures = Arrays.asList(ftc.toArray(new SimpleFeature[]{}));
 		
 		List<SimpleFeature> newFeatures = new ArrayList<SimpleFeature>();
@@ -83,7 +83,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		process.runConflation(iter1, newFeatures, ft);
 		
-		process.createRDFProvenance2(ftc.features(), ftc2.features());
+		process.createRDFProvenance2(ftc, ftc2);
 		
 		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);	 
 		

@@ -173,14 +173,28 @@ public class RDFUtil {
 		return mapString;
 	}
 	
+	public static String createMap(String prefix){
+		
+		String mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Map";
+		
+		return mapString;
+	}
+	
+	public static String createConflatedMap(String prefix){
+		
+		String mapString = prefix + ":ConflatedMap";
+		
+		return mapString;
+	}
+	
 	public static String createFeature(String id, String prefix){
 		
 		String mapString = "";
 		
 		if(id != null && !id.equals("")){		
-			mapString = prefix + ":" + prefix.toUpperCase() + "Feature_" + id;
+			mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Feature_" + id;
 		}else{
-			mapString = prefix + ":" + prefix.toUpperCase() + "Feature";
+			mapString = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "Feature";
 		}
 		
 		
@@ -189,16 +203,27 @@ public class RDFUtil {
 	
 	public static String createConflatedFeature(String id, String prefix){
 		
-		String mapString = prefix + ":ConflatedMapFeature_" + id;
+		String string = prefix + ":ConflatedMapFeature_" + id;
 		
-		return mapString;		
+		return string;		
 	}
 	
 	public static String createAttribute(String id, String prefix){
 		
-		String mapString = prefix + ":" + prefix.toUpperCase() + "_" + id;
+		String string = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "_" + id;
 		
-		return mapString;		
+		return string;		
+	}
+	
+	public static String createPosition(String prefix){
+		
+		String string = prefix + ":" + cleanPrefixFrom_Data(prefix).toUpperCase() + "_Position";
+		
+		return string;		
+	}
+	
+	public static String cleanPrefixFrom_Data(String prefix){
+		return prefix.replace("_data", "");
 	}
 	
 	public static String createConflatedAttribute(String id, String prefix){
