@@ -658,7 +658,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		createResultFeatureOriginProvenance();
 		createFeatureAttributeProvenance(targetFeatureMap.values(), sourceFeatureAttributeStatementBuilder, targetNamespace);
 		createFeatureAttributeProvenance(sourceFeatureMap.values(), sourceFeatureAttributeStatementBuilder, sourceNamespace);
-		createFeatureAttributeProvenance(resultFeatureMap.values(), resultFeatureAttributeStatementBuilder, resultNamespace);
+		createFeatureAttributeProvenance(targetResultFeatureMap.values(), resultFeatureAttributeStatementBuilder, resultNamespace);
 		createConflationExecutionProvUsedFeatures();
 		createExecutionRelatedFeatures();
 		createIndividualExecutionStatements();
@@ -679,6 +679,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		rdfProvenance = rdfProvenance.concat(qualifiedGenerationStatementBuilder.toString());
 		rdfProvenance = rdfProvenance.concat(attributeTypeStatementBuilder.toString());
 		rdfProvenance = rdfProvenance.concat(individualExecutionStatementBuilder.toString());
+		
+		System.out.println(rdfProvenance);
 		
 		return rdfProvenance;
 	}
@@ -826,20 +828,23 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			
 			featureAttributeStatementBuilder.append(RDFUtil.createFeatureTypeTriple(rdfProvenanceFeature.getID(), rdfProvenanceFeature.getFeatureType(), !propertyIterator.hasNext()));
 			
-			while (propertyIterator.hasNext()) {
-				String propertyName = (String) propertyIterator.next();				
+			if(propertyIterator.hasNext()){
+			
+				while (propertyIterator.hasNext()) {
+					String propertyName = (String) propertyIterator.next();				
 				
-				if (propertyName.equalsIgnoreCase("Position")) {
-					attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
+					if (propertyName.equalsIgnoreCase("Position")) {
+						attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
 					
-					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadGeometryTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
-				}else{
-					attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
+						featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadGeometryTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
+					}else{
+						attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
 					
-					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadPropertyTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
+						featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadPropertyTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
+					}
 				}
+				attributeTypeStatementBuilder.append("\n");
 			}
-			attributeTypeStatementBuilder.append("\n");
 			featureAttributeStatementBuilder.append("\n");
 		}
 		
