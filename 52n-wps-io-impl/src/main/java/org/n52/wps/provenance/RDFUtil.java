@@ -228,6 +228,27 @@ public class RDFUtil {
 		return string;		
 	}
 	
+	public static String createConflatedPosition(String prefix){
+		
+		String string = prefix + ":ConflatedMap_Position";
+		
+		return string;		
+	}
+	
+	public static String createPosition(String id, String prefix){
+		
+		String string = prefix + ":" + cleanPrefix(prefix).toUpperCase() + id;
+		
+		return string;		
+	}
+	
+	public static String createConflatedPosition(String id, String prefix){
+		
+		String string = prefix + ":ConflatedMap_" + id;
+		
+		return string;		
+	}
+	
 	public static String cleanPrefix(String prefix){
 		prefix = prefix.replace("_data", "");
 		prefix = prefix.replace("_conf", "");
@@ -288,21 +309,21 @@ public class RDFUtil {
 	
 	public static String createAttributeSameAsTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedAttribute(resultID, resultPrefix), PREDICATE_OWL_SAME_AS, createAttribute(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_OWL_SAME_AS, targetID, true);
 		
 		return triple;		
 	}
 	
 	public static String createAttributeDerivedFromTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedAttribute(resultID, resultPrefix), PREDICATE_PROV_DERIVED_FROM, createAttribute(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_PROV_DERIVED_FROM, targetID, true);
 		
 		return triple;		
 	}
 	
 	public static String createAttributeRevisionOfTriple(String resultID, String resultPrefix, String targetID, String targetPrefix){
 		
-		String triple = createTriple(createConflatedAttribute(resultID, resultPrefix), PREDICATE_PROV_WAS_REVISION_OF, createAttribute(targetID, targetPrefix), true);
+		String triple = createTriple(resultID, PREDICATE_PROV_WAS_REVISION_OF, targetID, true);
 		
 		return triple;		
 	}
@@ -316,14 +337,14 @@ public class RDFUtil {
 	
 	public static String createFeatureHadGeometryTriple(String targetID, String targetPrefix, boolean endofStatement){
 		
-		String triple = createTriple("	", PREDICATE_OWS_HAD_GEOMETRY, createAttribute(targetID, targetPrefix), endofStatement);
+		String triple = createTriple("	", PREDICATE_OWS_HAD_GEOMETRY, targetID, endofStatement);
 		
 		return triple;		
 	}
 	
 	public static String createFeatureHadPropertyTriple(String targetID, String targetPrefix, boolean endofStatement){
 		
-		String triple = createTriple("	", PREDICATE_OWS_HAD_PROPERTY, createAttribute(targetID, targetPrefix), endofStatement);
+		String triple = createTriple("	", PREDICATE_OWS_HAD_PROPERTY, targetID, endofStatement);
 		
 		return triple;		
 	}

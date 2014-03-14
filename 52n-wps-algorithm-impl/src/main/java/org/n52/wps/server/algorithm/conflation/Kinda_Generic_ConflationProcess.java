@@ -68,7 +68,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	
 	private boolean includeBundle = false;
 	private DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");	
-	private GregorianCalendar calendar = new GregorianCalendar(2014, 2, 26, 14, 23);	
+	private GregorianCalendar calendar = new GregorianCalendar(2014, 3, 14, 17, 23);	
 	private String algorithmGeneratedAt = dateformat.format(calendar.getTime());		
 	private String baseURL = "http://www.opengis.net/ogc/ows10/52n/provenance-52n-march.ttl";
 	private String attributeTo = RDFUtil.PREFIX_F2N + ":arne";
@@ -374,14 +374,14 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private void createAttributeTypeSubClassStatements(GeometryType sourceGeometryType,
 			GeometryType targetGeometryType) {
 		
-		addAttributeTypeSubClassStatementsToBuilder(mappingsMap.keySet().iterator(), targetNamespace);
-		addAttributeTypeSubClassStatementsToBuilder(mappingsMap.values().iterator(), resultNamespace);
+		addAttributeTypeSubClassStatementsToBuilder(mappingsMap.keySet().iterator(), targetNamespace, false);
+		addAttributeTypeSubClassStatementsToBuilder(mappingsMap.values().iterator(), resultNamespace, true);
 		
-		createPositionTypeStatement(resultNamespace, sourceGeometryType);
-		createPositionTypeStatement(targetNamespace, targetGeometryType);
+		createPositionTypeStatement(resultNamespace, sourceGeometryType, true);
+		createPositionTypeStatement(targetNamespace, targetGeometryType, false);
 	}
 	
-	private void createPositionTypeStatement(String nameSpace, GeometryType geometryType){
+	private void createPositionTypeStatement(String nameSpace, GeometryType geometryType, boolean conflate){
 		
 		String geometryTypeString = "";
 		
@@ -393,16 +393,32 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			geometryTypeString = RDFUtil.OWS_POLYGON;
 		}
 		
-		addTripleToStringBuilder(RDFUtil.createTriple(RDFUtil.createPosition(nameSpace), RDFUtil.PREDICATE_RDFS_SUBCLASS_OF, geometryTypeString, true), attributeTypeSubClassStatementBuilder, true);
+		String rdfPosition = "";
+		
+		if(conflate){
+			rdfPosition = RDFUtil.createConflatedPosition(nameSpace);
+		}else{
+			rdfPosition = RDFUtil.createPosition(nameSpace);
+		}
+		
+		addTripleToStringBuilder(RDFUtil.createTriple(rdfPosition, RDFUtil.PREDICATE_RDFS_SUBCLASS_OF, geometryTypeString, true), attributeTypeSubClassStatementBuilder, true);
 		
 	}
 	
-	private void addAttributeTypeSubClassStatementsToBuilder(Iterator<?> attributes, String prefix){
+	private void addAttributeTypeSubClassStatementsToBuilder(Iterator<?> attributes, String prefix, boolean conflate){
 		
 		while (attributes.hasNext()) {
 			String mappingsAttribute = (String) attributes.next();
 			
-			String triple = RDFUtil.createTriple(RDFUtil.createAttribute(mappingsAttribute, prefix), RDFUtil.PREDICATE_RDFS_SUBCLASS_OF, RDFUtil.OWS_PROPERTY , true);
+			String rdfAttribute = "";
+			
+			if(conflate){
+				rdfAttribute = RDFUtil.createConflatedAttribute(mappingsAttribute, prefix);
+			}else{
+				rdfAttribute = RDFUtil.createAttribute(mappingsAttribute, prefix);
+			}	
+			
+			String triple = RDFUtil.createTriple(rdfAttribute, RDFUtil.PREDICATE_RDFS_SUBCLASS_OF, RDFUtil.OWS_PROPERTY , true);
 		
 			attributeTypeSubClassStatementBuilder.append(triple + "\n");
 		}
@@ -456,13 +472,13 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, targetNamespace), RDFUtil.createFeature("", targetNamespace), new GregorianCalendar().getTime(), targetRole);
 		
-		addProvenancePositionInfo(targetProvenanceFeature, targetNamespace);
+		addProvenancePositionInfo(targetProvenanceFeature, targetNamespace, false);
 		
 		targetFeatureMap.put(targetFeature.getID(), targetProvenanceFeature);
 		
 		RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(targetID, resultNamespace), RDFUtil.createFeature("", sourceNamespace), new GregorianCalendar().getTime(), targetRole);
 		
-		addProvenancePositionInfo(resultProvenanceFeature, resultNamespace);
+		addProvenancePositionInfo(resultProvenanceFeature, resultNamespace, true);
 		
 		resultProvenanceFeature.setProvenanceType(ProvenanceType.DERIVED_FROM);
 		
@@ -494,12 +510,26 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		return g;
 	}
 	
-	private void addProvenancePositionInfo(RDFProvenanceFeature rdfProvenanceFeature, String prefix){
+	private void addProvenancePositionInfo(RDFProvenanceFeature rdfProvenanceFeature, String prefix, boolean conflated){
 		
-		String positionID = "Position" + createUUIDString();
+		String positionID = "";
+		String positionType = "";
 		
+		if(conflated){
+		
+		positionID = RDFUtil.createConflatedPosition("Position" + createUUIDString(), prefix);
+		
+		positionType = RDFUtil.createConflatedPosition(prefix);
+		
+		}else{
+			
+			positionID = RDFUtil.createPosition("Position" + createUUIDString(), prefix);
+			
+			positionType =RDFUtil.createPosition(prefix);
+			
+		}
 		rdfProvenanceFeature.putPropertyID("position", positionID);
-		attributeTypeMap.put(positionID, RDFUtil.createPosition(prefix));
+		attributeTypeMap.put(positionID, positionType);
 	}
 	
 	public void mapProperties(SimpleFeature target, SimpleFeature newFeature){
@@ -517,19 +547,19 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 
 				RDFProvenanceFeature targetProvenanceFeature = targetFeatureMap.get(target.getID());
 				
-				String propertyID = propertyName + createUUIDString();
+				String propertyID = RDFUtil.createAttribute(propertyName + createUUIDString(), targetNamespace);
 				
 				targetProvenanceFeature.putPropertyID(propertyName, propertyID);
 				
-				attributeTypeMap.put(propertyID, propertyName);
+				attributeTypeMap.put(propertyID, RDFUtil.createAttribute(propertyName, targetNamespace));
 				
 				RDFProvenanceFeature resultProvenanceFeature = resultFeatureMap.get(newFeature.getID());
 				
-				propertyID = mappedPropertyName + createUUIDString();
+				propertyID = RDFUtil.createConflatedAttribute(mappedPropertyName + createUUIDString(), resultNamespace);
 				
 				resultProvenanceFeature.putPropertyID(propertyName, propertyID);
 				
-				attributeTypeMap.put(propertyID, mappedPropertyName);
+				attributeTypeMap.put(propertyID, RDFUtil.createConflatedAttribute(mappedPropertyName, resultNamespace));
 				
 				addPropertyValue(newFeature, mappedPropertyName, property.getValue());
 			}
@@ -791,11 +821,11 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 				String propertyName = (String) propertyIterator.next();				
 				
 				if (propertyName.equalsIgnoreCase("Position")) {
-					attributeTypeStatementBuilder.append(RDFUtil.createTriple(RDFUtil.createAttribute(rdfProvenanceFeature.getPropertyID(propertyName), prefix), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
+					attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
 					
 					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadGeometryTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
 				}else{
-					attributeTypeStatementBuilder.append(RDFUtil.createTriple(RDFUtil.createAttribute(rdfProvenanceFeature.getPropertyID(propertyName), prefix), RDFUtil.A, RDFUtil.createAttribute(attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), prefix), true));
+					attributeTypeStatementBuilder.append(RDFUtil.createTriple(rdfProvenanceFeature.getPropertyID(propertyName), RDFUtil.A, attributeTypeMap.get(rdfProvenanceFeature.getPropertyID(propertyName)), true));
 					
 					featureAttributeStatementBuilder.append(RDFUtil.createFeatureHadPropertyTriple(rdfProvenanceFeature.getPropertyID(propertyName), prefix, !propertyIterator.hasNext()));
 				}
