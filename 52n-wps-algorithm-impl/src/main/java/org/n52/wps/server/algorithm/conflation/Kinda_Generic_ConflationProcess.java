@@ -106,7 +106,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private StringBuilder sourceMemberStatementBuilder = new StringBuilder(); 
 	private StringBuilder attributeOriginStatementBuilder = new StringBuilder(); 
 	private StringBuilder featureOriginStatementBuilder = new StringBuilder();
-	private StringBuilder featureAttributeStatementBuilder = new StringBuilder();
+	private StringBuilder sourceFeatureAttributeStatementBuilder = new StringBuilder();
+	private StringBuilder resultFeatureAttributeStatementBuilder = new StringBuilder();
 	private StringBuilder executionProvUsedFeaturesStatementBuilder = new StringBuilder();
 	private StringBuilder featuresGeneratedByExecutionStatementBuilder = new StringBuilder();
 	private StringBuilder featuresGeneratedAtStatementBuilder = new StringBuilder();
@@ -218,6 +219,11 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		involvedFeatureCollectionsStatementBuilder.append("#     FeatureCollections (Datasets) involved in the conflation process\n");
 		involvedFeatureCollectionsStatementBuilder.append("###################################################################\n");
 		involvedFeatureCollectionsStatementBuilder.append("\n");
+		
+		resultMemberStatementBuilder.append("###################################################################\n");
+		resultMemberStatementBuilder.append("#     Individual features of the result dataset\n");
+		resultMemberStatementBuilder.append("###################################################################\n");
+		resultMemberStatementBuilder.append("\n");
 		
 	}
 	
@@ -650,8 +656,9 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		createFeatureMapProvenance(targetResultFeatureMap.values(), resultMemberStatementBuilder, RDFUtil.createConflatedMap(resultNamespace));
 
 		createResultFeatureOriginProvenance();
-		createFeatureAttributeProvenance(targetFeatureMap.values(), targetNamespace);
-		createFeatureAttributeProvenance(resultFeatureMap.values(), resultNamespace);
+		createFeatureAttributeProvenance(targetFeatureMap.values(), sourceFeatureAttributeStatementBuilder, targetNamespace);
+		createFeatureAttributeProvenance(sourceFeatureMap.values(), sourceFeatureAttributeStatementBuilder, sourceNamespace);
+		createFeatureAttributeProvenance(resultFeatureMap.values(), resultFeatureAttributeStatementBuilder, resultNamespace);
 		createConflationExecutionProvUsedFeatures();
 		createExecutionRelatedFeatures();
 		createIndividualExecutionStatements();
@@ -660,7 +667,9 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		System.out.println(attributeTypeSubClassStatementBuilder);	
 		System.out.println(featureTypeSubClassStatementBuilder);	
 		System.out.println(sourceMemberStatementBuilder);
-		System.out.println(featureAttributeStatementBuilder);
+		System.out.println(sourceFeatureAttributeStatementBuilder);
+		System.out.println(resultMemberStatementBuilder);
+		System.out.println(resultFeatureAttributeStatementBuilder);
 		System.out.println(featureOriginStatementBuilder);
 		System.out.println(attributeOriginStatementBuilder);
 		System.out.println(executionProvUsedFeaturesStatementBuilder);
@@ -803,7 +812,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	}
 
 	private void createFeatureAttributeProvenance(
-			Collection<RDFProvenanceFeature> values, String prefix) {
+			Collection<RDFProvenanceFeature> values, StringBuilder featureAttributeStatementBuilder, String prefix) {
 		
 		Collection<RDFProvenanceFeature> sortCollection = sortCollection(values);
 		
