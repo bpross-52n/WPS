@@ -46,7 +46,7 @@ public class RDFUtil {
 	public static final String PREFIX_PROV = "prov";
 	public static final String PREFIX_XSD = "xsd";
 	public static final String PREFIX_OWS10 = "ows10";
-	public static final String PREFIX_OWS = "ows:";
+	public static final String PREFIX_OWS = "ows";
 	public static final String PREFIX_NGA = "nga";
 	public static final String PREFIX_OWL = "owl";
 	
@@ -81,6 +81,7 @@ public class RDFUtil {
 	public static final String CONFLATED_MAP_FEATURE = ":ConflatedMap_Feature";
 	public static final String PROV_USAGE = PREFIX_PROV + ":Usage";
 	public static final String PROV_GENERATION = PREFIX_PROV + ":Generation";
+	public static final String OWS_PROPERTY = PREFIX_OWS + ":Property";
 	
 	
 	

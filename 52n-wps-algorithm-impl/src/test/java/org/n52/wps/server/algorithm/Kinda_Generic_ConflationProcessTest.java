@@ -52,8 +52,6 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 	    
 	    FeatureCollection<?, ?> ftc = gtv.getPayload();
 	    
-	    process.createSourceProvenanceFeatureMap(ftc.features());
-	    
 	    System.out.println(ftc.size());
 	    
 		InputStream tnmin = this.getClass().getResourceAsStream("tnm_firestations.xml");		
@@ -83,26 +81,9 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		
 		newFeatures.addAll(oldFeatures);
 		
-		List<SimpleFeature> onlyNewFeatures = new ArrayList<SimpleFeature>();
-
 		process.runConflation(iter1, newFeatures, ft);
 		
-		StringBuilder featureTypeStatementBuilder = new StringBuilder(); 
-		StringBuilder memberStatementBuilder = new StringBuilder(); 
-		StringBuilder generatedByStatementBuilder = new StringBuilder(); 
-		StringBuilder originStatementBuilder = new StringBuilder(); 
-		
-		for (SimpleFeature simpleFeature : newFeatures) {
-			
-			String featureProvenance1 = F2N_CONFLATED_MAP_FEATURE + simpleFeature.getID() + " a " + OWS_10_SC_NGA_FEATURE_TYPE;
-			
-			featureTypeStatementBuilder.append(featureProvenance1);
-			
-			String featureProvenance2 = F2N_CONFLATED_MAP_FEATURE + simpleFeature.getID() + " a " + OWS_10_SC_NGA_FEATURE_TYPE;
-			
-		}
-		
-		process.createRDFProvenance2();
+		process.createRDFProvenance2(ftc.features(), ftc2.features());
 		
 		FeatureCollection<?, ?> result = new ListFeatureCollection((SimpleFeatureType)ft, newFeatures);	 
 		
