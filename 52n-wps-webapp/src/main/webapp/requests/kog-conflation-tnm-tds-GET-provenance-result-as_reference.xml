@@ -27,12 +27,8 @@
     </wps:Input>
   </wps:DataInputs>
   <wps:ResponseForm>
-    <wps:ResponseDocument>
-      <wps:Output mimeType="text/xml"
-        schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd">
-        <ows:Identifier>conflated_result</ows:Identifier>
-      </wps:Output>
-      <wps:Output mimeType="text/turtle">
+    <wps:ResponseDocument storeExecuteResponse="true" status="true">
+      <wps:Output asReference="true" mimeType="text/turtle">
         <ows:Identifier>provenance</ows:Identifier>
       </wps:Output>
     </wps:ResponseDocument>

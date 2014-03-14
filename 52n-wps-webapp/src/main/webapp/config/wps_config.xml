@@ -29,8 +29,8 @@
 				<Format mimetype="text/xml"
 					schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
 			</Parser>
-			<Parser name="GML3ApplicationSchemaIncludingDatasetSourceParser"
-				className="org.n52.wps.io.datahandler.parser.GML3ApplicationSchemaIncludingDatasetSourceParser"
+			<Parser name="GML32WFSApplicationSchemaIncludingDatasetSourceParser"
+				className="org.n52.wps.io.datahandler.parser.GML32WFSApplicationSchemaIncludingDatasetSourceParser"
 				active="true">
 				<Format mimetype="text/xml"
 					schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd" />

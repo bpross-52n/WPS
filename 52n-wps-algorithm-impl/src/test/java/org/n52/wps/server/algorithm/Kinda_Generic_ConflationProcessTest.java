@@ -44,6 +44,7 @@ public class Kinda_Generic_ConflationProcessTest extends TestCase {
 		Kinda_Generic_ConflationProcess process = new Kinda_Generic_ConflationProcess();
 		
 		InputStream tdsin = this.getClass().getResourceAsStream("tds_firestationsWFS200GML32.xml");
+//		InputStream tdsin = this.getClass().getResourceAsStream("tds_firestations.xml");
 		
 //		GML3ApplicationSchemaParser parser = new GML3ApplicationSchemaParser();
 		GML32WFSApplicationSchemaIncludingDatasetSourceParser parser = new GML32WFSApplicationSchemaIncludingDatasetSourceParser();

@@ -91,6 +91,8 @@ public class GML32WFSApplicationSchemaConfiguration extends Configuration {
 		}
 		this.gmlNamespace = gmlNamespace;
 		
+		bindings.put(GML.AbstractFeatureCollectionType,
+				AbstractFeatureCollectionTypeBindingGML3Fix.class);
 		bindings.put(WFS.FeatureCollectionType,
 				AbstractFeatureCollectionTypeBindingGML3Fix.class);
 		bindings.put(GML.LineStringType, LineStringWithIdFix.class);

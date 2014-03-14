@@ -10,7 +10,8 @@
       <ows:Identifier>Source</ows:Identifier>
       <wps:Reference mimeType="text/xml"
         schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd"
-        xlink:href="http://services.interactive-instruments.de/xsprojects/ows10/service/tds-dgiwg/wfs?service=WFS&amp;version=1.1.0&amp;request=GetFeature&amp;namespaces=xmlns%28tds,http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0%29&amp;typename=tds:BuildingGeopoint&amp;FILTER=%3CFilter%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Atds%3D%22http%3A%2F%2Fmetadata.dod.mil%2Fmdr%2Fns%2FGSIP%2F3.0%2Ftds%2F3.0%22%3E%3CPropertyIsEqualTo%3E%3CPropertyName%3Etds%3AfeatureFunction-1%3C%2FPropertyName%3E%3CLiteral%3Efirefighting%3C%2FLiteral%3E%3C%2FPropertyIsEqualTo%3E%3C%2FFilter%3E&amp;outputFormat=text/xml;%20subtype=gml/3.2.1">
+        xlink:href="
+http://services.interactive-instruments.de/xsprojects/ows10/service/tds-dgiwg/wfs?service=WFS&amp;version=2.0.0&amp;request=GetFeature&amp;namespaces=xmlns(tds,http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0)&amp;typenames=tds:BuildingGeopoint&amp;FILTER=%3CFilter%20xmlns%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Atds%3D%22http%3A%2F%2Fmetadata.dod.mil%2Fmdr%2Fns%2FGSIP%2F3.0%2Ftds%2F3.0%22%3E%3CPropertyIsEqualTo%3E%3CValueReference%3Etds%3AfeatureFunction-1%3C%2FValueReference%3E%3CLiteral%3Efirefighting%3C%2FLiteral%3E%3C%2FPropertyIsEqualTo%3E%3C%2FFilter%3E">
       </wps:Reference>
     </wps:Input>
     <wps:Input>

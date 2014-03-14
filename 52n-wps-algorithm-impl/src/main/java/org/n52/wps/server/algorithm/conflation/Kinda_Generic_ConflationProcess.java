@@ -663,22 +663,22 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		createExecutionRelatedFeatures();
 		createIndividualExecutionStatements();
 		
-		System.out.println(involvedFeatureCollectionsStatementBuilder);
-		System.out.println(attributeTypeSubClassStatementBuilder);	
-		System.out.println(featureTypeSubClassStatementBuilder);	
-		System.out.println(sourceMemberStatementBuilder);
-		System.out.println(sourceFeatureAttributeStatementBuilder);
-		System.out.println(resultMemberStatementBuilder);
-		System.out.println(resultFeatureAttributeStatementBuilder);
-		System.out.println(featureOriginStatementBuilder);
-		System.out.println(attributeOriginStatementBuilder);
-		System.out.println(executionProvUsedFeaturesStatementBuilder);
-		System.out.println(featuresGeneratedByExecutionStatementBuilder);
-		System.out.println(featuresGeneratedAtStatementBuilder);
-		System.out.println(qualifiedUsageStatementBuilder);
-		System.out.println(qualifiedGenerationStatementBuilder);
-		System.out.println(attributeTypeStatementBuilder);	
-		System.out.println(individualExecutionStatementBuilder);	
+		rdfProvenance = rdfProvenance.concat(involvedFeatureCollectionsStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(attributeTypeSubClassStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(featureTypeSubClassStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(sourceMemberStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(sourceFeatureAttributeStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(resultMemberStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(resultFeatureAttributeStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(featureOriginStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(attributeOriginStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(executionProvUsedFeaturesStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(featuresGeneratedByExecutionStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(featuresGeneratedAtStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(qualifiedUsageStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(qualifiedGenerationStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(attributeTypeStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(individualExecutionStatementBuilder.toString());
 		
 		return rdfProvenance;
 	}
@@ -1051,7 +1051,9 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_PROV);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_RDFS);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_XSD);		
-		
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_USGS_DATA);		
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_NGA_DATA);		
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_NGA_CONF);
 		return prefixes;
 	}
 	
