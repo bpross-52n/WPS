@@ -29,6 +29,12 @@
 				<Format mimetype="text/xml"
 					schema="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd" />
 			</Parser>
+			<Parser name="GML32OMWFSGBasicParser"
+				className="org.n52.wps.io.datahandler.parser.GML32OMWFSGBasicParser"
+				active="true">
+				<Format mimetype="text/xml; subtype=gml/3.2.1"
+					schema="http://schemas.opengis.net/gml/3.2.1/gml.xsd" />
+			</Parser>
 			<Parser name="GML32WFSApplicationSchemaIncludingDatasetSourceParser"
 				className="org.n52.wps.io.datahandler.parser.GML32WFSApplicationSchemaIncludingDatasetSourceParser"
 				active="true">
@@ -527,6 +533,7 @@
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.FuzzyWuzzyTestProcess</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.JTSConvexHullAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.GazetteerConflationProcess</Property>
+			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.LinkingProcess</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.conflation.Kinda_Generic_ConflationProcess</Property>
 			<Property name="pythonHome" active="true">c:\python27</Property>
 			<Property name="fuzzyName" active="true">D:\chaos-folder\fuzz.py</Property>

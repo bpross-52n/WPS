@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd" xml:lang="en-US" service="WPS" version="1.0.0">
+	<ProcessDescription statusSupported="true" storeSupported="true" wps:processVersion="1.2.0">
+		<ows:Identifier>org.n52.wps.server.algorithm.conflation.LinkingProcess</ows:Identifier>
+		<ows:Title>OWS-10 Linking Process</ows:Title>
+		<DataInputs>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Source_Features</ows:Identifier>
+				<ows:Title>Source Features</ows:Title>
+				<ows:Abstract>Tags from the target features will be matched against the source</ows:Abstract>
+				<ComplexData>
+					<Default>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>text/xml</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
+					</Supported>
+				</ComplexData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Target_Features</ows:Identifier>
+				<ows:Title>Target Features</ows:Title>
+				<ows:Abstract>Tags from the target features will be matched against the source</ows:Abstract>
+				<ComplexData>
+					<Default>
+						<Format>
+							<MimeType>text/xml; subtype=gml/3.2.1</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>text/xml; subtype=gml/3.2.1</MimeType>
+							<Schema>http://schemas.opengis.net/gml/3.2.1/gml.xsd</Schema>
+						</Format>
+					</Supported>
+				</ComplexData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>Search_Distance</ows:Identifier>
+				<ows:Title>Search Distance in miles</ows:Title>
+				<ows:Abstract>Distance to search for target features around source feature</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:double"/>
+					<UOMs>
+						<Default>
+							<ows:UOM>miles</ows:UOM>
+						</Default>
+						<Supported>
+							<ows:UOM>miles</ows:UOM>
+						</Supported>
+					</UOMs>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>FuzzyWuzzy_Threshold</ows:Identifier>
+				<ows:Title>FuzzyWuzzy Threshold</ows:Title>
+				<ows:Abstract>Name matching threshold to determine a match</ows:Abstract>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:double"/>
+					<ows:AnyValue/>
+				</LiteralData>
+			</Input>
+		</DataInputs>
+		<ProcessOutputs>
+			<Output>
+				<ows:Identifier>Matched_Features</ows:Identifier>
+				<ows:Title>Output File</ows:Title>
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>text/csv</MimeType>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>text/csv</MimeType>
+						</Format>
+						<Format>
+							<MimeType>application/rdf+xml</MimeType>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>

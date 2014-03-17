@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -37,11 +36,9 @@ import org.n52.wps.io.data.binding.bbox.GTReferenceEnvelope;
 import org.n52.wps.io.data.binding.complex.GML32OMWFSDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.data.binding.complex.GazetteerRelationalOutputDataBinding;
-import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralIntBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
-import org.n52.wps.io.datahandler.parser.GML32OMWFSGBasicParser;
 import org.n52.wps.server.AbstractAlgorithm;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.LocalAlgorithmRepository;
@@ -61,13 +58,13 @@ public class LinkingProcess extends AbstractAlgorithm {
 	private static Logger LOGGER = LoggerFactory.getLogger(LinkingProcess.class);
 	
 	private final String sourceWFS = "Source_Features";
-	private final String targetWFS = "Target_WFS";
+	private final String targetWFS = "Target_Features";
 	private final String targetGazetteerDescriptionFilter = "Target_WFS_Description_Filter";
 	private final String boundingBoxFilter = "Bounding_Box_Filter";
 	private final String searchDistance = "Search_Distance";
 	private final String fuzzyWuzzyThreshold = "FuzzyWuzzy_Threshold";
 	private final String targetWFSMaxFeatures = "Target_WFS_Max_Features";
-	private final String outputFile = "links";
+	private final String outputFile = "Matched_Features";
 	
 	private MathTransform tx;
 	
@@ -203,65 +200,19 @@ public class LinkingProcess extends AbstractAlgorithm {
 			throw new RuntimeException("No value for input " + this.fuzzyWuzzyThreshold + " provided.");
 		}
 		
+		GML32OMWFSDataBinding targetGazetteerFeatures = null;
+		
 		/*
 		 * get target features
 		 */
-		List<IData> targetGazInputs = inputData.get(targetWFS);
-		
-		URI targetGazURI = null;
+		List<IData> targetWFSInputs = inputData.get(targetWFS);
 		
 		try {
-			targetGazURI = ((LiteralAnyURIBinding)targetGazInputs.get(0)).getPayload();			
+			targetGazetteerFeatures = (GML32OMWFSDataBinding)targetWFSInputs.get(0);		
 		} catch (ClassCastException e) {
-			throw new RuntimeException(targetWFS + " input value is not an URI.");
+			throw new RuntimeException(targetWFS + " input value is not an GML32OMWFSDataBinding.");
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new RuntimeException("No value for input " + targetWFS + " provided.");
-		}
-		/*
-		 * get  description filter 
-		 */
-		List<IData> targetDescriptionFilter = inputData.get(targetGazetteerDescriptionFilter);
-		
-		String[] targetDescriptionFilterLiterals = null;
-		
-		try {
-			String targetDescriptionFilterLiteralString = ((LiteralStringBinding)targetDescriptionFilter.get(0)).getPayload();
-			targetDescriptionFilterLiterals = targetDescriptionFilterLiteralString.split(",");
-		} catch (ClassCastException e) {
-			throw new RuntimeException(targetGazetteerDescriptionFilter + " input value is not a String.");
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new RuntimeException("No value for input " + targetGazetteerDescriptionFilter + " provided.");
-		}
-		
-		/*
-		 * get  maxFeatures for new brunswick gazetteer (target)
-		 */
-		List<IData> maxFeaturesTargetWFS = inputData.get(targetWFSMaxFeatures);
-		
-		try {
-			if(maxFeaturesTargetWFS != null && maxFeaturesTargetWFS.size()>0){
-				maxFeaturesTargetWFSInt = ((LiteralIntBinding)maxFeaturesTargetWFS.get(0)).getPayload();
-			}else{
-				LOGGER.info("No maxFeatures value for Target WFS provided, using default value: " + maxFeaturesTargetWFSInt);
-			}
-		} catch (ClassCastException e) {
-			throw new RuntimeException(targetWFSMaxFeatures + " input value is not an integer.");
-		}
-		
-		String finalTargetGazetteerRequest = targetGazURI.toString();
-		
-		GML32OMWFSGBasicParser gml32Parser = new GML32OMWFSGBasicParser();
-		
-		GML32OMWFSDataBinding targetGazetteerFeatures = null;
-		
-		try {
-			
-			String request = buildVGIWFSRequest(WFSGRequestStringConstants.WFS100_NEW_BRUNSWICK_GET_FEATURE_WITH_QUERY_REQUEST, "iso19112:locationType//iso19112:name", targetDescriptionFilterLiterals, maxFeaturesTargetWFSInt);
-			
-			targetGazetteerFeatures = gml32Parser.parse(PostClient.sendRequestForInputStream(finalTargetGazetteerRequest, request), "text/xml", "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
-						
-		} catch (IOException e) {
-			throw new RuntimeException("Could not connect to target gazetteer: " + finalTargetGazetteerRequest, e);
 		}
 		
 		if(targetGazetteerFeatures == null){
@@ -713,7 +664,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 		if(id.endsWith(sourceWFS)){
 			return GTVectorDataBinding.class;
 		}else if(id.endsWith(targetWFS)){
-			return LiteralAnyURIBinding.class;			
+			return GML32OMWFSDataBinding.class;			
 		}else if(id.endsWith(targetGazetteerDescriptionFilter)){
 			return LiteralStringBinding.class;
 		}else if(id.endsWith(boundingBoxFilter)){
