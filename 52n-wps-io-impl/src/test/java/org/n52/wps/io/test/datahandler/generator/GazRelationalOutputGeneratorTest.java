@@ -54,7 +54,7 @@ public class GazRelationalOutputGeneratorTest extends AbstractTestCase<Gazetteer
 				
 				}else if(mimeType.equals(GazetteerRelationalOutputGenerator.MIME_TYPE_RDF)){
 					
-					assertTrue(output.contains(GazetteerRelationalOutputGenerator.PREFIXES));
+					assertTrue(output.contains(GazetteerRelationalOutputGenerator.PREFIXES_GAZETTEER));
 					assertTrue(output.contains("<http://earth-info.nga.mil/gns#-563601>"));
 					assertTrue(output.contains("<http://www.nrcan.gc.ca/resource/e69500bfd05211d892e2080020a0f4c9>"));
 					assertTrue(output.contains("wps:numResults 2;"));

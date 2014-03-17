@@ -518,6 +518,8 @@
 				active="true">
 				<Format mimetype="text/csv" />
 				<Format mimetype="application/rdf+xml" />
+				<Format mimetype="text/turtle" />
+				<Format mimetype="application/x-turtle" />
 			</Generator>
 			<Generator name="RDFOutputGenerator"
 				className="org.n52.wps.io.datahandler.generator.RDFOutputGenerator"

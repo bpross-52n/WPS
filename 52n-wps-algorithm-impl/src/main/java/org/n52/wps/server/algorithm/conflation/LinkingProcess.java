@@ -85,9 +85,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 	
 	private String fuzzyName;
 	
-	int maxFeaturesNGAInt = 2500;
-	int maxFeaturesTargetWFSInt = 2500;
-	
 	private ExecutorService executor = Executors.newFixedThreadPool(10);
 	
 	public LinkingProcess(){
@@ -245,7 +242,11 @@ public class LinkingProcess extends AbstractAlgorithm {
 		
 		Map<String, IData> result = new HashMap<String, IData>();
 		
-		result.put(outputFile, new GazetteerRelationalOutputDataBinding(finalResults));
+		GazetteerRelationalOutputDataBinding resultBinding = new GazetteerRelationalOutputDataBinding(finalResults);
+		
+		resultBinding.setGazetteerMatching(false);
+		
+		result.put(outputFile, resultBinding);
 		
 		return result;
 	}	
@@ -272,7 +273,7 @@ public class LinkingProcess extends AbstractAlgorithm {
 
 			String sourceName = getMatchingAttributeName(sourceFeature);
 
-			if(sourceName == null || sourceName.equals("No Information") || sourceName.equals("noInformation")){
+			if(sourceName == null|| sourceName.equals("-") || sourceName.equals("No Information") || sourceName.equals("noInformation")){
 				continue;
 			}
 			
@@ -384,8 +385,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 
 	private String getDescription(OMObservationType targetFeature) {
 		
-		List<String> descriptionList = new ArrayList<String>();
-		
 		StringOrRefType descriptionType = targetFeature.getDescription();
 		
 		String descriptionString = "";
@@ -495,7 +494,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 
 				String [] coordinates = pointType.getPos().getStringValue().split(" ");
 				/*
-				 * TODO: coordinates from second WFS-G seem to be in a different order
 				 * right now, we just revert the order of the coordinates
 				 * additionally we could check, whether they are not inside the bounding box of the target
 				 *  
@@ -617,40 +615,6 @@ public class LinkingProcess extends AbstractAlgorithm {
 			throw new RuntimeException(e);
 		}
 		return -1;
-	}
-	
-	private String buildVGIWFSRequest(String request, String propertyName, String[] filterLiterals, int maxFeatures){
-		
-		String allOrStatements = createFilter(propertyName, filterLiterals);
-		
-		request = request.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
-		request = request.replace(WFSGRequestStringConstants.MAXFEATURESEXP, maxFeatures + "");
-		
-		return request;	
-		
-	}
-
-	private String createFilter(String propertyName, String[] filterLiterals){
-		
-		String allOrStatements = "";
-		
-		for (String literal : filterLiterals) {
-			
-			String orStatement = WFSGRequestStringConstants.FE100_EQUALTO.replace(WFSGRequestStringConstants.PROPERTYVALEXP, propertyName);
-			
-			orStatement = orStatement.replace(WFSGRequestStringConstants.LITERALEXP, literal.trim());
-			
-			allOrStatements = allOrStatements.concat(orStatement);
-			
-		}
-		
-		if(filterLiterals.length > 1){
-			
-			return WFSGRequestStringConstants.FE100_OR.replace(WFSGRequestStringConstants.EQALTOEXP, allOrStatements);
-			
-		}
-		
-		return allOrStatements;
 	}
 	
 	@Override

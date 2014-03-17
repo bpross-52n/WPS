@@ -14,6 +14,8 @@ public class GazetteerRelationalOutputDataBinding implements IComplexData {
 
 	private List<GazetteerConflationResultEntry> payload;
 	
+	private boolean gazetteerMatching = true;
+	
 	public GazetteerRelationalOutputDataBinding(List<GazetteerConflationResultEntry> payload) {
 		this.payload = payload;
 	}
@@ -26,6 +28,14 @@ public class GazetteerRelationalOutputDataBinding implements IComplexData {
 	@Override
 	public Class<?> getSupportedClass() {
 		return payload.getClass();
+	}
+
+	public boolean isGazetteerMatching() {
+		return gazetteerMatching;
+	}
+
+	public void setGazetteerMatching(boolean gazetteerMatching) {
+		this.gazetteerMatching = gazetteerMatching;
 	}
 
 	@Override
