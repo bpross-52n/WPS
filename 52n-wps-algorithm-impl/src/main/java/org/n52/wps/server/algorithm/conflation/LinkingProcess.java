@@ -299,98 +299,151 @@ public class LinkingProcess extends AbstractAlgorithm {
 		return result;
 	}	
 	
-	public List<GazetteerConflationResultEntry> runMatching(GTVectorDataBinding sourceGazetteerFeatures, GML32OMWFSDataBinding targetGazetteerFeatures, double fuzzyWuzzyThreshold, double searchDistance) {
-		
+	public List<GazetteerConflationResultEntry> runMatching(
+			GTVectorDataBinding sourceGazetteerFeatures,
+			GML32OMWFSDataBinding targetGazetteerFeatures,
+			double fuzzyWuzzyThreshold, double searchDistance) {
+
 		/*
 		 * loop over features
 		 */
-		FeatureIterator<?> sourceFeatureIterator = sourceGazetteerFeatures.getPayload().features();
-		
+		FeatureIterator<?> sourceFeatureIterator = sourceGazetteerFeatures
+				.getPayload().features();
+
 		List<GazetteerConflationResultEntry> finalResults = new ArrayList<GazetteerConflationResultEntry>();
-		
-		while(sourceFeatureIterator.hasNext()){
-			
-			SimpleFeature sourceFeature = (SimpleFeature) sourceFeatureIterator.next();
-			
+
+		while (sourceFeatureIterator.hasNext()) {
+
+			SimpleFeature sourceFeature = (SimpleFeature) sourceFeatureIterator
+					.next();
+
 			String sourceFeatureGeogrName = sourceFeature.getID();
-			
+
 			String sourceName = getMatchingAttributeName(sourceFeature);
 
-			Map<OMObservationType, Double> targetFeaturesInRange = getFeatureInRange(sourceFeature, targetGazetteerFeatures.getPayload(), searchDistance);
-			
-			if(targetFeaturesInRange.size() == 0){
-				LOGGER.info("No features in range for feature with id " + sourceFeature.getID());
+			if(sourceName == null || sourceName.equals("No Information") || sourceName.equals("noInformation")){
 				continue;
 			}
 			
-			List<GazetteerConflationResultEntry> tmpResults = new ArrayList<GazetteerConflationResultEntry>();
-					
-				/*
-				 * iterate over target features
-				 */		
-				
-				Iterator<OMObservationType> targetFeatureIterator = targetFeaturesInRange.keySet().iterator();
-				
-				while(targetFeatureIterator.hasNext()){
-					
-					OMObservationType targetFeature = targetFeatureIterator.next();
-						
-						/*
-						 * check names with FuzzyWuzzy
-						 * first get source name
-						 * we have to do this for each alternativeGeogrId
-						 * save the combination with the highest fw score, if tied, use distance 
-						 */
-						
-						List<String> targetNames = getDescription(targetFeature);
+			Map<OMObservationType, Double> targetFeaturesInRange = getFeatureInRange(
+					sourceFeature, targetGazetteerFeatures.getPayload(),
+					searchDistance);
 
-						for (String string : targetNames) {
-							int fwScore = getFuzzyWuzzyScore(sourceName, string);
-							
-							LOGGER.debug(fwScore + " " + targetFeaturesInRange.get(targetFeature) + " " + sourceFeatureGeogrName + " " + targetFeature.getId() + " " + sourceName + " " + string);
-							
-							/*
-							 * if above fuzzywuzzy threshold:
-							 * save fw score, distance, geographicId_NGA, geographicId_NB, alternativeGeographicIdentifier_NGA, alternativeGeographicIdentifier_NB
-							 */
-							if(fwScore >= fuzzyWuzzyThreshold){
-								tmpResults.add(new GazetteerConflationResultEntry(fwScore, targetFeaturesInRange.get(targetFeature), sourceFeatureGeogrName, targetFeature.getId(), sourceName, string));
-								break;
-							}
-						}					
-				}				
-			
-			if(tmpResults.size() >0){
+			if (targetFeaturesInRange.size() == 0) {
+				LOGGER.info("No features in range for feature with id "
+						+ sourceFeature.getID());
+				continue;
+			}
+
+			List<GazetteerConflationResultEntry> tmpResults = new ArrayList<GazetteerConflationResultEntry>();
+
+			/*
+			 * iterate over target features
+			 */
+
+			Iterator<OMObservationType> targetFeatureIterator = targetFeaturesInRange
+					.keySet().iterator();
+
+			while (targetFeatureIterator.hasNext()) {
+
+				OMObservationType targetFeature = targetFeatureIterator.next();
+
+				/*
+				 * check names with FuzzyWuzzy first get source name we have to
+				 * do this for each alternativeGeogrId save the combination with
+				 * the highest fw score, if tied, use distance
+				 */
+
+				String descriptionString = getDescription(targetFeature);
+
+				if(descriptionString == null || descriptionString.equals("")){
+					continue;
+				}
+				
+				
+				/*
+				 * tags in the description field are mostly separated by comma
+				 */
+				String[] descriptionArray = descriptionString.split(" ");
+
+				String[] sourceNameParts = sourceName.split(" ");
+
+				List<Integer> scoreList = new ArrayList<Integer>();
+
+				for (String sourceNamePart : sourceNameParts) {
+
+					int maxScore = 0;
+
+					for (String targetNamePart : descriptionArray) {
+						int fwScore = getFuzzyWuzzyScore(sourceNamePart,
+								targetNamePart);
+						if (fwScore > maxScore) {
+							maxScore = fwScore;
+						}
+					}
+					scoreList.add(maxScore);
+				}
+
+				int summedUpScores = 0;
+
+				for (Integer integer : scoreList) {
+					summedUpScores = summedUpScores + integer;
+				}
+
+				
+				int averageScore = 0;				
+				
+				if(scoreList.size() != 0){
+					averageScore = summedUpScores / scoreList.size();
+				}
+
+				// int fwScore = getFuzzyWuzzyScore(sourceName, string);
+
+				LOGGER.debug(averageScore + " "
+						+ targetFeaturesInRange.get(targetFeature) + " "
+						+ sourceFeatureGeogrName + " " + targetFeature.getId()
+						+ " " + sourceName + " " + descriptionString);
+
+				/*
+				 * if above fuzzywuzzy threshold: save fw score, distance,
+				 * geographicId_NGA, geographicId_NB,
+				 * alternativeGeographicIdentifier_NGA,
+				 * alternativeGeographicIdentifier_NB
+				 */
+				if (averageScore >= fuzzyWuzzyThreshold) {
+					tmpResults.add(new GazetteerConflationResultEntry(
+							averageScore, targetFeaturesInRange
+									.get(targetFeature),
+							sourceFeatureGeogrName, targetFeature.getId(),
+							sourceName, descriptionString));
+					break;
+				}
+
+			}
+
+			if (tmpResults.size() > 0) {
 				Collections.sort(tmpResults);
-			
+
 				finalResults.add(tmpResults.get(0));
 			}
-			
-			
+
 		}
 		return finalResults;
 	}
 
-	private List<String> getDescription(OMObservationType targetFeature) {
+	private String getDescription(OMObservationType targetFeature) {
 		
 		List<String> descriptionList = new ArrayList<String>();
 		
 		StringOrRefType descriptionType = targetFeature.getDescription();
 		
+		String descriptionString = "";
+		
 		if(descriptionType != null){
-			String descriptionString = descriptionType.getStringValue();
-			/*
-			 * tags in the description field are mostly separated by comma
-			 */
-			String[] descriptionArray = descriptionString.split(",");
-			
-			for (String string : descriptionArray) {
-				descriptionList.add(string);
-			}
-			
+			descriptionString = descriptionType.getStringValue();			
 		}	
 		
-		return descriptionList;
+		return descriptionString;
 	}
 
 	private Map<OMObservationType, Double> getFeatureInRange(SimpleFeature sourceFeature, List<OMObservationType> list, double distanceThreshold){
