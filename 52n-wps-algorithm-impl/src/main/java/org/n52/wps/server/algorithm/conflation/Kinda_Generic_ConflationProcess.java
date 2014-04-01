@@ -703,7 +703,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		addTripleToStringBuilder(RDFUtil.createTriple("	", RDFUtil.PREDICATE_PROV_WAS_REVISION_OF, RDFUtil.createMap(sourceNamespace), false), involvedFeatureCollectionsStatementBuilder, true);
 		
-		addTripleToStringBuilder(RDFUtil.createTriple("	", RDFUtil.PREDICATE_PROV_GENERATED_AT_TIME, generatedAt + RDFUtil.XSD_DATE_TIME, true), involvedFeatureCollectionsStatementBuilder, true);
+		addTripleToStringBuilder(RDFUtil.createTriple("	", RDFUtil.PREDICATE_PROV_GENERATED_AT_TIME, "\"" + generatedAt + "\"" + RDFUtil.XSD_DATE_TIME, true), involvedFeatureCollectionsStatementBuilder, true);
 		
 	}
 
@@ -711,8 +711,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 
 		addTripleToStringBuilder(RDFUtil.createTriple(entityName, RDFUtil.A, RDFUtil.WPS_CONFLATION_EXECUTION, true), individualExecutionStatementBuilder, true);
 		addTripleToStringBuilder(RDFUtil.createTriple(entityName, RDFUtil.PREDICATE_PROV_USED, type, true), individualExecutionStatementBuilder, true);
-		addTripleToStringBuilder(RDFUtil.createTriple(entityName, RDFUtil.PREDICATE_PROV_STARTED_AT_TIME, startTime + RDFUtil.XSD_DATE_TIME, false), individualExecutionStatementBuilder, true);
-		addTripleToStringBuilder(RDFUtil.createTriple("	", RDFUtil.PREDICATE_PROV_ENDED_AT_TIME, endTime + RDFUtil.XSD_DATE_TIME, true), individualExecutionStatementBuilder, true);
+		addTripleToStringBuilder(RDFUtil.createTriple(entityName, RDFUtil.PREDICATE_PROV_STARTED_AT_TIME, "\"" +startTime + "\"" + RDFUtil.XSD_DATE_TIME, false), individualExecutionStatementBuilder, true);
+		addTripleToStringBuilder(RDFUtil.createTriple("	", RDFUtil.PREDICATE_PROV_ENDED_AT_TIME, "\"" +endTime + "\"" + RDFUtil.XSD_DATE_TIME, true), individualExecutionStatementBuilder, true);
 		
 	}
 	
@@ -1053,6 +1053,8 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		}
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_FOAF);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_OWS10);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_OWS);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_OWL);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_PROV);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_RDFS);
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_XSD);		

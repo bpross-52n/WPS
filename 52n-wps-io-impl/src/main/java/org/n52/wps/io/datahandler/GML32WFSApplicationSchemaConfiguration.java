@@ -42,6 +42,7 @@ import org.geotools.gml3.bindings.LineStringTypeBinding;
 import org.geotools.gml3.bindings.PointTypeBinding;
 import org.geotools.gml3.v3_2.GML;
 import org.geotools.gml3.v3_2.bindings.EnvelopeTypeBinding;
+import org.geotools.referencing.CRS;
 import org.geotools.wfs.v2_0.WFS;
 import org.geotools.wfs.v2_0.WFSConfiguration;
 import org.geotools.xml.AbstractComplexBinding;
@@ -52,6 +53,9 @@ import org.n52.wps.io.datahandler.SchemaLocationHandler.FeatureTypeSchema;
 import org.n52.wps.provenance.ISOProvenanceEncoding;
 import org.n52.wps.provenance.ProvenanceEncoding;
 import org.n52.wps.provenance.ProvenanceFeature;
+import org.opengis.geometry.MismatchedDimensionException;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.NoSuchAuthorityCodeException;
 import org.picocontainer.MutablePicoContainer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -63,7 +67,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 public class GML32WFSApplicationSchemaConfiguration extends Configuration {
 
 	private String gmlNamespace;
-	private String srsName = "urn:ogc:def:crs:EPSG::4326";
+	private static String srsName = "urn:ogc:def:crs:EPSG::4326";
 	private Map<QName, Class<?>> bindings = new HashMap<QName, Class<?>>();
 
 	public GML32WFSApplicationSchemaConfiguration(ApplicationSchemaXSDWithGMLVersion schema) {
@@ -193,8 +197,23 @@ public class GML32WFSApplicationSchemaConfiguration extends Configuration {
 
 				ReferencedEnvelope env = featureCollection.getBounds();
 
-				if (env != null) {
-					return !(env.isNull() || env.isEmpty()) ? env : null;
+				ReferencedEnvelope newEnv = null;
+				
+				try {
+					newEnv = new ReferencedEnvelope(CRS.decode(srsName));
+					
+					newEnv.setBounds(env);
+					
+				} catch (MismatchedDimensionException e) {
+					e.printStackTrace();
+				} catch (NoSuchAuthorityCodeException e) {
+					e.printStackTrace();
+				} catch (FactoryException e) {
+					e.printStackTrace();
+				}
+
+				if (newEnv != null) {
+					return !(newEnv.isNull() || newEnv.isEmpty()) ? newEnv : null;
 				}
 
 			}

@@ -61,9 +61,9 @@ public class RDFUtil {
 	public static final String PROV_PREFIX_NGA = "@prefix " + PREFIX_NGA + ": <http://www.opengis.net/ogc/ows10/ows10-nga-ontology/> .\n";
 	public static final String PROV_PREFIX_OWL = "@prefix " + PREFIX_OWL + ":  <http://www.w3.org/2002/07/owl#> .\n";
 	
-	public static final String PROV_PREFIX_USGS_DATA = "@prefix " + PREFIX_USGS_DATA + ":  <http://www.usgs.gov/projects/ows8> .\n";
-	public static final String PROV_PREFIX_NGA_DATA = "@prefix " + PREFIX_NGA_DATA + ":  <http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0> .\n";
-	public static final String PROV_PREFIX_NGA_CONF = "@prefix " + PREFIX_NGA_CONF + ":  <http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0> .\n";
+	public static final String PROV_PREFIX_USGS_DATA = "@prefix " + PREFIX_USGS_DATA + ":  <http://www.usgs.gov/projects/ows8/> .\n";
+	public static final String PROV_PREFIX_NGA_DATA = "@prefix " + PREFIX_NGA_DATA + ":  <http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0/> .\n";
+	public static final String PROV_PREFIX_NGA_CONF = "@prefix " + PREFIX_NGA_CONF + ":  <http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0/> .\n";
 	public static final String PROV_PREFIX_UNKKOWN_DATA = "@prefix " + PREFIX_UNKNOWN_DATA + ": <http://www.opengis.net/ogc/unknown_dataset/> .\n";
 	public static final String PROV_PREFIX_UNKKOWN_CONF = "@prefix " + PREFIX_UNKNOWN_CONF + ": <http://www.opengis.net/ogc/unknown_conf-dataset/> .\n";
 	
@@ -87,7 +87,7 @@ public class RDFUtil {
 	public static final String OWS_LINE = PREFIX_OWS + ":Line";
 	public static final String OWS_POLYGON = PREFIX_OWS + ":Polygon";
 	public static final String OWS_FEATURE_COLLECTION = PREFIX_OWS + ":FeatureCollection";
-	public static final String WPS_CONFLATION_EXECUTION = PREFIX_F2N + ":52N_WPSConflationExecution";
+	public static final String WPS_CONFLATION_EXECUTION = PREFIX_F2N + ":F2N_WPSConflationExecution";
 	
 	
 	
@@ -198,7 +198,7 @@ public class RDFUtil {
 		String mapString = "";
 		
 		if(id != null && !id.equals("")){		
-			mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Feature_" + id;
+			mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Feature_" + id.replace(".", "_");
 		}else{
 			mapString = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "Feature";
 		}
@@ -209,14 +209,14 @@ public class RDFUtil {
 	
 	public static String createConflatedFeature(String id, String prefix){
 		
-		String string = prefix + ":ConflatedMapFeature_" + id;
+		String string = prefix + ":ConflatedMapFeature_" + id.replace(".", "_");
 		
 		return string;		
 	}
 	
 	public static String createAttribute(String id, String prefix){
 		
-		String string = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "_" + id;
+		String string = prefix + ":" + cleanPrefix(prefix).toUpperCase() + "_" + id.replace(".", "_");
 		
 		return string;		
 	}
@@ -257,7 +257,7 @@ public class RDFUtil {
 	
 	public static String createConflatedAttribute(String id, String prefix){
 		
-		String mapString = prefix + ":ConflatedMap_" + id;
+		String mapString = prefix + ":ConflatedMap_" + id.replace(".", "_");
 		
 		return mapString;		
 	}
@@ -370,7 +370,7 @@ public class RDFUtil {
 	
 	public static String createFeaturesGeneratedAtTriple(String featureID, String time) {
 		
-		String triple = createTriple(featureID, PREDICATE_PROV_GENERATED_AT_TIME, time + XSD_DATE_TIME, true);
+		String triple = createTriple(featureID, PREDICATE_PROV_GENERATED_AT_TIME, "\"" + time + "\"" + XSD_DATE_TIME, true);
 		
 		return triple;
 	}
