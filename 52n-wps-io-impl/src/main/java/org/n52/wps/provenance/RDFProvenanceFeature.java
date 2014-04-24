@@ -10,6 +10,7 @@ public class RDFProvenanceFeature implements Comparable<RDFProvenanceFeature>{
 	private ProvenanceType provenanceType;
 	private String featureType;
 	private String role;
+	private String gmlID;
 	private Date generatedAt;
 	private Map<String, String> propertyIDMap;
 	
@@ -23,6 +24,15 @@ public class RDFProvenanceFeature implements Comparable<RDFProvenanceFeature>{
 		this.featureType = featureType;
 		this.generatedAt = generatedAt;
 		this.role = role;
+	}
+	
+	public RDFProvenanceFeature(String id, String featureType, Date generatedAt, String role, String gmlID){
+		this();
+		this.id = id;
+		this.featureType = featureType;
+		this.generatedAt = generatedAt;
+		this.role = role;
+		this.gmlID = gmlID;
 	}
 	
 	public void putPropertyID(String propertyName, String ID){
@@ -79,6 +89,14 @@ public class RDFProvenanceFeature implements Comparable<RDFProvenanceFeature>{
 
 	public void setPropertyIDMap(Map<String, String> propertyIDMap) {
 		this.propertyIDMap = propertyIDMap;
+	}
+
+	public String getGmlID() {
+		return gmlID;
+	}
+
+	public void setGmlID(String gmlID) {
+		this.gmlID = gmlID;
 	}
 
 	@Override

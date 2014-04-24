@@ -49,6 +49,7 @@ public class RDFUtil {
 	public static final String PREFIX_OWS = "ows";
 	public static final String PREFIX_NGA = "nga";
 	public static final String PREFIX_OWL = "owl";
+	public static final String PREFIX_GML = "gml";
 	
 	public static final String BASE = "@base <" + BASE_URL_EXP + "> .\n";
 	public static final String PROV_PREFIX_F2N = "@prefix " + PREFIX_F2N + ": <http://www.opengis.net/ogc/ows10/ows10-52n-ontology/> .\n";
@@ -60,6 +61,7 @@ public class RDFUtil {
 	public static final String PROV_PREFIX_OWS = "@prefix " + PREFIX_OWS + ": <http://www.opengis.net/ogc/ows/ows-core-ontology/> .\n";
 	public static final String PROV_PREFIX_NGA = "@prefix " + PREFIX_NGA + ": <http://www.opengis.net/ogc/ows10/ows10-nga-ontology/> .\n";
 	public static final String PROV_PREFIX_OWL = "@prefix " + PREFIX_OWL + ":  <http://www.w3.org/2002/07/owl#> .\n";
+	public static final String PROV_PREFIX_GML = "@prefix " + PREFIX_GML + ":  <http://www.opengis.net/gml#> .\n";
 	
 	public static final String PROV_PREFIX_USGS_DATA = "@prefix " + PREFIX_USGS_DATA + ":  <http://www.usgs.gov/projects/ows8/> .\n";
 	public static final String PROV_PREFIX_NGA_DATA = "@prefix " + PREFIX_NGA_DATA + ":  <http://metadata.dod.mil/mdr/ns/GSIP/3.0/tds/3.0/> .\n";
@@ -109,6 +111,9 @@ public class RDFUtil {
 	public static final String PREDICATE_PROV_HAD_ROLE = PREFIX_PROV + ":hadRole";
 	public static final String PREDICATE_RDFS_SUBCLASS_OF = PREFIX_RDFS + ":subClassOf";
 	public static final String PREDICATE_PROV_ACTIVITY = PREFIX_PROV + ":actity";
+	
+	
+	public static final String ATTRIBUTE_GML_ID = PREFIX_GML + ":id";
 	
 	
 	public static final String BUNDLE_template = "<> a prov:Bundle;\n" +
@@ -396,4 +401,12 @@ public class RDFUtil {
 		
 		return triple;
 	}
+	
+	public static String createGMLIDTriple(String entityID, String gmlID) {
+		
+		String triple = entityID + " " + ATTRIBUTE_GML_ID + " \"" + gmlID + "\" .\n";
+		
+		return triple;
+	}
+	
 }

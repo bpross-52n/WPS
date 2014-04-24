@@ -117,6 +117,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 	private StringBuilder individualExecutionStatementBuilder = new StringBuilder();
 	private StringBuilder involvedFeatureCollectionsStatementBuilder = new StringBuilder();
 	private StringBuilder featureTypeSubClassStatementBuilder = new StringBuilder();
+	private StringBuilder gmlIDStatementBuilder = new StringBuilder();
 	
 	private Map<String, RDFProvenanceFeature> targetFeatureMap;
 	private Map<String, RDFProvenanceFeature> sourceFeatureMap;
@@ -224,6 +225,11 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		resultMemberStatementBuilder.append("#     Individual features of the result dataset\n");
 		resultMemberStatementBuilder.append("###################################################################\n");
 		resultMemberStatementBuilder.append("\n");
+		
+		gmlIDStatementBuilder.append("###################################################################\n");
+		gmlIDStatementBuilder.append("#     Original GML IDs of conflated features\n");
+		gmlIDStatementBuilder.append("###################################################################\n");
+		gmlIDStatementBuilder.append("\n");
 		
 	}
 	
@@ -476,7 +482,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		
 		SimpleFeature newFeature = (SimpleFeature) GTHelper.createFeature2(targetID, (Geometry) targetFeature.getDefaultGeometry(), sourceSimpleFeatureType);
 		
-		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, targetNamespace), RDFUtil.createFeature("", targetNamespace), new GregorianCalendar().getTime(), targetRole);
+		RDFProvenanceFeature targetProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(targetID, targetNamespace), RDFUtil.createFeature("", targetNamespace), new GregorianCalendar().getTime(), targetRole, targetID);
 		
 		addProvenancePositionInfo(targetProvenanceFeature, targetNamespace, false);
 		
@@ -678,6 +684,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		rdfProvenance = rdfProvenance.concat(qualifiedUsageStatementBuilder.toString());
 		rdfProvenance = rdfProvenance.concat(qualifiedGenerationStatementBuilder.toString());
 		rdfProvenance = rdfProvenance.concat(attributeTypeStatementBuilder.toString());
+		rdfProvenance = rdfProvenance.concat(gmlIDStatementBuilder.toString());
 		rdfProvenance = rdfProvenance.concat(individualExecutionStatementBuilder.toString());
 		
 		System.out.println(rdfProvenance);
@@ -879,6 +886,12 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 			
 			featureOriginStatementBuilder.append(triple);
 			featureOriginStatementBuilder.append("\n");
+			
+			if(targetRDFProvenanceFeature.getGmlID() != null){			
+				gmlIDStatementBuilder.append(RDFUtil.createGMLIDTriple(resultRDFProvenanceFeature.getID(), targetRDFProvenanceFeature.getGmlID()));
+				gmlIDStatementBuilder.append("\n");
+			}
+			
 			createResultAttributeOriginProvenance(targetRDFProvenanceFeature, resultRDFProvenanceFeature);
 		}
 	}
@@ -1061,6 +1074,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_USGS_DATA);		
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_NGA_DATA);		
 		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_NGA_CONF);
+		prefixes = prefixes.concat(RDFUtil.PROV_PREFIX_GML);
 		return prefixes;
 	}
 	
