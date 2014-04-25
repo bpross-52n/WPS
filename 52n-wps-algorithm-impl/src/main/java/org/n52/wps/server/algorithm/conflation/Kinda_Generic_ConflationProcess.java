@@ -227,7 +227,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		resultMemberStatementBuilder.append("\n");
 		
 		gmlIDStatementBuilder.append("###################################################################\n");
-		gmlIDStatementBuilder.append("#     Original GML IDs of conflated features\n");
+		gmlIDStatementBuilder.append("#     GML IDs of conflated features\n");
 		gmlIDStatementBuilder.append("###################################################################\n");
 		gmlIDStatementBuilder.append("\n");
 		
@@ -464,7 +464,7 @@ public class Kinda_Generic_ConflationProcess extends AbstractAlgorithm{
 		while (features.hasNext()) {
 			SimpleFeature sf = (SimpleFeature) features.next();
 			
-			RDFProvenanceFeature sourceProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(sf.getID(), sourceNamespace), RDFUtil.createFeature("", sourceNamespace), new GregorianCalendar().getTime(), sourceRole);
+			RDFProvenanceFeature sourceProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createFeature(sf.getID(), sourceNamespace), RDFUtil.createFeature("", sourceNamespace), new GregorianCalendar().getTime(), sourceRole, sf.getID());
 			RDFProvenanceFeature resultProvenanceFeature = new RDFProvenanceFeature(RDFUtil.createConflatedFeature(sf.getID(), resultNamespace), RDFUtil.createFeature("", sourceNamespace), new GregorianCalendar().getTime(), sourceRole);
 			
 			resultProvenanceFeature.setProvenanceType(ProvenanceType.SAME_AS);
