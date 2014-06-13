@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
@@ -116,12 +117,26 @@ public class WebProcessingService extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+
+        LOGGER.info("WebProcessingService initializing...");
+        
+		try {
+			// check whether JAI class is on the classpath
+			Class<?> jaiSupportClass = Class
+					.forName("org.n52.wps.server.jai.support.JAISupport");
+			jaiSupportClass.getConstructors()[0]
+					.newInstance(256 * 1024 * 1024L);//TODO: make a property out of this
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| SecurityException | ClassNotFoundException e) {
+			LOGGER.info("JAI class is not on the classpath or could not be initialized. This might lead to performance issues when processing images.");
+			LOGGER.info("####################### Start printing out caught exceptions for informational purposes.", e);
+			LOGGER.info("####################### End printing out caught exceptions for informational purposes.");
+		}
         
         // this is important to set the lon lat support for correct CRS transformation.
         // TODO: Might be changed to an additional configuration parameter.
         System.setProperty("org.geotools.referencing.forceXY", "true");
-
-        LOGGER.info("WebProcessingService initializing...");
 
         try {
             if (WPSConfig.getInstance(config) == null) {
