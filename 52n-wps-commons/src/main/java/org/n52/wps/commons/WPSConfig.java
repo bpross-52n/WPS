@@ -24,16 +24,18 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
 import org.apache.xmlbeans.XmlException;
 import org.n52.wps.FormatDocument.Format;
@@ -43,16 +45,21 @@ import org.n52.wps.PropertyDocument.Property;
 import org.n52.wps.RepositoryDocument.Repository;
 import org.n52.wps.WPSConfigurationDocument;
 import org.n52.wps.impl.WPSConfigurationDocumentImpl.WPSConfigurationImpl;
+import org.n52.wps.webapp.api.ConfigurationManager;
+import org.n52.wps.webapp.entities.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
+/**
+ * 
+ * @author Benjamin Pross, Daniel Nüst
+ *
+ */
 public class WPSConfig implements Serializable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 3198223084611936675L;
     private static transient WPSConfig wpsConfig;
     private static transient WPSConfigurationImpl wpsConfigXMLBeans;
@@ -69,7 +76,30 @@ public class WPSConfig implements Serializable {
     // FvK: added Property Change support
     protected final PropertyChangeSupport propertyChangeSupport;
 
+    public static final String SERVLET_PATH = "WebProcessingService";
+
     private static String configPath;
+    
+	private ConfigurationManager configurationManager;
+    private Server serverConfigurationModule;	
+
+	public Server getServerConfigurationModule() {
+
+		if (serverConfigurationModule == null) {
+			serverConfigurationModule = (Server) configurationManager
+					.getConfigurationServices().getConfigurationModule(
+							Server.class.getName());
+		}
+		return serverConfigurationModule;
+	}
+
+    public ConfigurationManager getConfigurationManager() {
+		return configurationManager;
+	}
+
+	public void setConfigurationManager(ConfigurationManager configurationManager) {
+		this.configurationManager = configurationManager;
+	}
     
     private WPSConfig(String wpsConfigPath) throws XmlException, IOException {
     	configPath = wpsConfigPath;    	
@@ -106,7 +136,9 @@ public class WPSConfig implements Serializable {
         this.propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
     }
 
-    // For Testing purpose only
+    /**
+     * For Testing purpose only
+     */
     public void notifyListeners() {
         this.propertyChangeSupport.firePropertyChange(WPSCONFIG_PROPERTY_EVENT_NAME, null, null);
     }
@@ -114,25 +146,6 @@ public class WPSConfig implements Serializable {
     public void firePropertyChange(String event) {
     	propertyChangeSupport.firePropertyChange(event, null, null);
     }
-
-    // private synchronized static void writeObject(java.io.ObjectOutputStream oos) throws IOException {
-    // oos.writeObject(wpsConfigXMLBeans.xmlText());
-    // }
-    //
-    // private synchronized static void readObject(java.io.ObjectInputStream oos) throws IOException,
-    // ClassNotFoundException {
-    // try {
-    // String wpsConfigXMLBeansAsXml = (String) oos.readObject();
-    // XmlObject configXmlObject = XmlObject.Factory.parse(wpsConfigXMLBeansAsXml);
-    // WPSConfigurationDocument configurationDocument = WPSConfigurationDocument.Factory.newInstance();
-    // configurationDocument.addNewWPSConfiguration().set(configXmlObject);
-    // wpsConfig = new WPSConfig(new ByteArrayInputStream(configurationDocument.xmlText().getBytes()));
-    // }
-    // catch (XmlException e) {
-    // LOGGER.error(e.getMessage());
-    // throw new IOException(e.getMessage());
-    // }
-    // }
 
     /**
      * WPSConfig is a singleton. If there is a need for reinitialization, use this path.
@@ -195,9 +208,6 @@ public class WPSConfig implements Serializable {
      * @return WPSConfig object representing the wps_config.xml from the classpath or webapps folder
      */
     public static WPSConfig getInstance() {
-        // if (LOGGER.isDebugEnabled())
-        // LOGGER.debug("Getting WPSConfig instance... without input.");
-
         if (wpsConfig == null) {
             String path = getConfigPath();
             WPSConfig config = getInstance(path);
@@ -234,17 +244,17 @@ public class WPSConfig implements Serializable {
         return wpsConfig;
     }
 
-    public static WPSConfig getInstance(ServletConfig config) {
-        LOGGER.debug("Getting WPSConfig instance... with ServletConfig: {}", config.toString());
-        String path = getConfigPath(config);
+    public static WPSConfig getInstance(ServletContext context) {
+        LOGGER.debug("Getting WPSConfig instance... with ServletConfig: {}", context == null ? null : context.toString());
+        String path = getConfigPath(context);
         LOGGER.debug("Found config file under " + path);
         return getInstance(path);
     }
 
-    public static String getConfigPath(ServletConfig config) {
-        Optional<ServletConfig> servletConfig = Optional.fromNullable(config);
+    public static String getConfigPath(ServletContext context) {
+        Optional<ServletContext> servletContext = Optional.fromNullable(context);
         for (WPSConfigFileStrategy strategy : getWPSConfigFileStrategies()) {
-            Optional<File> file = strategy.find(servletConfig);
+            Optional<File> file = strategy.find(servletContext);
             if (file.isPresent()) {
                 String path = file.get().getAbsolutePath();
                 LOGGER.info("Found config file at {} using the strategy {}", path, strategy.getClass().getName());
@@ -418,6 +428,33 @@ public class WPSConfig implements Serializable {
         return null;
     }
 
+    public String getServiceBaseUrl() {
+        Server server = getServerConfigurationModule();
+        String host = server.getHostname();
+        if (host == null) {
+            try {
+                host = InetAddress.getLocalHost().getCanonicalHostName();
+            }
+            catch (UnknownHostException e) {
+                LOGGER.warn("Could not derive host name automatically", e);
+            }
+        }
+        int port = server.getHostport();
+        String webapppath = server.getWebappPath();
+
+        StringBuilder url = new StringBuilder();
+        // TODO what if this service runs on HTTPS? TODO: do not construct endpoint URL as string
+        url.append("http").append("://").append(host);
+        url.append(':').append(port).append('/');
+        url.append(webapppath);
+        return url.toString();
+    }
+
+    public String getServiceEndpoint() {
+        String endpoint = getServiceBaseUrl() + "/" + SERVLET_PATH;
+        return endpoint;
+    }
+
     /**
      *
      * @return directory of the configuration folder
@@ -428,8 +465,8 @@ public class WPSConfig implements Serializable {
     }
 
     public static abstract class WPSConfigFileStrategy {
-        public Optional<File> find(Optional<ServletConfig> servletConfig) {
-            String p = getPath(servletConfig);
+        public Optional<File> find(Optional<ServletContext> servletContext) {
+            String p = getPath(servletContext);
             return checkPath(p);
         }
 
@@ -450,19 +487,19 @@ public class WPSConfig implements Serializable {
             return Optional.absent();
         }
 
-        protected abstract String getPath(Optional<ServletConfig> servletConfig);
+        protected abstract String getPath(Optional<ServletContext> servletContext);
     }
 
     private static class SystemPropertyStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             return System.getProperty(CONFIG_FILE_PROPERTY);
         }
     }
 
     private static class JNDIContextStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             try {
                 Context ctx = (Context) new InitialContext().lookup("java:comp/env");
                 if (ctx == null) {
@@ -478,18 +515,18 @@ public class WPSConfig implements Serializable {
 
     private static class InitParameterStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
-            return servletConfig.isPresent() ? servletConfig.get().getInitParameter(CONFIG_FILE_PROPERTY) : null;
+        protected String getPath(Optional<ServletContext> servletContext) {
+            return servletContext.isPresent() ? servletContext.get().getInitParameter(CONFIG_FILE_PROPERTY) : null;
         }
     }
 
     private static class RelativeInitParameterStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
-            if (servletConfig.isPresent()) {
-                String path = servletConfig.get().getInitParameter(CONFIG_FILE_PROPERTY);
+        protected String getPath(Optional<ServletContext> servletContext) {
+            if (servletContext.isPresent()) {
+                String path = servletContext.get().getInitParameter(CONFIG_FILE_PROPERTY);
                 if (path != null) {
-                    return servletConfig.get().getServletContext().getRealPath(path);
+                    return servletContext.get().getRealPath(path);
                 }
             }
             return null;
@@ -498,15 +535,14 @@ public class WPSConfig implements Serializable {
 
     private static class DefaultPathStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
-            return servletConfig.isPresent()? servletConfig.get().getServletContext()
-                .getRealPath(CONFIG_FILE_DIR + File.separator + CONFIG_FILE_NAME) : null;
+        protected String getPath(Optional<ServletContext> servletContext) {
+            return servletContext.isPresent()? servletContext.get().getRealPath(CONFIG_FILE_DIR + File.separator + CONFIG_FILE_NAME) : null;
         }
     }
 
     private static class ClassPathStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             URL configPathURL = WPSConfig.class.getClassLoader().getResource(CONFIG_FILE_NAME);
             if (configPathURL != null) {
                 String config = configPathURL.getFile();
@@ -525,7 +561,7 @@ public class WPSConfig implements Serializable {
 
     private static class WebAppTargetStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             String domain = WPSConfig.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             int index1 = domain.indexOf("52n-wps-parent");
             if (index1 > 0) {
@@ -558,7 +594,7 @@ public class WPSConfig implements Serializable {
 
     private static class WebAppSourceStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             String domain = WPSConfig.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             int index1 = domain.indexOf("52n-wps-parent");
             if (index1 > 0) {
@@ -595,7 +631,7 @@ public class WPSConfig implements Serializable {
 
     private static class WebAppPathStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             String domain;
             try {
                 domain = new File(WPSConfig.class.getResource("/").toURI()).toString();
@@ -621,7 +657,7 @@ public class WPSConfig implements Serializable {
 
     private static class LastResortStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             String domain = WPSConfig.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 
             try {
@@ -653,7 +689,7 @@ public class WPSConfig implements Serializable {
 
     private static class HomeFolderStrategy extends WPSConfigFileStrategy {
         @Override
-        protected String getPath(Optional<ServletConfig> servletConfig) {
+        protected String getPath(Optional<ServletContext> servletContext) {
             return System.getProperty("user.home") + File.separator + CONFIG_FILE_NAME;
         }
     }

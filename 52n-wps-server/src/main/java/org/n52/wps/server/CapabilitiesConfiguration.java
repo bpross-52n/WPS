@@ -31,7 +31,6 @@ package org.n52.wps.server;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -50,6 +49,8 @@ import net.opengis.wps.x100.ProcessOfferingsDocument.ProcessOfferings;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.webapp.api.ConfigurationManager;
+import org.n52.wps.webapp.entities.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +75,8 @@ public class CapabilitiesConfiguration {
 
     private static CapabilitiesSkeletonLoadingStrategy loadingStrategy;
 
-    public static String ENDPOINT_URL;
+    private static ConfigurationManager configurationManager;	
+    private static Server serverConfigurationModule;	
 
     private CapabilitiesConfiguration() {
         /* nothing here */
@@ -177,10 +179,8 @@ public class CapabilitiesConfiguration {
             if (strategy.equals(loadingStrategy)) {
                 return getInstance(false);
             }
-            else {
-                loadingStrategy = strategy;
-                return getInstance(true);
-            }
+            loadingStrategy = strategy;
+            return getInstance(true);
         }
         finally {
             lock.unlock();
@@ -199,7 +199,8 @@ public class CapabilitiesConfiguration {
      *         if an IO error occurs
      */
     public static CapabilitiesDocument getInstance() throws XmlException, IOException {
-        return getInstance( !WPSConfig.getInstance().getWPSConfig().getServer().getCacheCapabilites());
+        boolean cached = WPSConfig.getInstance().getWPSConfig().getServer().getCacheCapabilites();
+        return getInstance( !cached);
     }
 
     /**
@@ -239,11 +240,11 @@ public class CapabilitiesConfiguration {
      *         if the local host name can not be obtained
      */
     private static void initSkeleton(CapabilitiesDocument skel) throws UnknownHostException {
-        ENDPOINT_URL = getEndpointURL();
+        String endpoint = getEndpointURL();
         if (skel.getCapabilities() == null) {
             skel.addNewCapabilities();
         }
-        initOperationsMetadata(skel, ENDPOINT_URL);
+        initOperationsMetadata(skel, endpoint);
         initProcessOfferings(skel);
     }
 
@@ -269,6 +270,7 @@ public class CapabilitiesConfiguration {
                     String processVersion = description.getProcessVersion();
                     process.setProcessVersion(processVersion);
                     process.setTitle(title);
+                    LOG.trace("Added algorithm to process offerings: {}\n\t\t{}", algorithmName, process);
                 }	
         	}
         	catch (RuntimeException e) {
@@ -312,22 +314,7 @@ public class CapabilitiesConfiguration {
      *         if the local host name could not be resolved into an address
      */
     private static String getEndpointURL() throws UnknownHostException {
-        WPSConfig config = WPSConfig.getInstance();
-        String host = config.getWPSConfig().getServer().getHostname();
-        String port = config.getWPSConfig().getServer().getHostport();
-        if (host == null) {
-            host = InetAddress.getLocalHost().getCanonicalHostName();
-        }
-
-        StringBuilder url = new StringBuilder();
-        // TODO what if this service runs on HTTPS?
-        url.append("http").append("://").append(host);
-        url.append(':').append(port).append('/');
-        if (WebProcessingService.WEBAPP_PATH != null && !WebProcessingService.WEBAPP_PATH.isEmpty()) {
-            url.append(WebProcessingService.WEBAPP_PATH).append('/');
-        }
-        url.append(WebProcessingService.SERVLET_PATH);
-        return url.toString();
+        return WPSConfig.getInstance().getServiceEndpoint();
     }
 
     /**
@@ -356,6 +343,22 @@ public class CapabilitiesConfiguration {
             lock.unlock();
         }
     }
+    
+	public static Server getServerConfigurationModule() {
+
+		if (serverConfigurationModule == null) {
+
+			if (configurationManager == null) {
+				configurationManager = WPSConfig
+						.getInstance().getConfigurationManager();
+			}if(configurationManager != null){
+			    serverConfigurationModule = (Server) configurationManager
+					    .getConfigurationServices().getConfigurationModule(
+							    Server.class.getName());
+			}
+		}
+		return serverConfigurationModule;
+	}
 
     /**
      * Strategy to load a capabilities skeleton from a URL.
