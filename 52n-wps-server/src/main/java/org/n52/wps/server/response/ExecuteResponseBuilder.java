@@ -202,6 +202,9 @@ public class ExecuteResponseBuilder {
 					else if(d[i].isSetLiteralOutput()) {
 						generateLiteralDataOutput(d[i].getIdentifier().getStringValue(), doc, false, d[i].getLiteralOutput().getDataType().getReference(), null, null, null, d[i].getTitle());
 					}
+					else if(d[i].isSetBoundingBoxOutput()) {
+						generateBBOXOutput(d[i].getIdentifier().getStringValue(), doc, false, d[i].getTitle());
+					}
 				}
 			}
 		} else if(request.isStoreResponse()) {
