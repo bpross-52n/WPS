@@ -3,6 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <html lang="en">
 <head>
+<link rel="shortcut icon" href="<c:url value="/static/favicon.ico" />" />
 <title><tiles:getAsString name="title" /></title>
 <link href="<c:url value="/static/css/bootstrap.css" />" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/static/css/bootstrap-glyphicons.css" />" rel="stylesheet" type="text/css" />
