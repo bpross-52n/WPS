@@ -139,6 +139,11 @@
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.MultiReferenceInputAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm</Property>
 			<Property name="Algorithm" active="true">org.n52.wps.server.algorithm.test.EchoProcess</Property>
+			<Property name="Algorithm" active="true">testbed11.FloodFeatureEnrichment</Property>
+			<Property name="testbed-11-FME-user" active="true">tb11user</Property>
+			<Property name="testbed-11-FME-pwd" active="true">flood11</Property>
+			<Property name="testbed-11-FME-url" active="true">testbed11-dean.fmecloud.com/fmedatastreaming/UCR/FloodFeatureService.fmw</Property>
+			<Property name="testbed-11-FME-protocol" active="true">https://</Property>
 		</Repository>
 		<Repository name="UploadedAlgorithmRepository"
 			className="org.n52.wps.server.UploadedAlgorithmRepository" active="false">
