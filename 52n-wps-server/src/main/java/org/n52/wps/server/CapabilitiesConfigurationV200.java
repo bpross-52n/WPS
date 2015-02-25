@@ -562,6 +562,8 @@ public class CapabilitiesConfigurationV200 {
             
             serviceIdentification.addNewServiceType().setStringValue("WPS");
             
+            serviceIdentification.addNewServiceTypeVersion().setStringValue(WPSConfig.VERSION_100);
+            
             serviceIdentification.addNewServiceTypeVersion().setStringValue(WPSConfig.VERSION_200);
             
             serviceIdentification.setFees("NONE");
