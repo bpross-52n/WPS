@@ -32,7 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.http.HttpEntity;
@@ -50,8 +49,6 @@ import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.ComplexDataInput;
 import org.n52.wps.algorithm.annotation.ComplexDataOutput;
 import org.n52.wps.algorithm.annotation.Execute;
-import org.n52.wps.algorithm.annotation.LiteralDataInput;
-import org.n52.wps.algorithm.annotation.LiteralDataOutput;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
@@ -65,10 +62,8 @@ public class FloodFeatureEnrichment extends AbstractAnnotatedAlgorithm {
 	private static Logger LOGGER = LoggerFactory.getLogger(FloodFeatureEnrichment.class);
 	
     private XmlObject complexInput;
-    private List<String> literalInput;
 
     private XmlObject complexOutput;
-    private String literalOutput;
     
     private final String userNamePropertyName = "testbed-11-FME-user";
     private final String passwordPropertyName = "testbed-11-FME-pwd";
@@ -151,24 +146,14 @@ public class FloodFeatureEnrichment extends AbstractAnnotatedAlgorithm {
 		}
 	}
 
-    @ComplexDataOutput(identifier = "complexOutput", binding = GenericXMLDataBinding.class)
+    @ComplexDataOutput(identifier = "floodRiskResult", title = "floodRiskResult", abstrakt="GML enriched with flood risk information.", binding = GenericXMLDataBinding.class)
     public XmlObject getComplexOutput() {
         return complexOutput;
     }
 
-    @LiteralDataOutput(identifier = "literalOutput")
-    public String getLiteralOutput() {
-        return literalOutput;
-    }
-
-    @ComplexDataInput(binding = GenericXMLDataBinding.class, identifier = "complexInput", minOccurs = 0, maxOccurs = 1)
+    @ComplexDataInput(binding = GenericXMLDataBinding.class, abstrakt="GML that should be enriched with flood risk information.", title = "floodRiskSource", identifier = "floodRiskSource", minOccurs = 0, maxOccurs = 1)
     public void setComplexInput(XmlObject complexInput) {
         this.complexInput = complexInput;
-    }
-
-    @LiteralDataInput(identifier = "literalInput", minOccurs = 0, maxOccurs = 1)
-    public void setLiteralInput(List<String> literalInput) {
-        this.literalInput = literalInput;
     }
 	
 	
