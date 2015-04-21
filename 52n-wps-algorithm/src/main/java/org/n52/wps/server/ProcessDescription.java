@@ -31,13 +31,13 @@ import net.opengis.wps.x100.OutputDescriptionType;
 import net.opengis.wps.x100.ProcessDescriptionType;
 import net.opengis.wps.x100.SupportedComplexDataInputType;
 import net.opengis.wps.x100.SupportedComplexDataType;
-import net.opengis.wps.x200.ComplexDataDocument;
-import net.opengis.wps.x200.ComplexDataType;
-import net.opengis.wps.x200.FormatDocument.Format;
-import net.opengis.wps.x200.LiteralDataDocument;
-import net.opengis.wps.x200.LiteralDataDomainType;
-import net.opengis.wps.x200.LiteralDataType;
-import net.opengis.wps.x200.ProcessOfferingDocument.ProcessOffering;
+import net.opengis.wps.x20.ComplexDataDocument;
+import net.opengis.wps.x20.ComplexDataType;
+import net.opengis.wps.x20.FormatDocument.Format;
+import net.opengis.wps.x20.LiteralDataDocument;
+import net.opengis.wps.x20.LiteralDataDomainType;
+import net.opengis.wps.x20.LiteralDataType;
+import net.opengis.wps.x20.ProcessOfferingDocument.ProcessOffering;
 
 import org.apache.xmlbeans.XmlObject;
 import org.n52.wps.commons.WPSConfig;
@@ -76,7 +76,7 @@ public class ProcessDescription {
 		
 		ProcessOffering processOffering = ProcessOffering.Factory.newInstance();
 		
-    	net.opengis.wps.x200.ProcessDescriptionType processDescription = processOffering.addNewProcess();
+    	net.opengis.wps.x20.ProcessDescriptionType processDescription = processOffering.addNewProcess();
     	
         	processOffering.setProcessVersion(processDescriptionV100.getProcessVersion());
         	
@@ -110,7 +110,7 @@ public class ProcessDescription {
             
             for (InputDescriptionType inputDescriptionType : inputDescriptionTypes) {
 				
-                net.opengis.wps.x200.InputDescriptionType dataInput = processDescription.addNewInput();
+                net.opengis.wps.x20.InputDescriptionType dataInput = processDescription.addNewInput();
                 dataInput.setMinOccurs(inputDescriptionType.getMinOccurs());
                 dataInput.setMaxOccurs(inputDescriptionType.getMaxOccurs());
 
@@ -127,13 +127,13 @@ public class ProcessDescription {
                     
                     LiteralDataType literalData = LiteralDataType.Factory.newInstance();
                     
-                    net.opengis.wps.x200.FormatDocument.Format defaultFormat =  literalData.addNewFormat();
+                    net.opengis.wps.x20.FormatDocument.Format defaultFormat =  literalData.addNewFormat();
                     
                     defaultFormat.setDefault(true);
                     
                     defaultFormat.setMimeType("text/plain");
                     
-                    net.opengis.wps.x200.FormatDocument.Format textXMLFormat =  literalData.addNewFormat();
+                    net.opengis.wps.x20.FormatDocument.Format textXMLFormat =  literalData.addNewFormat();
                     
                     textXMLFormat.setMimeType("text/xml");
                     
@@ -180,7 +180,7 @@ public class ProcessDescription {
 
             for (OutputDescriptionType outputDescription : outputDescriptions) {
 
-                net.opengis.wps.x200.OutputDescriptionType dataOutput = processDescription.addNewOutput();
+                net.opengis.wps.x20.OutputDescriptionType dataOutput = processDescription.addNewOutput();
                 dataOutput.addNewIdentifier().setStringValue(outputDescription.getIdentifier().getStringValue());
                 dataOutput.addNewTitle().setStringValue( outputDescription.getTitle() != null ?
                 		outputDescription.getTitle().getStringValue() :
@@ -194,13 +194,13 @@ public class ProcessDescription {
                     
                     LiteralDataType literalData = LiteralDataType.Factory.newInstance(); 
                     
-                    net.opengis.wps.x200.FormatDocument.Format defaultFormat =  literalData.addNewFormat();
+                    net.opengis.wps.x20.FormatDocument.Format defaultFormat =  literalData.addNewFormat();
                     
                     defaultFormat.setDefault(true);
                     
                     defaultFormat.setMimeType("text/plain");
                     
-                    net.opengis.wps.x200.FormatDocument.Format textXMLFormat =  literalData.addNewFormat();
+                    net.opengis.wps.x20.FormatDocument.Format textXMLFormat =  literalData.addNewFormat();
                     
                     textXMLFormat.setMimeType("text/xml");
                     
