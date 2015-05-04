@@ -12,5 +12,5 @@
     <wps:Data>aggregated-land-allocation</wps:Data>
   </wps:Input>
   <!-- Uses default output format -->
-  <wps:Output id="impactAssessmentDiagram" transmission="value" />
+  <wps:Output id="impactAssessmentDiagram" transmission="reference" mimeType="image/png"/>
 </wps:Execute>

@@ -63,11 +63,11 @@ import org.n52.wps.server.ExceptionReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FloodImpactAssesment extends AbstractAlgorithm {
+public class FloodImpactAssessment extends AbstractAlgorithm {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(FloodImpactAssesment.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(FloodImpactAssessment.class);
     
-    public FloodImpactAssesment(){}
+    public FloodImpactAssessment(){}
 
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
@@ -79,7 +79,7 @@ public class FloodImpactAssesment extends AbstractAlgorithm {
 		
 		List<IData> outputParameterDataList = inputData.get("outputParameter");
 		
-		String outputParameter = ((LiteralStringBinding)nonArableLandDataList.get(0)).getPayload();
+		String outputParameter = ((LiteralStringBinding)outputParameterDataList.get(0)).getPayload();
 		
 		File output = new File("D:/dev/GitHub4w/WPS/52n-wps-webapp/src/main/webapp/static/data/aggregated-land-allocation-0.png");
 		

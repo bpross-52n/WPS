@@ -48,10 +48,8 @@
 				requests[121] = datafolder + "/2.0.0/DescribeProcessRequest200.xml";
 				requests[122] = datafolder + "/2.0.0/SimpleBufferExecute200.xml";
 				requests[122] = datafolder + "/2.0.0/FloodEnrichmentExecute200.xml";
-				requests[123] = datafolder + "SimpleBuffer.xml";
-				requests[124] = datafolder + "Intersectionrequest.xml";
-				requests[125] = datafolder + "Unionrequest.xml";
-
+				requests[123] = datafolder + "/2.0.0/FloodImpactAssessmentExecute200.xml";
+				
 				//fill the select element
 				var selRequest = $('#selRequest');
 
