@@ -33,17 +33,16 @@ import java.io.InputStream;
 import net.opengis.ows.x20.BoundingBoxType;
 import net.opengis.ows.x20.DomainMetadataType;
 import net.opengis.ows.x20.LanguageStringType;
-import net.opengis.wps.x200.ComplexDataType;
-import net.opengis.wps.x200.ExecuteRequestType;
-import net.opengis.wps.x200.FormatDocument.Format;
-import net.opengis.wps.x200.LiteralDataType;
-import net.opengis.wps.x200.OutputDefinitionType;
-import net.opengis.wps.x200.OutputDescriptionType;
-import net.opengis.wps.x200.ProcessOfferingDocument.ProcessOffering;
-import net.opengis.wps.x200.ResultDocument;
-import net.opengis.wps.x200.ResultDocument.Result;
-import net.opengis.wps.x200.StatusInfoDocument;
-import net.opengis.wps.x200.StatusInfoDocument.StatusInfo;
+import net.opengis.wps.x20.ComplexDataType;
+import net.opengis.wps.x20.ExecuteRequestType;
+import net.opengis.wps.x20.FormatDocument.Format;
+import net.opengis.wps.x20.LiteralDataType;
+import net.opengis.wps.x20.OutputDefinitionType;
+import net.opengis.wps.x20.OutputDescriptionType;
+import net.opengis.wps.x20.ProcessOfferingDocument.ProcessOffering;
+import net.opengis.wps.x20.ResultDocument;
+import net.opengis.wps.x20.StatusInfoDocument;
+import net.opengis.wps.x20.StatusInfoDocument.StatusInfo;
 
 import org.apache.xmlbeans.XmlObject;
 import org.n52.wps.commons.WPSConfig;
@@ -308,7 +307,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 			
 			statusInfoDoc.setStatusInfo(status);
 		}else{
-			LOGGER.warn(String.format("XMLObject not of type \"net.opengis.wps.x200.StatusInfoDocument.StatusInfo\", but {}. Cannot not set status. ", statusObject.getClass()));
+			LOGGER.warn(String.format("XMLObject not of type \"net.opengis.wps.x20.StatusInfoDocument.StatusInfo\", but {}. Cannot not set status. ", statusObject.getClass()));
 		}
 	}
 

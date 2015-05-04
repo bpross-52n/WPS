@@ -32,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.http.HttpEntity;
@@ -53,6 +54,10 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
 import org.n52.wps.server.LocalAlgorithmRepository;
+import org.n52.wps.server.grass.configurationmodule.GrassProcessRepositoryCM;
+import org.n52.wps.webapp.api.ConfigurationCategory;
+import org.n52.wps.webapp.api.ConfigurationModule;
+import org.n52.wps.webapp.api.types.ConfigurationEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,21 +82,25 @@ public class FloodFeatureEnrichment extends AbstractAnnotatedAlgorithm {
     
     public FloodFeatureEnrichment(){
     	
-    	Property[] propertyArray = WPSConfig.getInstance()
-				.getPropertiesForRepositoryClass(
-						LocalAlgorithmRepository.class.getCanonicalName());
-    	for (Property property : propertyArray) {
-			
-    		if(property.getName().equals(userNamePropertyName)){
-    			userName = property.getStringValue();
-    		}else if(property.getName().equals(passwordPropertyName)){
-    			password = property.getStringValue();
-    		}else if(property.getName().equals(urlPropertyName)){
-    			url = property.getStringValue();
-    		}else if(property.getName().equals(protocolPropertyName)){
-    			protocol = property.getStringValue();
+		ConfigurationModule localAlgorithmConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(LocalAlgorithmRepository.class.getName(), ConfigurationCategory.REPOSITORY);
+    	
+		List<? extends ConfigurationEntry<?>> propertyArray = localAlgorithmConfigModule.getConfigurationEntries();
+		
+		/*
+		 * get properties of process from repository config module
+		 *
+		 */
+		
+		for (ConfigurationEntry<?> property : propertyArray) {			
+    		if(property.getKey().equals(userNamePropertyName)){
+    			userName = property.getValue().toString();
+    		}else if(property.getKey().equals(passwordPropertyName)){
+    			password = property.getValue().toString();
+    		}else if(property.getKey().equals(urlPropertyName)){
+    			url = property.getValue().toString();
+    		}else if(property.getKey().equals(protocolPropertyName)){
+    			protocol = property.getValue().toString();
     		}
-    		
 		}
     	
     }
