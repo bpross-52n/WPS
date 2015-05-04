@@ -34,6 +34,7 @@ import net.opengis.ows.x20.BoundingBoxType;
 import net.opengis.ows.x20.DomainMetadataType;
 import net.opengis.ows.x20.LanguageStringType;
 import net.opengis.wps.x20.ComplexDataType;
+import net.opengis.wps.x20.DataTransmissionModeType;
 import net.opengis.wps.x20.ExecuteRequestType;
 import net.opengis.wps.x20.FormatDocument.Format;
 import net.opengis.wps.x20.LiteralDataType;
@@ -148,7 +149,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 						String schema = getSchema(definition);
 						String encoding = getEncoding(definition);
 						
-						generateComplexDataOutput(responseID, definition.getTransmission().equals("reference"), false,  schema, mimeType, encoding, desc.getTitleArray(0));
+						generateComplexDataOutput(responseID, definition.getTransmission().equals(DataTransmissionModeType.REFERENCE), false,  schema, mimeType, encoding, desc.getTitleArray(0));
 					}
 					else if (desc.getDataDescription() instanceof LiteralDataType) {
 						String mimeType = null;
