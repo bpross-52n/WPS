@@ -7,6 +7,7 @@ INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiRefere
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.EchoProcess','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('testbed11.FloodFeatureEnrichment','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+INSERT INTO ALGORITHMENTRY VALUES('testbed11.FloodImpactAssesment','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 
@@ -456,7 +457,7 @@ INSERT INTO ALGORITHMENTRY VALUES('fixeddistancebuffer','org.n52.wps.server.sext
 INSERT INTO ALGORITHMENTRY VALUES('kerneldensity','org.n52.wps.server.sextante.configurationmodule.SextanteProcessRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('rgb2his','org.n52.wps.server.sextante.configurationmodule.SextanteProcessRepositoryCM',TRUE);
 
-INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.io.modules.generator.GeoserverWMSGeneratorCM', FALSE);
+INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.io.modules.generator.GeoserverWMSGeneratorCM', TRUE);
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.io.modules.generator.GeoserverWFSGeneratorCM', FALSE);
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.io.modules.generator.GeoserverWCSGeneratorCM', FALSE);
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.io.modules.generator.MapserverWMSGeneratorCM', FALSE);

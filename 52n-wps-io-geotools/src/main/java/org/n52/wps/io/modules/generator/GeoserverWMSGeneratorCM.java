@@ -48,26 +48,42 @@
 package org.n52.wps.io.modules.generator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.n52.wps.io.datahandler.generator.GeoserverWMSGenerator;
 import org.n52.wps.webapp.api.AlgorithmEntry;
 import org.n52.wps.webapp.api.ClassKnowingModule;
 import org.n52.wps.webapp.api.ConfigurationCategory;
+import org.n52.wps.webapp.api.ConfigurationKey;
 import org.n52.wps.webapp.api.FormatEntry;
 import org.n52.wps.webapp.api.types.ConfigurationEntry;
+import org.n52.wps.webapp.api.types.StringConfigurationEntry;
 
 public class GeoserverWMSGeneratorCM extends ClassKnowingModule{
 
 	private boolean isActive = true;
 
-	private List<? extends ConfigurationEntry<?>> configurationEntries;
+	private ConfigurationEntry<String> hostnameEntry = new StringConfigurationEntry("hostname", "GeoServer Host Name", "",
+			true, "localhost");	
+	private ConfigurationEntry<String> portEntry = new StringConfigurationEntry("hostport", "GeoServer port", "",
+			true, "8080");	
+	private ConfigurationEntry<String> usernameEntry = new StringConfigurationEntry("username", "GeoServer user name", "",
+			true, "admin");	
+	private ConfigurationEntry<String> passwordEntry = new StringConfigurationEntry("password", "GeoServer password", "",
+			true, "geoserver");	
+	
+	private List<? extends ConfigurationEntry<?>> configurationEntries = Arrays.asList(hostnameEntry, portEntry, usernameEntry, passwordEntry);
 	
 	private List<FormatEntry> formatEntries;
 	
+	private String hostname;
+	private String hostport;
+	private String username;
+	private String password;
+	
 	public GeoserverWMSGeneratorCM(){
 		formatEntries = new ArrayList<>();
-		configurationEntries = new ArrayList<>();
 	}
 	
 	@Override
@@ -108,6 +124,42 @@ public class GeoserverWMSGeneratorCM extends ClassKnowingModule{
 	@Override
 	public String getClassName() {
 		return GeoserverWMSGenerator.class.getName();
+	}
+
+	public String getHostname() {
+		return hostname;
+	}
+
+	@ConfigurationKey(key = "hostname")
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public String getHostport() {
+		return hostport;
+	}
+	
+	@ConfigurationKey(key = "hostport")
+	public void setHostport(String hostport) {
+		this.hostport = hostport;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	@ConfigurationKey(key = "username")
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	@ConfigurationKey(key = "password")
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

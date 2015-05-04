@@ -45,49 +45,78 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.wps.io.datahandler.generator;
+package testbed11;
 
-import org.n52.wps.commons.WPSConfig;
-import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
-import org.n52.wps.io.data.binding.complex.GeotiffBinding;
-import org.n52.wps.webapp.api.types.ConfigurationEntry;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public abstract class AbstractGeoserverWXSGenerator extends AbstractGenerator {
+import org.n52.wps.io.data.GenericFileDataWithGT;
+import org.n52.wps.io.data.IData;
+import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
+import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
+import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
+import org.n52.wps.server.AbstractAlgorithm;
+import org.n52.wps.server.ExceptionReport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	protected String username;
-	protected String password;
-	protected String host;
-	protected String port;
-	
-	public AbstractGeoserverWXSGenerator() {		
-		super();
-		this.supportedIDataTypes.add(GTRasterDataBinding.class);
-		this.supportedIDataTypes.add(GeotiffBinding.class);
+public class FloodImpactAssesment extends AbstractAlgorithm {
+
+	private static Logger LOGGER = LoggerFactory.getLogger(FloodImpactAssesment.class);
+    
+    public FloodImpactAssesment(){}
+
+	@Override
+	public Map<String, IData> run(Map<String, List<IData>> inputData)
+			throws ExceptionReport {
 		
-		for(ConfigurationEntry<?> property : properties){
-			if(property.getKey().equalsIgnoreCase("username")){
-				username = property.getValue().toString();
-			}
-			if(property.getKey().equalsIgnoreCase("password")){
-				password = property.getValue().toString();
-			}
-			if(property.getKey().equalsIgnoreCase("hostname")){
-				host = property.getValue().toString();
-			}
-			if(property.getKey().equalsIgnoreCase("hostport")){
-				port = property.getValue().toString();
-			}
-		}
-		if(port == null){
-			port = "" + WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().getHostport();
-		}
+		List<IData> nonArableLandDataList = inputData.get("nonArableLand");
 		
-		for(String supportedFormat : supportedFormats){
-			if(supportedFormat.equals("text/xml")){
-				supportedFormats.remove(supportedFormat);
-			}
+		double nonArableLandInPercent = ((LiteralDoubleBinding)nonArableLandDataList.get(0)).getPayload();
+		
+		List<IData> outputParameterDataList = inputData.get("outputParameter");
+		
+		String outputParameter = ((LiteralStringBinding)nonArableLandDataList.get(0)).getPayload();
+		
+		File output = new File("D:/dev/GitHub4w/WPS/52n-wps-webapp/src/main/webapp/static/data/aggregated-land-allocation-0.png");
+		
+		Map<String, IData> results = new HashMap<String, IData>();
+		
+		try {
+			results.put("impactAssessmentDiagram", new GenericFileDataWithGTBinding(new GenericFileDataWithGT(output, "image/png")));
+		} catch (IOException e) {
+            LOGGER.debug(e.getMessage());
 		}
 		
+		return results;
 	}
 
+	@Override
+	public List<String> getErrors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class<?> getInputDataType(String id) {
+		switch (id) {
+		case "nonArableLand":
+			return LiteralDoubleBinding.class;
+		case "outputParameter":
+			return LiteralStringBinding.class;
+
+		default:
+			return LiteralStringBinding.class;
+		}
+	}
+
+	@Override
+	public Class<?> getOutputDataType(String id) {		
+		return GenericFileDataWithGTBinding.class;
+	}
+	
+	
 }

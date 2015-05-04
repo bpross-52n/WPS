@@ -63,6 +63,7 @@ import org.n52.wps.io.data.GenericFileDataWithGT;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
+import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
 import org.n52.wps.io.data.binding.complex.GeotiffBinding;
 import org.n52.wps.io.data.binding.complex.ShapefileBinding;
 import org.slf4j.Logger;
@@ -80,6 +81,7 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
 		this.supportedIDataTypes.add(ShapefileBinding.class);
 		this.supportedIDataTypes.add(GeotiffBinding.class);
 		this.supportedIDataTypes.add(GTVectorDataBinding.class);
+		this.supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
 	}
 
 	@Override
@@ -142,6 +144,8 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
 		if(coll instanceof GeotiffBinding){
 			GeotiffBinding data = (GeotiffBinding) coll;
 			file = (File) data.getPayload();
+		}if(coll instanceof GenericFileDataWithGTBinding){
+			file = ((GenericFileDataWithGTBinding)coll).getPayload().getBaseFile(false);
 		}
 		storeName = file.getName();			
 	
@@ -153,7 +157,7 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
 		if(coll instanceof GTVectorDataBinding){
 			result = geoserverUploader.uploadShp(file, storeName);			
 		}
-		if(coll instanceof GTRasterDataBinding){
+		if(coll instanceof GTRasterDataBinding || coll instanceof GenericFileDataWithGTBinding){
 			result = geoserverUploader.uploadGeotiff(file, storeName);
 		}
 		
