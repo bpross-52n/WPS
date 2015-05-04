@@ -32,10 +32,11 @@ public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
 
 	private List<AlgorithmEntry> algorithmEntries;
 
-	private List<? extends ConfigurationEntry<?>> configurationEntries = new ArrayList<>();
+	private List<? extends ConfigurationEntry<?>> configurationEntries;
 	
 	public LocalAlgorithmRepositoryCM() {
 		algorithmEntries = new ArrayList<>();
+		configurationEntries = new ArrayList<>();
 	}
 	
 	@Override

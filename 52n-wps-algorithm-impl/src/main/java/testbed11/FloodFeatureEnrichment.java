@@ -45,7 +45,6 @@ import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.xmlbeans.XmlObject;
-import org.n52.wps.PropertyDocument.Property;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.ComplexDataInput;
 import org.n52.wps.algorithm.annotation.ComplexDataOutput;
@@ -54,7 +53,6 @@ import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
 import org.n52.wps.server.LocalAlgorithmRepository;
-import org.n52.wps.server.grass.configurationmodule.GrassProcessRepositoryCM;
 import org.n52.wps.webapp.api.ConfigurationCategory;
 import org.n52.wps.webapp.api.ConfigurationModule;
 import org.n52.wps.webapp.api.types.ConfigurationEntry;
@@ -77,10 +75,13 @@ public class FloodFeatureEnrichment extends AbstractAnnotatedAlgorithm {
     
     private String userName = "tb11user";
     private String password = "flood11";
-    private String url = "testbed11-dean.fmecloud.com/fmedatastreaming/UCR/FloodFeatureService.fmw";
+    private String url = "poc-safe-software.fmecloud.com/fmedatastreaming/TestBed11/Mozambique_FloodFeatureService_Max.fmw";
     private String protocol = "https://";
     
-    public FloodFeatureEnrichment(){
+    public FloodFeatureEnrichment(){}
+    
+    @Execute
+	public void callFMEServer() throws Exception {
     	
 		ConfigurationModule localAlgorithmConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(LocalAlgorithmRepository.class.getName(), ConfigurationCategory.REPOSITORY);
     	
@@ -102,11 +103,6 @@ public class FloodFeatureEnrichment extends AbstractAnnotatedAlgorithm {
     			protocol = property.getValue().toString();
     		}
 		}
-    	
-    }
-    
-    @Execute
-	public void callFMEServer() throws Exception {
 
 		HttpPost post = new HttpPost(protocol + userName + ":" + password + "@" + url);
 

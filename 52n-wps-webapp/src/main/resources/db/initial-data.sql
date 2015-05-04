@@ -6,6 +6,14 @@ INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultipleCom
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.EchoProcess','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+INSERT INTO ALGORITHMENTRY VALUES('testbed11.FloodFeatureEnrichment','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+
+INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+
+INSERT INTO CONFIGURATIONENTRY VALUES('testbed-11-FME-user','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM','tb11user');
+INSERT INTO CONFIGURATIONENTRY VALUES('testbed-11-FME-pwd','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM','flood11');
+INSERT INTO CONFIGURATIONENTRY VALUES('testbed-11-FME-url','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM','poc-safe-software.fmecloud.com/fmedatastreaming/TestBed11/Mozambique_FloodFeatureService_Max.fmw');
+INSERT INTO CONFIGURATIONENTRY VALUES('testbed-11-FME-protocol','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM','https://');
 
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.grass.configurationmodule.GrassProcessRepositoryCM', FALSE);
 

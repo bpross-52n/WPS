@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wps:Execute xmlns:wps="http://www.opengis.net/wps/2.0.0"
-	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.opengis.net/wps/2.0.0 http://schemas.opengis.net/wps/2.0.0/wpsExecute.xsd"
-	service="WPS" version="2.0.0" response="document" mode="sync">
-	<ows:Identifier>testbed11.FloodFeatureEnrichment</ows:Identifier>
-	<wps:Input id="floodRiskSource">
-		<wps:Data mimeType="text/xml">
-			<gml:FeatureCollection xmlns:tb11="http://www.safe.com/gml/fme"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
-				xmlns:gml="http://www.opengis.net/gml/3.2" gml:id="id64924611-ef82-45cd-9b6f-4b0c48a69818"
-				xlink:href="timestep.100" xsi:schemaLocation="http://www.safe.com/gml/fme floodRisk.xsd">
-				<gml:featureMember>
-					<tb11:floodRisk gml:id="id582e787d-e61e-4692-83a6-79641d99d151">
-						<gml:pointProperty>
-							<gml:Point gml:id="id-4f6bc043-e95e-4e54-be03-e207fa43ba0d-0"
-								srsName="epsg:4326" srsDimension="2">
-								<gml:pos>32.67 -25.7</gml:pos>
-							</gml:Point>
-						</gml:pointProperty>
-					</tb11:floodRisk>
-				</gml:featureMember>
-				<gml:featureMember>
-					<tb11:floodRisk gml:id="id582e787d-e61e-4692-83a6-79641d99d152">
-						<gml:pointProperty>
-							<gml:Point gml:id="id-4f6bc043-e95e-4e54-be03-e207fa43ba0d-1"
-								srsName="epsg:4326" srsDimension="2">
-								<gml:pos>32.86 -23.99</gml:pos>
-							</gml:Point>
-						</gml:pointProperty>
-					</tb11:floodRisk>
-				</gml:featureMember>
-			</gml:FeatureCollection>
-		</wps:Data>
-	</wps:Input>
-	<!-- Uses default output format -->
-	<wps:Output id="floodRiskResult" transmission="value" />
+<wps:Execute xmlns:wps="http://www.opengis.net/wps/2.0"
+  xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wpsExecute.xsd"
+  service="WPS" version="2.0.0" response="document" mode="sync">
+  <ows:Identifier>testbed11.FloodFeatureEnrichment</ows:Identifier>
+  <wps:Input id="floodRiskSource">
+    <wps:Data mimeType="text/xml">
+      <gml:FeatureCollection xmlns:tb11="http://www.safe.com/gml/fme"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:gml="http://www.opengis.net/gml/3.2" gml:id="id64924611-ef82-45cd-9b6f-4b0c48a69818"
+        xlink:href="timestep.100" xsi:schemaLocation="http://www.safe.com/gml/fme floodRisk.xsd">
+        <gml:featureMember>
+          <tb11:floodRisk gml:id="id582e787d-e61e-4692-83a6-79641d99d151">
+            <gml:pointProperty>
+              <gml:Point gml:id="id-4f6bc043-e95e-4e54-be03-e207fa43ba0d-0"
+                srsName="epsg:4326" srsDimension="2">
+                <gml:pos>32.67 -25.7</gml:pos>
+              </gml:Point>
+            </gml:pointProperty>
+          </tb11:floodRisk>
+        </gml:featureMember>
+        <gml:featureMember>
+          <tb11:floodRisk gml:id="id582e787d-e61e-4692-83a6-79641d99d152">
+            <gml:pointProperty>
+              <gml:Point gml:id="id-4f6bc043-e95e-4e54-be03-e207fa43ba0d-1"
+                srsName="epsg:4326" srsDimension="2">
+                <gml:pos>32.86 -23.99</gml:pos>
+              </gml:Point>
+            </gml:pointProperty>
+          </tb11:floodRisk>
+        </gml:featureMember>
+      </gml:FeatureCollection>
+    </wps:Data>
+  </wps:Input>
+  <!-- Uses default output format -->
+  <wps:Output id="floodRiskResult" transmission="value" />
 </wps:Execute>
