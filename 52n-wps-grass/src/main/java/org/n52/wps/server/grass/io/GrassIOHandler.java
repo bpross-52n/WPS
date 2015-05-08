@@ -573,7 +573,7 @@ public class GrassIOHandler {
 			}
 
 			if(!errors.equals("")){
-                String baseDir = WebProcessingService.getApplicationBaseDir() + File.separator + LOGS_DIR_NAME;
+                String baseDir = WPSConfig.getInstance().getApplicationBaseDir() + File.separator + LOGS_DIR_NAME;
 				File baseDirFile = new File(baseDir);
 				if(!baseDirFile.exists()){
 					baseDirFile.mkdir();

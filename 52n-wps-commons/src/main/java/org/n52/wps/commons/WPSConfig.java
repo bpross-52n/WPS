@@ -64,14 +64,7 @@ public class WPSConfig implements Serializable {
     private static transient WPSConfig wpsConfig;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WPSConfig.class);
-
-    // constants for the Property change event names
-    public static final String WPSCONFIG_PROPERTY_EVENT_NAME = "WPSConfigUpdate";
-    public static final String WPSCAPABILITIES_SKELETON_PROPERTY_EVENT_NAME = "WPSCapabilitiesUpdate";
-    public static final String CONFIG_FILE_PROPERTY = "wps.config.file";
-    public static final String CONFIG_FILE_NAME = "wps_config.xml";
-    private static final String CONFIG_FILE_DIR = "WEB-INF" + File.separator + "config";
-    private static final String URL_DECODE_ENCODING = "UTF-8";
+    
     // FvK: added Property Change support
     protected final PropertyChangeSupport propertyChangeSupport = null;
 
@@ -91,8 +84,11 @@ public class WPSConfig implements Serializable {
 	public static final String OUTPUT_TRANSMISSIONS_SEPARATOR = " ";
     
 	private ConfigurationManager configurationManager;
-    private Server serverConfigurationModule;	
-
+	
+    private Server serverConfigurationModule;
+    
+    private String applicationBaseDir;
+    
 	public Server getServerConfigurationModule() {
 
 		if (serverConfigurationModule == null) {
@@ -112,26 +108,6 @@ public class WPSConfig implements Serializable {
 	}
 
     /**
-     * Add an Listener to the wpsConfig
-     *
-     * @param propertyName
-     * @param listener
-     */
-    public void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-        
-    }
-
-    /**
-     * remove a listener from the wpsConfig
-     *
-     * @param propertyName
-     * @param listener
-     */
-    public void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-        
-    }
-
-    /**
      * returns an instance of the WPSConfig class. WPSConfig is a single. If there is need for
      * reinstantitation, use forceInitialization().
      *
@@ -142,11 +118,6 @@ public class WPSConfig implements Serializable {
         	wpsConfig = new WPSConfig();
         }
         return wpsConfig;
-    }
-
-    public static WPSConfig getInstance(ServletContext context) {
-        LOGGER.debug("Getting WPSConfig instance... with ServletConfig: {}", context == null ? null : context.toString());
-        return getInstance();
     }
 
     public WPSConfig getWPSConfig() {
@@ -247,4 +218,13 @@ public class WPSConfig implements Serializable {
 	public Map<String, ConfigurationModule> getActiveRegisteredGeneratorModules() {
 		return getActiveConfigurationModules(ConfigurationCategory.GENERATOR);
 	}
+
+	public void setApplicationBaseDir(String applicationBaseDir) {
+		this.applicationBaseDir = applicationBaseDir;		
+	}
+
+    public String getApplicationBaseDir() {
+        return applicationBaseDir;
+    }
+
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:ProcessDescriptions xmlns:wps="http://www.opengis.net/wps/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ows="http://www.opengis.net/ows/1.1"
+	xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd"
+	xml:lang="en-US" service="WPS" version="1.0.0">
+	<ProcessDescription statusSupported="true"
+		storeSupported="true" wps:processVersion="1.1.0">
+		<ows:Identifier>org.n52.wps.server.algorithm.SimpleBufferAlgorithm</ows:Identifier>
+		<ows:Title>testbed11.FloodImpactAssessment</ows:Title>
+		<DataInputs>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>nonArableLand</ows:Identifier>
+				<ows:Title>nonArableLand</ows:Title>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:double" />
+					<ows:AllowedValues>
+						<ows:Value>50</ows:Value>
+					</ows:AllowedValues>
+				</LiteralData>
+			</Input>
+			<Input minOccurs="1" maxOccurs="1">
+				<ows:Identifier>outputParameter</ows:Identifier>
+				<ows:Title>outputParameter</ows:Title>
+				<LiteralData>
+					<ows:DataType ows:reference="xs:String" />
+					<ows:AllowedValues>
+						<ows:Value>aggregated-land-allocation</ows:Value>
+						<ows:Value>prices-by-sector</ows:Value>
+					</ows:AllowedValues>
+				</LiteralData>
+			</Input>
+		</DataInputs>
+		<ProcessOutputs>
+			<Output>
+				<ows:Identifier>referenceDiagram</ows:Identifier>
+				<ows:Title>referenceDiagram</ows:Title>
+				<ows:Abstract>Diagram that shows output parameter after model run with no flooded area (pre-computed).</ows:Abstract>
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>image/png</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>image/png</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+						<Format>
+							<MimeType>image/png</MimeType>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+			<Output>
+				<ows:Identifier>impactAssessmentDiagram</ows:Identifier>
+				<ows:Title>impactAssessmentDiagram</ows:Title>
+				<ows:Abstract>Diagram that shows output parameter after model run with flooded area.</ows:Abstract>
+				<ComplexOutput>
+					<Default>
+						<Format>
+							<MimeType>image/png</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+					</Default>
+					<Supported>
+						<Format>
+							<MimeType>image/png</MimeType>
+							<Encoding>base64</Encoding>
+						</Format>
+						<Format>
+							<MimeType>image/png</MimeType>
+						</Format>
+					</Supported>
+				</ComplexOutput>
+			</Output>
+		</ProcessOutputs>
+	</ProcessDescription>
+</wps:ProcessDescriptions>

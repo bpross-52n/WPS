@@ -34,6 +34,7 @@ import net.opengis.wps.x20.StatusInfoDocument;
 
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.request.GetStatusRequestV200;
+import org.n52.wps.util.XMLBeansHelper;
 
 /**
  * A Response to the Request "GetCapabilities"

@@ -21,25 +21,6 @@
  * if the distribution is compliant with both the GNU General Public
  * License version 2 and the aforementioned licenses.
  *
- * As an exception to the terms of the GPL, you may copy, modify,
- * propagate, and distribute a work formed by combining 52°North WPS
- * GeoTools Modules with the Eclipse Libraries, or a work derivative of
- * such a combination, even if such copying, modification, propagation, or
- * distribution would otherwise violate the terms of the GPL. Nothing in
- * this exception exempts you from complying with the GPL in all respects
- * for all of the code used other than the Eclipse Libraries. You may
- * include this exception and its grant of permissions when you distribute
- * 52°North WPS GeoTools Modules. Inclusion of this notice with such a
- * distribution constitutes a grant of such permissions. If you do not wish
- * to grant these permissions, remove this paragraph from your
- * distribution. "52°North WPS GeoTools Modules" means the 52°North WPS
- * modules using GeoTools functionality - software licensed under version 2
- * or any later version of the GPL, or a work based on such software and
- * licensed under the GPL. "Eclipse Libraries" means Eclipse Modeling
- * Framework Project and XML Schema Definition software distributed by the
- * Eclipse Foundation and licensed under the Eclipse Public License Version
- * 1.0 ("EPL"), or a work based on such software and licensed under the EPL.
- *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
@@ -48,14 +29,17 @@
 package testbed11;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.n52.wps.io.data.GenericFileDataWithGT;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.IData;
-import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
+import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralDoubleBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAlgorithm;
@@ -65,32 +49,53 @@ import org.slf4j.LoggerFactory;
 
 public class FloodImpactAssessment extends AbstractAlgorithm {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(FloodImpactAssessment.class);
-    
-    public FloodImpactAssessment(){}
+	private static Logger LOGGER = LoggerFactory
+			.getLogger(FloodImpactAssessment.class);
+
+	public FloodImpactAssessment() {
+	}
 
 	@Override
 	public Map<String, IData> run(Map<String, List<IData>> inputData)
 			throws ExceptionReport {
-		
+
 		List<IData> nonArableLandDataList = inputData.get("nonArableLand");
-		
-		double nonArableLandInPercent = ((LiteralDoubleBinding)nonArableLandDataList.get(0)).getPayload();
-		
+
+		double nonArableLandInPercent = ((LiteralDoubleBinding) nonArableLandDataList
+				.get(0)).getPayload();
+
 		List<IData> outputParameterDataList = inputData.get("outputParameter");
-		
-		String outputParameter = ((LiteralStringBinding)outputParameterDataList.get(0)).getPayload();
-		
-		File output = new File("D:/dev/GitHub4w/WPS/52n-wps-webapp/src/main/webapp/static/data/aggregated-land-allocation-0.png");
-		
-		Map<String, IData> results = new HashMap<String, IData>();
-		
+
+		String outputParameter = ((LiteralStringBinding) outputParameterDataList
+				.get(0)).getPayload();
+
+		InputStream outputFileStream = null;
+		InputStream referenceFileStream = null;
+
+		String baseDir = WPSConfig.getInstance().getApplicationBaseDir();
+
 		try {
-			results.put("impactAssessmentDiagram", new GenericFileDataWithGTBinding(new GenericFileDataWithGT(output, "image/png")));
+
+			if (outputParameter.equals("aggregated-land-allocation")) {
+				outputFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/aggregated-land-allocation-50.png"));
+				referenceFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/aggregated-land-allocation-0.png"));
+			} else if (outputParameter.equals("prices-by-sector")) {
+				outputFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/prices-by-sector-50.png"));
+				referenceFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/prices-by-sector-0.png"));
+			}
 		} catch (IOException e) {
-            LOGGER.debug(e.getMessage());
+			LOGGER.debug(e.getMessage());
 		}
-		
+		Map<String, IData> results = new HashMap<String, IData>();
+		results.put("impactAssessmentDiagram", new GenericFileDataBinding(
+				new GenericFileData(outputFileStream, "image/png")));
+		results.put("referenceDiagram", new GenericFileDataBinding(
+				new GenericFileData(referenceFileStream, "image/png")));
+
 		return results;
 	}
 
@@ -107,16 +112,14 @@ public class FloodImpactAssessment extends AbstractAlgorithm {
 			return LiteralDoubleBinding.class;
 		case "outputParameter":
 			return LiteralStringBinding.class;
-
 		default:
 			return LiteralStringBinding.class;
 		}
 	}
 
 	@Override
-	public Class<?> getOutputDataType(String id) {		
-		return GenericFileDataWithGTBinding.class;
+	public Class<?> getOutputDataType(String id) {
+		return GenericFileDataBinding.class;
 	}
-	
-	
+
 }

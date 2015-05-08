@@ -65,7 +65,6 @@ public class DatabaseFactory implements IDatabase
                         LOGGER.info(this.getClass().getName() + ": Received Property Change Event: " + propertyChangeEvent.getPropertyName());
                     }
             }; 
-            org.n52.wps.commons.WPSConfig.getInstance().addPropertyChangeListener(org.n52.wps.commons.WPSConfig.WPSCONFIG_PROPERTY_EVENT_NAME, propertyChangeListener);
         }
 
         if(DatabaseFactory.database == null) {

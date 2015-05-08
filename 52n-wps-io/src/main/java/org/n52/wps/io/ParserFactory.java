@@ -58,16 +58,6 @@ public class ParserFactory {
 	
 	private ParserFactory(Map<String, ConfigurationModule> parserMap) {
 		loadAllParsers(parserMap);
-
-        // FvK: added Property Change Listener support
-        // creates listener and register it to the wpsConfig instance.
-        org.n52.wps.commons.WPSConfig.getInstance().addPropertyChangeListener(org.n52.wps.commons.WPSConfig.WPSCONFIG_PROPERTY_EVENT_NAME, new PropertyChangeListener() {
-            public void propertyChange(
-                    final PropertyChangeEvent propertyChangeEvent) {
-                LOGGER.info(this.getClass().getName() + ": Received Property Change Event: " + propertyChangeEvent.getPropertyName());
-                loadAllParsers(org.n52.wps.commons.WPSConfig.getInstance().getActiveRegisteredParserModules());
-            }
-        });
 	}
     
     private void loadAllParsers(Map<String, ConfigurationModule> parserMap){

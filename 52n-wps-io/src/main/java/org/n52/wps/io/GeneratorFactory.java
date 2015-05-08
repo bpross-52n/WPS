@@ -52,16 +52,6 @@ public class GeneratorFactory {
 	
 	private GeneratorFactory(Map<String, ConfigurationModule> generatorMap) {
 		loadAllGenerators(generatorMap);
-		
-		// FvK: added Property Change Listener support
-		// creates listener and register it to the wpsConfig instance.
-		org.n52.wps.commons.WPSConfig.getInstance().addPropertyChangeListener(org.n52.wps.commons.WPSConfig.WPSCONFIG_PROPERTY_EVENT_NAME, new PropertyChangeListener() {
-			public void propertyChange(
-					final PropertyChangeEvent propertyChangeEvent) {
-				LOGGER.info(this.getClass().getName() + ": Received Property Change Event: " + propertyChangeEvent.getPropertyName());
-				loadAllGenerators(org.n52.wps.commons.WPSConfig.getInstance().getActiveRegisteredGeneratorModules());
-			}
-		});
 	}
 
     private void loadAllGenerators(Map<String, ConfigurationModule> generatorMap){

@@ -532,7 +532,7 @@ public class CapabilitiesConfigurationV200 {
     		XmlCursor c = instance.newCursor();
     		c.toFirstChild();
     		c.toLastAttribute();
-    		c.setAttributeText(new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "schemaLocation"), "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0.0/wpsGetCapabilities.xsd");
+    		c.setAttributeText(new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "schemaLocation"), "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd");
             
             serviceIdentificationConfigurationModule = getConfigurationManager().getCapabilitiesServices().getServiceIdentification();
             

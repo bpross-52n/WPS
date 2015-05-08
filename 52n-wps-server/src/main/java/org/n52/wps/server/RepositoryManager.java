@@ -60,17 +60,6 @@ public class RepositoryManager {
 		
         // initialize all Repositories
         loadAllRepositories();
-
-        // FvK: added Property Change Listener support
-        // creates listener and register it to the wpsConfig instance.
-        WPSConfig.getInstance().addPropertyChangeListener(WPSConfig.WPSCONFIG_PROPERTY_EVENT_NAME, new PropertyChangeListener() {
-            public void propertyChange(
-                    final PropertyChangeEvent propertyChangeEvent) {
-                                                                  LOGGER.info("Received Property Change Event: {}",
-                                                                              propertyChangeEvent.getPropertyName());
-                loadAllRepositories();
-            }
-        });
         
         Double updateHours = WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().getRepoReloadInterval();
         

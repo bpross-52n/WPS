@@ -141,13 +141,7 @@ public class WebProcessingService implements ServletContextAware, ServletConfigA
 
     public void init() {
         LOGGER.info("*** WebProcessingService initializing... ***");
-        WPSConfig conf = WPSConfig.getInstance(servletContext);
-        
-        WPSConfig.getInstance().setConfigurationManager(configurationManager);
-        
-        // this is important to set the lon lat support for correct CRS transformation.
-        // TODO: Might be changed to an additional configuration parameter.
-        System.setProperty("org.geotools.referencing.forceXY", "true");
+        WPSConfig conf = WPSConfig.getInstance();
         
         try {
             if (conf == null) {
@@ -159,10 +153,17 @@ public class WebProcessingService implements ServletContextAware, ServletConfigA
             LOGGER.error("Initialization failed! Please look at the properties file!", e);
             return;
         }
+        
+        WPSConfig.getInstance().setConfigurationManager(configurationManager);
+        
+        // this is important to set the lon lat support for correct CRS transformation.
+        // TODO: Might be changed to an additional configuration parameter.
+        System.setProperty("org.geotools.referencing.forceXY", "true");
         LOGGER.info("Initialization of wps properties successful! WPSConfig: {}", conf);
 
         applicationBaseDir = servletContext.getRealPath("");
         LOGGER.debug("Application base dir is {}", applicationBaseDir);
+        WPSConfig.getInstance().setApplicationBaseDir(applicationBaseDir);
 
 		Map<String, ConfigurationModule> parserMap = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getActiveConfigurationModulesByCategory(ConfigurationCategory.PARSER);
         ParserFactory.initialize(parserMap);

@@ -86,10 +86,9 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 		resultDoc = ResultDocument.Factory.newInstance();
 		resultDoc.addNewResult();
 		resultDoc.getResult().setJobID(request.getUniqueId().toString());
-		XMLBeansHelper.addSchemaLocationToXMLObject(resultDoc, "http://www.opengis.net/wps/2.0.0 http://schemas.opengis.net/wps/2.0.0/wpsGetResult.xsd");
+		XMLBeansHelper.addSchemaLocationToXMLObject(resultDoc, "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd");
 		statusInfoDoc = StatusInfoDocument.Factory.newInstance();		
 		statusInfoDoc.addNewStatusInfo();
-		XMLBeansHelper.addSchemaLocationToXMLObject(statusInfoDoc, "http://www.opengis.net/wps/2.0.0 http://schemas.opengis.net/wps/2.0.0/wpsGetStatus.xsd");
 		this.identifier = request.getAlgorithmIdentifier().trim();
 		superDescription = RepositoryManager.getInstance().getProcessDescription(this.identifier);
 		description = (ProcessOffering) superDescription.getProcessDescriptionType(WPSConfig.VERSION_200);
@@ -307,6 +306,8 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 			StatusInfo status = (StatusInfo)statusObject;
 			
 			statusInfoDoc.setStatusInfo(status);
+			//have to do this here, because otherwise the schema location will be removed somehow by the statement above 
+			XMLBeansHelper.addSchemaLocationToXMLObject(statusInfoDoc, "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd");
 		}else{
 			LOGGER.warn(String.format("XMLObject not of type \"net.opengis.wps.x20.StatusInfoDocument.StatusInfo\", but {}. Cannot not set status. ", statusObject.getClass()));
 		}
