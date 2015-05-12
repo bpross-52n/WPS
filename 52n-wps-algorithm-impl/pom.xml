@@ -55,6 +55,10 @@
 			<artifactId>jts</artifactId>
 			<groupId>com.vividsolutions</groupId>
 		</dependency>
+        <dependency>	
+            <groupId>org.n52.sensorweb</groupId>
+	        <artifactId>52n-cswToLinkeddata</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
