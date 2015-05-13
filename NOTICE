@@ -27,6 +27,8 @@ Public License for more details.
 
 This project includes:
   52n-security-licensing under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  52North OxFramework Common under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  52North OxFramework Xmlbeans Handling under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   52North Web Processing Service under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   52North WPS Algorithm API under Apache License, Version 2.0
   52North WPS Algorithm Implementations under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
@@ -42,7 +44,17 @@ This project includes:
   52North WPS Server under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   52North WPS Sextante Processing Backend under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   52North WPS Web Application under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  52°North CSW to Linked Data Transformer under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   AOP alliance under Public Domain
+  Apache HttpClient Cache under Apache License
+  Apache Jena - ARQ (SPARQL 1.1 Query Engine) under The Apache Software License, Version 2.0
+  Apache Jena - Core under The Apache Software License, Version 2.0
+  Apache Jena - IRI under The Apache Software License, Version 2.0
+  Apache Jena - Libraries POM under The Apache Software License, Version 2.0
+  Apache Jena - TDB (Native Triple Store) under The Apache Software License, Version 2.0
+  Apache Log4j API under The Apache Software License, Version 2.0
+  Apache Log4j Core under The Apache Software License, Version 2.0
+  Apache Log4j SLF4J Binding under The Apache Software License, Version 2.0
   Apache Velocity under The Apache Software License, Version 2.0
   API interfaces under Lesser General Public License (LGPL)
   ArcGrid datasource module under Lesser General Public License (LGPL)
@@ -82,11 +94,14 @@ This project includes:
   Filter Encoding Specification XML Support under Lesser General Public License (LGPL)
   Filter XML Support under Lesser General Public License (LGPL)
   FreeMarker under BSD-style license
+  Geographic COmmon (GCO) schema (version 2012-07-13) under The Apache Software License, Version 2.0
+  Geographic MetaData (GMD) schema (version 2012-07-13) under The Apache Software License, Version 2.0
   GeoJSON Support under Lesser General Public License (LGPL)
   GeoTIFF grid coverage exchange module under Lesser General Public License (LGPL)
   GML2 XML Support under Lesser General Public License (LGPL)
   GML3 XML Support under Lesser General Public License (LGPL)
   gmlpacket-2.0 under GNU GENERAL PUBLIC LICENSE (GPL Version 2, June 1991)
+  GRDC schema binding under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   Grid Coverage module under Lesser General Public License (LGPL)
   Guava: Google Core Libraries for Java under The Apache Software License, Version 2.0
   Hamcrest All under New BSD License
@@ -100,6 +115,9 @@ This project includes:
   Image I/O-Extensions - Improved TIFF Plugin under BSD License
   Image I/O-Extensions - Pure java ArcGrid Plugin under GNU Lesser General Public License, version 3 or later (LGPL)
   Image I/O-Extensions - utilities classes and methods under GNU Lesser General Public License, version 3 or later (LGPL)
+  ISO 19115-2:2009 Geographic information -- Metadata -- Part 2: Extensions for imagery and gridded data schema GLUES Version under The Apache Software License, Version 2.0
+  ISO/TC 211 XML schemas under The Apache Software License, Version 2.0
+  isorelax under MIT license
   Jackson under The Apache Software License, Version 2.0
   Jackson-annotations under The Apache Software License, Version 2.0
   Jackson-core under The Apache Software License, Version 2.0
@@ -123,6 +141,7 @@ This project includes:
   jMock JUnit 4 Extension under BSD style
   Joda time under Apache 2
   JSON.simple under The Apache Software License, Version 2.0
+  JSONLD Java :: Core under Revised BSD License
   jsp-api under GNU GENERAL PUBLIC LICENSE (GPL Version 2, June 1991)
   jsr-275 under BSD License
   jstl under GNU GENERAL PUBLIC LICENSE (GPL Version 2, June 1991)
@@ -141,21 +160,43 @@ This project includes:
   Metadata under Lesser General Public License (LGPL)
   Mockito under The MIT License
   mvel under The Apache Software License, Version 2.0
+  OASIS WS-N specification schemas - including WS-BrokeredNotification (v1.3) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OASIS WS-Resources specification schemas v1.2 under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   Objenesis under MIT License
+  OGC Context schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC CSW schema (spec. v2.0.2) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC Filter schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC Filter schema (spec. v1.1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC GML schema (spec. v3.1.1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC GML schema (spec. v3.2.1) under The Apache Software License, Version 2.0
+  OGC O&M schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC OWS schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC OWS schema (spec. v1.1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC OWS schema (spec. v2.0.2) under The Apache Software License, Version 2.0
+  OGC Sampling schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SensorML schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SensorML schema (spec. v1.0.1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SLD schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SWECommon schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SWECommon schema (spec. v1.0.1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OGC SWES schema (spec. v2.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC WPS schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC WPS schema (spec. v2.0) under The Apache Software License, Version 2.0
+  OGC XML schemas under The Apache Software License, Version 2.0
   ogckml2.2 under GNU GENERAL PUBLIC LICENSE (GPL Version 2, June 1991)
   OGNL - Object Graph Navigation Library under The Apache Software License, Version 2.0
   Open GIS Interfaces under OGC copyright or Lesser General Public License (LGPL)
   Open Web Services Model under Lesser General Public License (LGPL)
   oro under The Apache Software License, Version 1.1
   OWS XML Support under Lesser General Public License (LGPL)
+  OxF Features under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OxFramework Adapters API under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  OxFramework CSW Adapter under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   PicoContainer Core under BSD License
   PJL Compressing Filter under Apache Software License V2.0
   precondition under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   Referencing services under Lesser General Public License (LGPL)
+  Saxon-HE under Mozilla Public License Version 1.0
   sextante under GPL 2.0 license
   sextante_algorithms under GPL 2.0 license
   sextante_gt27_bindings under GPL 2.0 license
@@ -208,6 +249,10 @@ This project includes:
   trove under GNU Lesser General Public License, version 2.1 or later (LGPL)
   vecmath under GNU General Public License (GPL), version 2, with the CLASSPATH exception
   VelocityTools under The Apache Software License, Version 2.0
+  virt_jena2 under GNU General Public License (GPL), version 2
+  virtjdbc4 under GNU General Public License (GPL), version 2
+  W3C SOAP specification recommondation (v1.2 part 1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
+  W3C WS-Addressing specification schemas (v1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   W3C xlink schema (spec. v1.1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   Web Feature Service Model under Lesser General Public License (LGPL)
   WFS XML Support under Lesser General Public License (LGPL)
@@ -222,6 +267,7 @@ This project includes:
   xml-schema under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   xml-secconfig under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   XmlBeans under The Apache Software License, Version 2.0
+  XmlBeansXPath under The Apache Software License, Version 2.0
   xsd under Eclipse Public License (EPL)
   ZonalStats operator under Simplified BSD
 

@@ -453,5 +453,23 @@
         <artifactId>standard</artifactId>
         <version>1.1.2</version>
 		<license>The Apache Software License, Version 2.0</license>
+    </artifact>	
+    <artifact>
+		<groupId>com.virtuoso</groupId>
+		<artifactId>virt_jena2</artifactId>
+		<version>1.0.0</version>
+        <license>GNU General Public License (GPL), version 2</license>
+	</artifact>
+	<artifact>
+		<groupId>com.virtuoso</groupId>
+		<artifactId>virtjdbc4</artifactId>
+		<version>1.0.0</version>
+        <license>GNU General Public License (GPL), version 2</license>
+	</artifact>
+	<artifact>
+        <groupId>isorelax</groupId>
+        <artifactId>isorelax</artifactId>
+        <version>20020414</version>  
+        <license>MIT license</license>
     </artifact>
 </license-lookup>

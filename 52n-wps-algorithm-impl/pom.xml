@@ -56,7 +56,7 @@
 			<groupId>com.vividsolutions</groupId>
 		</dependency>
         <dependency>	
-            <groupId>org.n52.sensorweb</groupId>
+            <groupId>org.n52.lod</groupId>
 	        <artifactId>52n-cswToLinkeddata</artifactId>
         </dependency>
 		<dependency>
