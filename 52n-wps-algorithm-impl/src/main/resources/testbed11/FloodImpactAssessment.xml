@@ -13,9 +13,7 @@
 				<ows:Title>nonArableLand</ows:Title>
 				<LiteralData>
 					<ows:DataType ows:reference="xs:double" />
-					<ows:AllowedValues>
-						<ows:Value>50</ows:Value>
-					</ows:AllowedValues>
+                    <ows:AnyValue/>
 				</LiteralData>
 			</Input>
 			<Input minOccurs="1" maxOccurs="1">
@@ -26,6 +24,12 @@
 					<ows:AllowedValues>
 						<ows:Value>aggregated-land-allocation</ows:Value>
 						<ows:Value>prices-by-sector</ows:Value>
+						<ows:Value>ag-commodity-prices</ows:Value>
+						<ows:Value>fertilizer-production-by-region</ows:Value>
+						<ows:Value>meat-prices</ows:Value>
+						<ows:Value>cogeneration-by-sector</ows:Value>
+						<ows:Value>co2-emmisions-by-region</ows:Value>
+						<ows:Value>co2-emmisions-by-sector</ows:Value>
 					</ows:AllowedValues>
 				</LiteralData>
 			</Input>

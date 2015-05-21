@@ -86,6 +86,11 @@ public class FloodImpactAssessment extends AbstractAlgorithm {
 						+ "/static/data/prices-by-sector-50.png"));
 				referenceFileStream = new FileInputStream(new File(baseDir
 						+ "/static/data/prices-by-sector-0.png"));
+			} else if (outputParameter.equals("meat-prices")) {
+				outputFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/meat-prices-50.png"));
+				referenceFileStream = new FileInputStream(new File(baseDir
+						+ "/static/data/meat-prices-0.png"));
 			}
 		} catch (IOException e) {
 			LOGGER.debug(e.getMessage());
