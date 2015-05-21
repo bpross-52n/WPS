@@ -31,6 +31,7 @@ package org.n52.wps.server.algorithm;
 import java.io.IOException;
 
 import org.n52.lod.Configuration;
+import org.n52.lod.ProgressListener;
 import org.n52.lod.csw.CSWLoDEnabler;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.Execute;
@@ -68,7 +69,18 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
     @Execute
     public void runAlgorithm() {
         try {
-            CSWLoDEnabler enabler = new CSWLoDEnabler(new Configuration(Configuration.DEFAULT_CONFIG_FILE));
+        	
+        	Configuration config =  new Configuration(Configuration.DEFAULT_CONFIG_FILE);
+        	
+        	config.setProgressListener(new ProgressListener() {
+				
+				@Override
+				public void updateProgress(String progress) {
+					update(progress);					
+				}
+			});
+        	
+            CSWLoDEnabler enabler = new CSWLoDEnabler(config);
             enabler.runOverAll();
         } catch (RuntimeException | IOException e) {
             log.error("Error running CSW to LOD", e);
