@@ -172,7 +172,7 @@ This project includes:
   OGC O&M schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC OWS schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC OWS schema (spec. v1.1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
-  OGC OWS schema (spec. v2.0.2) under The Apache Software License, Version 2.0
+  OGC OWS schema (spec. v2.0) under The Apache Software License, Version 2.0
   OGC Sampling schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC SensorML schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC SensorML schema (spec. v1.0.1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
@@ -181,12 +181,12 @@ This project includes:
   OGC SWECommon schema (spec. v1.0.1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC SWES schema (spec. v2.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   OGC WPS schema (spec. v1.0.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
-  OGC WPS schema (spec. v2.0) under The Apache Software License, Version 2.0
   OGC XML schemas under The Apache Software License, Version 2.0
   ogckml2.2 under GNU GENERAL PUBLIC LICENSE (GPL Version 2, June 1991)
   OGNL - Object Graph Navigation Library under The Apache Software License, Version 2.0
   Open GIS Interfaces under OGC copyright or Lesser General Public License (LGPL)
   Open Web Services Model under Lesser General Public License (LGPL)
+  org.n52.wps:52n-xml-wps-v20 under The Apache Software License, Version 2.0
   oro under The Apache Software License, Version 1.1
   OWS XML Support under Lesser General Public License (LGPL)
   OxF Features under GNU GENERAL PUBLIC LICENSE Version 2, June 1991

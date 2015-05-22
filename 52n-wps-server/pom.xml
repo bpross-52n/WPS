@@ -120,6 +120,10 @@
 			<artifactId>52n-xml-wps-v20</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.n52.sensorweb</groupId>
+			<artifactId>52n-xml-ows-v20</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>

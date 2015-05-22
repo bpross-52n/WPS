@@ -29,6 +29,7 @@
 package org.n52.wps.server.algorithm;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import org.n52.lod.Configuration;
 import org.n52.lod.ProgressListener;
@@ -37,51 +38,141 @@ import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.Execute;
 import org.n52.wps.algorithm.annotation.LiteralDataInput;
 import org.n52.wps.algorithm.annotation.LiteralDataOutput;
-import org.n52.wps.io.data.binding.literal.LiteralBooleanBinding;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
+import org.n52.wps.server.LocalAlgorithmRepository;
+import org.n52.wps.server.modules.LocalAlgorithmRepositoryCM;
+import org.n52.wps.webapp.api.ConfigurationCategory;
+import org.n52.wps.webapp.api.ConfigurationModule;
+import org.n52.wps.webapp.service.ConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This algorithm creates a convex hull of a JTS geometry using build the in method.
+ * This algorithm starts the CSWLoDEnabler.
+ * 
  * @author BenjaminPross
  *
  */
-@Algorithm(version = "1.1.0")
+@Algorithm(
+        version = "1.1.0")
 public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
 
     private static final Logger log = LoggerFactory.getLogger(CSWLoDEnablerStarter.class);
 
-    private Boolean result;
-    private String cswURL;
+    private Properties props;
 
-    @LiteralDataOutput(identifier = "result", binding = LiteralBooleanBinding.class)
-    public Boolean getResult() {
-        return result;
+    private String projectUrl;
+
+    private String projectName;
+
+    private String projectShortname;
+
+    private String uriBase;
+
+    private String uriGraph;
+
+    private String urlCSW;
+
+    private String report;
+
+    public CSWLoDEnablerStarter() {
+
+        props = new Properties();
+
+        // constants
+        props.setProperty("NS_GMD", "http://www.isotc211.org/2005/gmd");
+        props.setProperty("NS_CSW", "http://www.opengis.net/cat/csw/2.0.2");
+        props.setProperty("TEST_RECORD_ID", "glues:pik:metadata:dataset:noco2-echo-g-sresa1-annualcropyieldincreases");
+        props.setProperty("SAVE_TO_FILE", "false");
+        props.setProperty("ADD_TO_SERVER", "true");
+
+        ConfigurationModule localAlgorithmConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(LocalAlgorithmRepository.class.getName(), ConfigurationCategory.REPOSITORY);
+
+        ConfigurationService configurationService = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices();
+
+        String urlVirtuosoJdbc = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoJDBCUrlKey).getValue();
+        String virtuosoUser = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoUserKey).getValue();
+        String virtuosoPass = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoPwdKey).getValue();
+
+        // from WPS configuration
+        props.setProperty("URL_VIRTUOSO_JDBC", urlVirtuosoJdbc);
+        props.setProperty("VIRTUOSO_USER", virtuosoUser);
+        props.setProperty("VIRTUOSO_PASS", virtuosoPass);
+
     }
 
-    @LiteralDataInput(identifier = "cswURL", binding = LiteralStringBinding.class)
-    public void setData(String cswURL) {
-        this.cswURL = cswURL;
+    @LiteralDataOutput(
+            identifier = "report", binding = LiteralStringBinding.class)
+    public String getResult() {
+        return report;
+    }
+
+    @LiteralDataInput(
+            identifier = "projectUrl", binding = LiteralStringBinding.class, defaultValue = "http://nachhaltiges-landmanagement.de/en/scientific-coordination-glues/", minOccurs = 1, maxOccurs = 1)
+    public void setProjectUrl(String projectUrl) {
+        this.projectUrl = projectUrl;
+    }
+
+    @LiteralDataInput(
+            identifier = "projectName", binding = LiteralStringBinding.class, defaultValue = "GLUES project", minOccurs = 1, maxOccurs = 1)
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    @LiteralDataInput(
+            identifier = "projectShortname", binding = LiteralStringBinding.class, defaultValue = "GLUES", minOccurs = 1, maxOccurs = 1)
+    public void setProjectShortname(String projectShortname) {
+        this.projectShortname = projectShortname;
+    }
+
+    @LiteralDataInput(
+            identifier = "uriBase", binding = LiteralStringBinding.class, defaultValue = "http://metadata.demo.52north.org/glues/resource/", minOccurs = 1, maxOccurs = 1)
+    public void setUriBase(String uriBase) {
+        this.uriBase = uriBase;
+    }
+
+    @LiteralDataInput(
+            identifier = "uriGraph", binding = LiteralStringBinding.class, minOccurs = 1, maxOccurs = 1)
+    public void setUriGraph(String uriGraph) {
+        this.uriGraph = uriGraph;
+    }
+
+    @LiteralDataInput(
+            identifier = "urlCSW", binding = LiteralStringBinding.class, defaultValue = "http://catalog-glues.ufz.de/soapServices/CSWStartup", minOccurs = 1, maxOccurs = 1)
+    public void setUrlCSW(String urlCSW) {
+        this.urlCSW = urlCSW;
     }
 
     @Execute
     public void runAlgorithm() {
+
+        // properties from process input
+        props.setProperty("PROJECT_URL", projectUrl);
+        props.setProperty("PROJECT_NAME", projectName);
+        props.setProperty("PROJECT_SHORTNAME", projectShortname);
+        props.setProperty("URI_BASE", uriBase);
+        props.setProperty("URI_GRAPH", uriGraph);
+        props.setProperty("URL_CSW", urlCSW);
+
         try {
-        	
-        	Configuration config =  new Configuration(Configuration.DEFAULT_CONFIG_FILE);
-        	
-        	config.setProgressListener(new ProgressListener() {
-				
-				@Override
-				public void updateProgress(String progress) {
-					update(progress);					
-				}
-			});
-        	
+
+            Configuration config = new Configuration(props);
+
+            config.setProgressListener(new ProgressListener() {
+
+                @Override
+                public void updateProgress(Integer progress) {
+                    update(progress);
+                }
+            });
+
             CSWLoDEnabler enabler = new CSWLoDEnabler(config);
             enabler.runOverAll();
+
+            report = enabler.getReport().extendedToString();
+
         } catch (RuntimeException | IOException e) {
             log.error("Error running CSW to LOD", e);
         }

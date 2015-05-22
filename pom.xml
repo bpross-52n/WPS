@@ -764,6 +764,11 @@
 		    </dependency>
 		    <!-- End of database dependencies -->
 			<dependency>
+				<groupId>org.n52.sensorweb</groupId>
+				<artifactId>52n-xml-ows-v20</artifactId>
+				<version>2.1.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>52n-wps-io-geotools</artifactId>
 				<version>${project.version}</version>

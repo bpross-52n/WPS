@@ -17,22 +17,46 @@
 package org.n52.wps.server.modules;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.n52.wps.server.LocalAlgorithmRepository;
 import org.n52.wps.webapp.api.AlgorithmEntry;
 import org.n52.wps.webapp.api.ClassKnowingModule;
 import org.n52.wps.webapp.api.ConfigurationCategory;
+import org.n52.wps.webapp.api.ConfigurationKey;
 import org.n52.wps.webapp.api.FormatEntry;
 import org.n52.wps.webapp.api.types.ConfigurationEntry;
+import org.n52.wps.webapp.api.types.StringConfigurationEntry;
 
 public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
 
 	private boolean isActive = true;
 
 	private List<AlgorithmEntry> algorithmEntries;
-
-	private List<? extends ConfigurationEntry<?>> configurationEntries = new ArrayList<>();
+	       
+	public final static String virtuosoUserKey = "virtuoso.user";
+        
+        private String virtuosoUser;
+        
+        private ConfigurationEntry<String> virtuosoUserEntry = new StringConfigurationEntry(virtuosoUserKey, "Virtuoso username", "",
+                true, "dba");
+        
+        public final static String virtuosoPwdKey = "virtuoso.pwd";
+        
+        private String virtuosoPwd;
+        
+        private ConfigurationEntry<String> virtuosoPwdEntry = new StringConfigurationEntry(virtuosoPwdKey, "Virtuoso password", "",
+                true, "dba");
+        
+        public final static String virtuosoJDBCUrlKey = "virtuoso.jdbcurl";
+        
+        private String virtuosoJDBCUrl;
+        
+        private ConfigurationEntry<String> virtuosoJDBCUrlEntry = new StringConfigurationEntry(virtuosoJDBCUrlKey, "Virtuoso JDBC URL", "",
+                true, "jdbc:virtuoso://localhost:1111");
+	
+	private List<? extends ConfigurationEntry<?>> configurationEntries = Arrays.asList(virtuosoJDBCUrlEntry, virtuosoUserEntry, virtuosoPwdEntry);
 	
 	public LocalAlgorithmRepositoryCM() {
 		algorithmEntries = new ArrayList<>();
@@ -77,5 +101,32 @@ public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
 	public String getClassName() {
 		return LocalAlgorithmRepository.class.getName();
 	}
+
+    public String getVirtuosoUser() {
+        return virtuosoUser;
+    }
+
+    @ConfigurationKey(key = virtuosoUserKey)
+    public void setVirtuosoUser(String virtuosoUser) {
+        this.virtuosoUser = virtuosoUser;
+    }
+
+    public String getVirtuosoPwd() {
+        return virtuosoPwd;
+    }
+
+    @ConfigurationKey(key = virtuosoPwdKey)
+    public void setVirtuosoPwd(String virtuosoPwd) {
+        this.virtuosoPwd = virtuosoPwd;
+    }
+
+    public String getVirtuosoJDBCUrl() {
+        return virtuosoJDBCUrl;
+    }
+
+    @ConfigurationKey(key = virtuosoJDBCUrlKey)
+    public void setVirtuosoJDBCUrl(String virtuosoJDBCUrl) {
+        this.virtuosoJDBCUrl = virtuosoJDBCUrl;
+    }
 
 }
