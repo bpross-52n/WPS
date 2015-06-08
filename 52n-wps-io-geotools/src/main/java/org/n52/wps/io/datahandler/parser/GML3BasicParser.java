@@ -158,30 +158,30 @@ public class GML3BasicParser extends AbstractParser {
 		
 		boolean shouldSetParserStrict = true;
 		if(schematypeTuple != null) {
-			
-			String schemaLocation =  schematypeTuple.getLocalPart();
-			
-			if (schemaLocationIsRelative) {
-				schemaLocation = new File(file.getParentFile(), schemaLocation).getAbsolutePath();
-			}
-			
-			if(schemaLocation.equals("http://schemas.opengis.net/gml/3.1.1/base/gml.xsd")){
-				configuration = new GMLConfiguration();
-				shouldSetParserStrict = false;
-			}else{			
-				if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
-					SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
-					configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
-				}else{
-					configuration = new GMLConfiguration();
-					shouldSetParserStrict = false;
-				}
-			}
+                    
+                    String schemaLocation =  schematypeTuple.getLocalPart();
+                    
+                    if (schemaLocationIsRelative) {
+                            File schemaFile = new File(file.getParentFile(), schemaLocation);
+                            if(!schemaFile.exists()){
+                                configuration = new GMLConfiguration();
+                                shouldSetParserStrict = false;                                  
+                            }
+                    }else{
+                            if(schemaLocation!= null && schemaLocation.equals("http://schemas.opengis.net/gml/3.1.1/base/gml.xsd")){
+                                    configuration = new GMLConfiguration();
+                                    shouldSetParserStrict = false;
+                            }else{                  
+                                    if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
+                                            SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
+                                            configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
+                                    }else{
+                                            configuration = new GMLConfiguration();
+                                            shouldSetParserStrict = false;
+                                    }
+                            }
+                    }
 		}
-		
-		org.geotools.xml.Parser parser = new org.geotools.xml.Parser(configuration);
-		
-		parser.setStrict(shouldSetParserStrict);
 		
 		//parse		
 		SimpleFeatureCollection fc = parseFeatureCollection(file, configuration, shouldSetParserStrict);
