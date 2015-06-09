@@ -159,7 +159,10 @@ public abstract class ResponseData {
 									
 								}
 								if(schema == null && encoding == null){
+								    //prevent that base64 will be returned if not requested
+								    if(potenitalFormat.getEncoding() == null){
 									format = potenitalFormat;
+								    }
 								}
 						 }
 					 }
