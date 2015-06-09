@@ -28,6 +28,9 @@
  */
 package org.n52.wps.server.algorithm;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -35,10 +38,12 @@ import org.n52.lod.Configuration;
 import org.n52.lod.ProgressListener;
 import org.n52.lod.csw.CSWLoDEnabler;
 import org.n52.wps.algorithm.annotation.Algorithm;
+import org.n52.wps.algorithm.annotation.ComplexDataOutput;
 import org.n52.wps.algorithm.annotation.Execute;
 import org.n52.wps.algorithm.annotation.LiteralDataInput;
-import org.n52.wps.algorithm.annotation.LiteralDataOutput;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.data.GenericFileData;
+import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
 import org.n52.wps.server.LocalAlgorithmRepository;
@@ -75,7 +80,7 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
 
     private String urlCSW;
 
-    private String report;
+    private GenericFileData report;
 
     public CSWLoDEnablerStarter() {
 
@@ -103,9 +108,9 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
 
     }
 
-    @LiteralDataOutput(
-            identifier = "report", binding = LiteralStringBinding.class)
-    public String getResult() {
+    @ComplexDataOutput(
+            identifier = "report", binding = GenericFileDataBinding.class)
+    public GenericFileData getResult() {
         return report;
     }
 
@@ -171,7 +176,17 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
             CSWLoDEnabler enabler = new CSWLoDEnabler(config);
             enabler.runOverAll();
 
-            report = enabler.getReport().extendedToString();
+            String reportString = enabler.getReport().extendedToString();
+            
+            File reportFile = File.createTempFile("cswlodreport", ".txt");
+            
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(reportFile));
+            
+            bufferedWriter.write(reportString);
+            
+            bufferedWriter.close();
+            
+            report = new GenericFileData(reportFile, "text/plain");
 
         } catch (RuntimeException | IOException e) {
             log.error("Error running CSW to LOD", e);

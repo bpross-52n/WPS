@@ -791,4 +791,5 @@ INSERT INTO FORMATENTRY VALUES('application/vnd.google-earth.kml+xml', 'http://s
 DELETE FROM CONFIGURATIONMODULE WHERE MODULE_CLASS_NAME='org.n52.wps.server.database.PostgresDatabaseConfigurationModule';
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.database.PostgresDatabaseConfigurationModule',FALSE);
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.webapp.entities.Server',TRUE);
-INSERT INTO CONFIGURATIONENTRY VALUES('hostport','org.n52.wps.webapp.entities.Server','8080');
+INSERT INTO CONFIGURATIONENTRY VALUES('hostport','org.n52.wps.webapp.entities.Server','80');
+INSERT INTO CONFIGURATIONENTRY VALUES('hostname','org.n52.wps.webapp.entities.Server','geostatistics.demo.52north.org');
