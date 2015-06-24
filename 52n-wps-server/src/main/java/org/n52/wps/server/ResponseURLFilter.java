@@ -225,13 +225,12 @@ public class ResponseURLFilter implements Filter {
             super.flush();
             outputStream.flush();
         }
-
-		@Override
+		
 		public boolean isReady() {
 			return false;
 		}
 
-		@Override
+		
 		public void setWriteListener(WriteListener writeListener) {			
 		}
 

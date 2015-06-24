@@ -36,7 +36,7 @@
 						<input type="checkbox" name="_spring_security_remember_me">
 						Remember Me
 					</label>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 					<button type="submit" class="btn btn-primary btn-small">Login</button>
 				</form>
 			</security:authorize>
