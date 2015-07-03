@@ -26,40 +26,78 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.wps.io.data.binding.complex;
+package org.n52.wps.io.modules.generator;
 
-import org.n52.sos.ogc.om.OmObservation;
-import org.n52.wps.io.data.IComplexData;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.n52.wps.io.datahandler.generator.OMGenerator;
+import org.n52.wps.webapp.api.AlgorithmEntry;
+import org.n52.wps.webapp.api.ClassKnowingModule;
+import org.n52.wps.webapp.api.ConfigurationCategory;
+import org.n52.wps.webapp.api.FormatEntry;
+import org.n52.wps.webapp.api.types.ConfigurationEntry;
 
 /**
- * Payload is one of:
- * <ul><li> {@link OmObservation}</li>
- * <li>{@link Set}&lt;NamedValue&lt;?&gt;&gt;</li></ul>
+ * 
  * 
  * @author <a href="mailto:e.h.juerrens@52north.org">Eike Hinderk J&uuml;rrens</a>
- *
+ * 
  * @since 4.0.0
+ *
  */
-public class OMObservationBinding implements IComplexData {
+public class OMGeneratorCM extends ClassKnowingModule{
 
-	private static final long serialVersionUID = 1L;
-	protected OmObservation payload;
+	private boolean isActive = true;
+
+	private List<? extends ConfigurationEntry<?>> configurationEntries;
 	
-	public OMObservationBinding(OmObservation observation) {
-		this.payload = observation;
+	private List<FormatEntry> formatEntries;
+	
+	public OMGeneratorCM(){
+		formatEntries = new ArrayList<>();
+		configurationEntries = new ArrayList<>();
+	}
+	
+	@Override
+	public String getModuleName() {
+		return "O&M Generator";
 	}
 
 	@Override
-	public void dispose() {}
-
-	@Override
-	public OmObservation getPayload() {
-		return payload;
+	public boolean isActive() {
+		return isActive;
 	}
 
 	@Override
-	public Class<?> getSupportedClass() {
-		return OmObservation.class;
+	public void setActive(boolean active) {
+		this.isActive = active;		
+	}
+
+	@Override
+	public ConfigurationCategory getCategory() {
+		return ConfigurationCategory.GENERATOR;
+	}
+
+	@Override
+	public List<? extends ConfigurationEntry<?>> getConfigurationEntries() {
+		return configurationEntries;
+	}
+
+	@Override
+	public List<AlgorithmEntry> getAlgorithmEntries() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<FormatEntry> getFormatEntries() {
+		return formatEntries;
+	}
+
+	@Override
+	public String getClassName() {
+		return OMGenerator.class.getName();
 	}
 
 }

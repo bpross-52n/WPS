@@ -26,92 +26,81 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.wps.io.datahandler.parser;
+package org.n52.wps.io.datahandler.generator;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 
 import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.om.OmConstants;
+import org.n52.iceland.ogc.ows.OWSConstants;
 import org.n52.iceland.util.http.MediaTypes;
-import org.n52.sos.decode.OmDecoderv20;
+import org.n52.sos.encode.OmEncoderv20;
 import org.n52.sos.ogc.om.OmObservation;
 import org.n52.sos.util.SosConfiguration;
+import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.opengis.om.x20.OMObservationDocument;
-
 /**
- * This parser parses OM_Observations from XML streams. Currently, *Document
- * is expected. Uses {@link GenericXMLDataParser}. 
- * 
- * TODO remove return null and throw exceptions
- * 
- * @since 4.0.0
+ * Generates XML from {@link OmObservation}.
  * 
  * @author <a href="mailto:e.h.juerrens@52north.org">Eike Hinderk J&uuml;rrens</a>
  * 
- * @see GenericXMLDataParser
- * 
+ * @since 4.0.0
+ *
  */
-public class OMParser extends AbstractParser {
-
-	private static Logger LOGGER = LoggerFactory.getLogger(GenericXMLDataParser.class);
-
-	public OMParser(){
+public class OMGenerator extends AbstractGenerator {
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(OMGenerator.class);
+	
+	public OMGenerator() {
 		super();
 		supportedIDataTypes.add(OMObservationBinding.class);
 	}
-	
+
 	@Override
-	public OMObservationBinding parse(InputStream stream, String mimeType, String schema) {	
-		if (!validateInput(mimeType,schema,stream) ){
+	public InputStream generateStream(IData data, String mimeType, String schema)
+			throws IOException {
+		if (!validateInput(mimeType,schema,data) ){
 			return null;
 		}
-		GenericXMLDataBinding xmlData = new GenericXMLDataParser().parse(stream, mimeType, schema);
-		
-		if (xmlData == null || xmlData.getPayload() == null) {
-			LOGGER.error("Input stream could not be parsed to generic XML.");
-			return null;
+		OmObservation omObservation = (OmObservation) data.getPayload();
+
+		try {
+			SosConfiguration.init();
+			XmlObject encode = new OmEncoderv20().encode(omObservation, Collections.singletonMap(OWSConstants.HelperValues.DOCUMENT, "42"));
+
+			return new GenericXMLDataGenerator().generateStream(new GenericXMLDataBinding(encode), mimeType, schema);
+		} catch (OwsExceptionReport e) {
+			LOGGER.error(
+					String.format("Could not encode type '%s'. Received object: '%s'. Exception thrown!",
+							OmObservation.class.getName(),
+							omObservation.toString()), e);
 		}
-		
-		final XmlObject payload = xmlData.getPayload();
-		if (payload instanceof OMObservationDocument) {
-			try {
-				OMObservationDocument xmlOmObservation = (OMObservationDocument) payload;
-				SosConfiguration.init();
-				Object parsedObject = new OmDecoderv20().decode(xmlOmObservation.getOMObservation());
-				if (parsedObject instanceof OmObservation) {
-					return new OMObservationBinding((OmObservation) parsedObject);
-				}
-				LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
-				
-			} catch (OwsExceptionReport e) {
-				LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
-				return null;
-			}
-		}
-		LOGGER.error("XML document type not supported: '{}'.", payload.getClass().getName());
 		
 		return null;
 	}
-
-	private boolean validateInput(String mimeType, String schema, InputStream stream) {
+	
+	private boolean validateInput(String mimeType, String schema, IData data) {
 		if (mimeType != null && 
 				!mimeType.isEmpty() &&
 				mimeType.equals(MediaTypes.APPLICATION_OM_20.toString()) &&
 				schema != null &&
 				!schema.isEmpty() && 
 				schema.equals(OmConstants.NS_OM_2) &&
-				stream != null) {
+				data != null &&
+				data instanceof OMObservationBinding &&
+				data.getPayload() instanceof OmObservation) {
 			return true;
 		}
-		LOGGER.debug("Input not valid: Mimetype: '{}', Schema: '{}'",
-				mimeType, schema);
+		LOGGER.debug("Input not valid: Mimetype: '{}', Schema: '{}', Data: '{}'.",
+				mimeType, schema, data);
 		return false;
 	}
-	
+
 }
