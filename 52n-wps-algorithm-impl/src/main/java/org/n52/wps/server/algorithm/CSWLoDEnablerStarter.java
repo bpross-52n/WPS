@@ -133,7 +133,7 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
     }
 
     @LiteralDataInput(
-            identifier = "uriBase", binding = LiteralStringBinding.class, defaultValue = "http://metadata.demo.52north.org/glues/resource/", minOccurs = 1, maxOccurs = 1)
+            identifier = "uriBase", binding = LiteralStringBinding.class, defaultValue = "http://metadata.demo.52north.org/glues-lod", minOccurs = 1, maxOccurs = 1)
     public void setUriBase(String uriBase) {
         this.uriBase = uriBase;
     }
