@@ -64,8 +64,8 @@ public abstract class AbstractGeoserverWXSGenerator extends AbstractGenerator {
 	}
 	
 	@Override
-	public void init() {
-		super.init();
+	public void init(WPSConfig wpsConfig) {
+		super.init(wpsConfig);
 		this.supportedIDataTypes.add(GTRasterDataBinding.class);
 		this.supportedIDataTypes.add(GeotiffBinding.class);
 		

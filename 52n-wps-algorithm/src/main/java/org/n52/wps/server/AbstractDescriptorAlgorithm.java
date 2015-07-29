@@ -21,8 +21,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import net.opengis.ows.x11.AllowedValuesDocument.AllowedValues;
 import net.opengis.ows.x20.ValueType;
 import net.opengis.wps.x100.ComplexDataCombinationType;
@@ -77,9 +75,8 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
     private AlgorithmDescriptor descriptor;
     private ProcessDescription description;
 
-    @Inject
-	private GeneratorFactory generatorFactory;
-    @Inject
+    private GeneratorFactory generatorFactory;
+	
 	private ParserFactory parserFactory;
     
     public AbstractDescriptorAlgorithm() {
@@ -719,4 +716,12 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
     public List<String> getErrors() {
         return errorList;
     }
+
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		this.generatorFactory = generatorFactory;
+	}
+
+	public void setParserFactory(ParserFactory parserFactory) {
+		this.parserFactory = parserFactory;
+	}
 }

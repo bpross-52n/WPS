@@ -59,6 +59,7 @@ public class GeneratorFactory implements Constructable{
 			IGenerator generator = null;
 			try {
 				 generator = (IGenerator) this.getClass().getClassLoader().loadClass(generatorClass).newInstance();
+				 generator.init(wpsConfig);
 			}
 			catch (ClassNotFoundException e) {
 				LOGGER.error("One of the generators could not be loaded: " + generatorClass, e);

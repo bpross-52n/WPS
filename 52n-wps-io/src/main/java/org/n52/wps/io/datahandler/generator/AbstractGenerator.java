@@ -37,7 +37,7 @@ import org.n52.wps.webapp.api.FormatEntry;
  * @author Matthias Mueller, TU Dresden
  *
  */
-public abstract class AbstractGenerator extends AbstractIOHandler implements IGenerator, Constructable {
+public abstract class AbstractGenerator extends AbstractIOHandler implements IGenerator{
 	
 	/**
 	 * A list of files that shall be deleted by destructor.
@@ -45,15 +45,12 @@ public abstract class AbstractGenerator extends AbstractIOHandler implements IGe
 	 * to be written during the generation procedure.
 	 */
 	protected List<File> finalizeFiles;
-	@Inject
-	protected WPSConfig wpsConfig;
 	
 	public AbstractGenerator(){
 		super();
-	}
-	
-	@Override
-	public void init() {
+	}	
+
+	public void init(WPSConfig wpsConfig) {
 		
 		this.properties = wpsConfig.getConfigurationEntriesForGeneratorClass(this.getClass().getName());
 		

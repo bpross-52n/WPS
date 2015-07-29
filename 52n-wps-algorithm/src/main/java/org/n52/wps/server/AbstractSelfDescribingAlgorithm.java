@@ -56,10 +56,9 @@ import org.n52.wps.webapp.api.FormatEntry;
 
 
 public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm implements ISubject{
-   
-	@Inject
-	private GeneratorFactory generatorFactory;
-    @Inject
+
+    private GeneratorFactory generatorFactory;
+	
 	private ParserFactory parserFactory;
 
 	@Override
@@ -426,6 +425,14 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
 				}
 			}
 		}
+	}
+
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		this.generatorFactory = generatorFactory;
+	}
+
+	public void setParserFactory(ParserFactory parserFactory) {
+		this.parserFactory = parserFactory;
 	}
 
 }

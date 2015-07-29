@@ -19,6 +19,7 @@ package org.n52.wps.io;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.IData;
 
 /** 
@@ -56,5 +57,8 @@ public interface IGenerator extends IOHandler {
 	 * 
 	 */
 	public InputStream generateBase64Stream(IData data, String mimeType, String schema) throws IOException;
+
+
+	public void init(WPSConfig wpsConfig);
 	
 }

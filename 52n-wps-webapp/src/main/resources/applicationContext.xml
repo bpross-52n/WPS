@@ -15,24 +15,27 @@
 	<bean id="kvpBinding" class="org.n52.iceland.binding.kvp.KvpBinding" />
 
 	<bean id="serviceProviderFactory" class="org.n52.iceland.ogc.ows.ServiceProviderFactory" />
-	<bean id="serviceIdentificationFactory" class="org.n52.iceland.ogc.ows.ServiceIdentificationFactory" />
+<!-- 	<bean id="serviceIdentificationFactory" class="org.n52.iceland.ogc.ows.ServiceIdentificationFactory" /> -->
 
 	<bean id="icelandServlet" class="org.n52.iceland.service.Service" />
+	
+	<bean class="org.n52.iceland.util.http.HTTPUtils" />
 
 	<bean class="org.n52.iceland.service.ServiceConfiguration" />
 
 	<bean id="generatorFactory" class="org.n52.wps.io.GeneratorFactory" />
 	<bean id="parserFactory" class="org.n52.wps.io.ParserFactory" />
 
-	<bean class="org.n52.wps.server.AbstractDescriptorAlgorithm" />
-	<bean class="org.n52.wps.server.AbstractSelfDescribingAlgorithm" />
+	<bean abstract="true" class="org.n52.wps.server.AbstractDescriptorAlgorithm" />
+	<bean abstract="true" class="org.n52.wps.server.AbstractSelfDescribingAlgorithm" />
+	<bean abstract="true" class="org.n52.wps.server.response.ResponseData" />
+	<bean abstract="true" class="org.n52.wps.io.datahandler.generator.AbstractGenerator" />
+	
 <!-- 	TODO: Put in respective module -->
 <!-- 	<bean class="org.n52.wps.io.datahandler.generator.ProxyGMLGenerator4Files" /> -->
 <!-- 	<bean class="org.n52.wps.server.sextante.SextanteProcessDescriptionCreator" /> -->
 	<bean class="org.n52.wps.client.StaticDataHandlerRepository" />
-	<bean class="org.n52.wps.server.response.ResponseData" />
 	<bean class="org.n52.wps.server.request.InputHandler" />
-	<bean class="org.n52.wps.io.datahandler.generator.AbstractGenerator" />
 
 	<bean id="wpsConfig" class="org.n52.wps.commons.WPSConfig" />
 
@@ -111,8 +114,8 @@
 
 	<!-- ServiceOperator implementations from operations/core-v20 -->
 	<bean class="org.n52.iceland.service.operator.GenericServiceOperator">
-		<property name="service" value="WPS" />
-		<property name="version" value="1.0.0" />
+        <constructor-arg value="WPS" />
+        <constructor-arg value="1.0.0" />
 	</bean>
 
 	<beans profile="production">

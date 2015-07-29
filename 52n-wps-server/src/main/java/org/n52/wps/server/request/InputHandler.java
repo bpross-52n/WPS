@@ -134,6 +134,11 @@ public class InputHandler {
                 return new InputHandler(this);
             }
         }
+        
+        /**
+         * Default constructor necessary for for spring
+         */
+        public InputHandler(){}
 
 	/**
 	 * Initializes a parser that handles each (line of) input based on the type of input.

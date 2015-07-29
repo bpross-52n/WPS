@@ -28,6 +28,8 @@ import org.apache.commons.lang.NotImplementedException;
 import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.modules.LocalAlgorithmRepositoryCM;
 import org.n52.wps.webapp.api.AlgorithmEntry;
 import org.slf4j.Logger;
@@ -48,6 +50,10 @@ public class LocalAlgorithmRepository implements
 	private Map<String, IAlgorithm> algorithmMap;
 	@Inject
 	private LocalAlgorithmRepositoryCM localAlgorithmRepoConfigModule;
+    @Inject
+	private GeneratorFactory generatorFactory;
+    @Inject
+	private ParserFactory parserFactory;
 
 	public LocalAlgorithmRepository() {
 	}
@@ -121,6 +127,9 @@ public class LocalAlgorithmRepository implements
 							+ " does not implement IAlgorithm or have a Algorithm annotation.");
 		}
 
+		algorithm.setGeneratorFactory(generatorFactory);
+		algorithm.setParserFactory(parserFactory);
+		
 		boolean isNoProcessDescriptionValid = false;
 
 		for (String supportedVersion : WPSConfig.SUPPORTED_VERSIONS) {

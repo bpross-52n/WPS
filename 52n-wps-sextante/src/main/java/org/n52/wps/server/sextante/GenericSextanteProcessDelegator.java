@@ -52,6 +52,8 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.FileDataBinding;
 import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
@@ -594,6 +596,18 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

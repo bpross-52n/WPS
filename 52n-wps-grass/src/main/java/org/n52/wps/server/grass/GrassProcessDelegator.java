@@ -47,6 +47,8 @@ import net.opengis.wps.x100.SupportedComplexDataType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.n52.wps.commons.context.ExecutionContextFactory;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
 import org.n52.wps.io.data.binding.literal.LiteralBooleanBinding;
@@ -233,5 +235,17 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
 
 		return result;
 
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
 	}
 }
