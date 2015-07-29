@@ -36,7 +36,7 @@ import org.n52.wps.webapp.api.FormatEntry;
  * @author Matthias Mueller, TU Dresden
  *
  */
-public abstract class AbstractParser extends AbstractIOHandler implements IParser, Constructable{
+public abstract class AbstractParser extends AbstractIOHandler implements IParser{
 	
 	/**
 	 * A list of files that shall be deleted by destructor.
@@ -54,10 +54,9 @@ public abstract class AbstractParser extends AbstractIOHandler implements IParse
 	@Override
 	public IData parseBase64(InputStream input, String mimeType, String schema) {
 		return parse(new Base64InputStream(input), mimeType, schema);
-	}
+	}	
 	
-	@Override
-	public void init() {
+	public void init(WPSConfig wpsConfig) {
 		
 		// load Parser Properties		
 		this.properties = wpsConfig.getConfigurationEntriesForParserClass(this.getClass().getName());

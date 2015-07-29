@@ -18,6 +18,7 @@ package org.n52.wps.io;
 
 import java.io.InputStream;
 
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.IData;
 
 /**
@@ -30,4 +31,5 @@ public interface IParser extends IOHandler{
 	
 	IData parseBase64(InputStream input, String mimeType, String schema);
 	
+	void init(WPSConfig wpsConfig);
 }

@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 public class GeneratorFactory implements Constructable{
 	
 	public static String PROPERTY_NAME_REGISTERED_GENERATORS = "registeredGenerators";
-	private static GeneratorFactory factory;
 	private static Logger LOGGER = LoggerFactory.getLogger(GeneratorFactory.class);
 	
 	private List<IGenerator> registeredGenerators;
@@ -76,10 +75,6 @@ public class GeneratorFactory implements Constructable{
 			}
 		}
     }
-
-	public static GeneratorFactory getInstance() {
-		return factory;
-	}
 	
 	public IGenerator getGenerator(String schema, String format, String encoding, Class<?> outputInternalClass) {
 		

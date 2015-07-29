@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.server.IAlgorithmRepository;
 import org.n52.wps.server.ProcessDescription;
@@ -67,7 +69,95 @@ public class GrassProcessRepository implements IAlgorithmRepository {
 	public static String gisrcDir;
 	public static String addonPath;
 
-	public GrassProcessRepository() {
+	public GrassProcessRepository() {}
+
+	public boolean containsAlgorithm(String processID) {
+		return getAlgorithmNames().contains(processID);
+	}
+
+	public IAlgorithm getAlgorithm(String processID) {
+		if (!containsAlgorithm(processID)) {
+			throw new RuntimeException("Could not allocate process");
+		}
+		return new GrassProcessDelegator(processID,
+				registeredProcesses.get(processID), processesAddonFlagMap.get(processID));
+
+	}
+
+	public Collection<String> getAlgorithmNames() {
+
+		Collection<String> algorithmNames = new ArrayList<>();
+
+		List<AlgorithmEntry> algorithmEntries = grassConfigModule
+				.getAlgorithmEntries();
+
+		for (AlgorithmEntry algorithmEntry : algorithmEntries) {
+			if (algorithmEntry.isActive()) {
+				algorithmNames.add(algorithmEntry.getAlgorithm());
+			}
+		}
+
+		return algorithmNames;
+	}
+
+	private void deleteFiles(File tmpDirectory) {
+
+		File[] filesToDelete = tmpDirectory.listFiles();
+
+		for (File file : filesToDelete) {
+			try {
+
+				if (file.isDirectory()) {
+					deleteFiles(file);
+				} else {
+					file.delete();
+				}
+
+			} catch (Exception e) {
+				/*
+				 * ignore
+				 */
+			}
+		}
+
+		tmpDirectory.delete();
+
+	}
+
+	@Override
+	public ProcessDescription getProcessDescription(String processID) {
+		if (getAlgorithmNames().contains(processID)) {
+			return registeredProcesses.get(processID);
+		}
+		return null;
+	}
+
+	@Override
+	public void shutdown() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setConfigurationModule(ConfigurationModule configModule) {
+		grassConfigModule = configModule;		
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+
 		registeredProcesses = new HashMap<String, ProcessDescription>();
 		processesAddonFlagMap = new HashMap<String, Boolean>();
 		// check if the repository is active
@@ -264,73 +354,6 @@ public class GrassProcessRepository implements IAlgorithmRepository {
 		} else {
 			LOGGER.debug("GRASS Algorithm Repository is inactive.");
 		}
-
-	}
-
-	public boolean containsAlgorithm(String processID) {
-		return getAlgorithmNames().contains(processID);
-	}
-
-	public IAlgorithm getAlgorithm(String processID) {
-		if (!containsAlgorithm(processID)) {
-			throw new RuntimeException("Could not allocate process");
-		}
-		return new GrassProcessDelegator(processID,
-				registeredProcesses.get(processID), processesAddonFlagMap.get(processID));
-
-	}
-
-	public Collection<String> getAlgorithmNames() {
-
-		Collection<String> algorithmNames = new ArrayList<>();
-
-		List<AlgorithmEntry> algorithmEntries = grassConfigModule
-				.getAlgorithmEntries();
-
-		for (AlgorithmEntry algorithmEntry : algorithmEntries) {
-			if (algorithmEntry.isActive()) {
-				algorithmNames.add(algorithmEntry.getAlgorithm());
-			}
-		}
-
-		return algorithmNames;
-	}
-
-	private void deleteFiles(File tmpDirectory) {
-
-		File[] filesToDelete = tmpDirectory.listFiles();
-
-		for (File file : filesToDelete) {
-			try {
-
-				if (file.isDirectory()) {
-					deleteFiles(file);
-				} else {
-					file.delete();
-				}
-
-			} catch (Exception e) {
-				/*
-				 * ignore
-				 */
-			}
-		}
-
-		tmpDirectory.delete();
-
-	}
-
-	@Override
-	public ProcessDescription getProcessDescription(String processID) {
-		if (getAlgorithmNames().contains(processID)) {
-			return registeredProcesses.get(processID);
-		}
-		return null;
-	}
-
-	@Override
-	public void shutdown() {
-		// TODO Auto-generated method stub
 		
 	}
 	

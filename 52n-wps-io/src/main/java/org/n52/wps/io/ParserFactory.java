@@ -65,7 +65,7 @@ public class ParserFactory implements Constructable{
 			IParser parser = null;
 			try {
 				 parser = (IParser) this.getClass().getClassLoader().loadClass(parserClass).newInstance();
-
+                 parser.init(wpsConfig);
 			}
 			catch (ClassNotFoundException e) {
 				LOGGER.error("One of the parsers could not be loaded: " + parserClass, e);

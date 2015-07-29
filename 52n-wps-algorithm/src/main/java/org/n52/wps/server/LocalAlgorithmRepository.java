@@ -32,6 +32,8 @@ import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.modules.LocalAlgorithmRepositoryCM;
 import org.n52.wps.webapp.api.AlgorithmEntry;
+import org.n52.wps.webapp.api.ConfigurationManager;
+import org.n52.wps.webapp.api.ConfigurationModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,23 +44,18 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class LocalAlgorithmRepository implements
-		ITransactionalAlgorithmRepository, Constructable {
+		ITransactionalAlgorithmRepository {
 
 	private static Logger LOGGER = LoggerFactory
 			.getLogger(LocalAlgorithmRepository.class);
 	private Map<String, ProcessDescription> processDescriptionMap;
 	private Map<String, IAlgorithm> algorithmMap;
-	@Inject
-	private LocalAlgorithmRepositoryCM localAlgorithmRepoConfigModule;
-    @Inject
+	private ConfigurationModule localAlgorithmRepoConfigModule;
 	private GeneratorFactory generatorFactory;
-    @Inject
 	private ParserFactory parserFactory;
 
-	public LocalAlgorithmRepository() {
-	}
-	
-	@Override
+	public LocalAlgorithmRepository() {}
+		
 	public void init() {
 		processDescriptionMap = new HashMap<String, ProcessDescription>();
 		algorithmMap = new HashMap<String, IAlgorithm>();
@@ -188,5 +185,20 @@ public class LocalAlgorithmRepository implements
 
 	@Override
 	public void shutdown() {}
+
+	@Override
+	public void setConfigurationModule(ConfigurationModule configModule) {
+		this.localAlgorithmRepoConfigModule = configModule;
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		this.generatorFactory = generatorFactory;
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		this.parserFactory = parserFactory;
+	}
 
 }

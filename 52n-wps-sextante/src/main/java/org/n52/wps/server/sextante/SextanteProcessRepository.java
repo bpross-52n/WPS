@@ -36,6 +36,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.server.IAlgorithmRepository;
 import org.n52.wps.server.ProcessDescription;
@@ -65,51 +67,6 @@ public class SextanteProcessRepository implements IAlgorithmRepository{
 	 
 	
 	public SextanteProcessRepository(){
-		LOGGER.info("Initializing Sextante Repository");
-		registeredProcesses = new HashMap<String, ProcessDescription>();
-		
-		/*
-		 * get properties of Repository
-		 *
-		 * check whether process is amongst them and active
-		 * 
-		 * if properties are empty (not initialized yet)
-		 * 		add all valid processes to WPSConfig
-		 */
-		
-		sextanteAlgorithmRepoConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(this.getClass().getName(), ConfigurationCategory.REPOSITORY);
-		
-		Collection<String> processList = getAlgorithmNames();
-		
-		Sextante.initialize();
-		HashMap<String, HashMap<String, GeoAlgorithm>> sextanteMap = Sextante.getAlgorithms();
-		HashMap<String, GeoAlgorithm> algorithmMap = sextanteMap.get("SEXTANTE");
-		Set<String> keys = algorithmMap.keySet();
-		SextanteProcessDescriptionCreator descriptionCreator = new SextanteProcessDescriptionCreator();
-		for(Object keyObject : keys){
-			String key = (String) keyObject;
-			if(!processList.contains(key)){
-				LOGGER.info("Did not add Sextante Process : " + key +". Not in Repository properties or not active.");
-				continue;
-			}
-			GeoAlgorithm sextanteProcess = Sextante.getAlgorithmFromCommandLineName(key);
-			ProcessDescription processDescription;
-			try {
-				processDescription = descriptionCreator.createDescribeProcessType(sextanteProcess);
-			} catch (NullParameterAdditionalInfoException e) {
-				LOGGER.warn("Could not add Sextante Process : " + key +". Errors while creating describe Process");
-				continue;
-			} catch (UnsupportedGeoAlgorithmException e) {
-				LOGGER.warn("Could not add Sextante Process : " + key + ". Errors while creating describe Process");
-				continue;
-			}
-		
-			registeredProcesses.put(key, processDescription);
-			LOGGER.info("Sextante Process " + key + " added.");
-		}
-		
-		
-		LOGGER.info("Initialization of Sextante Repository successfull");
 	}
 
 	public boolean containsAlgorithm(String processID) {
@@ -155,5 +112,70 @@ public class SextanteProcessRepository implements IAlgorithmRepository{
 
 	@Override
 	public void shutdown() {}
+
+	@Override
+	public void setConfigurationModule(ConfigurationModule configModule) {
+		sextanteAlgorithmRepoConfigModule = configModule;
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		LOGGER.info("Initializing Sextante Repository");
+		registeredProcesses = new HashMap<String, ProcessDescription>();
+		
+		/*
+		 * get properties of Repository
+		 *
+		 * check whether process is amongst them and active
+		 * 
+		 * if properties are empty (not initialized yet)
+		 * 		add all valid processes to WPSConfig
+		 */		
+		
+		Collection<String> processList = getAlgorithmNames();
+		
+		Sextante.initialize();
+		HashMap<String, HashMap<String, GeoAlgorithm>> sextanteMap = Sextante.getAlgorithms();
+		HashMap<String, GeoAlgorithm> algorithmMap = sextanteMap.get("SEXTANTE");
+		Set<String> keys = algorithmMap.keySet();
+		SextanteProcessDescriptionCreator descriptionCreator = new SextanteProcessDescriptionCreator();
+		for(Object keyObject : keys){
+			String key = (String) keyObject;
+			if(!processList.contains(key)){
+				LOGGER.info("Did not add Sextante Process : " + key +". Not in Repository properties or not active.");
+				continue;
+			}
+			GeoAlgorithm sextanteProcess = Sextante.getAlgorithmFromCommandLineName(key);
+			ProcessDescription processDescription;
+			try {
+				processDescription = descriptionCreator.createDescribeProcessType(sextanteProcess);
+			} catch (NullParameterAdditionalInfoException e) {
+				LOGGER.warn("Could not add Sextante Process : " + key +". Errors while creating describe Process");
+				continue;
+			} catch (UnsupportedGeoAlgorithmException e) {
+				LOGGER.warn("Could not add Sextante Process : " + key + ". Errors while creating describe Process");
+				continue;
+			}
+		
+			registeredProcesses.put(key, processDescription);
+			LOGGER.info("Sextante Process " + key + " added.");
+		}
+		
+		
+		LOGGER.info("Initialization of Sextante Repository successfull");
+		
+	}
 
 }

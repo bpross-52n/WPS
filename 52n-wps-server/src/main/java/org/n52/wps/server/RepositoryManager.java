@@ -39,6 +39,8 @@ import javax.inject.Inject;
 
 import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.webapp.api.ClassKnowingModule;
 import org.n52.wps.webapp.api.ConfigurationModule;
 import org.slf4j.Logger;
@@ -58,6 +60,10 @@ public class RepositoryManager implements Constructable{
 	
 	@Inject
 	private WPSConfig wpsConfig;
+    @Inject
+	private GeneratorFactory generatorFactory;
+    @Inject
+	private ParserFactory parserFactory;
 	
 	public void init() {
 		
@@ -163,6 +169,11 @@ public class RepositoryManager implements Constructable{
 
 			algorithmRepository = (IAlgorithmRepository) repositoryClass
 					.newInstance();
+			
+			algorithmRepository.setConfigurationModule(repository);			
+			algorithmRepository.setGeneratorFactory(generatorFactory);
+			algorithmRepository.setParserFactory(parserFactory);
+			algorithmRepository.init();
 			
 			LOGGER.info("Algorithm Repository {} initialized",
 					repositoryClassName);

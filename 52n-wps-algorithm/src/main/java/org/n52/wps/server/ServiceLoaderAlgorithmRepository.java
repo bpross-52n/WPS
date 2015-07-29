@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
+import org.n52.wps.webapp.api.ConfigurationModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +87,30 @@ public class ServiceLoaderAlgorithmRepository implements IAlgorithmRepository {
 
 	@Override
 	public void shutdown() {
+	}
+
+	@Override
+	public void setConfigurationModule(ConfigurationModule configModule) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

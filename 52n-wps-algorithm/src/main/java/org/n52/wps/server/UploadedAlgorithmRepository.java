@@ -25,6 +25,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.webapp.api.AlgorithmEntry;
 import org.n52.wps.webapp.api.ConfigurationCategory;
 import org.n52.wps.webapp.api.ConfigurationModule;
@@ -162,6 +164,30 @@ public class UploadedAlgorithmRepository implements
 	public void shutdown() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void setConfigurationModule(ConfigurationModule configModule) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGeneratorFactory(GeneratorFactory generatorFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParserFactory(ParserFactory parserFactory) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
