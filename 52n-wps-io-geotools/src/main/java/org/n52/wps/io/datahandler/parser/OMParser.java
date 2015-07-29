@@ -78,7 +78,7 @@ import net.opengis.om.x20.OMObservationDocument;
  */
 public class OMParser extends AbstractParser {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(GenericXMLDataParser.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(OMParser.class);
 
 	public OMParser(){
 		super();
