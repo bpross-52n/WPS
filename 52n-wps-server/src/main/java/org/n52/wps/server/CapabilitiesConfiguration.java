@@ -50,6 +50,7 @@ import net.opengis.wps.x100.ProcessOfferingsDocument.ProcessOfferings;
 
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
+import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.webapp.entities.Server;
 import org.slf4j.Logger;
@@ -67,7 +68,7 @@ import com.google.common.base.Preconditions;
  * @author Christian Autermann
  * 
  */
-public class CapabilitiesConfiguration {
+public class CapabilitiesConfiguration implements Constructable{
     private static final Logger LOG = LoggerFactory.getLogger(CapabilitiesConfiguration.class);
 
     private static final ReentrantLock lock = new ReentrantLock();
@@ -78,8 +79,10 @@ public class CapabilitiesConfiguration {
     
     @Inject    
     private static Server serverConfigurationModule;
-    @Inject
+    
 	private static WPSConfig wpsConfig;
+	
+	private static RepositoryManager repositoryManager;
 
     private CapabilitiesConfiguration() {
         /* nothing here */
@@ -207,6 +210,25 @@ public class CapabilitiesConfiguration {
     }
 
     /**
+     * Get the WPS Capabilities for this service. The capabilities are reloaded if caching is not enabled in
+     * the WPS configuration.
+     * 
+     * @return the capabilities document
+     * 
+     * @throws XmlException
+     *         if the Capabilities skeleton is not valid
+     * @throws IOException
+     *         if an IO error occurs
+     */
+    public static CapabilitiesDocument getInstance(WPSConfig wpsConfig, RepositoryManager repositoryManager) throws XmlException, IOException {
+        CapabilitiesConfiguration.wpsConfig = wpsConfig;
+        CapabilitiesConfiguration.repositoryManager = repositoryManager;
+    	boolean cached = wpsConfig.getServerConfigurationModule().isCacheCapabilites();
+        return getInstance( !cached);
+    }
+
+
+    /**
      * Get the WPS Capabilities for this service and optionally force a reload.
      * 
      * @param reload
@@ -260,11 +282,10 @@ public class CapabilitiesConfiguration {
     private static void initProcessOfferings(CapabilitiesDocument skel) {
         ProcessOfferings processes = skel.getCapabilities()
                 .addNewProcessOfferings();
-        for (String algorithmName : RepositoryManager.getInstance()
+        for (String algorithmName : repositoryManager
                 .getAlgorithms()) {
         	try {
-        		ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManager
-                        .getInstance().getProcessDescription(algorithmName).getProcessDescriptionType(WPSConfig.VERSION_100);
+        		ProcessDescriptionType description = (ProcessDescriptionType) repositoryManager.getProcessDescription(algorithmName).getProcessDescriptionType(WPSConfig.VERSION_100);
                 if (description != null) {
                     ProcessBriefType process = processes.addNewProcess();
                     CodeType ct = process.addNewIdentifier();
@@ -485,4 +506,9 @@ public class CapabilitiesConfiguration {
          */
         CapabilitiesDocument loadSkeleton() throws XmlException, IOException;
     }
+
+	@Override
+	public void init() {
+		LOG.debug("" + (wpsConfig == null));		
+	}
 }

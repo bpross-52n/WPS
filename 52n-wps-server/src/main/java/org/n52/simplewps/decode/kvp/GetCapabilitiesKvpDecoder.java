@@ -26,52 +26,45 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.simplewps.request.operator;
+package org.n52.simplewps.decode.kvp;
 
-import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
-
+import org.n52.iceland.coding.decode.Decoder;
+import org.n52.iceland.coding.decode.DecoderKey;
+import org.n52.iceland.coding.decode.OperationDecoderKey;
 import org.n52.iceland.exception.ows.OwsExceptionReport;
-import org.n52.iceland.ogc.ows.OwsOperation;
+import org.n52.iceland.exception.ows.concrete.UnsupportedDecoderInputException;
 import org.n52.iceland.ogc.wps.Wps1Constants;
 import org.n52.iceland.ogc.wps.WpsConstants;
 import org.n52.iceland.request.AbstractServiceRequest;
-import org.n52.iceland.request.operator.RequestOperator;
-import org.n52.iceland.request.operator.RequestOperatorKey;
-import org.n52.iceland.response.AbstractServiceResponse;
-import org.n52.simplewps.handler.DescribeProcessHandler;
-import org.n52.wps.server.RepositoryManager;
+import org.n52.iceland.util.http.MediaTypes;
+import org.n52.iceland.request.GetCapabilitiesRequest;
 
-public class DescribeProcessRequestOperator implements RequestOperator {
+import com.google.common.collect.Sets;
 
-	@Inject
-	private RepositoryManager repositoryManager;
+public class GetCapabilitiesKvpDecoder implements Decoder<AbstractServiceRequest<?>, Map<String, String>> {
+    private static final Set<DecoderKey> KVP_DECODER_KEY_TYPE = Sets.<DecoderKey> newHashSet(new OperationDecoderKey(WpsConstants.WPS,
+            Wps1Constants.SERVICEVERSION, WpsConstants.Operations.GetCapabilities.name(), MediaTypes.APPLICATION_KVP), new OperationDecoderKey(WpsConstants.WPS,
+                    null, WpsConstants.Operations.GetCapabilities.name(), MediaTypes.APPLICATION_KVP));
 
-	@Override
-	public Set<RequestOperatorKey> getKeys() {
-		RequestOperatorKey requestOperatorKey = new RequestOperatorKey(WpsConstants.WPS, Wps1Constants.SERVICEVERSION, WpsConstants.Operations.DescribeProcess.name(), true);
-		return Collections.singleton(requestOperatorKey);
-	}
-
-	@Override
-	public AbstractServiceResponse receiveRequest(
-			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
-		return new DescribeProcessHandler(repositoryManager).getProcessDescription(((DescribeProcessRequest)request).getProcessIdentifier(), request.getVersion());
-//		return (DescribeProcessResponse) new DescribeProcessResponse().set(request);
-	}
+    
+    @Override
+    public Set<DecoderKey> getKeys() {
+        return KVP_DECODER_KEY_TYPE;
+    }
 
 	@Override
-	public OwsOperation getOperationMetadata(String service, String version)
-			throws OwsExceptionReport {		
-		return new DescribeProcessHandler().getOperationsMetadata(service, version);
-	}
-
-	@Override
-	public RequestOperatorKey getRequestOperatorKeyType() {
+	public GetCapabilitiesRequest decode(Map<String, String> objectToDecode)
+			throws OwsExceptionReport, UnsupportedDecoderInputException {		
 		
-		return null;
+		GetCapabilitiesRequest gtcr = new GetCapabilitiesRequest(WpsConstants.WPS);
+		
+		gtcr.setService(objectToDecode.get("service"));
+		gtcr.setVersion(objectToDecode.get("version"));
+		
+		return gtcr;
 	}
 
 }

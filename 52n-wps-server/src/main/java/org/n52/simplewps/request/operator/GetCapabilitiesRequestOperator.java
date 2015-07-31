@@ -28,11 +28,14 @@
  */
 package org.n52.simplewps.request.operator;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.xmlbeans.XmlException;
+import org.n52.iceland.coding.decode.DecoderKey;
 import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.wps.Wps1Constants;
@@ -42,30 +45,45 @@ import org.n52.iceland.request.operator.RequestOperator;
 import org.n52.iceland.request.operator.RequestOperatorKey;
 import org.n52.iceland.response.AbstractServiceResponse;
 import org.n52.simplewps.handler.DescribeProcessHandler;
+import org.n52.simplewps.handler.GetCapabilitiesHandler;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.RepositoryManager;
 
-public class DescribeProcessRequestOperator implements RequestOperator {
+import com.google.common.collect.Sets;
+
+public class GetCapabilitiesRequestOperator implements RequestOperator {
+
+	@Inject
+	private WPSConfig wpsConfig;
 
 	@Inject
 	private RepositoryManager repositoryManager;
-
+	
 	@Override
 	public Set<RequestOperatorKey> getKeys() {
-		RequestOperatorKey requestOperatorKey = new RequestOperatorKey(WpsConstants.WPS, Wps1Constants.SERVICEVERSION, WpsConstants.Operations.DescribeProcess.name(), true);
-		return Collections.singleton(requestOperatorKey);
+		Set<RequestOperatorKey> requestOperatorKeys = Sets.<RequestOperatorKey> newHashSet(new RequestOperatorKey(WpsConstants.WPS, Wps1Constants.SERVICEVERSION, WpsConstants.Operations.GetCapabilities.name(), true), new RequestOperatorKey(WpsConstants.WPS, null, WpsConstants.Operations.GetCapabilities.name(), true));
+		return requestOperatorKeys;
 	}
 
 	@Override
 	public AbstractServiceResponse receiveRequest(
 			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
-		return new DescribeProcessHandler(repositoryManager).getProcessDescription(((DescribeProcessRequest)request).getProcessIdentifier(), request.getVersion());
-//		return (DescribeProcessResponse) new DescribeProcessResponse().set(request);
+		try {
+			return new GetCapabilitiesHandler(wpsConfig, repositoryManager).getCapabilities(new String[]{request.getVersion()});
+		} catch (XmlException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
 	public OwsOperation getOperationMetadata(String service, String version)
 			throws OwsExceptionReport {		
-		return new DescribeProcessHandler().getOperationsMetadata(service, version);
+		return new GetCapabilitiesHandler().getOperationsMetadata(service, version);
 	}
 
 	@Override

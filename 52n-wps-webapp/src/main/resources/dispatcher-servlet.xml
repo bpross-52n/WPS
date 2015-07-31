@@ -158,6 +158,22 @@
 	<!-- Encoder implementations from extensions/gda/operation -->
 	<bean class="org.n52.simplewps.encode.DescribeProcessEncoder" />
 
+	<bean class="org.n52.simplewps.handler.DescribeProcessHandler" />
+
+	<bean
+		class="org.n52.simplewps.request.operator.DescribeProcessRequestOperator" />
+		
+	<!-- Decoder implementations from bindings/rest/code -->
+	<bean class="org.n52.simplewps.decode.kvp.GetCapabilitiesKvpDecoder" />
+
+	<!-- Encoder implementations from extensions/gda/operation -->
+	<bean class="org.n52.simplewps.encode.GetCapabilitiesEncoder" />
+
+	<bean class="org.n52.simplewps.handler.GetCapabilitiesHandler" />
+
+	<bean
+		class="org.n52.simplewps.request.operator.GetCapabilitiesRequestOperator" />
+	
 	<bean id="eventBus" class="org.n52.iceland.event.ServiceEventBus">
 		<property name="async" value="false" />
 	</bean>
@@ -166,13 +182,6 @@
 		<description>This calls Constructable#init and Destroyable#destroy for
 			all beans.</description>
 	</bean>
-
-	<bean class="org.n52.simplewps.handler.DescribeProcessHandler" />
-
-	<bean
-		class="org.n52.simplewps.request.operator.DescribeProcessRequestOperator" />
-
-	<bean class="org.n52.wps.server.LocalAlgorithmRepository" />
 
 	<!-- ServiceOperator implementations from operations/core-v20 -->
 	<bean class="org.n52.iceland.service.operator.GenericServiceOperator">

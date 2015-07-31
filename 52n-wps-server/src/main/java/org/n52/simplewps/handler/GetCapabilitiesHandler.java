@@ -28,6 +28,7 @@
  */
 package org.n52.simplewps.handler;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,6 +38,8 @@ import java.util.TreeSet;
 
 import javax.inject.Inject;
 
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.binding.Binding;
 import org.n52.iceland.binding.BindingRepository;
 import org.n52.iceland.coding.OperationKey;
@@ -49,16 +52,33 @@ import org.n52.iceland.ogc.ows.DCP;
 import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.ows.OwsParameterValuePossibleValues;
 import org.n52.iceland.ogc.wps.WpsConstants;
+import org.n52.iceland.response.AbstractServiceResponse;
+import org.n52.iceland.response.GetCapabilitiesResponse;
 import org.n52.iceland.util.collections.MultiMaps;
 import org.n52.iceland.util.collections.SetMultiMap;
 import org.n52.iceland.util.http.HTTPHeaders;
 import org.n52.iceland.util.http.HTTPMethods;
 import org.n52.iceland.util.http.MediaType;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.server.CapabilitiesConfiguration;
+import org.n52.wps.server.CapabilitiesConfigurationV200;
+import org.n52.wps.server.RepositoryManager;
 
 public class GetCapabilitiesHandler implements OperationHandler {
 
 	@Inject
 	private BindingRepository bindingRepository;
+    
+	private WPSConfig wpsConfig;
+	
+	private RepositoryManager repositoryManager;
+	
+	public GetCapabilitiesHandler(){}
+	
+	public GetCapabilitiesHandler(WPSConfig wpsConfig, RepositoryManager repositoryManager) {
+		this.wpsConfig = wpsConfig;
+		this.repositoryManager = repositoryManager;
+	}
 	
 	@Override
 	public Set<OperationHandlerKey> getKeys() {
@@ -133,5 +153,47 @@ public class GetCapabilitiesHandler implements OperationHandler {
 
         return dcps;
     }
+    
+    public AbstractServiceResponse getCapabilities(String[] requestedVersions) throws XmlException, IOException{
+		
+    	GetCapabilitiesResponse response = new GetCapabilitiesResponse();
+    	
+    	response.setService(WpsConstants.WPS);
+    	
+    	XmlObject xmlGetCapabilitiesResponse = XmlObject.Factory.newInstance();
+    	
+    	/* [OGC 06-121r9 OWS Common 2.0]:
+		 * if acceptVersions parameter was send, the first supported version should be used
+		 */
+		if(requestedVersions != null && requestedVersions.length != 0){
+			
+			for (int i = 0; i < requestedVersions.length; i++) {
+				String requestedVersion = requestedVersions[i].trim();
+				if(WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)){
+
+					if(requestedVersion.equals(WPSConfig.VERSION_100)){
+				    	response.setVersion(requestedVersion);
+						xmlGetCapabilitiesResponse = CapabilitiesConfiguration.getInstance(wpsConfig, repositoryManager);							
+					}else if(requestedVersion.equals(WPSConfig.VERSION_200)){
+				    	response.setVersion(requestedVersion);
+						xmlGetCapabilitiesResponse = CapabilitiesConfigurationV200.getInstance();	
+					}
+				}
+			}
+			
+		}else{
+			/* [OGC 06-121r9 OWS Common 2.0]:
+			 * if no acceptVersions parameter was send, the highest supported version should be used
+			 * WPS 2.0 in this case
+			 */
+	    	response.setVersion(WPSConfig.VERSION_200);
+			xmlGetCapabilitiesResponse = CapabilitiesConfigurationV200.getInstance();			
+		}
+		
+		response.setXmlString(xmlGetCapabilitiesResponse.toString());
+		
+		return response;
+		
+    }  
 	
 }
