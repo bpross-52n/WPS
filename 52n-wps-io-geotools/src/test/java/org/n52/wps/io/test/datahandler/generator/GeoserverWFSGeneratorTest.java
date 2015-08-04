@@ -59,6 +59,7 @@ import java.net.URLDecoder;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.datahandler.generator.GeoserverWFSGenerator;
 import org.n52.wps.io.datahandler.parser.GML3BasicParser;
@@ -82,7 +83,7 @@ public class GeoserverWFSGeneratorTest extends AbstractTestCase<GeoserverWFSGene
 			Assert.fail(e1.getMessage());
 		}
 
-		GML3BasicParser theParser = new GML3BasicParser();
+		GML3BasicParser theParser = (GML3BasicParser) parserFactory.getParser("http://schemas.opengis.net/gml/3.1.1/base/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 
 		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -127,7 +128,7 @@ public class GeoserverWFSGeneratorTest extends AbstractTestCase<GeoserverWFSGene
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GeoserverWFSGenerator();
+		dataHandler = (GeoserverWFSGenerator) generatorFactory.getGenerator(null, "application/WFS", null, GTVectorDataBinding.class);
 	}
 
 }

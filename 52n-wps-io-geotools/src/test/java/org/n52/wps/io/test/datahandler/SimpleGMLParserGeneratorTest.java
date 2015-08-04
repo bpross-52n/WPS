@@ -88,7 +88,7 @@ public class SimpleGMLParserGeneratorTest extends
 
 		InputStream input = null;
 
-		SimpleGMLParser parser = new SimpleGMLParser();
+		SimpleGMLParser parser = (SimpleGMLParser) parserFactory.getParser("http://www.opengeospatial.org/gmlpacket.xsd", "text/xml", null, GTVectorDataBinding.class);
 
 		List<FormatEntry> formats = parser.getSupportedFullFormats();
 
@@ -150,7 +150,7 @@ public class SimpleGMLParserGeneratorTest extends
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new SimpleGMLGenerator();
+		dataHandler = (SimpleGMLGenerator) generatorFactory.getGenerator("http://www.opengeospatial.org/gmlpacket.xsd", "text/xml", null, GTVectorDataBinding.class);
 	}
 
 }

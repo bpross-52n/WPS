@@ -80,9 +80,9 @@ public class KMLGeneratorTest extends AbstractTestCase<KMLGenerator> {
 			Assert.fail(e1.getMessage());
 		}
 
-		GTBinZippedSHPParser theParser = new GTBinZippedSHPParser();
+		GTBinZippedSHPParser theParser = (GTBinZippedSHPParser) parserFactory.getParser(null, "application/x-zipped-shp", null, GTVectorDataBinding.class);
 
-		KMLParser kmlParser = new KMLParser();
+		KMLParser kmlParser = (KMLParser) parserFactory.getParser("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd", "application/vnd.google-earth.kml+xml", null, GTVectorDataBinding.class);
 
 		String[] mimetypes1 = theParser.getSupportedFormats();
 
@@ -128,7 +128,7 @@ public class KMLGeneratorTest extends AbstractTestCase<KMLGenerator> {
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new KMLGenerator();
+		dataHandler = (KMLGenerator) generatorFactory.getGenerator("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd", "application/vnd.google-earth.kml+xml", null, GTVectorDataBinding.class);
 	}
 
 }

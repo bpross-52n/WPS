@@ -78,7 +78,7 @@ public class GML3BasicGeneratorTest extends AbstractTestCase<GML3BasicGenerator>
 			Assert.fail(e1.getMessage());
 		}
 
-		GML3BasicParser theParser = new GML3BasicParser();
+		GML3BasicParser theParser = (GML3BasicParser) parserFactory.getParser("http://schemas.opengis.net/gml/3.1.1/base/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 
 //		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -125,7 +125,7 @@ public class GML3BasicGeneratorTest extends AbstractTestCase<GML3BasicGenerator>
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GML3BasicGenerator();
+		dataHandler = (GML3BasicGenerator) generatorFactory.getGenerator("http://schemas.opengis.net/gml/3.1.1/base/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 
 	}
 

@@ -61,6 +61,7 @@ import org.geotools.feature.NameImpl;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.feature.simple.SimpleFeatureTypeBuilder;
 import org.geotools.referencing.CRS;
+import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
 import org.opengis.feature.Feature;
 import org.opengis.feature.Property;
@@ -86,10 +87,18 @@ import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GTHelper {
+public class GTHelper implements Constructable{
 	private static Logger LOGGER = LoggerFactory.getLogger(GTHelper.class);
+	
 	@Inject
-	private static WPSConfig wpsConfig;
+	private WPSConfig wpsConfig;
+	
+	private static String serviceBaseURL;
+
+	@Override
+	public void init() {
+		serviceBaseURL = wpsConfig.getServiceBaseUrl();		
+	}
 	
 	public static SimpleFeatureType createFeatureType(Collection<Property> attributes, Geometry newGeometry, String uuid, CoordinateReferenceSystem coordinateReferenceSystem){
 		String namespace = "http://www.52north.org/"+uuid;
@@ -451,8 +460,6 @@ public class GTHelper {
 			}
 
 		public static String storeSchema(String schema, String uuid) throws IOException {
-			
-			String serviceBaseURL = wpsConfig.getServiceBaseUrl();
 			
 			LOGGER.debug("GTHelper service base URL " + serviceBaseURL);
 			

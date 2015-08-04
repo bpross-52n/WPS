@@ -17,10 +17,12 @@
 package org.n52.wps.io.test.datahandler;
 import java.io.File;
 
+import javax.inject.Inject;
+
 import org.junit.Before;
-import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.AbstractIOHandler;
-import org.n52.wps.webapp.api.ConfigurationManager;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,12 @@ public abstract class AbstractTestCase<T  extends AbstractIOHandler> extends Abs
 	protected String projectRoot;
 
 	protected T dataHandler;
+
+	@Inject
+	protected GeneratorFactory generatorFactory;
+
+	@Inject
+	protected ParserFactory parserFactory;
 
 	public AbstractTestCase() {        	
 		 File f = new File(this.getClass().getProtectionDomain().getCodeSource()
@@ -56,7 +64,7 @@ public abstract class AbstractTestCase<T  extends AbstractIOHandler> extends Abs
 
 		String className = dataHandler.getClass().getName();
 
-		if(!(WPSConfig.getInstance().isGeneratorActive(className)||WPSConfig.getInstance().isParserActive(className))){
+		if(!(wpsConfig.isGeneratorActive(className)||wpsConfig.isParserActive(className))){
 			LOGGER.info("Skipping inactive data handler: " + className);
 			return false;
 		}

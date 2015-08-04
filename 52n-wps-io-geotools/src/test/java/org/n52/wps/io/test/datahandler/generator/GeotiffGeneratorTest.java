@@ -80,7 +80,7 @@ public class GeotiffGeneratorTest extends AbstractTestCase<GeotiffGenerator> {
 			Assert.fail(e1.getMessage());
 		}
 
-		GeotiffParser theParser = new GeotiffParser();
+		GeotiffParser theParser = (GeotiffParser) parserFactory.getParser(null, "image/tiff", null, GTRasterDataBinding.class);
 
 		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -120,7 +120,7 @@ public class GeotiffGeneratorTest extends AbstractTestCase<GeotiffGenerator> {
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GeotiffGenerator();
+		dataHandler =  (GeotiffGenerator) generatorFactory.getGenerator(null, "image/tiff", null, GTRasterDataBinding.class);
 
 	}
 

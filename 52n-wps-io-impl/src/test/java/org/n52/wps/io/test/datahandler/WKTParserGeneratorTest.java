@@ -60,7 +60,7 @@ public class WKTParserGeneratorTest extends AbstractTestCase<WKTGenerator> {
 		
 		InputStream in = new ByteArrayInputStream(inputWKTPolygonString.getBytes());
 		
-		WKTParser theParser = new WKTParser();
+		WKTParser theParser = (WKTParser) parserFactory.getParser(null, "application/wkt", null, JTSGeometryBinding.class);
 
 		String mimetype = theParser.getSupportedFormats()[0];
 		
@@ -114,7 +114,7 @@ public class WKTParserGeneratorTest extends AbstractTestCase<WKTGenerator> {
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new WKTGenerator();
+		dataHandler = (WKTGenerator) generatorFactory.getGenerator(null, "application/wkt", null, JTSGeometryBinding.class);
 		
 	}
 

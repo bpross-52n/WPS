@@ -105,7 +105,7 @@ public class GML3BasicParserTest extends AbstractTestCase<GML3BasicParser> {
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GML3BasicParser();
+		dataHandler = (GML3BasicParser) parserFactory.getParser("http://schemas.opengis.net/gml/3.1.1/base/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 	}
 
 }

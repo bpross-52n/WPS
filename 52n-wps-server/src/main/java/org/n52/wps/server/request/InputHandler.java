@@ -111,6 +111,9 @@ public class InputHandler {
     @Inject
 	private ParserFactory parserFactory;
     
+    @Inject
+    private RepositoryManager repositoryManager;
+    
         public static class Builder {
             protected Input inputs;
             protected String algorithmIdentifier = null;
@@ -151,8 +154,8 @@ public class InputHandler {
 	 */
         private InputHandler(Builder builder) throws ExceptionReport {
 		this.algorithmIdentifier = builder.algorithmIdentifier;
-		this.processDesc = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_100);
-		this.processOffering = (ProcessOffering) RepositoryManager.getInstance().getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_200);
+		this.processDesc = (ProcessDescriptionType) repositoryManager.getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_100);
+		this.processOffering = (ProcessOffering) repositoryManager.getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_200);
 
 		if (processDesc == null) {
                     throw new ExceptionReport("Error while accessing the process description for " + algorithmIdentifier,
@@ -563,7 +566,7 @@ public class InputHandler {
 					" mimeType: " + dataMimeType +
 					" encoding: " + formatEncoding);
 
-			Class<?> algorithmInput = RepositoryManager.getInstance().getInputDataTypeForAlgorithm(this.algorithmIdentifier, inputId);
+			Class<?> algorithmInput = repositoryManager.getInputDataTypeForAlgorithm(this.algorithmIdentifier, inputId);
 			parser = parserFactory.getParser(formatSchema, dataMimeType, formatEncoding, algorithmInput);
 		} catch (RuntimeException e) {
 			throw new ExceptionReport("Error obtaining input data", ExceptionReport.NO_APPLICABLE_CODE, e);
@@ -899,7 +902,7 @@ public class InputHandler {
 					+ formatSchema + " mimeType: " + dataMimeType
 					+ " encoding: " + formatEncoding);
 
-			Class<?> algorithmInput = RepositoryManager.getInstance()
+			Class<?> algorithmInput = repositoryManager
 					.getInputDataTypeForAlgorithm(this.algorithmIdentifier,
 							inputId);
 			parser = parserFactory.getParser(formatSchema,
@@ -1422,7 +1425,7 @@ public class InputHandler {
 
 		IParser parser = null;
 		try {
-			Class<?> algorithmInputClass = RepositoryManager.getInstance()
+			Class<?> algorithmInputClass = repositoryManager
 					.getInputDataTypeForAlgorithm(this.algorithmIdentifier,
 							inputID);
 			if (algorithmInputClass == null) {
@@ -2279,7 +2282,7 @@ public class InputHandler {
 
 		IParser parser = null;
 		try {
-			Class<?> algorithmInputClass = RepositoryManager.getInstance().getInputDataTypeForAlgorithm(this.algorithmIdentifier, inputID);
+			Class<?> algorithmInputClass = repositoryManager.getInputDataTypeForAlgorithm(this.algorithmIdentifier, inputID);
 			if(algorithmInputClass == null) {
 				throw new RuntimeException("Could not determine internal input class for input" + inputID);
 			}

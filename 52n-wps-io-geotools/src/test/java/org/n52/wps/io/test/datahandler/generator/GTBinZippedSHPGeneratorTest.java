@@ -79,7 +79,7 @@ public class GTBinZippedSHPGeneratorTest extends AbstractTestCase<GTBinZippedSHP
 			Assert.fail(e1.getMessage());
 		}
 
-		GTBinZippedSHPParser theParser = new GTBinZippedSHPParser();
+		GTBinZippedSHPParser theParser = (GTBinZippedSHPParser) parserFactory.getParser(null, "application/x-zipped-shp", null, GTVectorDataBinding.class);
 
 		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -121,7 +121,7 @@ public class GTBinZippedSHPGeneratorTest extends AbstractTestCase<GTBinZippedSHP
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GTBinZippedSHPGenerator();
+		dataHandler = (GTBinZippedSHPGenerator) generatorFactory.getGenerator(null, "application/x-zipped-shp", null, GTVectorDataBinding.class);
 	}
 
 }

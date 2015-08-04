@@ -16,7 +16,10 @@
  */
 package org.n52.wps.webapp.common;
 
+import javax.inject.Inject;
+
 import org.junit.runner.RunWith;
+import org.n52.wps.commons.WPSConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,4 +35,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class AbstractITClass {
 	@Autowired
 	protected WebApplicationContext wac;
+	
+	@Inject
+	protected WPSConfig wpsConfig;
 }

@@ -40,6 +40,8 @@ import static org.junit.Assert.assertThat;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.InputType;
 
@@ -50,10 +52,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
-import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -67,6 +67,9 @@ public class SimpleBufferAlgorithmInputHandlerTest extends AbstractITClass{
     private static File sampleFile = null;
     private static ExecuteDocument execDoc = null;
     private static InputType[] inputArray = null;
+    
+    @Inject
+    private InputHandler inputHandler;
 
     @BeforeClass
     public static void setupClass() throws XmlException, IOException {

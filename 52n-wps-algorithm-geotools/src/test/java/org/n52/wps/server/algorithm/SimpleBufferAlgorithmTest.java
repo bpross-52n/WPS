@@ -53,6 +53,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.ProcessDescriptionType;
 
 import org.apache.xmlbeans.XmlOptions;
@@ -63,6 +65,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
@@ -74,6 +78,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  */
 public class SimpleBufferAlgorithmTest extends AbstractITClass{
 
+	@Inject
+	private ParserFactory parserFactory;
+	
+	@Inject
+	private GeneratorFactory generatorFactory; 
+	
     public SimpleBufferAlgorithmTest() {
     }
 
@@ -98,6 +108,8 @@ public class SimpleBufferAlgorithmTest extends AbstractITClass{
     @Test
     public void testProcessDescription() {
         IAlgorithm a = new SimpleBufferAlgorithm();
+        a.setGeneratorFactory(generatorFactory);
+        a.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(a);
         assertTrue(validateAlgorithmProcessDescription(a));
     }

@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
@@ -95,6 +96,9 @@ public class OutputDataItemTest extends AbstractITClass{
 			.newInstance();
 	private Random random = new Random();
 	private List<ILiteralData> literalDataList;
+	
+	@Inject
+	private WPSConfig wpsConfig;
 
 	@Before
 	public void setUp() {
@@ -148,7 +152,7 @@ public class OutputDataItemTest extends AbstractITClass{
 		c.toLastAttribute();
 		c.setAttributeText(W3CConstants.QN_SCHEMA_LOCATION_PREFIXED,
 				"http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd");
-        responseElem.setServiceInstance(WPSConfig.getInstance().getServiceEndpoint()
+        responseElem.setServiceInstance(wpsConfig.getServiceEndpoint()
 				+ "?REQUEST=GetCapabilities&SERVICE=WPS");
 		responseElem.setLang(WebProcessingService.DEFAULT_LANGUAGE);
 		responseElem.setService("WPS");

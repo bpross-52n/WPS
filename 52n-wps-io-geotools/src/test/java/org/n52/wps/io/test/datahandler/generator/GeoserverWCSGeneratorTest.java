@@ -62,6 +62,7 @@ import org.slf4j.LoggerFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.n52.wps.io.data.binding.complex.GTRasterDataBinding;
+import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 import org.n52.wps.io.datahandler.generator.GeoserverWCSGenerator;
 import org.n52.wps.io.datahandler.generator.GeoserverWMSGenerator;
 import org.n52.wps.io.datahandler.parser.GeotiffParser;
@@ -98,7 +99,7 @@ public class GeoserverWCSGeneratorTest extends AbstractTestCase<GeoserverWCSGene
 			Assert.fail(e1.getMessage());
 		}
 
-		GeotiffParser theParser = new GeotiffParser();
+		GeotiffParser theParser = (GeotiffParser) parserFactory.getParser(null, "image/tiff", null, GTRasterDataBinding.class);
 
 		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -144,7 +145,7 @@ public class GeoserverWCSGeneratorTest extends AbstractTestCase<GeoserverWCSGene
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GeoserverWCSGenerator();
+		dataHandler = (GeoserverWCSGenerator) generatorFactory.getGenerator(null, "application/WCS", null, GTRasterDataBinding.class);
 	}
 
 }

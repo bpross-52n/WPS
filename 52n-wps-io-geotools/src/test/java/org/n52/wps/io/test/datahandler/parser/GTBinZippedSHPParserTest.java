@@ -100,7 +100,7 @@ public class GTBinZippedSHPParserTest extends AbstractTestCase<GTBinZippedSHPPar
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GTBinZippedSHPParser();
+		dataHandler = (GTBinZippedSHPParser) parserFactory.getParser(null, "application/x-zipped-shp", null, GTVectorDataBinding.class);
 	}
 
 }

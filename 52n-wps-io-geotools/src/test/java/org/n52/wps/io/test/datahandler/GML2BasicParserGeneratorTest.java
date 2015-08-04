@@ -88,7 +88,7 @@ public class GML2BasicParserGeneratorTest extends AbstractTestCase<GML2BasicGene
 			Assert.fail(e1.getMessage());
 		}
 
-		GML2BasicParser parser = new GML2BasicParser();
+		GML2BasicParser parser = (GML2BasicParser) parserFactory.getParser("http://schemas.opengis.net/gml/2.1.2/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 
 		List<FormatEntry> formats = parser.getSupportedFullFormats();
 
@@ -129,7 +129,7 @@ public class GML2BasicParserGeneratorTest extends AbstractTestCase<GML2BasicGene
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GML2BasicGenerator();
+		dataHandler = (GML2BasicGenerator) generatorFactory.getGenerator("http://schemas.opengis.net/gml/2.1.2/feature.xsd", "text/xml", null, GTVectorDataBinding.class);
 	}
 
 }

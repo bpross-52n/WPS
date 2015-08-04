@@ -25,7 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.binary.Base64InputStream;
-import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.AbstractIOHandler;
 import org.n52.wps.io.IGenerator;

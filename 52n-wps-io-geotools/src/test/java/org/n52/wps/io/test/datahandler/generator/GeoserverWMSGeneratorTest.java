@@ -82,7 +82,7 @@ public class GeoserverWMSGeneratorTest extends AbstractTestCase<GeoserverWMSGene
 			Assert.fail(e1.getMessage());
 		}
 
-		GeotiffParser theParser = new GeotiffParser();
+		GeotiffParser theParser = (GeotiffParser) parserFactory.getParser(null, "image/tiff", null, GTRasterDataBinding.class);
 
 		String[] mimetypes = theParser.getSupportedFormats();
 
@@ -126,8 +126,7 @@ public class GeoserverWMSGeneratorTest extends AbstractTestCase<GeoserverWMSGene
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GeoserverWMSGenerator();
-
+		dataHandler =  (GeoserverWMSGenerator) generatorFactory.getGenerator(null, "application/WMS", null, GTRasterDataBinding.class);
 	}
 
 }

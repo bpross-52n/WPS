@@ -62,6 +62,7 @@ import javax.xml.transform.TransformerException;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.gml.producer.FeatureTransformer;
 import org.geotools.gml.producer.FeatureTransformer.FeatureTypeNamespaces;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.SchemaRepository;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
@@ -87,6 +88,11 @@ public class GML2BasicGenerator extends AbstractGenerator {
 	public GML2BasicGenerator(){
 		super();
 		supportedIDataTypes.add(GTVectorDataBinding.class);
+	}
+	
+	@Override
+	public void init(WPSConfig wpsConfig) {
+		super.init(wpsConfig);
 		
 		featureTransformerIncludeBounding = false;
 		featureTransformerDecimalPlaces = 4;

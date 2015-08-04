@@ -54,6 +54,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
 import org.n52.wps.io.datahandler.parser.GML2BasicParser4Files;
+import org.n52.wps.io.datahandler.parser.GML3BasicParser4Files;
 import org.n52.wps.io.test.datahandler.AbstractTestCase;
 import org.n52.wps.webapp.api.FormatEntry;
 
@@ -92,7 +93,7 @@ public class GML2BasicParser4FilesTest extends
 
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GML2BasicParser4Files();
+		dataHandler = (GML2BasicParser4Files) parserFactory.getParser("http://schemas.opengis.net/gml/2.1.2/feature.xsd", "text/xml; subtype=gml/2.1.2", null, GenericFileDataWithGTBinding.class);
 	}
 
 }

@@ -77,7 +77,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
 		
 		InputStream in = new ByteArrayInputStream(inputGeoJSONPointString.getBytes());
 		
-		GeoJSONParser theParser = new GeoJSONParser();
+		GeoJSONParser theParser = (GeoJSONParser) parserFactory.getParser(null, "application/vnd.geo+json", null, JTSGeometryBinding.class);
 
 		String mimetype = theParser.getSupportedFormats()[0];
 		
@@ -166,7 +166,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
 				
 		InputStream in = new ByteArrayInputStream(featureCollectionString.getBytes());
 		
-		GeoJSONParser theParser = new GeoJSONParser();
+		GeoJSONParser theParser = (GeoJSONParser) parserFactory.getParser(null, "application/vnd.geo+json", null, JTSGeometryBinding.class);
 
 		String mimetype = theParser.getSupportedFormats()[0];
 		
@@ -218,7 +218,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
 				
 		InputStream in = new ByteArrayInputStream(featureCollectionString.getBytes());
 		
-		GeoJSONParser theParser = new GeoJSONParser();
+		GeoJSONParser theParser = (GeoJSONParser) parserFactory.getParser(null, "application/vnd.geo+json", null, JTSGeometryBinding.class);
 
 		String mimetype = theParser.getSupportedFormats()[0];
 		
@@ -265,7 +265,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
 	
 	@Override
 	protected void initializeDataHandler() {
-		dataHandler = new GeoJSONGenerator();		
+		dataHandler = (GeoJSONGenerator) generatorFactory.getGenerator(null, "application/vnd.geo+json", null, JTSGeometryBinding.class);
 	}
 
 	

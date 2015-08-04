@@ -21,10 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.commons.codec.binary.Base64InputStream;
-import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.AbstractIOHandler;
 import org.n52.wps.io.IOHandler;
@@ -44,8 +41,6 @@ public abstract class AbstractParser extends AbstractIOHandler implements IParse
 	 * to be written during the generation procedure.
 	 */
 	protected List<File> finalizeFiles;
-	@Inject
-	protected WPSConfig wpsConfig;
 	
 	public AbstractParser(){
 		super();

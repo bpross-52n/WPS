@@ -18,12 +18,16 @@ package org.n52.wps.server;
 
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.ProcessDescriptionType;
 
 import org.apache.xmlbeans.XmlOptions;
 import org.junit.Before;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -33,6 +37,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @author tkunicki
  */
 public class AbstractSelfDescribingAlgorithmTest extends AbstractITClass {
+
+	@Inject
+	private ParserFactory parserFactory;
+	
+	@Inject
+	private GeneratorFactory generatorFactory; 
     
     public AbstractSelfDescribingAlgorithmTest() {
     }
@@ -46,36 +56,48 @@ public class AbstractSelfDescribingAlgorithmTest extends AbstractITClass {
     @Test
     public void testComplexSelfDescribingAlgorithmUsingDescriptor() {
         IAlgorithm algorithm = new ComplexSelfDescribingAlgorithmUsingDescriptor();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 
     @Test
     public void testComplexAnnotatedAlgorithm() {
         IAlgorithm algorithm = new ComplexAnnotatedAlgorithm();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 
     @Test
     public void testStringReverseSelfDescribingAlgorithm() {
         IAlgorithm algorithm = new StringReverseSelfDescribingAlgorithm();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 
     @Test
     public void testStringReverseAnnotatedAlgorithm() {
         IAlgorithm algorithm = new StringReverseAnnotatedAlgorithm();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 
     @Test
     public void testStringJoinSelfDescribingAlgorithm() {
         IAlgorithm algorithm = new StringJoinSelfDescribingAlgorithm();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 
     @Test
     public void testStringJoinAnnotatedAlgorithm() {
         IAlgorithm algorithm = new StringJoinAnnotatedAlgorithm();
+        algorithm.setGeneratorFactory(generatorFactory);
+        algorithm.setParserFactory(parserFactory);
         printAlgorithmProcessDescription(algorithm);
     }
 

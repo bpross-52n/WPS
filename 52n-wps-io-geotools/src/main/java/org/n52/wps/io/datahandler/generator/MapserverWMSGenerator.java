@@ -57,6 +57,7 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.geotools.data.simple.SimpleFeatureCollection;
+import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.commons.XMLUtil;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
@@ -97,6 +98,11 @@ public class MapserverWMSGenerator extends AbstractGenerator {
 		super();
 
 		this.supportedIDataTypes.add(GTVectorDataBinding.class);
+	}
+
+	@Override
+	public void init(WPSConfig wpsConfig) {
+		super.init(wpsConfig);
 
 		for (ConfigurationEntry<?> property : properties) {
 			if (property.getKey().equalsIgnoreCase("Mapserver_workspace")) {
@@ -118,7 +124,7 @@ public class MapserverWMSGenerator extends AbstractGenerator {
 			}
 		}
 	}
-
+	
 	@Override
 	public InputStream generateStream(IData data, String mimeType, String schema)
 			throws IOException {
