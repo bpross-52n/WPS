@@ -36,8 +36,6 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.inject.Inject;
-
 import net.opengis.ows.x11.CodeType;
 import net.opengis.ows.x11.DCPDocument.DCP;
 import net.opengis.ows.x11.LanguageStringType;
@@ -52,7 +50,6 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
-import org.n52.wps.webapp.entities.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,9 +73,6 @@ public class CapabilitiesConfiguration implements Constructable{
     private static CapabilitiesDocument capabilitiesDocumentObj;
 
     private static CapabilitiesSkeletonLoadingStrategy loadingStrategy;
-    
-    @Inject    
-    private static Server serverConfigurationModule;
     
 	private static WPSConfig wpsConfig;
 	
@@ -367,10 +361,6 @@ public class CapabilitiesConfiguration implements Constructable{
             lock.unlock();
         }
     }
-    
-	public static Server getServerConfigurationModule() {
-		return serverConfigurationModule;
-	}
 
     /**
      * Strategy to load a capabilities skeleton from a URL.

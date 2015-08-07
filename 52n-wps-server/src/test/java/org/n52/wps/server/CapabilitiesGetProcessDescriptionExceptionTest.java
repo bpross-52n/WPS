@@ -30,6 +30,8 @@ package org.n52.wps.server;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ProcessBriefType;
 
@@ -50,6 +52,12 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
 	
 	public static final String IDENTIFIER = "CatchMeIfYouCan";	
 	public static boolean algorithmTriedToInstantiate;
+    
+	@Inject
+	private WPSConfig wpsConfig;
+
+	@Inject
+	private RepositoryManager repositoryManager;
 
 	@Before
     public void setUp(){
@@ -60,7 +68,7 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
 	@Test
 	public void shouldIgnoreExceptionousProcess() throws XmlException, IOException {
 //		MockUtil.getMockConfig();
-		CapabilitiesDocument caps = CapabilitiesConfiguration.getInstance(CapabilitiesDocument.Factory.newInstance());
+		CapabilitiesDocument caps = CapabilitiesConfiguration.getInstance(wpsConfig, repositoryManager);
 		
 		Assert.assertTrue("Erroneous algorithm was never instantiated!", algorithmTriedToInstantiate);
 		
