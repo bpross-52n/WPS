@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
 
+//FIXME remove, if not needed anymore
 public class WPSDispatcherServlet extends DispatcherServlet {
 
 	/**
@@ -58,18 +59,16 @@ public class WPSDispatcherServlet extends DispatcherServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		try {
-			String capsConfigPath = config.getServletContext().getRealPath("")
-					+ File.separator + PUBLIC_CONFIG_FILE_DIR + File.separator
-					+ CAPABILITES_SKELETON_NAME;
-			CapabilitiesDocument capsDoc = CapabilitiesConfiguration
-					.getInstance(capsConfigPath);
-			LOG.debug("Initialized capabilities document:\n{}", capsDoc);
-		} catch (IOException | XmlException e) {
-			LOG.error("error while initializing capabilitiesConfiguration", e);
-		}
-
-		;
+//		try {
+//			String capsConfigPath = config.getServletContext().getRealPath("")
+//					+ File.separator + PUBLIC_CONFIG_FILE_DIR + File.separator
+//					+ CAPABILITES_SKELETON_NAME;
+//			CapabilitiesDocument capsDoc = CapabilitiesConfiguration
+//					.getInstance(capsConfigPath);
+//			LOG.debug("Initialized capabilities document:\n{}", capsDoc);
+//		} catch (IOException | XmlException e) {
+//			LOG.error("error while initializing capabilitiesConfiguration", e);
+//		}
 	}
 
 }

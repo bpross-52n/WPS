@@ -29,13 +29,11 @@
 package org.n52.simplewps.request.operator;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.apache.xmlbeans.XmlException;
-import org.n52.iceland.coding.decode.DecoderKey;
 import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.wps.Wps1Constants;
@@ -44,7 +42,6 @@ import org.n52.iceland.request.AbstractServiceRequest;
 import org.n52.iceland.request.operator.RequestOperator;
 import org.n52.iceland.request.operator.RequestOperatorKey;
 import org.n52.iceland.response.AbstractServiceResponse;
-import org.n52.simplewps.handler.DescribeProcessHandler;
 import org.n52.simplewps.handler.GetCapabilitiesHandler;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.RepositoryManager;
@@ -52,12 +49,9 @@ import org.n52.wps.server.RepositoryManager;
 import com.google.common.collect.Sets;
 
 public class GetCapabilitiesRequestOperator implements RequestOperator {
-
+	
 	@Inject
-	private WPSConfig wpsConfig;
-
-	@Inject
-	private RepositoryManager repositoryManager;
+	private GetCapabilitiesHandler getCapabilitiesHandler;
 	
 	@Override
 	public Set<RequestOperatorKey> getKeys() {
@@ -69,7 +63,7 @@ public class GetCapabilitiesRequestOperator implements RequestOperator {
 	public AbstractServiceResponse receiveRequest(
 			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
 		try {
-			return new GetCapabilitiesHandler(wpsConfig, repositoryManager).getCapabilities(new String[]{request.getVersion()});
+			return getCapabilitiesHandler.getCapabilities(new String[]{request.getVersion()});
 		} catch (XmlException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,7 +77,7 @@ public class GetCapabilitiesRequestOperator implements RequestOperator {
 	@Override
 	public OwsOperation getOperationMetadata(String service, String version)
 			throws OwsExceptionReport {		
-		return new GetCapabilitiesHandler().getOperationsMetadata(service, version);
+		return getCapabilitiesHandler.getOperationsMetadata(service, version);
 	}
 
 	@Override

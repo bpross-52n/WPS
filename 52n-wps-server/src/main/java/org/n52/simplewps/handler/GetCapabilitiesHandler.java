@@ -62,23 +62,16 @@ import org.n52.iceland.util.http.MediaType;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.CapabilitiesConfiguration;
 import org.n52.wps.server.CapabilitiesConfigurationV200;
-import org.n52.wps.server.RepositoryManager;
 
 public class GetCapabilitiesHandler implements OperationHandler {
 
 	@Inject
 	private BindingRepository bindingRepository;
-    
-	private WPSConfig wpsConfig;
 	
-	private RepositoryManager repositoryManager;
+	@Inject
+	private CapabilitiesConfiguration capabilitiesConfiguration;
 	
 	public GetCapabilitiesHandler(){}
-	
-	public GetCapabilitiesHandler(WPSConfig wpsConfig, RepositoryManager repositoryManager) {
-		this.wpsConfig = wpsConfig;
-		this.repositoryManager = repositoryManager;
-	}
 	
 	@Override
 	public Set<OperationHandlerKey> getKeys() {
@@ -173,7 +166,7 @@ public class GetCapabilitiesHandler implements OperationHandler {
 
 					if(requestedVersion.equals(WPSConfig.VERSION_100)){
 				    	response.setVersion(requestedVersion);
-						xmlGetCapabilitiesResponse = CapabilitiesConfiguration.getInstance(wpsConfig, repositoryManager);							
+						xmlGetCapabilitiesResponse = capabilitiesConfiguration.getCapabilitiesDocument();							
 					}else if(requestedVersion.equals(WPSConfig.VERSION_200)){
 				    	response.setVersion(requestedVersion);
 						xmlGetCapabilitiesResponse = CapabilitiesConfigurationV200.getInstance();	

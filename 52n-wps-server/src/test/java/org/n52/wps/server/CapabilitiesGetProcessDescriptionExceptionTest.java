@@ -55,6 +55,9 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
     
 	@Inject
 	private WPSConfig wpsConfig;
+	
+	@Inject
+	private CapabilitiesConfiguration capabilitiesConfiguration;
 
 	@Inject
 	private RepositoryManager repositoryManager;
@@ -68,7 +71,7 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
 	@Test
 	public void shouldIgnoreExceptionousProcess() throws XmlException, IOException {
 //		MockUtil.getMockConfig();
-		CapabilitiesDocument caps = CapabilitiesConfiguration.getInstance(wpsConfig, repositoryManager);
+		CapabilitiesDocument caps = capabilitiesConfiguration.getCapabilitiesDocument();
 		
 		Assert.assertTrue("Erroneous algorithm was never instantiated!", algorithmTriedToInstantiate);
 		

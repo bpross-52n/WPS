@@ -102,6 +102,8 @@
 	<bean id="wpsConfig" class="org.n52.wps.commons.WPSConfig" />
 
 	<bean id="repositoryManager" class="org.n52.wps.server.RepositoryManager" />
+	
+	<bean id="capabilitiesConfiguration" class="org.n52.wps.server.CapabilitiesConfiguration" />
 
 	<bean id="configurationManager" class="org.n52.wps.webapp.api.ConfigurationManagerImpl" />
 	<bean id="valueParser" class="org.n52.wps.webapp.api.ValueParser" />

@@ -36,6 +36,9 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+
 import net.opengis.ows.x11.CodeType;
 import net.opengis.ows.x11.DCPDocument.DCP;
 import net.opengis.ows.x11.LanguageStringType;
@@ -66,17 +69,27 @@ import com.google.common.base.Preconditions;
  * 
  */
 public class CapabilitiesConfiguration implements Constructable{
-    private static final Logger LOG = LoggerFactory.getLogger(CapabilitiesConfiguration.class);
-
-    private static final ReentrantLock lock = new ReentrantLock();
-
-    private static CapabilitiesDocument capabilitiesDocumentObj;
-
-    private static CapabilitiesSkeletonLoadingStrategy loadingStrategy;
     
-	private static WPSConfig wpsConfig;
+	private static final Logger LOG = LoggerFactory.getLogger(CapabilitiesConfiguration.class);
+
+    private final ReentrantLock lock = new ReentrantLock();
+
+    private CapabilitiesDocument capabilitiesDocumentObj;
+
+    private CapabilitiesSkeletonLoadingStrategy loadingStrategy;
+    
+    @Inject
+	private WPSConfig wpsConfig;
 	
-	private static RepositoryManager repositoryManager;
+    @Inject
+	private RepositoryManager repositoryManager;
+    
+    @Inject
+    private ServletContext servletContext;
+
+	private static final String CAPABILITES_SKELETON_NAME = "wpsCapabilitiesSkeleton.xml";
+
+	private static final String PUBLIC_CONFIG_FILE_DIR = "config";
 
     private CapabilitiesConfiguration() {
         /* nothing here */
@@ -97,13 +110,13 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(String filePath) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(String filePath) throws XmlException, IOException {
         return getInstance(new FileLoadingStrategy(filePath));
     }
 
     /**
      * Gets the WPS Capabilities using the specified file to obtain the skeleton. All future calls to
-     * {@link #getInstance()} and {@link #getInstance(boolean)
+     * {@link #getCapabilitiesDocument()} and {@link #getCapabilitiesDocument(boolean)
      * } will use this file to obtain the skeleton.
      * 
      * @param file
@@ -116,13 +129,13 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(File file) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(File file) throws XmlException, IOException {
         return getInstance(new FileLoadingStrategy(file));
     }
 
     /**
      * Gets the WPS Capabilities using the specified URL to obtain the skeleton. All future calls to
-     * {@link #getInstance()} and {@link #getInstance(boolean)
+     * {@link #getCapabilitiesDocument()} and {@link #getCapabilitiesDocument(boolean)
      * } will use this URL to obtain the skeleton.
      * 
      * @param url
@@ -135,13 +148,13 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(URL url) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(URL url) throws XmlException, IOException {
         return getInstance(new URLLoadingStrategy(url));
     }
 
     /**
-     * Gets the WPS Capabilities using the specified skeleton. All future calls to {@link #getInstance()} and
-     * {@link #getInstance(boolean) } will use this skeleton.
+     * Gets the WPS Capabilities using the specified skeleton. All future calls to {@link #getCapabilitiesDocument()} and
+     * {@link #getCapabilitiesDocument(boolean) } will use this skeleton.
      * 
      * @param skel
      *        the skeleton
@@ -153,13 +166,13 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(CapabilitiesDocument skel) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(CapabilitiesDocument skel) throws XmlException, IOException {
         return getInstance(new InstanceStrategy(skel));
     }
 
     /**
-     * Gets the WPS Capabilities using the specified strategy. All future calls to {@link #getInstance()} and
-     * {@link #getInstance(boolean) } will use this strategy.
+     * Gets the WPS Capabilities using the specified strategy. All future calls to {@link #getCapabilitiesDocument()} and
+     * {@link #getCapabilitiesDocument(boolean) } will use this strategy.
      * 
      * @param strategy
      *        the strategy to load the skeleton
@@ -171,16 +184,16 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    private static CapabilitiesDocument getInstance(CapabilitiesSkeletonLoadingStrategy strategy) throws XmlException,
+    private CapabilitiesDocument getInstance(CapabilitiesSkeletonLoadingStrategy strategy) throws XmlException,
             IOException {
         Preconditions.checkNotNull(strategy);
         lock.lock();
         try {
             if (strategy.equals(loadingStrategy)) {
-                return getInstance(false);
+                return getCapabilitiesDocument(false);
             }
             loadingStrategy = strategy;
-            return getInstance(true);
+            return getCapabilitiesDocument(true);
         }
         finally {
             lock.unlock();
@@ -198,29 +211,10 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance() throws XmlException, IOException {
+    public CapabilitiesDocument getCapabilitiesDocument() throws XmlException, IOException {
         boolean cached = wpsConfig.getServerConfigurationModule().isCacheCapabilites();
-        return getInstance( !cached);
+        return getCapabilitiesDocument( !cached);
     }
-
-    /**
-     * Get the WPS Capabilities for this service. The capabilities are reloaded if caching is not enabled in
-     * the WPS configuration.
-     * 
-     * @return the capabilities document
-     * 
-     * @throws XmlException
-     *         if the Capabilities skeleton is not valid
-     * @throws IOException
-     *         if an IO error occurs
-     */
-    public static CapabilitiesDocument getInstance(WPSConfig wpsConfig, RepositoryManager repositoryManager) throws XmlException, IOException {
-        CapabilitiesConfiguration.wpsConfig = wpsConfig;
-        CapabilitiesConfiguration.repositoryManager = repositoryManager;
-    	boolean cached = wpsConfig.getServerConfigurationModule().isCacheCapabilites();
-        return getInstance( !cached);
-    }
-
 
     /**
      * Get the WPS Capabilities for this service and optionally force a reload.
@@ -235,7 +229,7 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(boolean reload) throws XmlException, IOException {
+    public CapabilitiesDocument getCapabilitiesDocument(boolean reload) throws XmlException, IOException {
         lock.lock();
         try {
             if (capabilitiesDocumentObj == null || reload) {
@@ -258,7 +252,7 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws UnknownHostException
      *         if the local host name can not be obtained
      */
-    private static void initSkeleton(CapabilitiesDocument skel) throws UnknownHostException {
+    private void initSkeleton(CapabilitiesDocument skel) throws UnknownHostException {
         String endpoint = getEndpointURL();
         if (skel.getCapabilities() == null) {
             skel.addNewCapabilities();
@@ -273,7 +267,7 @@ public class CapabilitiesConfiguration implements Constructable{
      * @param skel
      *        the skeleton to enrich
      */
-    private static void initProcessOfferings(CapabilitiesDocument skel) {
+    private void initProcessOfferings(CapabilitiesDocument skel) {
         ProcessOfferings processes = skel.getCapabilities()
                 .addNewProcessOfferings();
         for (String algorithmName : repositoryManager
@@ -306,7 +300,7 @@ public class CapabilitiesConfiguration implements Constructable{
      *        the endpoint URL of the service
      * 
      */
-    private static void initOperationsMetadata(CapabilitiesDocument skel, String endpointUrl) {
+    private void initOperationsMetadata(CapabilitiesDocument skel, String endpointUrl) {
         if (skel.getCapabilities().getOperationsMetadata() != null) {
             String endpointUrlGet = endpointUrl + "?";
             for (Operation op : skel.getCapabilities().getOperationsMetadata().getOperationArray()) {
@@ -331,7 +325,7 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws UnknownHostException
      *         if the local host name could not be resolved into an address
      */
-    private static String getEndpointURL() throws UnknownHostException {
+    private String getEndpointURL() throws UnknownHostException {
         return wpsConfig.getServiceEndpoint();
     }
 
@@ -343,8 +337,8 @@ public class CapabilitiesConfiguration implements Constructable{
      * @throws IOException
      *         if an IO error occurs
      */
-    public static void reloadSkeleton() throws XmlException, IOException {
-        getInstance(true);
+    public void reloadSkeleton() throws XmlException, IOException {
+        getCapabilitiesDocument(true);
     }
 
     /**
@@ -352,7 +346,7 @@ public class CapabilitiesConfiguration implements Constructable{
      * 
      * @return if the capabilities are ready.
      */
-    public static boolean ready() {
+    public boolean ready() {
         lock.lock();
         try {
             return capabilitiesDocumentObj != null;
@@ -365,7 +359,7 @@ public class CapabilitiesConfiguration implements Constructable{
     /**
      * Strategy to load a capabilities skeleton from a URL.
      */
-    private static class URLLoadingStrategy implements CapabilitiesSkeletonLoadingStrategy {
+    private class URLLoadingStrategy implements CapabilitiesSkeletonLoadingStrategy {
         private final URL url;
 
         /**
@@ -411,7 +405,7 @@ public class CapabilitiesConfiguration implements Constructable{
     /**
      * Strategy to load a capabilities skeleton from a file.
      */
-    private static class FileLoadingStrategy extends URLLoadingStrategy {
+    private class FileLoadingStrategy extends URLLoadingStrategy {
 
         /**
          * Creates a new strategy using the specified file.
@@ -438,7 +432,7 @@ public class CapabilitiesConfiguration implements Constructable{
     /**
      * Strategy to obtain the capabilities skeleton from an existing instance.
      */
-    private static class InstanceStrategy implements CapabilitiesSkeletonLoadingStrategy {
+    private class InstanceStrategy implements CapabilitiesSkeletonLoadingStrategy {
         private final CapabilitiesDocument instance;
 
         /**
@@ -499,6 +493,16 @@ public class CapabilitiesConfiguration implements Constructable{
 
 	@Override
 	public void init() {
-		LOG.debug("" + (wpsConfig == null));		
+		LOG.debug("" + (wpsConfig == null));
+
+        try {
+            String capsConfigPath = servletContext.getRealPath("") + File.separator + PUBLIC_CONFIG_FILE_DIR
+                    + File.separator + CAPABILITES_SKELETON_NAME;
+            loadingStrategy = new FileLoadingStrategy(capsConfigPath);
+            LOG.debug("Initialized capabilities document:\n{}", getCapabilitiesDocument());
+        }
+        catch (IOException | XmlException e) {
+        	LOG.error("error while initializing capabilitiesConfiguration", e);
+        }
 	}
 }
