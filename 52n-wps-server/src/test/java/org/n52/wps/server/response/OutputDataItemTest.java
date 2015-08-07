@@ -38,8 +38,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
 
 import net.opengis.ows.x11.LanguageStringType;
 import net.opengis.wps.x100.ExecuteResponseDocument;
@@ -72,9 +70,6 @@ import org.n52.wps.io.data.binding.literal.LiteralLongBinding;
 import org.n52.wps.io.data.binding.literal.LiteralShortBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.ProcessDescription;
-import org.n52.wps.server.WebProcessingService;
-import org.n52.wps.server.response.OutputDataItem;
-import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -154,7 +149,7 @@ public class OutputDataItemTest extends AbstractITClass{
 				"http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd");
         responseElem.setServiceInstance(wpsConfig.getServiceEndpoint()
 				+ "?REQUEST=GetCapabilities&SERVICE=WPS");
-		responseElem.setLang(WebProcessingService.DEFAULT_LANGUAGE);
+		responseElem.setLang("en-US");//FIXME set to default language
 		responseElem.setService("WPS");
 		responseElem.setVersion("1.0.0");
 		ProcessBriefType process = responseElem.addNewProcess();

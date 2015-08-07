@@ -30,8 +30,6 @@ package org.n52.wps.server.request;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import net.opengis.wps.x100.ProcessDescriptionType;
 import net.opengis.wps.x100.ProcessDescriptionsDocument;
 
@@ -41,7 +39,6 @@ import org.n52.iceland.w3c.W3CConstants;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.RepositoryManager;
-import org.n52.wps.server.WebProcessingService;
 import org.n52.wps.server.response.DescribeProcessResponse;
 import org.n52.wps.server.response.Response;
 import org.w3c.dom.Document;
@@ -144,7 +141,7 @@ public class DescribeProcessRequest extends Request {
 		c.setAttributeText(W3CConstants.QN_SCHEMA_LOCATION_PREFIXED, "http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsDescribeProcess_response.xsd");
 				
 		String[] identifiers = getMapValue("identifier", true).split(",");
-		document.getProcessDescriptions().setLang(WebProcessingService.DEFAULT_LANGUAGE);
+		document.getProcessDescriptions().setLang("en-US");//FIXME set to default language
 		document.getProcessDescriptions().setService("WPS");
 		document.getProcessDescriptions().setVersion("1.0.0");//FIXME set to requested version
 		

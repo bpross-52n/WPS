@@ -47,7 +47,6 @@ import org.n52.wps.io.data.GenericFileDataConstants;
 import org.n52.wps.io.data.GenericFileDataWithGT;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
-import org.n52.wps.server.WebProcessingService;
 import org.n52.wps.server.grass.GrassProcessRepository;
 import org.n52.wps.server.grass.util.JavaProcessStreamReader;
 import org.slf4j.Logger;
@@ -85,19 +84,19 @@ public class GrassIOHandler {
 	private final String lineSeparator = System.getProperty("line.separator");
 	private final String appDataDir = System.getenv("APPDATA");
 	
-    public static final String GRASS_ADDON_PATH = "�addonPath�";
-    public static final String PROCESS_IDENTIFIER = "�process_identifier�";
-    public static final String INPUT_IDENTIFIER = "�input_identifier�";
-    public static final String INPUT_PATH = "�input_path�";
-    public static final String DATA_TYPE = "�datatype�";
-    public static final String VALUE = "�value�";
-    public static final String OUTPUT_IDENTIFIER = "�output_identifier�";
-    public static final String OUTPUT_PATH = "�output_path�";
-    public static final String SCHEMA = "�schema�";
-    public static final String ENCODING = "�encoding�";
-    public static final String MIMETYPE = "�mimetype�";
-    public static final String WORKDIR = "�workdir�";
-    public static final String OUTPUTDIR = "�outputdir�";
+    public static final String GRASS_ADDON_PATH = "§addonPath§";
+    public static final String PROCESS_IDENTIFIER = "§process_identifier§";
+    public static final String INPUT_IDENTIFIER = "§input_identifier§";
+    public static final String INPUT_PATH = "§input_path§";
+    public static final String DATA_TYPE = "§datatype§";
+    public static final String VALUE = "§value§";
+    public static final String OUTPUT_IDENTIFIER = "§output_identifier§";
+    public static final String OUTPUT_PATH = "§output_path§";
+    public static final String SCHEMA = "§schema§";
+    public static final String ENCODING = "§encoding§";
+    public static final String MIMETYPE = "§mimetype§";
+    public static final String WORKDIR = "§workdir§";
+    public static final String OUTPUTDIR = "§outputdi§";
 	public static final String OS_Name = System.getProperty("os.name");
     private static final String LOGS_DIR_NAME = "GRASS_LOGS";
 	
@@ -573,42 +572,45 @@ public class GrassIOHandler {
 			}
 
 			if(!errors.equals("")){
-                String baseDir = WebProcessingService.getApplicationBaseDir() + File.separator + LOGS_DIR_NAME;
-				File baseDirFile = new File(baseDir);
-				if(!baseDirFile.exists()){
-					baseDirFile.mkdir();
-				}
-				File tmpLog = new File(tmpDir + fileSeparator + uuid + logFilename);
-				File serverLog = new File(baseDir + fileSeparator + uuid + logFilename);
-				
-				if(tmpLog.exists()){
-				    FileInputStream fis  = new FileInputStream(tmpLog);
-				    FileOutputStream fos = new FileOutputStream(serverLog);
-				    try {
-				        byte[] buf = new byte[1024];
-				        int i = 0;
-				        while ((i = fis.read(buf)) != -1) {
-				            fos.write(buf, 0, i);
-				        }
-				    } 
-				    catch (Exception e) {
-				        e.printStackTrace();
-				    }
-				    finally {
-				        if (fis != null) fis.close();
-				        if (fos != null) fos.close();
-				    }
-
-				}else{
-					BufferedWriter bufWrite = new BufferedWriter(new FileWriter(serverLog));
-					bufWrite.write(errors);
-					bufWrite.flush();
-					bufWrite.close();
-				}
+                //FIXME
+//              String baseDir = WebProcessingService.getApplicationBaseDir() + File.separator + LOGS_DIR_NAME;
+//				File baseDirFile = new File(baseDir);
+//				if(!baseDirFile.exists()){
+//					baseDirFile.mkdir();
+//				}
+//				File tmpLog = new File(tmpDir + fileSeparator + uuid + logFilename);
+//				File serverLog = new File(baseDir + fileSeparator + uuid + logFilename);
+//				
+//				if(tmpLog.exists()){
+//				    FileInputStream fis  = new FileInputStream(tmpLog);
+//				    FileOutputStream fos = new FileOutputStream(serverLog);
+//				    try {
+//				        byte[] buf = new byte[1024];
+//				        int i = 0;
+//				        while ((i = fis.read(buf)) != -1) {
+//				            fos.write(buf, 0, i);
+//				        }
+//				    } 
+//				    catch (Exception e) {
+//				        e.printStackTrace();//FIXME
+//				    }
+//				    finally {
+//				        if (fis != null) fis.close();
+//				        if (fos != null) fos.close();
+//				    }
+//
+//				}else{
+//					BufferedWriter bufWrite = new BufferedWriter(new FileWriter(serverLog));
+//					bufWrite.write(errors);
+//					bufWrite.flush();
+//					bufWrite.close();
+//				}
+//				LOGGER.error("An error occured while executing the GRASS GIS process.");
+//                throw new RuntimeException("An error occured while executing the GRASS GIS process. See the log under "
+//                        + WPSConfig.getInstance().getServiceBaseUrl() + "/" + LOGS_DIR_NAME + "/" + uuid + logFilename
+//                        + " for more details.");
 				LOGGER.error("An error occured while executing the GRASS GIS process.");
-                throw new RuntimeException("An error occured while executing the GRASS GIS process. See the log under "
-                        + WPSConfig.getInstance().getServiceBaseUrl() + "/" + LOGS_DIR_NAME + "/" + uuid + logFilename
-                        + " for more details.");
+                throw new RuntimeException("An error occured while executing the GRASS GIS process. Please check the WPS log files.");
 			}
 			
 		} catch (IOException e) {

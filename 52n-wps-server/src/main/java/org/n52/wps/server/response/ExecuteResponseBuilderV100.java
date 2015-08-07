@@ -31,9 +31,6 @@ package org.n52.wps.server.response;
 import java.io.InputStream;
 import java.util.Calendar;
 
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
-
 import net.opengis.ows.x11.DomainMetadataType;
 import net.opengis.ows.x11.LanguageStringType;
 import net.opengis.wps.x100.DataInputsType;
@@ -54,7 +51,6 @@ import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.ProcessDescription;
 import org.n52.wps.server.RepositoryManager;
-import org.n52.wps.server.WebProcessingService;
 import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.request.ExecuteRequestV100;
 import org.n52.wps.util.XMLBeansHelper;
@@ -92,7 +88,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		c.setAttributeText(W3CConstants.QN_SCHEMA_LOCATION_PREFIXED, "http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd");
         doc.getExecuteResponse().setServiceInstance(WPSConfig.getInstance().getServiceEndpoint()
                 + "?REQUEST=GetCapabilities&SERVICE=WPS");
-		doc.getExecuteResponse().setLang(WebProcessingService.DEFAULT_LANGUAGE);
+		doc.getExecuteResponse().setLang("en-US");//FIXME set to default language
 		doc.getExecuteResponse().setService("WPS");
 		doc.getExecuteResponse().setVersion("1.0.0");//FIXME set to requested version
 		this.identifier = request.getExecute().getIdentifier().getStringValue().trim();
