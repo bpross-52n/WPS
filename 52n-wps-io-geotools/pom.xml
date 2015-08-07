@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>52n-wps-io-geotools</artifactId>
 	<packaging>jar</packaging>
-	<name>52North WPS Geotools Input/Ouput Implementation</name>
+	<name>52North WPS Geotools Input/Output Implementation</name>
 	<description>Geotools Implementation of the input/output API for WPS service</description>
 
 	<licenses>
