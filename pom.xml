@@ -777,7 +777,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
-                <version>${org.springframework.security.version}</version>
+                <version>${org.spring-security.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-logging</groupId>
@@ -788,7 +788,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-config</artifactId>
-                <version>${org.springframework.security.version}</version>
+                <version>${org.spring-security.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -800,7 +800,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-                <version>${org.springframework.security.version}</version>
+                <version>${org.spring-security.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
@@ -812,7 +812,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-taglibs</artifactId>
-                <version>${org.springframework.security.version}</version>
+                <version>${org.spring-security.version}</version>
                 <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
