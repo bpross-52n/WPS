@@ -18,6 +18,7 @@
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Send</button>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<button id="clearBtn" type="reset" class="btn btn-primary">Clear</button>
 	</div>
 </form>
@@ -133,6 +134,7 @@
 					$.ajax({
 						type : form.attr('method'),
 						url : $("#requestForm input[name=url]").val(),
+						contentType: "application/xml; charset=utf-8",
 						data : requestTextareaValue,
 						complete : function(xhr) {
 							outputEditor.setCode(xhr.responseText);

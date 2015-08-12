@@ -69,6 +69,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.commons.context.ExecutionContext;
 import org.n52.wps.commons.context.ExecutionContextFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IComplexData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.AbstractTransactionalAlgorithm;
@@ -96,8 +97,6 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 	private ExecuteDocument execDom;
 	private Map<String, IData> returnResults;
 	private ExecuteResponseBuilderV100 execRespType;
-	
-	
 
 	/**
 	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
@@ -126,7 +125,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 		validate();
 
 		// create an initial response
-		execRespType = new ExecuteResponseBuilderV100(this);
+		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
         
         storeRequest(execDom);
 	}
@@ -143,12 +142,49 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 		validate();
 
 		// create an initial response
-		execRespType = new ExecuteResponseBuilderV100(this);
+		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
 
         storeRequest(ciMap);
 	}
 	
-	public void getKVPDataInputs(){
+	public ExecuteRequestV100(CaseInsensitiveMap ciMap, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+        super(ciMap, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+        initForGET(ciMap);
+        // validate the client input
+        validate();
+
+        // create an initial response
+        execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+
+storeRequest(ciMap);
+    }
+        
+        public ExecuteRequestV100(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+        super(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+        try {
+            XmlOptions option = new XmlOptions();
+            option.setLoadTrimTextBuffer();
+            this.execDom = ExecuteDocument.Factory.parse(doc, option);
+            if (this.execDom == null) {
+                    LOGGER.error("ExecuteDocument is null");
+                    throw new ExceptionReport("Error while parsing post data",
+                                    ExceptionReport.MISSING_PARAMETER_VALUE);
+            }
+    } catch (XmlException e) {
+            throw new ExceptionReport("Error while parsing post data",
+                            ExceptionReport.MISSING_PARAMETER_VALUE, e);
+    }
+
+    // validate the client input
+    validate();
+
+    // create an initial response
+    execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+
+storeRequest(execDom);
+    }
+
+    public void getKVPDataInputs(){
 		
 	}
 
@@ -164,7 +200,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 		this.execDom = ExecuteDocument.Factory.newInstance();
 		Execute execute = execDom.addNewExecute();
 		String processID = getMapValue("Identifier", true);
-		if (!RepositoryManager.getInstance().containsAlgorithm(processID)) {
+		if (!repositoryManager.containsAlgorithm(processID)) {
 			throw new ExceptionReport("Process does not exist",
 					ExceptionReport.INVALID_PARAMETER_VALUE);
 		}
@@ -193,7 +229,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 					value = inputString.substring(position + 1);
 				}
 			}
-			ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
+			ProcessDescriptionType description = (ProcessDescriptionType) repositoryManager.getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
 			
 			if (description == null) {
 				throw new ExceptionReport("Data Identifier not supported: "
@@ -379,7 +415,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 					outputDataInput = outputID;
 				}
 				outputDataInput = outputDataInput.replace("=", "");
-				ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
+				ProcessDescriptionType description = (ProcessDescriptionType) repositoryManager.getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
 				OutputDescriptionType outputDesc = XMLBeansHelper
 						.findOutputByID(outputDataInput, description.getProcessOutputs()
 								.getOutputArray());
@@ -429,7 +465,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 			} else {
 				rawDataInput = rawData;
 			}
-			ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
+			ProcessDescriptionType description = (ProcessDescriptionType) repositoryManager.getProcessDescription(processID).getProcessDescriptionType(WPSConfig.VERSION_100);
 			OutputDescriptionType outputDesc = XMLBeansHelper.findOutputByID(
 					rawDataInput, 
 							description.getProcessOutputs().getOutputArray());
@@ -521,7 +557,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 		}
 		
 		// check if the algorithm is in our repository
-		if (!RepositoryManager.getInstance().containsAlgorithm(
+		if (!repositoryManager.containsAlgorithm(
 				identifier)) {
 			throw new ExceptionReport(
 					"Specified process identifier does not exist",
@@ -530,7 +566,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 		}
 
 		// validate if the process can be executed
-		ProcessDescriptionType desc = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(getAlgorithmIdentifier()).getProcessDescriptionType(WPSConfig.VERSION_100);
+		ProcessDescriptionType desc = (ProcessDescriptionType) repositoryManager.getProcessDescription(getAlgorithmIdentifier()).getProcessDescriptionType(WPSConfig.VERSION_100);
 		// We need a description of the inputs for the algorithm
 		if (desc == null) {
 			LOGGER.warn("desc == null");
@@ -660,7 +696,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 			if( getExecute().getDataInputs()!=null){
 				inputs = getExecute().getDataInputs().getInputArray();
 			}
-			InputHandler parser = new InputHandler.Builder(new Input(inputs), getAlgorithmIdentifier()).build();
+			InputHandler parser = new InputHandler.Builder(new Input(inputs), getAlgorithmIdentifier(), parserFactory, repositoryManager).build();
 			
 			// we got so far:
 			// get the algorithm, and run it with the clients input
@@ -671,7 +707,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 			 * returnResults = algorithm.run((Map)parser.getParsedInputLayers(),
 			 * (Map)parser.getParsedInputParameters());
 			 */
-			algorithm = RepositoryManager.getInstance().getAlgorithm(getAlgorithmIdentifier());
+			algorithm = repositoryManager.getAlgorithm(getAlgorithmIdentifier());
 			
 			if(algorithm instanceof ISubject){
 				ISubject subject = (ISubject) algorithm;
@@ -862,7 +898,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
                 InputStream is = null;
                 try {
                     is = executeResponse.getAsStream();
-                    DatabaseFactory.getDatabase().storeResponse(
+                    databaseFactory.getDatabase().storeResponse(
                             getUniqueId().toString(), is);
                 } finally {
                     IOUtils.closeQuietly(is);
@@ -878,7 +914,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
         InputStream is = null;
         try {
             is = executeDocument.newInputStream();
-            DatabaseFactory.getDatabase().insertRequest(
+            databaseFactory.getDatabase().insertRequest(
                     getUniqueId().toString(), is, true);
         } catch (Exception e) {
             LOGGER.error("Exception storing ExecuteRequest", e);
@@ -908,7 +944,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
             }
             w.flush();
             is = new ByteArrayInputStream(os.toByteArray());
-            DatabaseFactory.getDatabase().insertRequest(
+            databaseFactory.getDatabase().insertRequest(
                     getUniqueId().toString(), is, false);
         } catch (Exception e) {
             LOGGER.error("Exception storing ExecuteRequest", e);

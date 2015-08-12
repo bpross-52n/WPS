@@ -108,19 +108,24 @@ public class InputHandler {
 	private ProcessOffering processOffering;
 	private String algorithmIdentifier = null; // Needed to take care of handling a conflict between different parsers.
 
-    @Inject
 	private ParserFactory parserFactory;
     
-    @Inject
     private RepositoryManager repositoryManager;
     
         public static class Builder {
             protected Input inputs;
             protected String algorithmIdentifier = null;
 
-            public Builder(Input inputs, String algorithmIdentifier) {
+            private ParserFactory parserFactory;
+            private RepositoryManager repositoryManager;
+
+            public Builder() {}
+            
+            public Builder(Input inputs, String algorithmIdentifier, ParserFactory parserFactory, RepositoryManager repositoryManager) {
                 this.inputs = inputs;
                 this.algorithmIdentifier = algorithmIdentifier;
+                this.parserFactory = parserFactory;
+                this.repositoryManager = repositoryManager;
             }
 
             public Builder inputs(Input val) {
@@ -154,6 +159,8 @@ public class InputHandler {
 	 */
         private InputHandler(Builder builder) throws ExceptionReport {
 		this.algorithmIdentifier = builder.algorithmIdentifier;
+		this.parserFactory = builder.parserFactory;
+		this.repositoryManager = builder.repositoryManager;
 		this.processDesc = (ProcessDescriptionType) repositoryManager.getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_100);
 		this.processOffering = (ProcessOffering) repositoryManager.getProcessDescription(algorithmIdentifier).getProcessDescriptionType(WPSConfig.VERSION_200);
 

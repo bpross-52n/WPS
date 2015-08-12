@@ -44,6 +44,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.opengis.ows.x11.ExceptionReportDocument;
@@ -65,10 +66,12 @@ import org.junit.Test;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.webapp.common.AbstractITClass;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public class ExecutePostIT {
+public class ExecutePostIT extends AbstractITClass {
 
     private final static String TIFF_MAGIC = "<![CDATA[II";
     private static String url;
@@ -92,6 +95,9 @@ public class ExecutePostIT {
     
     private String tiffImageBinaryInputAsBase64String;
     
+    @Inject
+    private GeneratorFactory generatorFactory;
+    
     @BeforeClass
     public static void beforeClass() throws XmlException, IOException {
         url = AllTestsIT.getURL();
@@ -108,7 +114,7 @@ public class ExecutePostIT {
 			echoProcessDescription = wpsClient
 					.getProcessDescription(url, echoProcessIdentifier);
 			
-			echoProcessExecuteRequestBuilder = new ExecuteRequestBuilder(echoProcessDescription);
+			echoProcessExecuteRequestBuilder = new ExecuteRequestBuilder(echoProcessDescription, generatorFactory);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +127,7 @@ public class ExecutePostIT {
 			multiReferenceBinaryInputAlgorithmDescription = wpsClient
 					.getProcessDescription(url, multiReferenceBinaryInputAlgorithmIdentifier);
 			
-			multiReferenceBinaryInputAlgorithmExecuteRequestBuilder = new ExecuteRequestBuilder(multiReferenceBinaryInputAlgorithmDescription);
+			multiReferenceBinaryInputAlgorithmExecuteRequestBuilder = new ExecuteRequestBuilder(multiReferenceBinaryInputAlgorithmDescription, generatorFactory);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -53,6 +53,8 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.n52.iceland.lifecycle.Constructable;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.webapp.dao.XmlCapabilitiesDAO;
+import org.n52.wps.webapp.util.ResourcePathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +88,9 @@ public class CapabilitiesConfiguration implements Constructable{
     
     @Inject
     private ServletContext servletContext;
+
+    @Inject
+	private ResourcePathUtil resourcePathUtil;
 
 	private static final String CAPABILITES_SKELETON_NAME = "wpsCapabilitiesSkeleton.xml";
 
@@ -496,8 +501,7 @@ public class CapabilitiesConfiguration implements Constructable{
 		LOG.debug("" + (wpsConfig == null));
 
         try {
-            String capsConfigPath = servletContext.getRealPath("") + File.separator + PUBLIC_CONFIG_FILE_DIR
-                    + File.separator + CAPABILITES_SKELETON_NAME;
+    		String capsConfigPath = resourcePathUtil.getWebAppResourcePath(XmlCapabilitiesDAO.FILE_NAME);
             loadingStrategy = new FileLoadingStrategy(capsConfigPath);
             LOG.debug("Initialized capabilities document:\n{}", getCapabilitiesDocument());
         }

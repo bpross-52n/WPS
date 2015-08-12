@@ -75,6 +75,7 @@
 
 	<!-- Binding implementations from iceland -->
 	<bean id="kvpBinding" class="org.n52.iceland.binding.kvp.KvpBinding" />
+	<bean id="poxBinding" class="org.n52.iceland.binding.pox.PoxBinding" />
 
 	<bean id="serviceProviderFactory" class="org.n52.iceland.ogc.ows.ServiceProviderFactory" />
 <!-- 	<bean id="serviceIdentificationFactory" class="org.n52.iceland.ogc.ows.ServiceIdentificationFactory" /> -->
@@ -175,6 +176,19 @@
 
 	<bean
 		class="org.n52.simplewps.request.operator.GetCapabilitiesRequestOperator" />
+		
+	<!-- Decoder implementations from bindings/rest/code -->
+	<bean class="org.n52.simplewps.decode.wpsv100.WPSDecoderv100" />
+
+	<!-- Encoder implementations from extensions/gda/operation -->
+	<bean class="org.n52.simplewps.encode.ExecuteEncoder" />
+
+	<bean class="org.n52.simplewps.handler.ExecuteHandler" />
+	
+	<bean class="org.n52.wps.server.request.ExecuteRequestV100" scope="prototype" />
+
+	<bean
+		class="org.n52.simplewps.request.operator.ExecuteRequestOperator" />
 	
 	<bean id="eventBus" class="org.n52.iceland.event.ServiceEventBus">
 		<property name="async" value="false" />

@@ -33,17 +33,19 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 
+import javax.inject.Inject;
+
 import org.apache.xmlbeans.XmlObject;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.server.ProcessDescription;
 import org.n52.wps.server.algorithm.test.DummyTestClass;
-import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -59,6 +61,11 @@ public class RawDataTest  extends AbstractITClass{
 	ProcessDescription processDescription;
 	String identifier;
 
+	@Inject
+	private GeneratorFactory generatorFactory;
+	@Inject
+	private ParserFactory parserFactory;
+	
     @BeforeClass
     public static void setUpClass() {
     }
@@ -66,8 +73,9 @@ public class RawDataTest  extends AbstractITClass{
     @Before
     public void setUp(){
 		MockMvcBuilders.webAppContextSetup(this.wac).build();
-//		WPSConfig.getInstance().setConfigurationManager(this.wac.getBean(ConfigurationManager.class));
     	algorithm = new DummyTestClass();
+    	algorithm.setGeneratorFactory(generatorFactory);
+    	algorithm.setParserFactory(parserFactory);
     	processDescription = algorithm.getDescription();
     	identifier = algorithm.getWellKnownName();
     }

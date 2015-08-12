@@ -39,6 +39,8 @@ import static org.junit.Assert.assertThat;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.InputType;
 
@@ -48,9 +50,12 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
 import org.n52.wps.server.ExceptionReport;
+import org.n52.wps.server.RepositoryManager;
+import org.n52.wps.webapp.common.AbstractITClass;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.google.common.primitives.Doubles;
 
@@ -58,13 +63,18 @@ import com.google.common.primitives.Doubles;
  *
  * @author isuftin
  */
-public class DummyTestClassAlgorithmInputHandlerTest {
+public class DummyTestClassAlgorithmInputHandlerTest extends AbstractITClass {
 
     private static String sampleFileName = null;
     private static File sampleFile = null;
     private static ExecuteDocument execDoc = null;
     private static InputType[] inputArray = null;
     private static File projectRoot = null;
+
+	@Inject
+    private ParserFactory parserFactory;
+	@Inject
+    private RepositoryManager repositoryManager;
 
     @BeforeClass
     public static void setupClass() {
@@ -78,6 +88,8 @@ public class DummyTestClassAlgorithmInputHandlerTest {
 
     @Before
     public void setUp() throws XmlException, IOException {
+    	
+		MockMvcBuilders.webAppContextSetup(this.wac).build();
 
         execDoc = ExecuteDocument.Factory.parse(sampleFile);
         inputArray = execDoc.getExecute().getDataInputs().getInputArray();
@@ -93,25 +105,25 @@ public class DummyTestClassAlgorithmInputHandlerTest {
     @Test(expected = ExceptionReport.class)
     public void testInputHandlerInitializationWithIncorrectAlgorithmName() throws ExceptionReport {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "this.algorithm.name.does.not.exist").build();
+        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "this.algorithm.name.does.not.exist", parserFactory, repositoryManager).build();
     }
 
     @Test(expected = ExceptionReport.class)
     public void testInputHandlerInitializationWithNullAlgorithmName() throws ExceptionReport {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(new Input(inputArray), null).build();
+        InputHandler instance = new InputHandler.Builder(new Input(inputArray), null, parserFactory, repositoryManager).build();
     }
 
     @Test(expected = NullPointerException.class)
     public void testInputHandlerInitializationWithNullInputsArray() throws ExceptionReport {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(null, "org.n52.wps.server.algorithm.test.DummyTestClass").build();
+        InputHandler instance = new InputHandler.Builder(null, "org.n52.wps.server.algorithm.test.DummyTestClass", parserFactory, repositoryManager).build();
     }
 
     @Test
     public void testInputHandlerInitializationWithEmptyInputsArray() throws ExceptionReport {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(new Input(new InputType[]{}), "org.n52.wps.server.algorithm.test.DummyTestClass").build();
+        InputHandler instance = new InputHandler.Builder(new Input(new InputType[]{}), "org.n52.wps.server.algorithm.test.DummyTestClass", parserFactory, repositoryManager).build();
 
         assertThat(instance, not(nullValue()));
         assertThat(instance.getParsedInputData().isEmpty(), is(true));
@@ -120,7 +132,7 @@ public class DummyTestClassAlgorithmInputHandlerTest {
     @Test
     public void testInputHandlerInitialization() throws ExceptionReport, XmlException, IOException {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "org.n52.wps.server.algorithm.test.DummyTestClass").build();
+        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "org.n52.wps.server.algorithm.test.DummyTestClass", parserFactory, repositoryManager).build();
 
         assertThat(instance, not(nullValue()));
     }
@@ -128,7 +140,7 @@ public class DummyTestClassAlgorithmInputHandlerTest {
     @Test
     public void testGetParsedInputDataWithCorrectInput() throws ExceptionReport, XmlException, IOException {
         System.out.println("Testing testInputHandlerInitialization...");
-        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "org.n52.wps.server.algorithm.test.DummyTestClass").build();
+        InputHandler instance = new InputHandler.Builder(new Input(inputArray), "org.n52.wps.server.algorithm.test.DummyTestClass", parserFactory, repositoryManager).build();
 
         assertThat(instance.getParsedInputData().isEmpty(), is(false));
         assertThat(instance.getParsedInputData().size(), equalTo(1));

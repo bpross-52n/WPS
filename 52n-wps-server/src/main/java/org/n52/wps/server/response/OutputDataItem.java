@@ -78,6 +78,8 @@ public class OutputDataItem extends ResponseData {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OutputDataItem.class);
 	private static final String COMPLEX_DATA_TYPE = "ComplexDataResponse";
 	private XmlString title;
+        
+        private DatabaseFactory databaseFactory;
 
 	/**
 	 *
@@ -91,10 +93,11 @@ public class OutputDataItem extends ResponseData {
 	 * @throws ExceptionReport
 	 */
 	public OutputDataItem(IData obj, String id, String schema, String encoding,
-			String mimeType, XmlString title, String algorithmIdentifier, ProcessDescription description) throws ExceptionReport {
+			String mimeType, XmlString title, String algorithmIdentifier, ProcessDescription description, DatabaseFactory databaseFactory) throws ExceptionReport {
 		super(obj, id, schema, encoding, mimeType, algorithmIdentifier, description);
 
 		this.title = title;
+		this.databaseFactory = databaseFactory;
 	}
 
 	/**
@@ -209,7 +212,7 @@ public class OutputDataItem extends ResponseData {
 		if (mimeType != null) {
 			outReference.setMimeType(mimeType);
 		}
-		IDatabase db = DatabaseFactory.getDatabase();
+		IDatabase db = databaseFactory.getDatabase();
 		String storeID = reqID + "" + id;
 
 		try {
@@ -286,7 +289,7 @@ public class OutputDataItem extends ResponseData {
 		if (mimeType != null) {
 			outReference.setMimeType(mimeType);
 		}
-		IDatabase db = DatabaseFactory.getDatabase();
+		IDatabase db = databaseFactory.getDatabase();
 		String storeID = reqID + "" + id;
 
 		try {

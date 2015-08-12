@@ -31,8 +31,12 @@ package org.n52.wps.server.request;
 import java.util.Map;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
+import org.n52.wps.server.RepositoryManager;
+import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.observerpattern.ISubject;
 import org.n52.wps.server.response.ExecuteResponseBuilder;
 import org.w3c.dom.Document;
@@ -42,7 +46,26 @@ import org.w3c.dom.Document;
  */
 public abstract class ExecuteRequest extends Request{
 
-	
+    protected RepositoryManager repositoryManager;
+    protected ParserFactory parserFactory;
+    protected DatabaseFactory databaseFactory;
+    protected WPSConfig wpsConfig;
+    
+    public ExecuteRequest(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
+        super(doc);
+        this.repositoryManager = repositoryManager;
+        this.parserFactory = parserFactory;
+        this.databaseFactory = databaseFactory;
+        this.wpsConfig = wpsConfig;
+    }
+
+    public ExecuteRequest(CaseInsensitiveMap map, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
+        super(map);
+        this.repositoryManager = repositoryManager;
+        this.parserFactory = parserFactory;
+        this.databaseFactory = databaseFactory;
+        this.wpsConfig = wpsConfig;
+    }
 	public ExecuteRequest(Document doc) throws ExceptionReport {
 		super(doc);
 	}

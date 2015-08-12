@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -48,7 +49,10 @@ import org.apache.xmlbeans.XmlValidationError;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ExceptionReport;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.request.ExecuteRequestV100;
 import org.n52.wps.webapp.common.AbstractITClass;
@@ -64,6 +68,15 @@ public class ExecuteRequestTest extends AbstractITClass {
 
     private DocumentBuilderFactory fac;
 
+    @Inject
+    private RepositoryManager repositoryManager;
+    @Inject
+    private ParserFactory parserFactory;
+    @Inject
+    private DatabaseFactory databaseFactory;
+    @Inject
+    private WPSConfig wpsConfig; 
+    
     @BeforeClass
     public static void setUpClass()
             throws XmlException, IOException {
@@ -87,13 +100,13 @@ public class ExecuteRequestTest extends AbstractITClass {
 		// parse the InputStream to create a Document
 		Document doc = fac.newDocumentBuilder().parse(fis);
 
-    	ExecuteRequestV100 request = new ExecuteRequestV100(doc);
+    	ExecuteRequestV100 request = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
     	String exceptionText = "TestError";
 
     	request.updateStatusError(exceptionText);
 
-    	File response = DatabaseFactory.getDatabase().lookupResponseAsFile(request.getUniqueId().toString());
+    	File response = databaseFactory.getDatabase().lookupResponseAsFile(request.getUniqueId().toString());
 
     	ExecuteResponseDocument responseDoc = ExecuteResponseDocument.Factory.parse(response);
 

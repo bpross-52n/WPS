@@ -45,6 +45,8 @@ import org.n52.wps.server.response.RetrieveResultResponse;
  * message that the result is not available yet.
  */
 public class RetrieveResultRequest extends Request {
+    
+    private DatabaseFactory databaseFactory;//FIXME inject
 
 	private InputStream storedResponse = null;
 	
@@ -80,7 +82,7 @@ public class RetrieveResultRequest extends Request {
 		}catch(NumberFormatException e){
 			throw new ExceptionReport("The value of parameter <request_id> is not an integer identifier", ExceptionReport.INVALID_PARAMETER_VALUE);
 		}
-		IDatabase db = DatabaseFactory.getDatabase();
+		IDatabase db = databaseFactory.getDatabase();
 		this.storedResponse = db.lookupResponse(req_id);
 		return (this.storedResponse != null);
 	}

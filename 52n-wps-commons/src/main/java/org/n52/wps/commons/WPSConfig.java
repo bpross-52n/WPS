@@ -143,7 +143,7 @@ public class WPSConfig implements Serializable {
     }
 
     public WPSConfig getWPSConfig() {
-        return wpsConfig;
+        return this;
     }
 
     public Map<String, ConfigurationModule> getRegisteredAlgorithmRepositoryConfigModules() {

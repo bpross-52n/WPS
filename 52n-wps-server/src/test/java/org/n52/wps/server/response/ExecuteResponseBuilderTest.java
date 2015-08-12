@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.opengis.wps.x100.DocumentOutputDefinitionType;
@@ -45,6 +46,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.ParserFactory;
+import org.n52.wps.server.RepositoryManager;
+import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.request.ExecuteRequestV100;
 import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
@@ -63,10 +67,14 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 	private ExecuteRequestV100 executeRequest;
 	private DocumentBuilderFactory fac;
 
-    @BeforeClass
-    public static void setupClass() throws XmlException, IOException {
-//        WPSConfigTestUtil.generateMockConfig(InputHandlerTest.class, "/org/n52/wps/io/test/inputhandler/generator/wps_config.xml");
-    }
+	    @Inject
+	    private RepositoryManager repositoryManager;
+	    @Inject
+	    private ParserFactory parserFactory;
+	    @Inject
+	    private DatabaseFactory databaseFactory;
+	    @Inject
+	    private WPSConfig wpsConfig; 
 
 	@Before
 	public void setUp() throws Exception {
@@ -76,7 +84,6 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 		fac = DocumentBuilderFactory.newInstance();
 		fac.setNamespaceAware(true);
 		MockMvcBuilders.webAppContextSetup(this.wac).build();
-//		WPSConfig.getInstance().setConfigurationManager(this.wac.getBean(ConfigurationManager.class));
 	}
 
 	@Test
@@ -93,7 +100,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here
@@ -127,7 +134,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here
@@ -163,7 +170,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here
@@ -201,7 +208,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here
@@ -239,7 +246,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			DocumentOutputDefinitionType[] outputs = executeRequest.getExecute().getResponseForm().getResponseDocument().getOutputArray();
 
@@ -281,7 +288,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			DocumentOutputDefinitionType[] outputs = executeRequest.getExecute().getResponseForm().getResponseDocument().getOutputArray();
 
@@ -323,7 +330,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here
@@ -359,7 +366,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
 			/*
 			 * only one output here

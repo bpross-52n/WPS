@@ -28,10 +28,13 @@
  */
 package org.n52.wps.server.response;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -42,6 +45,7 @@ import org.apache.xmlbeans.XmlException;
 import org.junit.Before;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.server.RepositoryManager;
@@ -51,13 +55,10 @@ import org.n52.wps.server.observerpattern.IObserver;
 import org.n52.wps.server.observerpattern.ISubject;
 import org.n52.wps.server.request.ExecuteRequestV200;
 import org.n52.wps.server.request.GetStatusRequestV200;
-import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import static org.junit.Assert.assertTrue;
 
 public class StatusTest extends AbstractITClass {
 
@@ -65,10 +66,18 @@ public class StatusTest extends AbstractITClass {
 
     private DocumentBuilderFactory fac;
 
+    @Inject
+    private RepositoryManager repositoryManager;
+    @Inject
+    private ParserFactory parserFactory;
+    @Inject
+    private DatabaseFactory databaseFactory;
+    @Inject
+    private WPSConfig wpsConfig; 
+    
     @Before
     public void setUp() {
         MockMvcBuilders.webAppContextSetup(this.wac).build();
-//        WPSConfig.getInstance().setConfigurationManager(this.wac.getBean(ConfigurationManager.class));
         fac = DocumentBuilderFactory.newInstance();
         fac.setNamespaceAware(true);
         algorithm = new StatusTestingProcess();
@@ -83,11 +92,11 @@ public class StatusTest extends AbstractITClass {
             // parse the InputStream to create a Document
             Document doc = fac.newDocumentBuilder().parse(fis);
 
-            final ExecuteRequestV200 executeRequestV200 = new ExecuteRequestV200(doc);
+            final ExecuteRequestV200 executeRequestV200 = new ExecuteRequestV200(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 
             final String requestID = executeRequestV200.getUniqueId().toString();
 
-            algorithm = RepositoryManager.getInstance().getAlgorithm(executeRequestV200.getAlgorithmIdentifier());
+            algorithm = repositoryManager.getAlgorithm(executeRequestV200.getAlgorithmIdentifier());
 
             if (algorithm instanceof ISubject) {
                 ISubject subject = (ISubject) algorithm;
@@ -96,7 +105,7 @@ public class StatusTest extends AbstractITClass {
                     @Override
                     public void update(ISubject o) {
                         try {
-                            StatusInfoDocument statusInfoDocument = StatusInfoDocument.Factory.parse(DatabaseFactory.getDatabase().lookupStatus(requestID));
+                            StatusInfoDocument statusInfoDocument = StatusInfoDocument.Factory.parse(databaseFactory.getDatabase().lookupStatus(requestID));
                             assertTrue(statusInfoDocument.getStatusInfo().getStatus() != null);
                             
                         } catch (ExceptionReport | XmlException | IOException e) {
@@ -113,7 +122,7 @@ public class StatusTest extends AbstractITClass {
 
             statusDoc.addNewGetStatus().setJobID(requestID);
 
-            GetStatusRequestV200 statusRequestV200 = new GetStatusRequestV200(fac.newDocumentBuilder().parse(statusDoc.newInputStream()));
+            GetStatusRequestV200 statusRequestV200 = new GetStatusRequestV200(fac.newDocumentBuilder().parse(statusDoc.newInputStream()), databaseFactory);
 
             StatusInfoDocument statusInfoDocument = StatusInfoDocument.Factory.parse(statusRequestV200.call().getAsStream());
 

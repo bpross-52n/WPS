@@ -108,9 +108,9 @@ public final class FlatFileDatabase implements IDatabase {
     private static FlatFileDatabase instance;
 
     // This method is required by the DatabaseFactory, it is found using reflection
-    public synchronized static IDatabase getInstance() {
+    public synchronized static IDatabase getInstance(WPSConfig wpsConfig) {
         if (instance == null) {
-            instance = new FlatFileDatabase();
+            instance = new FlatFileDatabase(wpsConfig);
         }
         return instance;
     }
@@ -126,12 +126,12 @@ public final class FlatFileDatabase implements IDatabase {
     protected final boolean indentXML = true;
 
     protected final Timer wipeTimer;
-
-    protected FlatFileDatabase() {
-
-        FlatFileDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (FlatFileDatabaseConfigurationModule) WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getConfigurationModule(FlatFileDatabaseConfigurationModule.class.getName());
+    
+    protected FlatFileDatabase(WPSConfig wpsConfig) {
+        
+        FlatFileDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (FlatFileDatabaseConfigurationModule) wpsConfig.getConfigurationManager().getConfigurationServices().getConfigurationModule(FlatFileDatabaseConfigurationModule.class.getName());
             	
-    	Server server = WPSConfig.getInstance().getServerConfigurationModule();
+    	Server server = wpsConfig.getServerConfigurationModule();
 
         PropertyUtil propertyUtil = new PropertyUtil(flatFileDatabaseConfigurationModule, KEY_DATABASE_ROOT);
         

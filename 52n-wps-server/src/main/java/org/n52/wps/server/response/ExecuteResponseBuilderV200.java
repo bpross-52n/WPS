@@ -76,13 +76,15 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 	private ProcessOffering description;
 	private ProcessDescription superDescription;
 	private static Logger LOGGER = LoggerFactory.getLogger(ExecuteResponseBuilderV200.class);
+	    private DatabaseFactory databaseFactory;
 	
 	public static enum Status {
 		Accepted, Failed, Succeeded, Running
 	}
 	
-	public ExecuteResponseBuilderV200(ExecuteRequestV200 request) throws ExceptionReport{
+	public ExecuteResponseBuilderV200(ExecuteRequestV200 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
 		this.request = request;
+                this.databaseFactory = databaseFactory;
 		resultDoc = ResultDocument.Factory.newInstance();
 		resultDoc.addNewResult();
 		resultDoc.getResult().setJobID(request.getUniqueId().toString());
@@ -91,7 +93,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 		statusInfoDoc.addNewStatusInfo();
 		XMLBeansHelper.addSchemaLocationToXMLObject(statusInfoDoc, "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wpsGetStatus.xsd");
 		this.identifier = request.getAlgorithmIdentifier().trim();
-		superDescription = RepositoryManager.getInstance().getProcessDescription(this.identifier);
+		superDescription = repositoryManager.getProcessDescription(this.identifier);
 		description = (ProcessOffering) superDescription.getProcessDescriptionType(WPSConfig.VERSION_200);
 		if(description==null){
 			throw new RuntimeException("Error while accessing the process description for "+ identifier);
@@ -251,7 +253,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
 		}
 		else {
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
 			if(asReference) {
 				handler.updateResponseAsReference(resultDoc, (request.getUniqueId()).toString(),mimeType);
 			}
@@ -267,7 +269,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 		if(rawData) {
 			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
 			handler.updateResponseForLiteralData(res, dataTypeReference);
 		}
 	}
@@ -277,7 +279,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 		if(rawData) {
 			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory);
 			handler.updateResponseForBBOXData(res, obj);
 		}
 
@@ -292,7 +294,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 			return resultDoc.newInputStream(XMLBeansHelper.getXmlOptions());
 		}else if(statusInfoDoc.getStatusInfo().getStatus().equals(Status.Succeeded.toString())){
 			//save last status info and return result document
-			DatabaseFactory.getDatabase().insertResponse(
+			databaseFactory.getDatabase().insertResponse(
 					request.getUniqueId().toString(), statusInfoDoc.newInputStream(XMLBeansHelper.getXmlOptions()));
 			return resultDoc.newInputStream(XMLBeansHelper.getXmlOptions());
 		}

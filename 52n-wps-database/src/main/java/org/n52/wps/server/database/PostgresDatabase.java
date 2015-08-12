@@ -104,7 +104,7 @@ public class PostgresDatabase extends AbstractDatabase {
     protected final Object storeResponseSerialNumberLock;
     protected final Timer wipeTimer;
 
-    private PostgresDatabase() {
+    private PostgresDatabase(WPSConfig wpsConfig) {
         try {
             Class.forName("org.postgresql.Driver");
             PostgresDatabase.connectionURL = "jdbc:postgresql:" + getDatabasePath() + "/" + getDatabaseName();
@@ -113,9 +113,9 @@ public class PostgresDatabase extends AbstractDatabase {
             // Create lock object
             storeResponseSerialNumberLock = new Object();
             
-            PostgresDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (PostgresDatabaseConfigurationModule) WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getConfigurationModule(PostgresDatabaseConfigurationModule.class.getName());
+            PostgresDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (PostgresDatabaseConfigurationModule) wpsConfig.getConfigurationManager().getConfigurationServices().getConfigurationModule(PostgresDatabaseConfigurationModule.class.getName());
         	
-        	Server server = WPSConfig.getInstance().getServerConfigurationModule();
+        	Server server = wpsConfig.getServerConfigurationModule();
 
             baseResultURL = String.format(server.getProtocol() + "://%s:%s/%s/RetrieveResultServlet?id=",
                     server.getHostname(), server.getHostport(), server.getWebappPath());
@@ -140,9 +140,9 @@ public class PostgresDatabase extends AbstractDatabase {
         }
     }
 
-    public static synchronized PostgresDatabase getInstance() {
+    public static synchronized PostgresDatabase getInstance(WPSConfig wpsConfig) {
         if (PostgresDatabase.db == null) {
-            PostgresDatabase.db = new PostgresDatabase();
+            PostgresDatabase.db = new PostgresDatabase(wpsConfig);
         }
 
         if (db.getConnection() == null) {
@@ -157,7 +157,7 @@ public class PostgresDatabase extends AbstractDatabase {
             }
         }
 
-        PostgresDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (PostgresDatabaseConfigurationModule) WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getConfigurationModule(PostgresDatabaseConfigurationModule.class.getName());
+        PostgresDatabaseConfigurationModule flatFileDatabaseConfigurationModule = (PostgresDatabaseConfigurationModule) wpsConfig.getConfigurationManager().getConfigurationServices().getConfigurationModule(PostgresDatabaseConfigurationModule.class.getName());
 
         PropertyUtil propertyUtil = new PropertyUtil(flatFileDatabaseConfigurationModule, KEY_DATABASE_ROOT);
         String baseDirectoryPath = propertyUtil.extractString(KEY_DATABASE_PATH, DEFAULT_DATABASE_PATH);

@@ -43,8 +43,6 @@ import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.Execute;
 import org.n52.wps.algorithm.annotation.LiteralDataInput;
 import org.n52.wps.algorithm.annotation.LiteralDataOutput;
-import org.n52.wps.commons.WPSConfig;
-import org.n52.wps.webapp.api.ConfigurationManager;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -52,20 +50,13 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
 	
 	public static final String IDENTIFIER = "CatchMeIfYouCan";	
 	public static boolean algorithmTriedToInstantiate;
-    
-	@Inject
-	private WPSConfig wpsConfig;
 	
 	@Inject
 	private CapabilitiesConfiguration capabilitiesConfiguration;
-
-	@Inject
-	private RepositoryManager repositoryManager;
-
+	
 	@Before
     public void setUp(){
 		MockMvcBuilders.webAppContextSetup(this.wac).build();
-//		WPSConfig.getInstance().setConfigurationManager(this.wac.getBean(ConfigurationManager.class));
     }
 	
 	@Test

@@ -69,10 +69,12 @@ public class ExecuteRequestBuilder {
 	String SUPPORTED_VERSION = "1.0.0";
 	
 	private static Logger LOGGER = LoggerFactory.getLogger(ExecuteRequestBuilder.class);
-	
 
-	public ExecuteRequestBuilder(ProcessDescriptionType processDesc) {
+	private GeneratorFactory generatorFactory;
+
+	public ExecuteRequestBuilder(ProcessDescriptionType processDesc, GeneratorFactory generatorFactory) {
 		this.processDesc = processDesc;
+		this.generatorFactory = generatorFactory;
 		execute = ExecuteDocument.Factory.newInstance();
 		Execute ex = execute.addNewExecute();
 		ex.setService("WPS");
@@ -97,7 +99,6 @@ public class ExecuteRequestBuilder {
 	 * @throws WPSClientException
 	 */
 	public void addComplexData(String parameterID, IData value, String schema, String encoding, String mimeType) throws WPSClientException {
-		GeneratorFactory fac = StaticDataHandlerRepository.getGeneratorFactory();
 		InputDescriptionType inputDesc = getParameterDescription(parameterID);
 		if (inputDesc == null) {
 			throw new IllegalArgumentException("inputDesription is null for: " + parameterID);
@@ -112,7 +113,7 @@ public class ExecuteRequestBuilder {
 				" mimeType: " + mimeType +
 				" encoding: " + encoding);
 		
-		IGenerator generator = fac.getGenerator(schema, mimeType, encoding, value.getClass());
+		IGenerator generator = generatorFactory.getGenerator(schema, mimeType, encoding, value.getClass());
 		
 		if (generator == null) {
 			// generator is still null

@@ -77,16 +77,22 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 	private ProcessDescriptionType description;
 	private static Logger LOGGER = LoggerFactory.getLogger(ExecuteResponseBuilderV100.class);
 	private Calendar creationTime;
+    private WPSConfig wpsConfig;
+    private DatabaseFactory databaseFactory;
+    private RepositoryManager repositoryManager;
 
-	public ExecuteResponseBuilderV100(ExecuteRequestV100 request) throws ExceptionReport{
+	public ExecuteResponseBuilderV100(ExecuteRequestV100 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
 		this.request = request;
+		this.repositoryManager = repositoryManager;
+		this.databaseFactory = databaseFactory;
+		this.wpsConfig = wpsConfig;
 		doc = ExecuteResponseDocument.Factory.newInstance();
 		doc.addNewExecuteResponse();
 		XmlCursor c = doc.newCursor();
 		c.toFirstChild();
 		c.toLastAttribute();
 		c.setAttributeText(W3CConstants.QN_SCHEMA_LOCATION_PREFIXED, "http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsExecute_response.xsd");
-        doc.getExecuteResponse().setServiceInstance(WPSConfig.getInstance().getServiceEndpoint()
+        doc.getExecuteResponse().setServiceInstance(wpsConfig.getServiceEndpoint()
                 + "?REQUEST=GetCapabilities&SERVICE=WPS");
 		doc.getExecuteResponse().setLang("en-US");//FIXME set to default language
 		doc.getExecuteResponse().setService("WPS");
@@ -94,7 +100,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		this.identifier = request.getExecute().getIdentifier().getStringValue().trim();
 		ExecuteResponse responseElem = doc.getExecuteResponse();
 		responseElem.addNewProcess().addNewIdentifier().setStringValue(identifier);
-		superDescription = RepositoryManager.getInstance().getProcessDescription(this.identifier);
+		superDescription = repositoryManager.getProcessDescription(this.identifier);
 		description = (ProcessDescriptionType) superDescription.getProcessDescriptionType(WPSConfig.VERSION_100);
 		if(description==null){
 			throw new RuntimeException("Error while accessing the process description for "+ identifier);
@@ -112,7 +118,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		// if status succeeded, update reponse with result
 		if (responseElem.getStatus().isSetProcessSucceeded()) {
 			// the response only include dataInputs, if the property is set to true;
-			if(new Boolean(WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().isIncludeDataInputsInResponse())){
+			if(new Boolean(wpsConfig.getWPSConfig().getServerConfigurationModule().isIncludeDataInputsInResponse())){
 				dataInputs = request.getExecute().getDataInputs();
 				responseElem.setDataInputs(dataInputs);
 			}
@@ -183,7 +189,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
 				// THIS IS A WORKAROUND AND ACTUALLY NOT COMPLIANT TO THE SPEC.
 
-				ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManager.getInstance().getProcessDescription(request.getExecute().getIdentifier().getStringValue()).getProcessDescriptionType(WPSConfig.VERSION_100);
+				ProcessDescriptionType description = (ProcessDescriptionType) repositoryManager.getProcessDescription(request.getExecute().getIdentifier().getStringValue()).getProcessDescriptionType(WPSConfig.VERSION_100);
 				if(description==null){
 					throw new RuntimeException("Error while accessing the process description for "+ request.getExecute().getIdentifier().getStringValue());
 				}
@@ -203,7 +209,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 				}
 			}
 		} else if(request.isStoreResponse()) {
-			responseElem.setStatusLocation(DatabaseFactory.getDatabase().generateRetrieveResultURL((request.getUniqueId()).toString()));
+			responseElem.setStatusLocation(databaseFactory.getDatabase().generateRetrieveResultURL((request.getUniqueId()).toString()));
 		}
 	}
 
@@ -325,7 +331,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
 		}
 		else {
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
 			if(asReference) {
 				handler.updateResponseAsReference(doc, (request.getUniqueId()).toString(),mimeType);
 			}
@@ -341,7 +347,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		if(rawData) {
 			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
 			handler.updateResponseForLiteralData(res, dataTypeReference);
 		}
 	}
@@ -351,7 +357,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		if(rawData) {
 			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory);
 			handler.updateResponseForBBOXData(res, obj);
 		}
 
@@ -363,7 +369,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 		}
 		if(request.isStoreResponse()) {
 			String id = request.getUniqueId().toString();
-			String statusLocation = DatabaseFactory.getDatabase().generateRetrieveResultURL(id);
+			String statusLocation = databaseFactory.getDatabase().generateRetrieveResultURL(id);
 			doc.getExecuteResponse().setStatusLocation(statusLocation);
 		}
 		try {

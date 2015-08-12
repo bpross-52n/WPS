@@ -32,6 +32,7 @@ package org.n52.wps.client.example;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.inject.Inject;
 import javax.xml.transform.TransformerException;
 
 import net.opengis.wps.x100.ExecuteDocument;
@@ -43,6 +44,7 @@ import org.apache.xpath.objects.XObject;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
+import org.n52.wps.io.GeneratorFactory;
 
 public class EchoProcessExample {
 
@@ -50,6 +52,9 @@ public class EchoProcessExample {
 
     private String processID = "org.n52.wps.server.algorithm.test.EchoProcess";
 
+    @Inject
+    private GeneratorFactory generatorFactory;//FIXME
+    
     private Random rand = new Random();
 
     public static void main(String[] args) {
@@ -84,7 +89,7 @@ public class EchoProcessExample {
         System.out.println("Echo process description:\n" + processDescription.xmlText() + "\n");
 
         // create the request, add literal input
-        ExecuteRequestBuilder executeBuilder = new ExecuteRequestBuilder(processDescription);
+        ExecuteRequestBuilder executeBuilder = new ExecuteRequestBuilder(processDescription, generatorFactory);
         String input = "Hello lucky number " + rand.nextInt(42) + "!";
         String parameterIn = "literalInput";
         executeBuilder.addLiteralData(parameterIn, input);

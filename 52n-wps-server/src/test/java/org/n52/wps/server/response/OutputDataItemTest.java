@@ -70,6 +70,7 @@ import org.n52.wps.io.data.binding.literal.LiteralLongBinding;
 import org.n52.wps.io.data.binding.literal.LiteralShortBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.ProcessDescription;
+import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -94,6 +95,8 @@ public class OutputDataItemTest extends AbstractITClass{
 	
 	@Inject
 	private WPSConfig wpsConfig;
+	    @Inject
+	    private DatabaseFactory databaseFactory;
 
 	@Before
 	public void setUp() {
@@ -230,7 +233,7 @@ public class OutputDataItemTest extends AbstractITClass{
 		description.addProcessDescriptionForVersion(descriptionsType, WPSConfig.VERSION_100);
 		
 		OutputDataItem ouDI = new OutputDataItem(literalDataBinding, "output",
-				null, null, null, outputTitle, processID, description);
+				null, null, null, outputTitle, processID, description, databaseFactory);
 
 		ouDI.updateResponseForLiteralData(mockupResponseDocument,
 				dataTypeAsString);

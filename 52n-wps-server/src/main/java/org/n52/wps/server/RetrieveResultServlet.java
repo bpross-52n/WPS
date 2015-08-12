@@ -68,6 +68,8 @@ public class RetrieveResultServlet {
     private final boolean indentXML = false;
     
     private final int uuid_length = 36;
+    
+    private DatabaseFactory databaseFactory;//FIXME inject
 
     public RetrieveResultServlet() {
         LOGGER.debug("NEW {}", this);
@@ -98,7 +100,7 @@ public class RetrieveResultServlet {
         		errorResponse("id parameter not valid", response);
         	}
         	
-            IDatabase db = DatabaseFactory.getDatabase();
+            IDatabase db = databaseFactory.getDatabase();
             String mimeType = db.getMimeTypeForStoreResponse(id);
             long contentLength = db.getContentLengthForStoreResponse(id);
             

@@ -53,10 +53,11 @@ public class DatabaseFactory implements IDatabase
 	private static IDatabase database;
 
     private static PropertyChangeListener propertyChangeListener;
+    
     @Inject
-	private static WPSConfig wpsConfig;
+	private WPSConfig wpsConfig;
 	
-	public static IDatabase getDatabase() {
+	public IDatabase getDatabase() {
 
         // FvK: create and register listener to the WPSConfig if not yet happend.
         if (propertyChangeListener == null){
@@ -66,7 +67,6 @@ public class DatabaseFactory implements IDatabase
                         //shutdown Database connection and instance
                         DatabaseFactory.database.shutdown();
                         DatabaseFactory.database = null;
-                        DatabaseFactory.getDatabase();
                         LOGGER.info(this.getClass().getName() + ": Received Property Change Event: " + propertyChangeEvent.getPropertyName());
                     }
             }; 
@@ -75,16 +75,24 @@ public class DatabaseFactory implements IDatabase
 
         if(DatabaseFactory.database == null) {
 			try {
-				String databaseClassName = 
-					AbstractDatabase.getDatabaseProperties(PROPERTY_NAME_DATABASE_CLASS_NAME);
+
+                            String databaseClassName = "";
+			    try {
+			        databaseClassName = 
+	                                    AbstractDatabase.getDatabaseProperties(PROPERTY_NAME_DATABASE_CLASS_NAME);
+                            } catch (Exception e) {
+                                /*
+                                 * ignore
+                                 */
+                            }
 				// if databaseClassName is not defined take derby.
 				if(databaseClassName == null || databaseClassName.equals("")) {
 					LOGGER.info("Database class name was not found in properties. FlatFileDatabase will be used.");
 					databaseClassName = "org.n52.wps.server.database.FlatFileDatabase";
 				}
 				Class<?> cls = Class.forName(databaseClassName, true, DatabaseFactory.class.getClassLoader());
-				Method method = cls.getMethod("getInstance", new Class[0]);
-				IDatabase db = (IDatabase) method.invoke(cls, new Object[0]);
+				Method method = cls.getMethod("getInstance", new Class[]{WPSConfig.class});
+				IDatabase db = (IDatabase) method.invoke(cls, new Object[]{wpsConfig});
 				DatabaseFactory.database = db;
 			} catch(NoSuchMethodException nsm_ex) {
 				LOGGER.error("Instance returning method was not found while creating database instance. " + 

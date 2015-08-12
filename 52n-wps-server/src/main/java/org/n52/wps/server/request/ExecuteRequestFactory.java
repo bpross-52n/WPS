@@ -28,55 +28,58 @@
  */
 package org.n52.wps.server.request;
 
-import java.io.IOException;
-
-import net.opengis.wps.x20.ResultDocument;
+import javax.inject.Inject;
 
 import org.apache.commons.collections.map.CaseInsensitiveMap;
-import org.apache.xmlbeans.XmlException;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ExceptionReport;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.database.DatabaseFactory;
-import org.n52.wps.server.response.GetResultResponseV200;
-import org.n52.wps.server.response.Response;
 import org.w3c.dom.Document;
 
-public class GetResultRequestV200 extends Request {
+/**
+ * Factory class to create ExecuteRequests with necessary injected classes
+ * 
+ * @author Benjamin Pross
+ *
+ */
+public class ExecuteRequestFactory {
 
-	private ResultDocument document;
-	
-	private String jobID;
-	
-	private DatabaseFactory databaseFactory;//FIXME inject
-	
-	public GetResultRequestV200(CaseInsensitiveMap map) throws ExceptionReport {
-		super(map);
-		jobID = getMapValue("jobid", true);		
-	}
-
-	public GetResultRequestV200(Document doc) throws ExceptionReport {
-		super(doc);		
-		jobID = getMapValue("jobid", true);	
-	}
-
-	@Override
-	public Object getAttachedResult() {
-		return document;
-	}
-
-	@Override
-	public Response call() throws ExceptionReport {
-		try {
-			document = ResultDocument.Factory.parse(databaseFactory.getDatabase().lookupResponse(jobID));
-		} catch (XmlException | IOException e) {
-			LOGGER.error("Could not parse StatusinfoDocument looked up in database.");
-		}		
-		
-		return new GetResultResponseV200(this);
-	}
-
-	@Override
-	public boolean validate() throws ExceptionReport {		
-		return true;
-	}
-
+    @Inject
+    private RepositoryManager repositoryManager;
+    
+    @Inject
+    private ParserFactory parserFactory;
+    
+    @Inject
+    private GeneratorFactory generatorFactory;
+    
+    @Inject
+    private WPSConfig wpsConfig;
+    
+    @Inject
+    private DatabaseFactory databaseFactory;
+    
+    public ExecuteRequest createExecuteRequest(Document doc){
+        try {
+            return new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+        } catch (ExceptionReport e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ExecuteRequest createExecuteRequest(CaseInsensitiveMap ciMap){
+        try {
+            return new ExecuteRequestV100(ciMap, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+        } catch (ExceptionReport e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+        
+    }
 }

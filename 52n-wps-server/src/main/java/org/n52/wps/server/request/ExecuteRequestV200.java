@@ -44,6 +44,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.commons.context.ExecutionContext;
 import org.n52.wps.commons.context.ExecutionContextFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IComplexData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
@@ -98,9 +99,41 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 		validate();
 
 		// create an initial response
-		execRespType = new ExecuteResponseBuilderV200(this);
+		execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig);
 
 		storeRequest(execDom);
+	}
+	
+	/**
+	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
+	 * 
+	 * @param doc
+	 *            The clients submission
+	 * @throws ExceptionReport
+	 */
+	public ExecuteRequestV200(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+	    super(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+	    try {
+	        XmlOptions option = new XmlOptions();
+	        option.setLoadTrimTextBuffer();
+	        this.execDom = ExecuteDocument.Factory.parse(doc, option);
+	        if (this.execDom == null) {
+	            LOGGER.error("ExecuteDocument is null");
+	            throw new ExceptionReport("Error while parsing post data",
+	                    ExceptionReport.MISSING_PARAMETER_VALUE);
+	        }
+	    } catch (XmlException e) {
+	        throw new ExceptionReport("Error while parsing post data",
+	                ExceptionReport.MISSING_PARAMETER_VALUE, e);
+	    }
+	    
+	    // validate the client input
+	    validate();
+	    
+	    // create an initial response
+	    execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig);
+	    
+	    storeRequest(execDom);
 	}
 
 	/**
@@ -126,7 +159,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 		}
 
 		// check if the algorithm is in our repository
-		if (!RepositoryManager.getInstance().containsAlgorithm(identifier)) {
+		if (!repositoryManager.containsAlgorithm(identifier)) {
 			throw new ExceptionReport(
 					"Specified process identifier does not exist",
 					ExceptionReport.INVALID_PARAMETER_VALUE, "identifier="
@@ -134,8 +167,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 		}
 
 		// validate if the process can be executed
-		ProcessOffering desc = (ProcessOffering) RepositoryManager
-				.getInstance().getProcessDescription(getAlgorithmIdentifier())
+		ProcessOffering desc = (ProcessOffering) repositoryManager.getProcessDescription(getAlgorithmIdentifier())
 				.getProcessDescriptionType(WPSConfig.VERSION_200);
 		// We need a description of the inputs for the algorithm
 		if (desc == null) {
@@ -187,12 +219,12 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 				inputs = getExecute().getInputArray();
 			}
 			InputHandler parser = new InputHandler.Builder(new Input(inputs),
-					getAlgorithmIdentifier()).build();
+					getAlgorithmIdentifier(), parserFactory, repositoryManager).build();
 
 			// we got so far:
 			// get the algorithm, and run it with the clients input
 			
-			algorithm = RepositoryManager.getInstance().getAlgorithm(
+			algorithm = repositoryManager.getAlgorithm(
 					getAlgorithmIdentifier());
 
 			if (algorithm instanceof ISubject) {
@@ -343,7 +375,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 				InputStream is = null;
 				try {
 					is = executeResponse.getAsStream();
-					DatabaseFactory.getDatabase().storeResponse(
+					databaseFactory.getDatabase().storeResponse(
 							getUniqueId().toString(), is);
 				} finally {
 					IOUtils.closeQuietly(is);
@@ -359,7 +391,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 		InputStream is = null;
 		try {
 			is = executeDocument.newInputStream();
-			DatabaseFactory.getDatabase().insertRequest(
+			databaseFactory.getDatabase().insertRequest(
 					getUniqueId().toString(), is, true);
 		} catch (Exception e) {
 			LOGGER.error("Exception storing ExecuteRequest", e);

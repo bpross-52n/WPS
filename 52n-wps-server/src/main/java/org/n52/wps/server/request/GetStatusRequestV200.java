@@ -52,14 +52,18 @@ public class GetStatusRequestV200 extends Request {
 	private GetStatusDocument getStatusDocument;
 	
 	private String jobID;
+        
+        private DatabaseFactory databaseFactory;
 	
-	public GetStatusRequestV200(CaseInsensitiveMap map) throws ExceptionReport {
+	public GetStatusRequestV200(CaseInsensitiveMap map, DatabaseFactory databaseFactory) throws ExceptionReport {
 		super(map);
+		this.databaseFactory = databaseFactory;
 		jobID = getMapValue("jobid", true);		
 	}
 
-	public GetStatusRequestV200(Document doc) throws ExceptionReport {
+	public GetStatusRequestV200(Document doc, DatabaseFactory databaseFactory) throws ExceptionReport {
 		super(doc);
+                this.databaseFactory = databaseFactory;
 		
 		if(!validate()){
 			throw new ExceptionReport("GetStatusRequest not valid",
@@ -82,7 +86,7 @@ public class GetStatusRequestV200 extends Request {
 	@Override
 	public Response call() throws ExceptionReport {
 		try {
-			document = StatusInfoDocument.Factory.parse(DatabaseFactory.getDatabase().lookupStatus(jobID));
+			document = StatusInfoDocument.Factory.parse(databaseFactory.getDatabase().lookupStatus(jobID));
 		} catch (XmlException | IOException e) {
 			LOGGER.error("Could not parse StatusinfoDocument looked up in database.");
 		}		

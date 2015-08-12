@@ -66,11 +66,11 @@
 	<bean id="generatorFactory" class="org.n52.wps.io.GeneratorFactory" />
 	<bean id="parserFactory" class="org.n52.wps.io.ParserFactory" />
 
-<!-- 	<bean id="repositoryManager" class="org.n52.wps.server.RepositoryManager" /> -->
+	<bean id="repositoryManager" class="org.n52.wps.server.RepositoryManager" />
 	
-<!-- 	<bean id="capabilitiesConfiguration" class="org.n52.wps.server.CapabilitiesConfiguration" /> -->
+	<bean id="capabilitiesConfiguration" class="org.n52.wps.server.CapabilitiesConfiguration" />
 	
-<!-- 	<bean id="builder" class="org.n52.wps.server.request.InputHandler.Builder" /> -->
+	<bean id="builder" class="org.n52.wps.server.request.InputHandler.Builder" />
 
 	<bean abstract="true" class="org.n52.wps.server.AbstractDescriptorAlgorithm" />
 	<bean abstract="true" class="org.n52.wps.server.AbstractSelfDescribingAlgorithm" />
@@ -83,6 +83,8 @@
 <!-- 	<bean class="org.n52.wps.client.StaticDataHandlerRepository" /> -->
 
 	<bean id="wpsConfig" class="org.n52.wps.commons.WPSConfig" />
+	
+	<bean id="databaseFactory" class="org.n52.wps.server.database.DatabaseFactory" />
 
 	<bean id="configurationManager" class="org.n52.wps.webapp.api.ConfigurationManagerImpl" />
 	<bean id="valueParser" class="org.n52.wps.webapp.api.ValueParser" />

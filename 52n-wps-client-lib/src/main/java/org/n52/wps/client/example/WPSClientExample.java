@@ -31,6 +31,8 @@ package org.n52.wps.client.example;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.CapabilitiesDocument;
 import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.ExecuteResponseDocument;
@@ -44,11 +46,15 @@ import org.n52.wps.client.ExecuteResponseAnalyser;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.client.WPSClientSession;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
 public class WPSClientExample {
 
+    @Inject
+    private GeneratorFactory generatorFactory;//FIXME
+    
 	public void testExecute() {
 
 		String wpsURL = "http://localhost:8080/wps/WebProcessingService";
@@ -132,7 +138,7 @@ public class WPSClientExample {
 			ProcessDescriptionType processDescription,
 			HashMap<String, Object> inputs) throws Exception {
 		org.n52.wps.client.ExecuteRequestBuilder executeBuilder = new org.n52.wps.client.ExecuteRequestBuilder(
-				processDescription);
+				processDescription, generatorFactory);
 
 		for (InputDescriptionType input : processDescription.getDataInputs()
 				.getInputArray()) {

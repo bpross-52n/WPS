@@ -33,6 +33,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import javax.inject.Inject;
+
 import net.opengis.wps.x100.ComplexDataCombinationType;
 import net.opengis.wps.x100.ComplexDataCombinationsType;
 import net.opengis.wps.x100.ComplexDataDescriptionType;
@@ -53,6 +56,8 @@ import org.junit.Test;
 import org.n52.wps.client.ExecuteRequestBuilder;
 import org.n52.wps.client.WPSClientException;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
+import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ProcessDescription;
 import org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm;
 import org.n52.wps.webapp.api.ConfigurationManager;
@@ -67,12 +72,20 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 	private String outputID;
 	private String url = "http://xyz.test.data";
 	private String complexDataString = "testString";
+	    
+	    @Inject
+	    private ParserFactory parserFactory;
+	    
+	    @Inject
+	    private GeneratorFactory generatorFactory;
 	
 	@Before
 	public void setUp(){
 		MockMvcBuilders.webAppContextSetup(this.wac).build();
-//		WPSConfig.getInstance().setConfigurationManager(this.wac.getBean(ConfigurationManager.class));	
-		processDescription = new MultiReferenceBinaryInputAlgorithm().getDescription();
+		MultiReferenceBinaryInputAlgorithm multiReferenceBinaryInputAlgorithm = new MultiReferenceBinaryInputAlgorithm();
+		multiReferenceBinaryInputAlgorithm.setGeneratorFactory(generatorFactory);
+		multiReferenceBinaryInputAlgorithm.setParserFactory(parserFactory);
+		processDescription = multiReferenceBinaryInputAlgorithm.getDescription();
 		processDescriptionType = ((ProcessDescriptionType)processDescription.getProcessDescriptionType(WPSConfig.VERSION_100));	
 		inputID = processDescriptionType.getDataInputs().getInputArray(0).getIdentifier().getStringValue();
 		outputID = processDescriptionType.getProcessOutputs().getOutputArray(0).getIdentifier().getStringValue();
@@ -81,7 +94,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     @Test
     public void addComplexDataInputByReference() {
 
-        ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
+        ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType, generatorFactory);
     	
     	addTestDataByReference(executeRequestBuilder);
 
@@ -95,7 +108,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     @Test
     public void addComplexDataInputString() {
     	
-    	ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
+    	ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType, generatorFactory);
     	
     	addTestDataString(executeRequestBuilder);
     	
@@ -108,7 +121,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     
     @Test
     public void setSupportedMimeTypeForOutput(){
-        ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
+        ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType, generatorFactory);
     	
     	addTestDataByReference(executeRequestBuilder);
         
@@ -126,7 +139,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     
     @Test
     public void setDefaultMimeTypeForOutput(){
-    	ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
+    	ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType, generatorFactory);
     	
     	addTestDataByReference(executeRequestBuilder);
     	
