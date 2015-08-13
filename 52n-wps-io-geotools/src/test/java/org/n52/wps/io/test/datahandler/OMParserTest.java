@@ -54,8 +54,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import org.junit.Test;
+import org.n52.iceland.ogc.om.OmConstants;
+import org.n52.iceland.util.http.MediaTypes;
 import org.n52.sos.ogc.om.OmObservation;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
 import org.n52.wps.io.datahandler.parser.OMParser;
@@ -68,8 +71,8 @@ import org.n52.wps.io.datahandler.parser.OMParser;
  */
 public class OMParserTest extends AbstractTestCase<OMParser> {
 	
-	private static final String SCHEMA = "http://www.opengis.net/om/2.0";
-	private static final String MIME_TYPE = "application/om+xml; version=2.0";
+	private static final String SCHEMA = OmConstants.NS_OM_2;
+	private static final String MIME_TYPE = MediaTypes.APPLICATION_OM_20.toString();
 	
 	@Test
 	public void shouldReturnNullIfInputIsWrong() {
@@ -138,6 +141,24 @@ public class OMParserTest extends AbstractTestCase<OMParser> {
 		assertThat(observationBinding.getPayload(), instanceOf(OmObservation.class));
 	}
 
+	@Test
+	public void decodeGetObservationResponseXML(){
+	    InputStream stream = getClass().getResourceAsStream("/GetObservationResponse.xml");
+	    
+	    OMObservationBinding observationBinding = dataHandler.parse(stream, MIME_TYPE, SCHEMA);
+            assertThat(observationBinding, is(not(nullValue())));
+//            assertThat(observationBinding.getPayload(), instanceOf(OmObservation.class));
+	}
+	
+	@Test
+	public void decodeGetObservationByIdResponseXML(){
+	    InputStream stream = getClass().getResourceAsStream("/GetObservationByIdResponse.xml");
+	    
+	    OMObservationBinding observationBinding = dataHandler.parse(stream, MIME_TYPE, SCHEMA);
+	    assertThat(observationBinding, is(not(nullValue())));
+//            assertThat(observationBinding.getPayload(), instanceOf(OmObservation.class));
+	}
+	
 	@Override
 	protected void initializeDataHandler() {
 		dataHandler = new OMParser();

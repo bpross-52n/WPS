@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sos:GetObservationResponse xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:om="http://www.opengis.net/om/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sosGetObservation.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd http://www.opengis.net/om/2.0 http://schemas.opengis.net/om/2.0/observation.xsd">
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_42EAF284AFF1FC7651DF106C578E12DD84DBE126">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_20">
+          <gml:timePosition>2012-11-19T13:02:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_20"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.2</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_F53E64C65CC931433CB2B2D1C7D3ECB3B58181B8">
+      <om:type xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TruthObservation"/>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_43">
+          <gml:timePosition>2012-11-19T13:05:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_43"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_6990B68CABA79ABC51B62483901C8A1A74A7F1BC">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_21">
+          <gml:timePosition>2012-11-19T13:03:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_21"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.3</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_C1345C2E4562A3007599674830634E0CD5E917AA">
+      <gml:identifier codeSpace="http://www.opengis.net/def/nil/OGC/0/unknown">http://www.52north.org/test/observation/1</gml:identifier>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_18">
+          <gml:timePosition>2012-11-19T13:00:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_18"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.0</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_C0D374ABC46AF4AB343B00706B2FE13761F50223">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_44">
+          <gml:timePosition>2012-11-19T13:06:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_44"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_B1FEA61552E94B7236316C3C05B0677F982FD1A9">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_40">
+          <gml:timePosition>2012-11-19T13:02:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_40"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_D71EEFBF4CA117C36F1A64A589C738D0E4301CA0">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_45">
+          <gml:timePosition>2012-11-19T13:07:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_45"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_5788CFEE96897F151280B08B5041307FAC8DC67E">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_23">
+          <gml:timePosition>2012-11-19T13:05:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_23"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.5</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_53146DBFD87B142407F59E839DD5AA365BC79013">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_46">
+          <gml:timePosition>2012-11-19T13:08:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_46"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_404F7A09A08C15D8020F26E1ECF9052C45290BB4">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_26">
+          <gml:timePosition>2012-11-19T13:08:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_26"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.8</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_3DA48EDE795ECC119C703FD14361BB769FBD5003">
+      <gml:identifier codeSpace="http://www.opengis.net/def/nil/OGC/0/unknown">http://www.52north.org/test/observation/2</gml:identifier>
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_19">
+          <gml:timePosition>2012-11-19T13:01:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_19"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.1</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_91B75752985ECE362E46F290C304AA3894CEC5A5">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_39">
+          <gml:timePosition>2012-11-19T13:01:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_39"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_A85211E36D5EFE7D997CDBA6085A679F8A8BA27D">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_42">
+          <gml:timePosition>2012-11-19T13:04:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_42"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_D701217B45FA3DC7C21DED23AE8FFA2BEAAF4838">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_24">
+          <gml:timePosition>2012-11-19T13:06:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_24"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.6</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_E18D5C7B38ABDA52BBA0902B3526D6EF2EBBC22A">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_25">
+          <gml:timePosition>2012-11-19T13:07:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_25"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.7</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_7073C88C726601F4F40BD77C6974DAE413A4FE7D">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_41">
+          <gml:timePosition>2012-11-19T13:03:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_41"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_DAC0AC34E78460A4913A416D0960D4E42372D98B">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_22">
+          <gml:timePosition>2012-11-19T13:04:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_22"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.4</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_7F68A03463BAD58C4DC5EBF6B5B9E82F32999047">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_38">
+          <gml:timePosition>2012-11-19T13:00:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_38"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_8FBBA69DB29619107D709EAEE2621DEE0AC85E2F">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_47">
+          <gml:timePosition>2012-11-19T13:09:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_47"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/3"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/3"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/3"/>
+      <om:result xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+  <sos:observationData>
+    <om:OM_Observation gml:id="o_A92A840AED1EA4156A3983775008083D35A788CD">
+      <om:phenomenonTime>
+        <gml:TimeInstant gml:id="phenomenonTime_27">
+          <gml:timePosition>2012-11-19T13:09:00.000Z</gml:timePosition>
+        </gml:TimeInstant>
+      </om:phenomenonTime>
+      <om:resultTime xlink:href="#phenomenonTime_27"/>
+      <om:procedure xlink:href="http://www.52north.org/test/procedure/1"/>
+      <om:observedProperty xlink:href="http://www.52north.org/test/observableProperty/1"/>
+      <om:featureOfInterest xlink:href="http://www.52north.org/test/featureOfInterest/1"/>
+      <om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1" xsi:type="ns:MeasureType">1.9</om:result>
+    </om:OM_Observation>
+  </sos:observationData>
+</sos:GetObservationResponse>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sos:GetObservationByIdResponse
+	xmlns:sos="http://www.opengis.net/sos/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:om="http://www.opengis.net/om/2.0" xmlns:gml="http://www.opengis.net/gml/3.2"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xsi:schemaLocation="http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sosGetObservationById.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd http://www.opengis.net/om/2.0 http://schemas.opengis.net/om/2.0/observation.xsd">
+	<sos:observation>
+		<om:OM_Observation gml:id="o_84D8564545C4BCE70835A734E61C26A60D23C147">
+			<gml:identifier codeSpace="http://www.opengis.net/def/nil/OGC/0/unknown">http://www.52north.org/test/observation/1</gml:identifier>
+			<om:type
+				xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement" />
+			<om:phenomenonTime>
+				<gml:TimeInstant gml:id="phenomenonTime_18">
+					<gml:timePosition>2012-11-19T13:00:00.000Z</gml:timePosition>
+				</gml:TimeInstant>
+			</om:phenomenonTime>
+			<om:resultTime xlink:href="#phenomenonTime_18" />
+			<om:procedure xlink:href="http://www.52north.org/test/procedure/1" />
+			<om:observedProperty
+				xlink:href="http://www.52north.org/test/observableProperty/1" />
+			<om:featureOfInterest
+				xlink:href="http://www.52north.org/test/featureOfInterest/1" />
+			<om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1"
+				xsi:type="ns:MeasureType">1.0</om:result>
+		</om:OM_Observation>
+	</sos:observation>
+	<sos:observation>
+		<om:OM_Observation gml:id="o_44A28F1E2AEF4C3C75C8FC51ECDBE3A4E58E5BC0">
+			<gml:identifier codeSpace="http://www.opengis.net/def/nil/OGC/0/unknown">http://www.52north.org/test/observation/2</gml:identifier>
+			<om:phenomenonTime>
+				<gml:TimeInstant gml:id="phenomenonTime_19">
+					<gml:timePosition>2012-11-19T13:01:00.000Z</gml:timePosition>
+				</gml:TimeInstant>
+			</om:phenomenonTime>
+			<om:resultTime xlink:href="#phenomenonTime_19" />
+			<om:procedure xlink:href="http://www.52north.org/test/procedure/1" />
+			<om:observedProperty
+				xlink:href="http://www.52north.org/test/observableProperty/1" />
+			<om:featureOfInterest
+				xlink:href="http://www.52north.org/test/featureOfInterest/1" />
+			<om:result xmlns:ns="http://www.opengis.net/gml/3.2" uom="test_unit_1"
+				xsi:type="ns:MeasureType">1.1</om:result>
+		</om:OM_Observation>
+	</sos:observation>
+</sos:GetObservationByIdResponse>

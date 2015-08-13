@@ -1,0 +1,187 @@
+/**
+ * ﻿Copyright (C) 2007 - 2014 52°North Initiative for Geospatial Open Source
+ * Software GmbH
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published
+ * by the Free Software Foundation.
+ *
+ * If the program is linked with libraries which are licensed under one of
+ * the following licenses, the combination of the program with the linked
+ * library is not considered a "derivative work" of the program:
+ *
+ *       • Apache License, version 2.0
+ *       • Apache Software License, version 1.0
+ *       • GNU Lesser General Public License, version 3
+ *       • Mozilla Public License, versions 1.0, 1.1 and 2.0
+ *       • Common Development and Distribution License (CDDL), version 1.0
+ *
+ * Therefore the distribution of the program linked with libraries licensed
+ * under the aforementioned licenses, is permitted by the copyright holders
+ * if the distribution is compliant with both the GNU General Public
+ * License version 2 and the aforementioned licenses.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ */
+package org.n52.wps.server.request.strategy;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DecompressingHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.xmlbeans.XmlObject;
+import org.n52.iceland.util.http.MediaTypes;
+import org.n52.wps.server.ExceptionReport;
+import org.n52.wps.server.request.InputReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * 
+ * @author Benjamin Pross
+ * 
+ *         Basic methods to retrieve input data using HTTP/GET, HTTP/POST or
+ *         HTTP/POST with href'd body Content type will not be set for HTTP GET
+ *
+ */
+public class SOS20ReferenceStrategy implements IReferenceStrategy {
+
+    // TODO: follow HTTP redirects with LaxRedirectStrategy
+
+    Logger logger = LoggerFactory.getLogger(SOS20ReferenceStrategy.class);
+
+    // TODO: get proxy from config
+    // static final HttpHost proxy = new HttpHost("127.0.0.1", 8080, "http");
+    static final HttpHost proxy = null;
+
+    @Override
+    public boolean isApplicable(InputReference input) {
+        if (input.isSetBody()) {
+            XmlObject xo = input.getBody();
+            return xo.toString().contains("http://www.opengis.net/sos/2.0");
+        } else {
+            String dataURLString = input.getHref();
+            return (dataURLString.contains("=SOS") && dataURLString.contains("=2.0.0"));
+        }
+    }
+
+    // TODO: follow references, e..g
+
+    @Override
+    public ReferenceInputStream fetchData(InputReference input) throws ExceptionReport {
+
+        String href = input.getHref();
+        String mimeType = input.getMimeType();
+
+        try {
+            // Handling POST with referenced document
+            if (input.isSetBodyReference()) {
+
+                String bodyHref = input.getBodyReferenceHref();
+
+                // but Body reference into a String
+                StringWriter writer = new StringWriter();
+                IOUtils.copy(httpGet(bodyHref, null), writer);
+                String body = writer.toString();
+
+                // trigger POST request
+                return httpPost(href, body, mimeType);
+
+            }
+
+            // Handle POST with inline message
+            else if (input.isSetBody()) {
+                String body = input.getBody().toString();
+                return httpPost(href, body, mimeType);
+            }
+
+            // Handle get request
+            else {
+                return httpGet(href, mimeType);
+            }
+
+        } catch (RuntimeException e) {
+            throw new ExceptionReport("Error occured while parsing XML", ExceptionReport.NO_APPLICABLE_CODE, e);
+        } catch (MalformedURLException e) {
+            String inputID = input.getIdentifier();
+            throw new ExceptionReport("The inputURL of the execute is wrong: inputID: " + inputID + " | dataURL: " + href, ExceptionReport.INVALID_PARAMETER_VALUE);
+        } catch (IOException e) {
+            String inputID = input.getIdentifier();
+            throw new ExceptionReport("Error occured while receiving the complexReferenceURL: inputID: " + inputID + " | dataURL: " + href, ExceptionReport.INVALID_PARAMETER_VALUE);
+        }
+    }
+
+    /**
+     * Make a GET request using mimeType and href
+     * 
+     * TODO: add support for autoretry, proxy
+     */
+    private ReferenceInputStream httpGet(final String dataURLString,
+            final String mimeType) throws IOException {
+        HttpClient backend = new DefaultHttpClient();
+        DecompressingHttpClient httpclient = new DecompressingHttpClient(backend);
+
+        HttpGet httpget = new HttpGet(dataURLString);
+
+        return processResponse(httpclient.execute(httpget));
+    }
+
+    /**
+     * Make a POST request using mimeType and href
+     * 
+     * TODO: add support for autoretry, proxy
+     */
+    private ReferenceInputStream httpPost(final String dataURLString,
+            final String body,
+            String mimeType) throws IOException {
+        HttpClient backend = new DefaultHttpClient();
+
+        DecompressingHttpClient httpclient = new DecompressingHttpClient(backend);
+
+        HttpPost httppost = new HttpPost(dataURLString);
+
+        if (mimeType != null) {
+            
+            if(mimeType.equals(MediaTypes.APPLICATION_OM_20.toString())){
+                //set to application/xml, TODO, check with SOS guys
+                mimeType = MediaTypes.APPLICATION_XML.toString();
+            }
+            httppost.addHeader(new BasicHeader("Content-type", mimeType));
+        }
+
+        // set body entity
+        HttpEntity postEntity = new StringEntity(body);
+        httppost.setEntity(postEntity);
+
+        return processResponse(httpclient.execute(httppost));
+    }
+
+    private ReferenceInputStream processResponse(HttpResponse response) throws IOException {
+
+        HttpEntity entity = response.getEntity();
+        Header header;
+
+        header = entity.getContentType();
+        String mimeType = header == null ? null : header.getValue();
+
+        header = entity.getContentEncoding();
+        String encoding = header == null ? null : header.getValue();
+
+        return new ReferenceInputStream(entity.getContent(), mimeType, encoding);
+    }
+}

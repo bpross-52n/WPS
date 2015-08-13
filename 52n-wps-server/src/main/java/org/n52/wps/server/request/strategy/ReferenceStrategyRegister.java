@@ -50,6 +50,7 @@ public class ReferenceStrategyRegister {
 	private ReferenceStrategyRegister(){
 		registeredStrategies = new ArrayList<IReferenceStrategy>();
 		registeredStrategies.add(new WCS111XMLEmbeddedBase64OutputReferenceStrategy());
+		registeredStrategies.add(new SOS20ReferenceStrategy());
 	}
 	
 	protected void registerStrategy(IReferenceStrategy strategy){
