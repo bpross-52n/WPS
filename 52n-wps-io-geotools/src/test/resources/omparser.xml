@@ -27,5 +27,6 @@
 
     <!-- Decoder implementation from coding/wml-v20 -->
     <bean class="org.n52.sos.decode.WmlObservationMeasurementTimeseriesDecoderv20"/>
+    <bean class="org.n52.sos.decode.OmWmlResultDecoderv20"/>
 
 </beans>
