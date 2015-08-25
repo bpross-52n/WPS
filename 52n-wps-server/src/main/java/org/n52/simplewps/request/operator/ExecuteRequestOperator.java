@@ -33,6 +33,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import net.opengis.wps.x100.ExecuteDocument;
+
 import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.wps.Wps1Constants;
@@ -59,7 +61,7 @@ public class ExecuteRequestOperator implements RequestOperator {
 	@Override
 	public AbstractServiceResponse receiveRequest(
 			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
-		return new ExecuteHandler(repositoryManager).getExecuteResponse(request.getVersion(), (Document)((ExecuteRequest)request).getExecute());
+		return new ExecuteHandler(repositoryManager).getExecuteResponse(request.getVersion(), (ExecuteDocument)((ExecuteRequest)request).getExecute());
 	}
 
 	@Override

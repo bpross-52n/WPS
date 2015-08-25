@@ -39,6 +39,7 @@ import net.opengis.wps.x100.ExecuteDocument;
 import net.opengis.wps.x100.GetCapabilitiesDocument;
 import net.opengis.wps.x100.GetCapabilitiesDocument.GetCapabilities;
 
+import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.coding.decode.Decoder;
 import org.n52.iceland.coding.decode.DecoderKey;
@@ -57,7 +58,7 @@ import org.n52.simplewps.request.operator.ExecuteRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WPSDecoderv100 implements Decoder<AbstractServiceCommunicationObject, XmlObject> {
+public class WPSDecoderv100 implements Decoder<AbstractServiceCommunicationObject, String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WPSDecoderv100.class);
 
@@ -71,8 +72,16 @@ public class WPSDecoderv100 implements Decoder<AbstractServiceCommunicationObjec
     }
 
     @Override
-    public AbstractServiceCommunicationObject decode(XmlObject xmlObject) throws OwsExceptionReport, UnsupportedDecoderInputException {
+    public AbstractServiceCommunicationObject decode(String xmlString) throws OwsExceptionReport, UnsupportedDecoderInputException {
 
+        XmlObject xmlObject = XmlObject.Factory.newInstance();
+        try {
+            xmlObject = XmlObject.Factory.parse(xmlString);
+        } catch (XmlException e) {
+            LOGGER.error("Could not parse XML String {}", xmlString);
+            LOGGER.error(e.getMessage());
+        }
+        
         AbstractServiceCommunicationObject request = null;
         LOGGER.debug("REQUESTTYPE:" + xmlObject.getClass());
         // validate document
