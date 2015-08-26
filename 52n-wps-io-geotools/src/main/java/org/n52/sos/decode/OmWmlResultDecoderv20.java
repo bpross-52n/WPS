@@ -29,6 +29,7 @@
 package org.n52.sos.decode;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,6 +38,7 @@ import net.opengis.om.x20.NamedValueType;
 import net.opengis.om.x20.OMObservationType;
 import net.opengis.om.x20.TimeObjectPropertyType;
 
+import org.apache.bcel.generic.PopInstruction;
 import org.apache.xmlbeans.XmlBoolean;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlInteger;
@@ -78,6 +80,7 @@ import org.n52.sos.ogc.om.OmObservableProperty;
 import org.n52.sos.ogc.om.OmObservation;
 import org.n52.sos.ogc.om.OmObservationConstellation;
 import org.n52.sos.ogc.om.SingleObservationValue;
+import org.n52.sos.ogc.om.TimeValuePair;
 import org.n52.sos.ogc.om.values.BooleanValue;
 import org.n52.sos.ogc.om.values.CategoryValue;
 import org.n52.sos.ogc.om.values.CountValue;
@@ -87,11 +90,13 @@ import org.n52.sos.ogc.om.values.NilTemplateValue;
 import org.n52.sos.ogc.om.values.QuantityValue;
 import org.n52.sos.ogc.om.values.ReferenceValue;
 import org.n52.sos.ogc.om.values.SweDataArrayValue;
+import org.n52.sos.ogc.om.values.TVPValue;
 import org.n52.sos.ogc.om.values.TextValue;
 import org.n52.sos.ogc.sensorML.SensorML;
 import org.n52.sos.ogc.sos.SosProcedureDescription;
 import org.n52.sos.ogc.swe.SweDataArray;
 import org.n52.sos.ogc.wml.MeasurementTimeseries;
+import org.n52.sos.ogc.wml.MeasurementTimeseriesPoint;
 import org.n52.sos.util.CodingHelper;
 
 import com.google.common.base.Joiner;
@@ -433,11 +438,6 @@ public class OmWmlResultDecoderv20 extends AbstractOmDecoderv20 {
                 }
             }
         }
-        // // Template observation for InsertResultTemplate operation
-        // if (omObservation.getResult().schemaType() == XmlAnyTypeImpl.type &&
-        // !omObservation.getResult().getDomNode().hasChildNodes()) {
-        // return new SingleObservationValue<String>(new NilTemplateValue());
-        // }
         // TruthObservation
         if (xbResult.schemaType() == XmlBoolean.type) {
             XmlBoolean xbBoolean = (XmlBoolean) xbResult;
@@ -459,33 +459,17 @@ public class OmWmlResultDecoderv20 extends AbstractOmDecoderv20 {
         // result elements with other encoding like SWE_ARRAY_OBSERVATION
         else {
             Object decodedObject = CodingHelper.decodeXmlObject(xbResult);
-            if (decodedObject instanceof ObservationValue) {
-                return (ObservationValue<?>) decodedObject;
-            } else if (decodedObject instanceof GmlMeasureType) {
-                SingleObservationValue<Double> result = new SingleObservationValue<Double>();
-                GmlMeasureType measureType = (GmlMeasureType) decodedObject;
-                QuantityValue quantitiyValue = new QuantityValue(measureType.getValue(), measureType.getUnit());
-                result.setValue(quantitiyValue);
-                return result;
-            } else if (decodedObject instanceof ReferenceType) {
-                SingleObservationValue<String> result = new SingleObservationValue<String>();
-                result.setValue(new CategoryValue(((ReferenceType) decodedObject).getHref()));
-                return result;
-            } else if (decodedObject instanceof Geometry) {
-                SingleObservationValue<Geometry> result = new SingleObservationValue<Geometry>();
-                result.setValue(new GeometryValue((Geometry) decodedObject));
-                return result;
-            } else if (decodedObject instanceof SweDataArray) {
-                SweDataArrayValue value = new SweDataArrayValue();
-                value.setValue((SweDataArray) decodedObject);
-                SingleObservationValue<SweDataArray> result = new SingleObservationValue<SweDataArray>();
-                result.setValue(value);
-                return result;
-            } else if (decodedObject instanceof MeasurementTimeseries) {
-                SweDataArrayValue value = new SweDataArrayValue();
-                value.setValue((SweDataArray) decodedObject);
-                SingleObservationValue<SweDataArray> result = new SingleObservationValue<SweDataArray>();
-                result.setValue(value);
+            if (decodedObject instanceof MeasurementTimeseries) {
+                
+                MeasurementTimeseries measurementTimeseries = (MeasurementTimeseries)decodedObject;
+                                
+                TVPValue timeValuePairValue = new TVPValue(); 
+                
+                for (MeasurementTimeseriesPoint point : measurementTimeseries.getPoints()) {
+                    timeValuePairValue.addValue(point.getMeasurementTimeValuePair());
+                }                
+                SingleObservationValue<List<TimeValuePair>> result = new SingleObservationValue<List<TimeValuePair>>();
+                result.setValue(timeValuePairValue);
                 return result;
             }
             throw new InvalidParameterValueException().at(Sos2Constants.InsertObservationParams.observation)

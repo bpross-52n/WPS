@@ -54,6 +54,7 @@ import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.om.OmConstants;
 import org.n52.iceland.util.http.MediaTypes;
 import org.n52.sos.decode.OmDecoderv20;
+import org.n52.sos.decode.OmWmlResultDecoderv20;
 import org.n52.sos.ogc.om.OmObservation;
 import org.n52.sos.util.SosConfiguration;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
@@ -62,6 +63,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.opengis.om.x20.OMObservationDocument;
+import net.opengis.sos.x20.GetObservationByIdResponseDocument;
+import net.opengis.sos.x20.GetObservationByIdResponseType;
+import net.opengis.sos.x20.GetObservationResponseDocument;
+import net.opengis.sos.x20.GetObservationResponseType;
 import net.opengis.waterml.x20.MeasurementTimeseriesDocument;
 
 /**
@@ -86,43 +91,110 @@ public class WaterMLParser extends AbstractParser {
 		supportedIDataTypes.add(OMObservationBinding.class);
 	}
 	
-	@Override
-	public OMObservationBinding parse(InputStream stream, String mimeType, String schema) {	
-		if (!validateInput(mimeType,schema,stream) ){
-			return null;
-		}
-		GenericXMLDataBinding xmlData = new GenericXMLDataParser().parse(stream, mimeType, schema);
-		
-		if (xmlData == null || xmlData.getPayload() == null) {
-			LOGGER.error("Input stream could not be parsed to generic XML.");
-			return null;
-		}
-		
-		final XmlObject payload = xmlData.getPayload();
-		if (payload instanceof MeasurementTimeseriesDocument) {
-			try {
-				MeasurementTimeseriesDocument xmlMeasurementTimeseries = (MeasurementTimeseriesDocument) payload;
-				SosConfiguration.init();
-				Object parsedObject = new OmDecoderv20().decode(xmlMeasurementTimeseries.getTimeseries());//FIXME
-				if (parsedObject instanceof OmObservation) {
-					return new OMObservationBinding((OmObservation) parsedObject);
-				}
-				LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
-				
-			} catch (OwsExceptionReport e) {
-				LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
-				return null;
-			}
-		}
-		LOGGER.error("XML document type not supported: '{}'.", payload.getClass().getName());
-		
-		return null;
-	}
+        @Override
+        public OMObservationBinding parse(InputStream stream, String mimeType, String schema) { 
+                if (!validateInput(mimeType,schema,stream) ){
+                        return null;
+                }
+                GenericXMLDataBinding xmlData = new GenericXMLDataParser().parse(stream, mimeType, schema);
+                
+                if (xmlData == null || xmlData.getPayload() == null) {
+                        LOGGER.error("Input stream could not be parsed to generic XML.");
+                        return null;
+                }
+                
+                final XmlObject payload = xmlData.getPayload();
+                if (payload instanceof OMObservationDocument) {
+                        try {
+                                OMObservationDocument xmlOmObservation = (OMObservationDocument) payload;
+                                SosConfiguration.init();
+                                Object parsedObject = new OmDecoderv20().decode(xmlOmObservation.getOMObservation());
+                                if (parsedObject instanceof OmObservation) {
+                                    
+//                                      List<OmObservation> observationList = Arrays.asList(new OmObservation[]{(OmObservation)parsedObject});
+//                                  
+//                                      OMObservationCollection omObservationCollection = new OMObservationCollection(observationList);
+                                    
+                                        return new OMObservationBinding((OmObservation)parsedObject);
+                                }
+                                LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
+                                
+                        } catch (OwsExceptionReport e) {
+                                LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
+                                return null;
+                        }
+                }else if(payload instanceof GetObservationResponseDocument){
+                    try {
+                        GetObservationResponseDocument xmlGetOmObservationResponse = (GetObservationResponseDocument) payload;
+                        SosConfiguration.init();
+                        
+                        GetObservationResponseType getObservationResponse = xmlGetOmObservationResponse.getGetObservationResponse();
+                        
+//                        int length = getObservationResponse.getObservationDataArray().length;
+//                        
+//                        List<OmObservation> observationList = new ArrayList<>();
+//                        
+//                        for (int i = 0; i < length; i++) {
+//                            ObservationData observationData = getObservationResponse.getObservationDataArray(i);
+//                            Object parsedObject = new OmDecoderv20().decode(observationData.getOMObservation());
+//                            if (parsedObject instanceof OmObservation) {
+//                                observationList.add((OmObservation) parsedObject);
+//                            }
+//                        }
+//                        OMObservationCollection omObservationCollection = new OMObservationCollection(observationList);
+                      
+                        Object parsedObject = new OmWmlResultDecoderv20().decode(getObservationResponse.getObservationDataArray(0).getOMObservation());
+                        if (parsedObject instanceof OmObservation) {
+                            return new OMObservationBinding((OmObservation)parsedObject);                            
+                        }                                      
+                        LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
+                } catch (OwsExceptionReport e) {
+                        LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
+                        return null;
+                }
+                    
+                }else if(payload instanceof GetObservationByIdResponseDocument){
+                    try {
+                        GetObservationByIdResponseDocument xmlGetOmObservationByIdResponse = (GetObservationByIdResponseDocument) payload;
+                        SosConfiguration.init();
+                        
+                        GetObservationByIdResponseType getObservationResponse = xmlGetOmObservationByIdResponse.getGetObservationByIdResponse();
+                        
+//                        int length = getObservationResponse.getObservationArray().length;
+//                        
+//                        List<OmObservation> observationList = new ArrayList<>();
+//                        
+//                        for (int i = 0; i < length; i++) {
+//                            Observation observation = getObservationResponse.getObservationArray(i);
+//                            Object parsedObject = new OmDecoderv20().decode(observation.getOMObservation());
+//                            if (parsedObject instanceof OmObservation) {
+//                                observationList.add((OmObservation) parsedObject);
+//                            }
+//                        }
+//                        OMObservationCollection omObservationCollection = new OMObservationCollection(observationList);
+//                        
+//                        return new OMObservationBinding(omObservationCollection);
+                        Object parsedObject = new OmWmlResultDecoderv20().decode(getObservationResponse.getObservationArray(0).getOMObservation());
+                        if (parsedObject instanceof OmObservation) {
+                            return new OMObservationBinding((OmObservation)parsedObject);                            
+                        }    
+                        LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
+                        
+                } catch (OwsExceptionReport e) {
+                        LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
+                        return null;
+                }
+                    
+                }
+                LOGGER.error("XML document type not supported: '{}'.", payload.getClass().getName());
+                
+                return null;
+        }
 
 	private boolean validateInput(String mimeType, String schema, InputStream stream) {
 		if (mimeType != null && 
 				!mimeType.isEmpty() &&
-				mimeType.equals(MediaTypes.TEXT_XML.toString()) &&
+				mimeType.equals(MediaTypes.APPLICATION_OM_20.toString()) &&
 				schema != null &&
 				!schema.isEmpty() && 
 				schema.equals(OmConstants.NS_OM_2) &&
