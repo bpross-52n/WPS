@@ -49,25 +49,23 @@ package org.n52.wps.io.datahandler.parser;
 
 import java.io.InputStream;
 
-import org.apache.xmlbeans.XmlObject;
-import org.n52.iceland.exception.ows.OwsExceptionReport;
-import org.n52.iceland.ogc.om.OmConstants;
-import org.n52.iceland.util.http.MediaTypes;
-import org.n52.sos.decode.OmDecoderv20;
-import org.n52.sos.decode.OmWmlResultDecoderv20;
-import org.n52.sos.ogc.om.OmObservation;
-import org.n52.sos.util.SosConfiguration;
-import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
-import org.n52.wps.io.data.binding.complex.OMObservationBinding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.opengis.om.x20.OMObservationDocument;
 import net.opengis.sos.x20.GetObservationByIdResponseDocument;
 import net.opengis.sos.x20.GetObservationByIdResponseType;
 import net.opengis.sos.x20.GetObservationResponseDocument;
 import net.opengis.sos.x20.GetObservationResponseType;
-import net.opengis.waterml.x20.MeasurementTimeseriesDocument;
+
+import org.apache.xmlbeans.XmlObject;
+import org.n52.iceland.exception.ows.OwsExceptionReport;
+import org.n52.sos.decode.OmDecoderv20;
+import org.n52.sos.decode.OmWmlResultDecoderv20;
+import org.n52.sos.ogc.om.OmObservation;
+import org.n52.sos.ogc.wml.WaterMLConstants;
+import org.n52.sos.util.SosConfiguration;
+import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
+import org.n52.wps.io.data.binding.complex.OMObservationBinding;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This parser parses OM_Observations from XML streams. Currently, *Document
@@ -194,10 +192,10 @@ public class WaterMLParser extends AbstractParser {
 	private boolean validateInput(String mimeType, String schema, InputStream stream) {
 		if (mimeType != null && 
 				!mimeType.isEmpty() &&
-				mimeType.equals(MediaTypes.APPLICATION_OM_20.toString()) &&
+				mimeType.equals(WaterMLConstants.WML_CONTENT_TYPE.toString()) &&
 				schema != null &&
 				!schema.isEmpty() && 
-				schema.equals(OmConstants.NS_OM_2) &&
+				schema.equals(WaterMLConstants.NS_WML_20) &&
 				stream != null) {
 			return true;
 		}

@@ -97,6 +97,7 @@ import org.n52.sos.ogc.sos.SosProcedureDescription;
 import org.n52.sos.ogc.swe.SweDataArray;
 import org.n52.sos.ogc.wml.MeasurementTimeseries;
 import org.n52.sos.ogc.wml.MeasurementTimeseriesPoint;
+import org.n52.sos.ogc.wml.WaterMLConstants;
 import org.n52.sos.util.CodingHelper;
 
 import com.google.common.base.Joiner;
@@ -114,7 +115,7 @@ public class OmWmlResultDecoderv20 extends AbstractOmDecoderv20 {
     private static final Logger LOGGER = LoggerFactory.getLogger(OmWmlResultDecoderv20.class);
 
     private static final Set<DecoderKey> DECODER_KEYS = CodingHelper
-            .decoderKeysForElements(OmConstants.NS_OM_2,
+            .decoderKeysForElements(WaterMLConstants.NS_WML_20, 
                                     OMObservationType.class,
                                     NamedValuePropertyType.class,
                                     NamedValuePropertyType[].class);
@@ -221,85 +222,6 @@ public class OmWmlResultDecoderv20 extends AbstractOmDecoderv20 {
 
         return sosObservation;
     }
-
-//    private Set<NamedValue<?>> parseNamedValueTypeArray(NamedValuePropertyType[] namedValuePropertyArray)
-//            throws OwsExceptionReport {
-//        Set<NamedValue<?>> parameters = Sets.newHashSet();
-//        for (NamedValuePropertyType namedValueProperty : namedValuePropertyArray) {
-//            parameters.add(parseNamedValueType(namedValueProperty));
-//        }
-//        return parameters;
-//    }
-//
-//    private NamedValue<?> parseNamedValueType(NamedValuePropertyType namedValueProperty) throws OwsExceptionReport {
-//        if (namedValueProperty.isSetNamedValue()) {
-//            NamedValueType namedValue = namedValueProperty.getNamedValue();
-//            NamedValue<?> sosNamedValue = parseNamedValueValue(namedValue.getValue());
-//            ReferenceType referenceType = (ReferenceType) CodingHelper.decodeXmlObject(namedValue.getName());
-//            sosNamedValue.setName(referenceType);
-//            return sosNamedValue;
-//        } else if (namedValueProperty.isSetHref()) {
-//            NamedValue<?> sosNamedValue = new NamedValue<ReferenceType>();
-//            ReferenceType referenceType = new ReferenceType(namedValueProperty.getHref());
-//            if (namedValueProperty.isSetTitle()) {
-//                referenceType.setTitle(namedValueProperty.getTitle());
-//            }
-//            sosNamedValue.setName(referenceType);
-//            return sosNamedValue;
-//        } else {
-//            throw new UnsupportedDecoderXmlInputException(this, namedValueProperty);
-//        }
-//    }
-//
-//    private NamedValue<?> parseNamedValueValue(XmlObject xmlObject) throws OwsExceptionReport {
-//        if (xmlObject.schemaType() == XmlAnyTypeImpl.type) {
-//            try {
-//                xmlObject = XmlObject.Factory.parse(xmlObject.xmlText().trim());
-//            } catch (XmlException e) {
-//                LOGGER.error("Error while parsing NamedValueValue", e);
-//            }
-//        }
-//        Object value = CodingHelper.decodeXmlObject(xmlObject);
-//        if (value instanceof BooleanValue) {
-//            NamedValue<Boolean> namedValue = new NamedValue<Boolean>();
-//            namedValue.setValue((BooleanValue) value);
-//            return namedValue;
-//        } else if (value instanceof CategoryValue) {
-//            NamedValue<String> namedValue = new NamedValue<String>();
-//            namedValue.setValue((CategoryValue) value);
-//            return namedValue;
-//        } else if (value instanceof CountValue) {
-//            NamedValue<Integer> namedValue = new NamedValue<Integer>();
-//            namedValue.setValue((CountValue) value);
-//            return namedValue;
-//        } else if (value instanceof GeometryValue) {
-//            NamedValue<Geometry> namedValue = new NamedValue<Geometry>();
-//            namedValue.setValue((GeometryValue) value);
-//            return namedValue;
-//        } else if (value instanceof QuantityValue) {
-//            NamedValue<Double> namedValue = new NamedValue<Double>();
-//            namedValue.setValue((QuantityValue) value);
-//            return namedValue;
-//        } else if (value instanceof TextValue) {
-//            NamedValue<String> namedValue = new NamedValue<String>();
-//            namedValue.setValue((TextValue) value);
-//            return namedValue;
-//        } else if (value instanceof AbstractGeometry) {
-//            NamedValue<Geometry> namedValue = new NamedValue<Geometry>();
-//            namedValue.setValue(new GeometryValue((AbstractGeometry)value));
-//            return namedValue;
-//        } else if (value instanceof ReferenceType) {
-//            NamedValue<ReferenceType> namedValue = new NamedValue<ReferenceType>();
-//            namedValue.setValue(new ReferenceValue((ReferenceType)value));
-//            return namedValue;
-//        } else if (value instanceof W3CHrefAttribute) {
-//            NamedValue<W3CHrefAttribute> namedValue = new NamedValue<W3CHrefAttribute>();
-//            namedValue.setValue(new HrefAttributeValue((W3CHrefAttribute)value));
-//            return namedValue;
-//        } else {
-//            throw new UnsupportedDecoderXmlInputException(this, xmlObject);
-//        }
-//    }
 
     private CodeWithAuthority getIdentifier(OMObservationType omObservation) throws OwsExceptionReport {
         if (omObservation.getIdentifier() != null) {

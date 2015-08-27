@@ -47,7 +47,6 @@
  */
 package org.n52.wps.io.test.datahandler;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -59,9 +58,8 @@ import java.io.InputStream;
 import org.junit.Test;
 import org.n52.iceland.ogc.om.OmConstants;
 import org.n52.iceland.util.http.MediaTypes;
-import org.n52.sos.ogc.om.OmObservation;
+import org.n52.sos.ogc.wml.WaterMLConstants;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
-import org.n52.wps.io.datahandler.parser.OMParser;
 import org.n52.wps.io.datahandler.parser.WaterMLParser;
 
 /**
@@ -72,8 +70,8 @@ import org.n52.wps.io.datahandler.parser.WaterMLParser;
  */
 public class WaterMLParserTest extends AbstractTestCase<WaterMLParser> {
 	
-	private static final String SCHEMA = OmConstants.NS_OM_2;
-	private static final String MIME_TYPE = MediaTypes.APPLICATION_OM_20.toString();
+	private static final String SCHEMA = WaterMLConstants.NS_WML_20;
+	private static final String MIME_TYPE = WaterMLConstants.WML_CONTENT_TYPE.toString();
 	
 	@Test
 	public void shouldReturnNullIfInputIsWrong() {
