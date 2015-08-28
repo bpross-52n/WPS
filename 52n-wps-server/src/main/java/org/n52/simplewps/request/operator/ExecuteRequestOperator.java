@@ -50,7 +50,7 @@ import org.w3c.dom.Document;
 public class ExecuteRequestOperator implements RequestOperator {
 
 	@Inject
-	private RepositoryManager repositoryManager;
+	private ExecuteHandler executeHandler;
 
 	@Override
 	public Set<RequestOperatorKey> getKeys() {
@@ -61,13 +61,13 @@ public class ExecuteRequestOperator implements RequestOperator {
 	@Override
 	public AbstractServiceResponse receiveRequest(
 			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
-		return new ExecuteHandler(repositoryManager).getExecuteResponse(request.getVersion(), (ExecuteDocument)((ExecuteRequest)request).getExecute());
+		return executeHandler.getExecuteResponse(request.getVersion(), (ExecuteRequest) request);
 	}
 
 	@Override
 	public OwsOperation getOperationMetadata(String service, String version)
 			throws OwsExceptionReport {		
-		return new ExecuteHandler().getOperationsMetadata(service, version);
+		return executeHandler.getOperationsMetadata(service, version);
 	}
 
 	@Override

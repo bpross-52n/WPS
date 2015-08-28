@@ -46,6 +46,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.database.DatabaseFactory;
@@ -71,6 +72,8 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 	    private RepositoryManager repositoryManager;
 	    @Inject
 	    private ParserFactory parserFactory;
+	    @Inject
+	    private GeneratorFactory generatorFactory;
 	    @Inject
 	    private DatabaseFactory databaseFactory;
 	    @Inject
@@ -100,7 +103,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here
@@ -134,7 +137,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here
@@ -170,7 +173,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here
@@ -208,7 +211,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here
@@ -246,7 +249,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			DocumentOutputDefinitionType[] outputs = executeRequest.getExecute().getResponseForm().getResponseDocument().getOutputArray();
 
@@ -288,7 +291,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			DocumentOutputDefinitionType[] outputs = executeRequest.getExecute().getResponseForm().getResponseDocument().getOutputArray();
 
@@ -330,7 +333,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here
@@ -366,7 +369,7 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
 
 			is.close();
 
-			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+			executeRequest = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
 			/*
 			 * only one output here

@@ -47,6 +47,7 @@ import net.opengis.wps.x20.StatusInfoDocument.StatusInfo;
 
 import org.apache.xmlbeans.XmlObject;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.data.IBBOXData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
@@ -77,14 +78,18 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 	private ProcessDescription superDescription;
 	private static Logger LOGGER = LoggerFactory.getLogger(ExecuteResponseBuilderV200.class);
 	    private DatabaseFactory databaseFactory;
+	    private RepositoryManager repositoryManager;
+	    private GeneratorFactory generatorFactory;
 	
 	public static enum Status {
 		Accepted, Failed, Succeeded, Running
 	}
 	
-	public ExecuteResponseBuilderV200(ExecuteRequestV200 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
+	public ExecuteResponseBuilderV200(ExecuteRequestV200 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig, GeneratorFactory generatorFactory) throws ExceptionReport{
 		this.request = request;
                 this.databaseFactory = databaseFactory;
+                this.repositoryManager = repositoryManager;
+                this.generatorFactory = generatorFactory;
 		resultDoc = ResultDocument.Factory.newInstance();
 		resultDoc.addNewResult();
 		resultDoc.getResult().setJobID(request.getUniqueId().toString());
@@ -250,10 +255,10 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 	private void generateComplexDataOutput(String responseID, boolean asReference, boolean rawData, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport{
 		IData obj = request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}
 		else {
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			if(asReference) {
 				handler.updateResponseAsReference(resultDoc, (request.getUniqueId()).toString(),mimeType);
 			}
@@ -267,9 +272,9 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 	private void generateLiteralDataOutput(String responseID, ResultDocument res, boolean rawData, String dataTypeReference, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport {
 		IData obj = request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			handler.updateResponseForLiteralData(res, dataTypeReference);
 		}
 	}
@@ -277,9 +282,9 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 	private void generateBBOXOutput(String responseID, ResultDocument res, boolean rawData, LanguageStringType title) throws ExceptionReport {
         IBBOXData obj = (IBBOXData) request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			handler.updateResponseForBBOXData(res, obj);
 		}
 

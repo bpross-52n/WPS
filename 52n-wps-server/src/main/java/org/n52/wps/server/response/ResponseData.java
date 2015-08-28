@@ -63,9 +63,6 @@ public abstract class ResponseData {
 	protected IGenerator generator = null;
 	protected String algorithmIdentifier = null;
 	protected ProcessDescription description = null;
-
-	@Inject
-	private GeneratorFactory generatorFactory;
 	
 		
 	public ResponseData(IData obj, String id, String schema, String encoding, 
@@ -345,8 +342,8 @@ public abstract class ResponseData {
 		
 	}
 
-	protected void prepareGenerator() throws ExceptionReport {
-		Class<?> algorithmOutput = RepositoryManager.getInstance().getOutputDataTypeForAlgorithm(this.algorithmIdentifier, id);
+	protected void prepareGenerator(GeneratorFactory generatorFactory, RepositoryManager repositoryManager) throws ExceptionReport {
+		Class<?> algorithmOutput = repositoryManager.getOutputDataTypeForAlgorithm(this.algorithmIdentifier, id);
 		
 		LOGGER.debug("Looking for matching Generator: schema: {}, mimeType {}, encoding: {}", schema, mimeType, encoding);
 		

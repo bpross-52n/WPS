@@ -88,6 +88,7 @@
 
 	<bean id="generatorFactory" class="org.n52.wps.io.GeneratorFactory" />
 	<bean id="parserFactory" class="org.n52.wps.io.ParserFactory" />
+	<bean id="databaseFactory" class="org.n52.wps.server.database.DatabaseFactory" />
 
 	<bean abstract="true" class="org.n52.wps.server.AbstractDescriptorAlgorithm" />
 	<bean abstract="true" class="org.n52.wps.server.AbstractSelfDescribingAlgorithm" />
@@ -187,7 +188,7 @@
 
 	<bean class="org.n52.simplewps.handler.ExecuteHandler" />
 	
-	<bean class="org.n52.wps.server.request.ExecuteRequestV100" scope="prototype" />
+	<bean id="executeRequestFactory" class="org.n52.wps.server.request.ExecuteRequestFactory" />
 
 	<bean
 		class="org.n52.simplewps.request.operator.ExecuteRequestOperator" />

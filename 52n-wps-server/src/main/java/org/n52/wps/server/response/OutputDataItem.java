@@ -54,12 +54,14 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlString;
 import org.n52.wps.io.BasicXMLTypeFactory;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.IOHandler;
 import org.n52.wps.io.data.IBBOXData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.literal.AbstractLiteralDataBinding;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.ProcessDescription;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.server.database.IDatabase;
 import org.slf4j.Logger;
@@ -79,7 +81,9 @@ public class OutputDataItem extends ResponseData {
 	private static final String COMPLEX_DATA_TYPE = "ComplexDataResponse";
 	private XmlString title;
         
-        private DatabaseFactory databaseFactory;
+        private DatabaseFactory databaseFactory;        
+        private GeneratorFactory generatorFactory;
+        private RepositoryManager repositoryManager; 
 
 	/**
 	 *
@@ -93,11 +97,13 @@ public class OutputDataItem extends ResponseData {
 	 * @throws ExceptionReport
 	 */
 	public OutputDataItem(IData obj, String id, String schema, String encoding,
-			String mimeType, XmlString title, String algorithmIdentifier, ProcessDescription description, DatabaseFactory databaseFactory) throws ExceptionReport {
+			String mimeType, XmlString title, String algorithmIdentifier, ProcessDescription description, DatabaseFactory databaseFactory, GeneratorFactory generatorFactory, RepositoryManager repositoryManager) throws ExceptionReport {
 		super(obj, id, schema, encoding, mimeType, algorithmIdentifier, description);
 
 		this.title = title;
 		this.databaseFactory = databaseFactory;
+		this.generatorFactory = generatorFactory;
+		this.repositoryManager = repositoryManager;
 	}
 
 	/**
@@ -107,7 +113,7 @@ public class OutputDataItem extends ResponseData {
 	 */
 	public void updateResponseForInlineComplexData(ExecuteResponseDocument res) throws ExceptionReport {
 		OutputDataType output = prepareOutput(res);
-		prepareGenerator();
+		prepareGenerator(generatorFactory ,repositoryManager );
 		ComplexDataType complexData = null;
 
 
@@ -198,7 +204,7 @@ public class OutputDataItem extends ResponseData {
 	}
 
 	public void updateResponseAsReference(ExecuteResponseDocument res, String reqID, String mimeType) throws ExceptionReport {
-		prepareGenerator();
+		prepareGenerator(generatorFactory ,repositoryManager );
 		OutputDataType output = prepareOutput(res);
 		InputStream stream;
 
@@ -275,7 +281,7 @@ public class OutputDataItem extends ResponseData {
 
 	public void updateResponseAsReference(ResultDocument res, String reqID,
 			String mimeType) throws ExceptionReport {
-		prepareGenerator();
+		prepareGenerator(generatorFactory ,repositoryManager );
 		DataOutputType output = prepareOutput(res);
 		InputStream stream;
 
@@ -323,7 +329,7 @@ public class OutputDataItem extends ResponseData {
 
 	public void updateResponseForInlineComplexData(ResultDocument res) throws ExceptionReport {
 		DataOutputType output = prepareOutput(res);
-		prepareGenerator();
+		prepareGenerator(generatorFactory ,repositoryManager );
 		Data complexData = null;
 
 		try {

@@ -32,6 +32,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.IOHandler;
 import org.n52.wps.io.data.IBBOXData;
 import org.n52.wps.io.data.IComplexData;
@@ -39,6 +40,7 @@ import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.ILiteralData;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.ProcessDescription;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.util.XMLBeansHelper;
 
 import com.google.common.base.Charsets;
@@ -61,11 +63,11 @@ public class RawData extends ResponseData {
 	 */
     public RawData(IData obj, String id, String schema, String encoding,
                    String mimeType, String algorithmIdentifier,
-                   ProcessDescription description)
+                   ProcessDescription description, GeneratorFactory generatorFactory, RepositoryManager repositoryManager)
             throws ExceptionReport {
         super(obj, id, schema, encoding, mimeType, algorithmIdentifier, description);
         if (obj instanceof IComplexData) {
-            prepareGenerator();
+            prepareGenerator(generatorFactory, repositoryManager);
         }
     }
 

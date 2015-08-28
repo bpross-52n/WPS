@@ -69,6 +69,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.commons.context.ExecutionContext;
 import org.n52.wps.commons.context.ExecutionContextFactory;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IComplexData;
 import org.n52.wps.io.data.IData;
@@ -98,68 +99,68 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 	private Map<String, IData> returnResults;
 	private ExecuteResponseBuilderV100 execRespType;
 
-	/**
-	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
-	 * 
-	 * @param doc
-	 *            The clients submission
-	 * @throws ExceptionReport
-	 */
-	public ExecuteRequestV100(Document doc) throws ExceptionReport {
-		super(doc);
-		try {
-			XmlOptions option = new XmlOptions();
-			option.setLoadTrimTextBuffer();
-			this.execDom = ExecuteDocument.Factory.parse(doc, option);
-			if (this.execDom == null) {
-				LOGGER.error("ExecuteDocument is null");
-				throw new ExceptionReport("Error while parsing post data",
-						ExceptionReport.MISSING_PARAMETER_VALUE);
-			}
-		} catch (XmlException e) {
-			throw new ExceptionReport("Error while parsing post data",
-					ExceptionReport.MISSING_PARAMETER_VALUE, e);
-		}
-
-		// validate the client input
-		validate();
-
-		// create an initial response
-		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
-        
-        storeRequest(execDom);
-	}
-
-	/*
-	 * Creates an ExecuteRequest based on a Map (HTTP_GET). NOTE: Parameters are
-	 * treated as non case sensitive. @param ciMap The client input @throws
-	 * ExceptionReport
-	 */
-	public ExecuteRequestV100(CaseInsensitiveMap ciMap) throws ExceptionReport {
-		super(ciMap);
-		initForGET(ciMap);
-		// validate the client input
-		validate();
-
-		// create an initial response
-		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
-
-        storeRequest(ciMap);
-	}
+//	/**
+//	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
+//	 * 
+//	 * @param doc
+//	 *            The clients submission
+//	 * @throws ExceptionReport
+//	 */
+//	public ExecuteRequestV100(Document doc) throws ExceptionReport {
+//		super(doc);
+//		try {
+//			XmlOptions option = new XmlOptions();
+//			option.setLoadTrimTextBuffer();
+//			this.execDom = ExecuteDocument.Factory.parse(doc, option);
+//			if (this.execDom == null) {
+//				LOGGER.error("ExecuteDocument is null");
+//				throw new ExceptionReport("Error while parsing post data",
+//						ExceptionReport.MISSING_PARAMETER_VALUE);
+//			}
+//		} catch (XmlException e) {
+//			throw new ExceptionReport("Error while parsing post data",
+//					ExceptionReport.MISSING_PARAMETER_VALUE, e);
+//		}
+//
+//		// validate the client input
+//		validate();
+//
+//		// create an initial response
+//		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+//        
+//        storeRequest(execDom);
+//	}
+//
+//	/*
+//	 * Creates an ExecuteRequest based on a Map (HTTP_GET). NOTE: Parameters are
+//	 * treated as non case sensitive. @param ciMap The client input @throws
+//	 * ExceptionReport
+//	 */
+//	public ExecuteRequestV100(CaseInsensitiveMap ciMap) throws ExceptionReport {
+//		super(ciMap);
+//		initForGET(ciMap);
+//		// validate the client input
+//		validate();
+//
+//		// create an initial response
+//		execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+//
+//        storeRequest(ciMap);
+//	}
 	
-	public ExecuteRequestV100(CaseInsensitiveMap ciMap, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+	public ExecuteRequestV100(CaseInsensitiveMap ciMap, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig, GeneratorFactory generatorFactory) throws ExceptionReport {
         super(ciMap, repositoryManager, parserFactory, databaseFactory, wpsConfig);
         initForGET(ciMap);
         // validate the client input
         validate();
 
         // create an initial response
-        execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+        execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig, generatorFactory);
 
 storeRequest(ciMap);
     }
         
-        public ExecuteRequestV100(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+        public ExecuteRequestV100(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig, GeneratorFactory generatorFactory) throws ExceptionReport {
         super(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
         try {
             XmlOptions option = new XmlOptions();
@@ -179,7 +180,7 @@ storeRequest(ciMap);
     validate();
 
     // create an initial response
-    execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig);
+    execRespType = new ExecuteResponseBuilderV100(this, repositoryManager, databaseFactory, wpsConfig, generatorFactory);
 
 storeRequest(execDom);
     }

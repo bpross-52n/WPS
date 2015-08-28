@@ -45,6 +45,7 @@ import org.apache.xmlbeans.XmlException;
 import org.junit.Before;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.IAlgorithm;
@@ -74,6 +75,8 @@ public class StatusTest extends AbstractITClass {
     private DatabaseFactory databaseFactory;
     @Inject
     private WPSConfig wpsConfig; 
+    @Inject
+    private GeneratorFactory generatorFactory;
     
     @Before
     public void setUp() {
@@ -92,7 +95,7 @@ public class StatusTest extends AbstractITClass {
             // parse the InputStream to create a Document
             Document doc = fac.newDocumentBuilder().parse(fis);
 
-            final ExecuteRequestV200 executeRequestV200 = new ExecuteRequestV200(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+            final ExecuteRequestV200 executeRequestV200 = new ExecuteRequestV200(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
             final String requestID = executeRequestV200.getUniqueId().toString();
 

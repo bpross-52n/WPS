@@ -37,6 +37,8 @@ import java.util.TreeSet;
 
 import javax.inject.Inject;
 
+import net.opengis.wps.x100.ExecuteDocument;
+
 import org.apache.commons.collections.map.CaseInsensitiveMap;
 import org.n52.iceland.binding.Binding;
 import org.n52.iceland.binding.BindingRepository;
@@ -50,31 +52,36 @@ import org.n52.iceland.ogc.ows.DCP;
 import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.ows.OwsParameterValuePossibleValues;
 import org.n52.iceland.ogc.wps.WpsConstants;
+import org.n52.iceland.request.AbstractServiceRequest;
 import org.n52.iceland.response.AbstractServiceResponse;
 import org.n52.iceland.util.collections.MultiMaps;
 import org.n52.iceland.util.collections.SetMultiMap;
 import org.n52.iceland.util.http.HTTPHeaders;
 import org.n52.iceland.util.http.HTTPMethods;
 import org.n52.iceland.util.http.MediaType;
+import org.n52.simplewps.request.operator.ExecuteRequest;
 import org.n52.simplewps.request.operator.ExecuteResponse;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.server.RepositoryManager;
+import org.n52.wps.server.request.ExecuteRequestFactory;
 import org.n52.wps.server.request.ExecuteRequestV100;
 import org.n52.wps.server.request.ExecuteRequestV200;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 public class ExecuteHandler implements OperationHandler {
 
     @Inject
     private BindingRepository bindingRepository;
-
-    private RepositoryManager repositoryManager;
+    
+    @Inject
+    private ExecuteRequestFactory executeRequestFactory;
 
     public ExecuteHandler() {
     }
 
     public ExecuteHandler(RepositoryManager repositoryManager) {
-        this.repositoryManager = repositoryManager;
+        
     }
 
     @Override
@@ -152,7 +159,7 @@ public class ExecuteHandler implements OperationHandler {
         return dcps;
     }
 
-    public AbstractServiceResponse getExecuteResponse(String version, Document executeDoc) {
+    public AbstractServiceResponse getExecuteResponse(String version, ExecuteRequest request1) {
 
         ExecuteResponse executeResponse = new ExecuteResponse();
 
@@ -161,19 +168,22 @@ public class ExecuteHandler implements OperationHandler {
 
         Object executeResponseObject = null;
 
+        Document executeDoc = (Document) request1.getExecute().getDomNode();
+        
         try {
 
             if (version.equals(WPSConfig.VERSION_100)) {
 
-                ExecuteRequestV100 request = new ExecuteRequestV100(executeDoc);
+                org.n52.wps.server.request.ExecuteRequest request = executeRequestFactory.createExecuteRequest(executeDoc);
 
                 request.call();
 
-                executeResponseObject = request.getAttachedResult();
+                executeResponseObject = request.getExecuteResponseBuilder().getAsStream();
 
             } else if (version.equals(WPSConfig.VERSION_200)) {
 
-                ExecuteRequestV200 request = new ExecuteRequestV200(executeDoc);
+                //TODO handle versions in factory
+                org.n52.wps.server.request.ExecuteRequest request = executeRequestFactory.createExecuteRequest(executeDoc);
 
                 request.call();
 

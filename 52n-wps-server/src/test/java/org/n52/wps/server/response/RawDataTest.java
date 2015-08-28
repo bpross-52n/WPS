@@ -45,6 +45,7 @@ import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.bbox.BoundingBoxData;
 import org.n52.wps.server.IAlgorithm;
 import org.n52.wps.server.ProcessDescription;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.algorithm.test.DummyTestClass;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -65,6 +66,8 @@ public class RawDataTest  extends AbstractITClass{
 	private GeneratorFactory generatorFactory;
 	@Inject
 	private ParserFactory parserFactory;
+        @Inject
+        private RepositoryManager repositoryManager;
 	
     @BeforeClass
     public static void setUpClass() {
@@ -90,7 +93,7 @@ public class RawDataTest  extends AbstractITClass{
     	InputStream is;
 
     	try {
-			RawData bboxRawData = new RawData(envelope, "BBOXOutputData", null, null, null, identifier, processDescription);
+			RawData bboxRawData = new RawData(envelope, "BBOXOutputData", null, null, null, identifier, processDescription, generatorFactory, repositoryManager);
 
 			is = bboxRawData.getAsStream();
 
@@ -114,7 +117,7 @@ public class RawDataTest  extends AbstractITClass{
     	InputStream is;
 
     	try {
-			RawData bboxRawData = new RawData(envelope, "BBOXOutputData", null, null, null, identifier, processDescription);
+			RawData bboxRawData = new RawData(envelope, "BBOXOutputData", null, null, null, identifier, processDescription, generatorFactory, repositoryManager);
 
 			is = bboxRawData.getAsStream();
 

@@ -46,6 +46,7 @@ import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.w3c.W3CConstants;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.data.IBBOXData;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.server.ExceptionReport;
@@ -80,11 +81,13 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
     private WPSConfig wpsConfig;
     private DatabaseFactory databaseFactory;
     private RepositoryManager repositoryManager;
-
-	public ExecuteResponseBuilderV100(ExecuteRequestV100 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport{
+    private GeneratorFactory generatorFactory;
+    
+	public ExecuteResponseBuilderV100(ExecuteRequestV100 request, RepositoryManager repositoryManager, DatabaseFactory databaseFactory, WPSConfig wpsConfig, GeneratorFactory generatorFactory) throws ExceptionReport{
 		this.request = request;
-		this.repositoryManager = repositoryManager;
 		this.databaseFactory = databaseFactory;
+                this.repositoryManager = repositoryManager;
+                this.generatorFactory = generatorFactory;
 		this.wpsConfig = wpsConfig;
 		doc = ExecuteResponseDocument.Factory.newInstance();
 		doc.addNewExecuteResponse();
@@ -328,10 +331,10 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 	private void generateComplexDataOutput(String responseID, boolean asReference, boolean rawData, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport{
 		IData obj = request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}
 		else {
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			if(asReference) {
 				handler.updateResponseAsReference(doc, (request.getUniqueId()).toString(),mimeType);
 			}
@@ -345,9 +348,9 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 	private void generateLiteralDataOutput(String responseID, ExecuteResponseDocument res, boolean rawData, String dataTypeReference, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport {
 		IData obj = request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			handler.updateResponseForLiteralData(res, dataTypeReference);
 		}
 	}
@@ -355,9 +358,9 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 	private void generateBBOXOutput(String responseID, ExecuteResponseDocument res, boolean rawData, LanguageStringType title) throws ExceptionReport {
         IBBOXData obj = (IBBOXData) request.getAttachedResult().get(responseID);
 		if(rawData) {
-			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
+			rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription, generatorFactory, repositoryManager);
 		}else{
-			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory);
+			OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription, databaseFactory, generatorFactory, repositoryManager);
 			handler.updateResponseForBBOXData(res, obj);
 		}
 

@@ -63,8 +63,9 @@ public class ExecuteRequestFactory {
     private DatabaseFactory databaseFactory;
     
     public ExecuteRequest createExecuteRequest(Document doc){
+      //TODO handle versions
         try {
-            return new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+            return new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
         } catch (ExceptionReport e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -74,7 +75,8 @@ public class ExecuteRequestFactory {
     
     public ExecuteRequest createExecuteRequest(CaseInsensitiveMap ciMap){
         try {
-            return new ExecuteRequestV100(ciMap, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+          //TODO handle versions
+            return new ExecuteRequestV100(ciMap, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
         } catch (ExceptionReport e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

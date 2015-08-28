@@ -44,6 +44,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.commons.context.ExecutionContext;
 import org.n52.wps.commons.context.ExecutionContextFactory;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.io.data.IComplexData;
 import org.n52.wps.io.data.IData;
@@ -72,37 +73,37 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 	private ExecuteResponseBuilderV200 execRespType;
 	private boolean rawData;
 
-	/**
-	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
-	 * 
-	 * @param doc
-	 *            The clients submission
-	 * @throws ExceptionReport
-	 */
-	public ExecuteRequestV200(Document doc) throws ExceptionReport {
-		super(doc);
-		try {
-			XmlOptions option = new XmlOptions();
-			option.setLoadTrimTextBuffer();
-			this.execDom = ExecuteDocument.Factory.parse(doc, option);
-			if (this.execDom == null) {
-				LOGGER.error("ExecuteDocument is null");
-				throw new ExceptionReport("Error while parsing post data",
-						ExceptionReport.MISSING_PARAMETER_VALUE);
-			}
-		} catch (XmlException e) {
-			throw new ExceptionReport("Error while parsing post data",
-					ExceptionReport.MISSING_PARAMETER_VALUE, e);
-		}
-
-		// validate the client input
-		validate();
-
-		// create an initial response
-		execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig);
-
-		storeRequest(execDom);
-	}
+//	/**
+//	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
+//	 * 
+//	 * @param doc
+//	 *            The clients submission
+//	 * @throws ExceptionReport
+//	 */
+//	public ExecuteRequestV200(Document doc) throws ExceptionReport {
+//		super(doc);
+//		try {
+//			XmlOptions option = new XmlOptions();
+//			option.setLoadTrimTextBuffer();
+//			this.execDom = ExecuteDocument.Factory.parse(doc, option);
+//			if (this.execDom == null) {
+//				LOGGER.error("ExecuteDocument is null");
+//				throw new ExceptionReport("Error while parsing post data",
+//						ExceptionReport.MISSING_PARAMETER_VALUE);
+//			}
+//		} catch (XmlException e) {
+//			throw new ExceptionReport("Error while parsing post data",
+//					ExceptionReport.MISSING_PARAMETER_VALUE, e);
+//		}
+//
+//		// validate the client input
+//		validate();
+//
+//		// create an initial response
+//		execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig);
+//
+//		storeRequest(execDom);
+//	}
 	
 	/**
 	 * Creates an ExecuteRequest based on a Document (HTTP_POST)
@@ -111,7 +112,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 	 *            The clients submission
 	 * @throws ExceptionReport
 	 */
-	public ExecuteRequestV200(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig) throws ExceptionReport {
+	public ExecuteRequestV200(Document doc, RepositoryManager repositoryManager, ParserFactory parserFactory, DatabaseFactory databaseFactory, WPSConfig wpsConfig, GeneratorFactory generatorFactory) throws ExceptionReport {
 	    super(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
 	    try {
 	        XmlOptions option = new XmlOptions();
@@ -131,7 +132,7 @@ public class ExecuteRequestV200 extends ExecuteRequest implements IObserver {
 	    validate();
 	    
 	    // create an initial response
-	    execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig);
+	    execRespType = new ExecuteResponseBuilderV200(this, repositoryManager, databaseFactory, wpsConfig, generatorFactory);
 	    
 	    storeRequest(execDom);
 	}

@@ -28,10 +28,13 @@
  */
 package org.n52.simplewps.encode;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.coding.OperationKey;
 import org.n52.iceland.coding.encode.AbstractDelegatingEncoder;
@@ -60,7 +63,17 @@ public class ExecuteEncoder<T extends ExecuteResponse> extends AbstractDelegatin
         if (response == null) {
             throw new UnsupportedEncoderInputException(this, response);
         }
-        XmlObject xml = (XmlObject) response.getResultObject();
+        XmlObject xml = XmlObject.Factory.newInstance();
+        try {
+            xml = XmlObject.Factory.parse((InputStream)response.getResultObject());
+        } catch (XmlException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+//        XmlObject xml = (XmlObject) response.getResultObject();
         // try {
         // xml = XmlObject.Factory.parse(response.getResponse());
         // } catch (XmlException e) {

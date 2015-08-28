@@ -50,6 +50,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.ParserFactory;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.RepositoryManager;
@@ -72,6 +73,8 @@ public class ExecuteRequestTest extends AbstractITClass {
     private RepositoryManager repositoryManager;
     @Inject
     private ParserFactory parserFactory;
+    @Inject
+    private GeneratorFactory generatorFactory;
     @Inject
     private DatabaseFactory databaseFactory;
     @Inject
@@ -100,7 +103,7 @@ public class ExecuteRequestTest extends AbstractITClass {
 		// parse the InputStream to create a Document
 		Document doc = fac.newDocumentBuilder().parse(fis);
 
-    	ExecuteRequestV100 request = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig);
+    	ExecuteRequestV100 request = new ExecuteRequestV100(doc, repositoryManager, parserFactory, databaseFactory, wpsConfig, generatorFactory);
 
     	String exceptionText = "TestError";
 

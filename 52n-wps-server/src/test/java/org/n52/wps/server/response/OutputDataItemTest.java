@@ -57,6 +57,7 @@ import org.junit.Test;
 import org.n52.iceland.w3c.W3CConstants;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.io.BasicXMLTypeFactory;
+import org.n52.wps.io.GeneratorFactory;
 import org.n52.wps.io.data.ILiteralData;
 import org.n52.wps.io.data.binding.literal.LiteralAnyURIBinding;
 import org.n52.wps.io.data.binding.literal.LiteralBase64BinaryBinding;
@@ -70,6 +71,7 @@ import org.n52.wps.io.data.binding.literal.LiteralLongBinding;
 import org.n52.wps.io.data.binding.literal.LiteralShortBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.ProcessDescription;
+import org.n52.wps.server.RepositoryManager;
 import org.n52.wps.server.database.DatabaseFactory;
 import org.n52.wps.webapp.common.AbstractITClass;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -97,6 +99,10 @@ public class OutputDataItemTest extends AbstractITClass{
 	private WPSConfig wpsConfig;
 	    @Inject
 	    private DatabaseFactory databaseFactory;
+            @Inject
+            private GeneratorFactory generatorFactory;
+            @Inject
+            private RepositoryManager repositoryManager;
 
 	@Before
 	public void setUp() {
@@ -233,7 +239,7 @@ public class OutputDataItemTest extends AbstractITClass{
 		description.addProcessDescriptionForVersion(descriptionsType, WPSConfig.VERSION_100);
 		
 		OutputDataItem ouDI = new OutputDataItem(literalDataBinding, "output",
-				null, null, null, outputTitle, processID, description, databaseFactory);
+				null, null, null, outputTitle, processID, description, databaseFactory, generatorFactory, repositoryManager);
 
 		ouDI.updateResponseForLiteralData(mockupResponseDocument,
 				dataTypeAsString);
