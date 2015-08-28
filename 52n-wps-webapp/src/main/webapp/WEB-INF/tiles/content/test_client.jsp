@@ -2,7 +2,7 @@
 	<div class="form-group">
 		<label class="col-lg-2 control-label">Service URL</label>
 		<div class="col-lg-10">
-			<input class="form-control" name="url" id="serviceUrlField" value="./WebProcessingService" type="text" />
+			<input class="form-control" name="url" id="serviceUrlField" value="./service" type="text" />
 		</div>
 	</div>
 	<div class="form-group">
@@ -18,7 +18,6 @@
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-primary">Send</button>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		<button id="clearBtn" type="reset" class="btn btn-primary">Clear</button>
 	</div>
 </form>
@@ -32,7 +31,7 @@
 				// derive service url from current location
 				var urlIndex = window.location.href.lastIndexOf("/test_client");
 				var urlBasisString = window.location.href.substring(0, (urlIndex + 1));
-				var serviceUrlString = urlBasisString + "WebProcessingService";
+				var serviceUrlString = urlBasisString + "service";
 
 				var datafolder = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1)
 						+ "static/examples/requests/";

@@ -61,6 +61,7 @@ import net.opengis.wps.x20.WPSCapabilitiesType;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
+import org.n52.iceland.lifecycle.Constructable;
 import org.n52.iceland.w3c.W3CConstants;
 import org.n52.wps.commons.WPSConfig;
 import org.n52.wps.webapp.api.ConfigurationManager;
@@ -80,21 +81,24 @@ import com.google.common.base.Preconditions;
  * @author Benjamin Pross
  * 
  */
-public class CapabilitiesConfigurationV200 {
+public class CapabilitiesConfigurationV200 implements Constructable{
     private static final Logger LOG = LoggerFactory.getLogger(CapabilitiesConfigurationV200.class);
 
     private static final ReentrantLock lock = new ReentrantLock();
 
-    private static CapabilitiesDocument capabilitiesDocumentObj;
+    private CapabilitiesDocument capabilitiesDocumentObj;
 
-    private static CapabilitiesSkeletonLoadingStrategy loadingStrategy;
+    private CapabilitiesSkeletonLoadingStrategy loadingStrategy;
    
     @Inject
-	private static WPSConfig wpsConfig;
+	private WPSConfig wpsConfig;
     @Inject
-    private static ConfigurationManager configurationManager;
-    private static org.n52.wps.webapp.entities.ServiceIdentification serviceIdentificationConfigurationModule;	
-    private static org.n52.wps.webapp.entities.ServiceProvider serviceProviderConfigurationModule;	
+    private ConfigurationManager configurationManager;
+    
+    @Inject
+    private RepositoryManager repositoryManager;
+    private org.n52.wps.webapp.entities.ServiceIdentification serviceIdentificationConfigurationModule;	
+    private org.n52.wps.webapp.entities.ServiceProvider serviceProviderConfigurationModule;	
 
     private CapabilitiesConfigurationV200() {
         /* nothing here */
@@ -115,7 +119,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(String filePath) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(String filePath) throws XmlException, IOException {
         return getInstance(new FileLoadingStrategy(filePath));
     }
 
@@ -134,7 +138,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(File file) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(File file) throws XmlException, IOException {
         return getInstance(new FileLoadingStrategy(file));
     }
 
@@ -153,7 +157,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(URL url) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(URL url) throws XmlException, IOException {
         return getInstance(new URLLoadingStrategy(url));
     }
 
@@ -171,7 +175,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(CapabilitiesDocument skel) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(CapabilitiesDocument skel) throws XmlException, IOException {
         return getInstance(new InstanceStrategy(skel));
     }
 
@@ -189,7 +193,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    private static CapabilitiesDocument getInstance(CapabilitiesSkeletonLoadingStrategy strategy) throws XmlException,
+    private CapabilitiesDocument getInstance(CapabilitiesSkeletonLoadingStrategy strategy) throws XmlException,
             IOException {
         Preconditions.checkNotNull(strategy);
         lock.lock();
@@ -216,7 +220,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance() throws XmlException, IOException {
+    public CapabilitiesDocument getInstance() throws XmlException, IOException {
         boolean cached = wpsConfig.getServerConfigurationModule().isCacheCapabilites();
         return getInstance( !cached);
     }
@@ -234,7 +238,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static CapabilitiesDocument getInstance(boolean reload) throws XmlException, IOException {
+    public CapabilitiesDocument getInstance(boolean reload) throws XmlException, IOException {
         lock.lock();
         try {
             if (capabilitiesDocumentObj == null || reload) {
@@ -262,7 +266,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws UnknownHostException
      *         if the local host name can not be obtained
      */
-    private static void initSkeleton(CapabilitiesDocument skel) throws UnknownHostException {
+    private void initSkeleton(CapabilitiesDocument skel) throws UnknownHostException {
         String endpoint = getEndpointURL();
         if (skel.getCapabilities() == null) {
             skel.addNewCapabilities();
@@ -277,14 +281,13 @@ public class CapabilitiesConfigurationV200 {
      * @param skel
      *        the skeleton to enrich
      */
-    private static void initProcessOfferings(CapabilitiesDocument skel) {
+    private void initProcessOfferings(CapabilitiesDocument skel) {
         Contents contents = skel.getCapabilities()
                 .addNewContents();
-        for (String algorithmName : RepositoryManager.getInstance()
+        for (String algorithmName : repositoryManager
                 .getAlgorithms()) {
         	try {
-        		ProcessOffering offering = (ProcessOffering) RepositoryManager
-                        .getInstance().getProcessDescription(algorithmName).getProcessDescriptionType(WPSConfig.VERSION_200);
+        		ProcessOffering offering = (ProcessOffering) repositoryManager.getProcessDescription(algorithmName).getProcessDescriptionType(WPSConfig.VERSION_200);
         		
         		ProcessDescriptionType description = offering.getProcess();
         		
@@ -351,7 +354,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws UnknownHostException
      *         if the local host name could not be resolved into an address
      */
-    private static String getEndpointURL() throws UnknownHostException {
+    private String getEndpointURL() throws UnknownHostException {
         return wpsConfig.getServiceEndpoint();
     }
 
@@ -363,7 +366,7 @@ public class CapabilitiesConfigurationV200 {
      * @throws IOException
      *         if an IO error occurs
      */
-    public static void reloadSkeleton() throws XmlException, IOException {
+    public void reloadSkeleton() throws XmlException, IOException {
         getInstance(true);
     }
 
@@ -372,7 +375,7 @@ public class CapabilitiesConfigurationV200 {
      * 
      * @return if the capabilities are ready.
      */
-    public static boolean ready() {
+    public boolean ready() {
         lock.lock();
         try {
             return capabilitiesDocumentObj != null;
@@ -382,7 +385,7 @@ public class CapabilitiesConfigurationV200 {
         }
     }
     
-	public static ConfigurationManager getConfigurationManager() {
+	public ConfigurationManager getConfigurationManager() {
 		return configurationManager;
 	}
 
@@ -507,7 +510,7 @@ public class CapabilitiesConfigurationV200 {
     /**
      * Strategy to obtain the capabilities skeleton from an existing instance.
      */
-    private static class CreateInstanceStrategy implements CapabilitiesSkeletonLoadingStrategy {
+    private class CreateInstanceStrategy implements CapabilitiesSkeletonLoadingStrategy {
         private final CapabilitiesDocument instance;
 
         /**
@@ -670,5 +673,56 @@ public class CapabilitiesConfigurationV200 {
          *         if an IO error occurs
          */
         CapabilitiesDocument loadSkeleton() throws XmlException, IOException;
+    }
+
+    @Override
+    public void init() {
+        
+        loadingStrategy = new CreateInstanceStrategy();
+        LOG.debug("Initialized capabilities document v 2.0.0");
+        
+    }
+    
+    /**
+     * Get the WPS Capabilities for this service. The capabilities are reloaded if caching is not enabled in
+     * the WPS configuration.
+     * 
+     * @return the capabilities document
+     * 
+     * @throws XmlException
+     *         if the Capabilities skeleton is not valid
+     * @throws IOException
+     *         if an IO error occurs
+     */
+    public CapabilitiesDocument getCapabilitiesDocument() throws XmlException, IOException {
+        boolean cached = wpsConfig.getServerConfigurationModule().isCacheCapabilites();
+        return getCapabilitiesDocument( !cached);
+    }
+
+    /**
+     * Get the WPS Capabilities for this service and optionally force a reload.
+     * 
+     * @param reload
+     *        if the capabilities should be reloaded
+     * 
+     * @return the capabilities document
+     * 
+     * @throws XmlException
+     *         if the Capabilities skeleton is not valid
+     * @throws IOException
+     *         if an IO error occurs
+     */
+    public CapabilitiesDocument getCapabilitiesDocument(boolean reload) throws XmlException, IOException {
+        lock.lock();
+        try {
+            if (capabilitiesDocumentObj == null || reload) {
+                capabilitiesDocumentObj = loadingStrategy.loadSkeleton();
+                initSkeleton(capabilitiesDocumentObj);
+            }
+            return capabilitiesDocumentObj;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 }

@@ -30,6 +30,7 @@ package org.n52.simplewps.handler;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -70,6 +71,9 @@ public class GetCapabilitiesHandler implements OperationHandler {
 	
 	@Inject
 	private CapabilitiesConfiguration capabilitiesConfiguration;
+	
+	@Inject
+	private CapabilitiesConfigurationV200 capabilitiesConfigurationV200;
 	
 	public GetCapabilitiesHandler(){}
 	
@@ -147,7 +151,7 @@ public class GetCapabilitiesHandler implements OperationHandler {
         return dcps;
     }
     
-    public AbstractServiceResponse getCapabilities(String[] requestedVersions) throws XmlException, IOException{
+    public AbstractServiceResponse getCapabilities(List<String> requestedVersions) throws XmlException, IOException{
 		
     	GetCapabilitiesResponse response = new GetCapabilitiesResponse();
     	
@@ -158,30 +162,37 @@ public class GetCapabilitiesHandler implements OperationHandler {
     	/* [OGC 06-121r9 OWS Common 2.0]:
 		 * if acceptVersions parameter was send, the first supported version should be used
 		 */
-		if(requestedVersions != null && requestedVersions.length != 0){
+		if(requestedVersions != null && requestedVersions.size() != 0){
 			
-			for (int i = 0; i < requestedVersions.length; i++) {
-				String requestedVersion = requestedVersions[i].trim();
-				if(WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)){
+		    for (String requestedVersion : requestedVersions) {
+                        
+                        if(requestedVersion == null){
+                            continue;
+                        }
+                        requestedVersion = requestedVersion.trim();
+                        if(WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)){
 
-					if(requestedVersion.equals(WPSConfig.VERSION_100)){
-				    	response.setVersion(requestedVersion);
-						xmlGetCapabilitiesResponse = capabilitiesConfiguration.getCapabilitiesDocument();							
-					}else if(requestedVersion.equals(WPSConfig.VERSION_200)){
-				    	response.setVersion(requestedVersion);
-						xmlGetCapabilitiesResponse = CapabilitiesConfigurationV200.getInstance();	
-					}
-				}
-			}
-			
-		}else{
+                                if(requestedVersion.equals(WPSConfig.VERSION_100)){
+                                response.setVersion(requestedVersion);
+                                        xmlGetCapabilitiesResponse = capabilitiesConfiguration.getCapabilitiesDocument();
+                                        response.setXmlString(xmlGetCapabilitiesResponse.toString());
+                                        return response;
+                                }else if(requestedVersion.equals(WPSConfig.VERSION_200)){
+                                response.setVersion(requestedVersion);
+                                        xmlGetCapabilitiesResponse = capabilitiesConfigurationV200.getCapabilitiesDocument();
+                                        response.setXmlString(xmlGetCapabilitiesResponse.toString());
+                                        return response;
+                                }
+                        }
+                        
+                    }
+		}
 			/* [OGC 06-121r9 OWS Common 2.0]:
 			 * if no acceptVersions parameter was send, the highest supported version should be used
 			 * WPS 2.0 in this case
 			 */
 	    	response.setVersion(WPSConfig.VERSION_200);
-			xmlGetCapabilitiesResponse = CapabilitiesConfigurationV200.getInstance();			
-		}
+			xmlGetCapabilitiesResponse = capabilitiesConfigurationV200.getCapabilitiesDocument();		
 		
 		response.setXmlString(xmlGetCapabilitiesResponse.toString());
 		

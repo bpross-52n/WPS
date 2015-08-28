@@ -39,6 +39,7 @@ import org.n52.iceland.ogc.ows.OwsOperation;
 import org.n52.iceland.ogc.wps.Wps1Constants;
 import org.n52.iceland.ogc.wps.WpsConstants;
 import org.n52.iceland.request.AbstractServiceRequest;
+import org.n52.iceland.request.GetCapabilitiesRequest;
 import org.n52.iceland.request.operator.RequestOperator;
 import org.n52.iceland.request.operator.RequestOperatorKey;
 import org.n52.iceland.response.AbstractServiceResponse;
@@ -63,7 +64,7 @@ public class GetCapabilitiesRequestOperator implements RequestOperator {
 	public AbstractServiceResponse receiveRequest(
 			AbstractServiceRequest<?> request) throws OwsExceptionReport {		
 		try {
-			return getCapabilitiesHandler.getCapabilities(new String[]{request.getVersion()});
+			return getCapabilitiesHandler.getCapabilities(((GetCapabilitiesRequest)request).getAcceptVersions());
 		} catch (XmlException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -105,7 +105,9 @@
 	<bean id="repositoryManager" class="org.n52.wps.server.RepositoryManager" />
 	
 	<bean id="capabilitiesConfiguration" class="org.n52.wps.server.CapabilitiesConfiguration" />
+	<bean id="capabilitiesConfigurationV200" class="org.n52.wps.server.CapabilitiesConfigurationV200" />
 
+<!--     TODO: this may not be needed -->
 	<bean id="configurationManager" class="org.n52.wps.webapp.api.ConfigurationManagerImpl" />
 	<bean id="valueParser" class="org.n52.wps.webapp.api.ValueParser" />
 	<bean id="backupService" class="org.n52.wps.webapp.service.BackupServiceImpl" />
