@@ -34,6 +34,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,6 +70,7 @@ public class RetrieveResultServlet {
     
     private final int uuid_length = 36;
     
+    @Inject
     private DatabaseFactory databaseFactory;//FIXME inject
 
     public RetrieveResultServlet() {
