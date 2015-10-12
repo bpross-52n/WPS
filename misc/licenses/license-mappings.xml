@@ -44,7 +44,13 @@
 		<name>Apache Axis SAAJ 1.4</name>
 		<license>The Apache Software License, Version 2.0</license>
 	</artifact>
-
+	<!-- http://www.antlr.org/ -->
+	<artifact>
+		<groupId>org.antlr</groupId>
+		<artifactId>antlr-runtime</artifactId>
+		<version>3.2</version>
+		<license>BSD License</license>
+	</artifact>
 	<!-- http://www.bouncycastle.org/licence.html -->
 	<artifact>
 		<groupId>bouncycastle</groupId>
