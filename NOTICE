@@ -66,6 +66,8 @@ This project includes:
   builder under Apache License 2.0
   ClassMate under The Apache Software License, Version 2.0
   Collections under The Apache Software License, Version 2.0
+  com.virtuoso:virt_jena2 under GNU General Public License (GPL), version 2
+  com.virtuoso:virtjdbc4 under GNU General Public License (GPL), version 2
   common under Eclipse Public License (EPL)
   Commons Codec under The Apache Software License, Version 2.0
   Commons Configuration under The Apache Software License, Version 2.0
@@ -249,8 +251,6 @@ This project includes:
   trove under GNU Lesser General Public License, version 2.1 or later (LGPL)
   vecmath under GNU General Public License (GPL), version 2, with the CLASSPATH exception
   VelocityTools under The Apache Software License, Version 2.0
-  virt_jena2 under GNU General Public License (GPL), version 2
-  virtjdbc4 under GNU General Public License (GPL), version 2
   W3C SOAP specification recommondation (v1.2 part 1) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   W3C WS-Addressing specification schemas (v1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
   W3C xlink schema (spec. v1.1.0) under GNU GENERAL PUBLIC LICENSE Version 2, June 1991
