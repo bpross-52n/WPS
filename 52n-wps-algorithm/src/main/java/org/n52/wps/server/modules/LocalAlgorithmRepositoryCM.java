@@ -27,6 +27,7 @@ import org.n52.wps.webapp.api.ConfigurationCategory;
 import org.n52.wps.webapp.api.ConfigurationKey;
 import org.n52.wps.webapp.api.FormatEntry;
 import org.n52.wps.webapp.api.types.ConfigurationEntry;
+import org.n52.wps.webapp.api.types.IntegerConfigurationEntry;
 import org.n52.wps.webapp.api.types.StringConfigurationEntry;
 
 public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
@@ -55,8 +56,15 @@ public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
         
         private ConfigurationEntry<String> virtuosoJDBCUrlEntry = new StringConfigurationEntry(virtuosoJDBCUrlKey, "Virtuoso JDBC URL", "",
                 true, "jdbc:virtuoso://localhost:1111");
+        
+        public final static String startPosKey = "start.pos";
+        
+        private int startPos;
+        
+        private ConfigurationEntry<Integer> startPosEntry = new IntegerConfigurationEntry(startPosKey, "Catalog harvesting start position", "",
+                false, 1);
 	
-	private List<? extends ConfigurationEntry<?>> configurationEntries = Arrays.asList(virtuosoJDBCUrlEntry, virtuosoUserEntry, virtuosoPwdEntry);
+	private List<? extends ConfigurationEntry<?>> configurationEntries = Arrays.asList(virtuosoJDBCUrlEntry, virtuosoUserEntry, virtuosoPwdEntry, startPosEntry);
 	
 	public LocalAlgorithmRepositoryCM() {
 		algorithmEntries = new ArrayList<>();
@@ -127,6 +135,15 @@ public class LocalAlgorithmRepositoryCM extends ClassKnowingModule{
     @ConfigurationKey(key = virtuosoJDBCUrlKey)
     public void setVirtuosoJDBCUrl(String virtuosoJDBCUrl) {
         this.virtuosoJDBCUrl = virtuosoJDBCUrl;
+    }
+
+    public int getStartPos() {
+        return startPos;
+    }
+
+    @ConfigurationKey(key = startPosKey)
+    public void setStartPos(int startPos) {
+        this.startPos = startPos;
     }
 
 }

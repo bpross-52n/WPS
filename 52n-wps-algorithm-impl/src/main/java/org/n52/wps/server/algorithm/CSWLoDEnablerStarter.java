@@ -80,6 +80,8 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
 
     private String urlCSW;
 
+    private int startPos = 1;
+    
     private GenericFileData report;
 
     public CSWLoDEnablerStarter() {
@@ -100,6 +102,7 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
         String urlVirtuosoJdbc = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoJDBCUrlKey).getValue();
         String virtuosoUser = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoUserKey).getValue();
         String virtuosoPass = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoPwdKey).getValue();
+        startPos = (Integer) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.startPosKey).getValue();
 
         // from WPS configuration
         props.setProperty("URL_VIRTUOSO_JDBC", urlVirtuosoJdbc);
@@ -174,7 +177,8 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
             });
 
             CSWLoDEnabler enabler = new CSWLoDEnabler(config);
-            enabler.runOverAll();
+                
+            enabler.runStartingFrom(startPos);
 
             String reportString = enabler.getReport().extendedToString();
             
