@@ -36,6 +36,7 @@ import java.util.Properties;
 
 import org.n52.lod.Configuration;
 import org.n52.lod.ProgressListener;
+import org.n52.lod.algorithm.CSWLoDAlgorithmCM;
 import org.n52.lod.csw.CSWLoDEnabler;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.ComplexDataOutput;
@@ -46,9 +47,7 @@ import org.n52.wps.io.data.GenericFileData;
 import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
 import org.n52.wps.io.data.binding.literal.LiteralStringBinding;
 import org.n52.wps.server.AbstractAnnotatedAlgorithm;
-import org.n52.wps.server.LocalAlgorithmRepository;
 import org.n52.wps.server.modules.LocalAlgorithmRepositoryCM;
-import org.n52.wps.webapp.api.ConfigurationCategory;
 import org.n52.wps.webapp.api.ConfigurationModule;
 import org.n52.wps.webapp.service.ConfigurationService;
 import org.slf4j.Logger;
@@ -93,16 +92,16 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
         props.setProperty("NS_CSW", "http://www.opengis.net/cat/csw/2.0.2");
         props.setProperty("TEST_RECORD_ID", "glues:pik:metadata:dataset:noco2-echo-g-sresa1-annualcropyieldincreases");
         props.setProperty("SAVE_TO_FILE", "false");
-        props.setProperty("ADD_TO_SERVER", "true");
-
-        ConfigurationModule localAlgorithmConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(LocalAlgorithmRepository.class.getName(), ConfigurationCategory.REPOSITORY);
+        props.setProperty("ADD_TO_SERVER", "true");        
+        
+        ConfigurationModule cswLoDAlgorithmConfigModule = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getConfigurationModule(CSWLoDAlgorithmCM.class.getName());
 
         ConfigurationService configurationService = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices();
 
-        String urlVirtuosoJdbc = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoJDBCUrlKey).getValue();
-        String virtuosoUser = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoUserKey).getValue();
-        String virtuosoPass = (String) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoPwdKey).getValue();
-        startPos = (Integer) configurationService.getConfigurationEntry(localAlgorithmConfigModule, LocalAlgorithmRepositoryCM.startPosKey).getValue();
+        String urlVirtuosoJdbc = (String) configurationService.getConfigurationEntry(cswLoDAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoJDBCUrlKey).getValue();
+        String virtuosoUser = (String) configurationService.getConfigurationEntry(cswLoDAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoUserKey).getValue();
+        String virtuosoPass = (String) configurationService.getConfigurationEntry(cswLoDAlgorithmConfigModule, LocalAlgorithmRepositoryCM.virtuosoPwdKey).getValue();
+        startPos = (Integer) configurationService.getConfigurationEntry(cswLoDAlgorithmConfigModule, LocalAlgorithmRepositoryCM.startPosKey).getValue();
 
         // from WPS configuration
         props.setProperty("URL_VIRTUOSO_JDBC", urlVirtuosoJdbc);
