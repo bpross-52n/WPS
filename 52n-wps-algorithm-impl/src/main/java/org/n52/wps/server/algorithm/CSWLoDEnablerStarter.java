@@ -36,7 +36,7 @@ import java.util.Properties;
 
 import org.n52.lod.Configuration;
 import org.n52.lod.ProgressListener;
-import org.n52.lod.algorithm.CSWLoDAlgorithmCM;
+import org.n52.wps.CSWLoDAlgorithmCM;
 import org.n52.lod.csw.CSWLoDEnabler;
 import org.n52.wps.algorithm.annotation.Algorithm;
 import org.n52.wps.algorithm.annotation.ComplexDataOutput;
@@ -147,7 +147,7 @@ public class CSWLoDEnablerStarter extends AbstractAnnotatedAlgorithm {
     }
 
     @LiteralDataInput(
-            identifier = "urlCSW", binding = LiteralStringBinding.class, defaultValue = "http://catalog-glues.ufz.de/soapServices/CSWStartup", minOccurs = 1, maxOccurs = 1)
+            identifier = "urlCSW", binding = LiteralStringBinding.class, defaultValue = "https://catalog-glues.ufz.de/soapServices/CSWStartup", minOccurs = 1, maxOccurs = 1)
     public void setUrlCSW(String urlCSW) {
         this.urlCSW = urlCSW;
     }
