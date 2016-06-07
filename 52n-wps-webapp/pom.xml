@@ -86,11 +86,11 @@
 		</dependency>
 
                 <!-- uncomment this to work with the wps-gitalgorithm repository -->
-                <!--<dependency>
+                <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>52n-wps-git-algorithm-repository</artifactId>
                     <version>${project.version}</version>
-                </dependency>-->
+                </dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>

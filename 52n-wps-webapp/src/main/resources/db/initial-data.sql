@@ -7,37 +7,9 @@ INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiRefere
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.EchoProcess','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 
-INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.r.RConfigurationModule', FALSE);
-
-INSERT INTO ALGORITHMENTRY VALUES('debug.session','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.idw','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.image','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.interpolation.jsclient','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.meuse.rdata','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.pegelReport','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.sweaveFoo','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.timeseriesPlot','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.uniform.table','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('demo.uniform.simple','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('enviroCar_osmMatching','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('eo2hAirQuality','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('geo.poly.attribute-sum','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('geo.poly.intersection','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('highlight','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('netCDF_aggregation','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.calculator','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.csv','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.defaults','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.echo','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.geo','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.image','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.metadata','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.rdata','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.resources','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.warnings','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.wpsOff','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('test.session','org.n52.wps.server.r.RConfigurationModule',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('uncertweb.make-realizations','org.n52.wps.server.r.RConfigurationModule',TRUE);
+INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.r.RConfigurationModule', TRUE);
+INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.repository.git.module.GitAlgorithmRepositoryCM',TRUE);
+INSERT INTO CONFIGURATIONENTRY VALUES('repository_url','org.n52.wps.repository.git.module.GitAlgorithmRepositoryCM','https://github.com/52North/tamis');
 
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.grass.configurationmodule.GrassProcessRepositoryCM', FALSE);
 
@@ -613,6 +585,7 @@ INSERT INTO FORMATENTRY VALUES('image/png', '', 'base64', 'org.n52.wps.io.module
 INSERT INTO FORMATENTRY VALUES('application/x-geotiff', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/hdf4-eos', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('text/plain', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
+INSERT INTO FORMATENTRY VALUES('application/json', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 
 INSERT INTO FORMATENTRY VALUES('application/x-zipped-shp', '', '', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/img', '', '', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
@@ -656,6 +629,7 @@ INSERT INTO FORMATENTRY VALUES('image/png', '', 'base64', 'org.n52.wps.io.module
 INSERT INTO FORMATENTRY VALUES('application/x-geotiff', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/hdf4-eos', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('text/plain', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
+INSERT INTO FORMATENTRY VALUES('application/json', '', '', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 
 INSERT INTO FORMATENTRY VALUES('application/wkt', '', '', 'org.n52.wps.io.modules.parser.WKTParserCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/wkt', '', '', 'org.n52.wps.io.modules.generator.WKTGeneratorCM',TRUE);
