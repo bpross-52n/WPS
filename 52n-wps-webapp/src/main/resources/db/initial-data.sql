@@ -641,9 +641,9 @@ INSERT INTO FORMATENTRY VALUES('text/plain', 'http://schemas.opengis.net/wcps/1.
 INSERT INTO FORMATENTRY VALUES('text/plain', 'http://schemas.opengis.net/wcps/1.0/wcpsAll.xsd', '', 'org.n52.wps.io.modules.generator.WCPSGeneratorCM',TRUE);
 
 INSERT INTO FORMATENTRY VALUES('text/xml', '', '', 'org.n52.wps.io.modules.parser.GenericXMLDataParserCM',TRUE);
-INSERT INTO FORMATENTRY VALUES('text/xml; subtype=gml/2.1.2', 'http://schemas.opengis.net/gml/2.1.2/feature.xsd', '', 'org.n52.wps.io.modules.parser.GenericXMLDataParserCM',TRUE);
+INSERT INTO FORMATENTRY VALUES('application/om+xml; version=2.0', 'http://schemas.opengis.net/om/2.0/observation.xsd', '' , 'org.n52.wps.io.modules.parser.GenericXMLDataParserCM', TRUE);
+INSERT INTO FORMATENTRY VALUES('application/om+xml; version=2.0', 'http://schemas.opengis.net/om/2.0/observation.xsd', '' , 'org.n52.wps.io.modules.generator.GenericXMLDataGeneratorCM', TRUE);
 INSERT INTO FORMATENTRY VALUES('text/xml', '', '', 'org.n52.wps.io.modules.generator.GenericXMLDataGeneratorCM',TRUE);
-INSERT INTO FORMATENTRY VALUES('text/xml; subtype=gml/2.1.2', 'http://schemas.opengis.net/gml/2.1.2/feature.xsd', '', 'org.n52.wps.io.modules.generator.GenericXMLDataGeneratorCM',TRUE);
 
 INSERT INTO FORMATENTRY VALUES('application/img', '', 'base64', 'org.n52.wps.io.modules.parser.GenericRasterFileParserCM', TRUE);
 INSERT INTO FORMATENTRY VALUES('image/tiff', '', 'base64', 'org.n52.wps.io.modules.parser.GenericRasterFileParserCM', TRUE);
