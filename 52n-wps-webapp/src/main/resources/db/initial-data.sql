@@ -578,7 +578,6 @@ INSERT INTO FORMATENTRY VALUES('application/geotiff', '', 'base64', 'org.n52.wps
 INSERT INTO FORMATENTRY VALUES('application/dbase', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/remap', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/x-erdas-hfa', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
-INSERT INTO FORMATENTRY VALUES('application/x-netcdf', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/dgn', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('image/jpeg', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('image/png', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
@@ -622,7 +621,6 @@ INSERT INTO FORMATENTRY VALUES('application/geotiff', '', 'base64', 'org.n52.wps
 INSERT INTO FORMATENTRY VALUES('application/dbase', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/remap', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/x-erdas-hfa', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
-INSERT INTO FORMATENTRY VALUES('application/x-netcdf', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/dgn', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('image/jpeg', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('image/png', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileDataWithGTGeneratorCM',TRUE);
