@@ -16,11 +16,6 @@
  */
 package org.n52.wps.server;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -113,7 +108,7 @@ public class UploadedAlgorithmRepository implements
 	private IAlgorithm loadAlgorithm(String algorithmClassName)
 			throws Exception {
 
-		Class<?> algorithmClass = new CustomClassLoader("/uploaded").loadClass(algorithmClassName);
+		Class<?> algorithmClass = new CustomClassLoader("uploaded").loadClass(algorithmClassName);
 		IAlgorithm algorithm = null;
 		if (IAlgorithm.class.isAssignableFrom(algorithmClass)) {
 			algorithm = IAlgorithm.class.cast(algorithmClass.newInstance());
