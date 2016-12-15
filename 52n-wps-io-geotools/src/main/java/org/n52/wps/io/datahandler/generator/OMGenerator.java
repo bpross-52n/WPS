@@ -51,16 +51,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 
-import javax.inject.Inject;
-
 import org.apache.xmlbeans.XmlObject;
 import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.om.OmConstants;
 import org.n52.iceland.ogc.ows.OWSConstants;
 import org.n52.iceland.util.http.MediaTypes;
+import org.n52.shetland.ogc.om.OmObservation;
 import org.n52.sos.encode.OmEncoderv20;
-import org.n52.sos.ogc.om.OmObservation;
 import org.n52.sos.util.SosConfiguration;
+import org.n52.svalbard.encode.exception.EncodingException;
 import org.n52.wps.io.data.IData;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
@@ -102,10 +101,11 @@ public class OMGenerator extends AbstractGenerator {
 			
 			omDecoderv20.setXmlOptions(new SimpleXmlOptionsHelper());
 			
-			XmlObject encode = omDecoderv20.encode(omObservation, Collections.singletonMap(OWSConstants.HelperValues.DOCUMENT, "42"));
+			XmlObject encode = omDecoderv20.encode(omObservation);
+//			XmlObject encode = omDecoderv20.encode(omObservation, Collections.singletonMap(OWSConstants.HelperValues.DOCUMENT, "42"));
 
 			return new GenericXMLDataGenerator().generateStream(new GenericXMLDataBinding(encode), mimeType, schema);
-		} catch (OwsExceptionReport e) {
+		} catch (EncodingException e) {
 			LOGGER.error(
 					String.format("Could not encode type '%s'. Received object: '%s'. Exception thrown!",
 							OmObservation.class.getName(),

@@ -50,12 +50,12 @@ package org.n52.wps.io.datahandler.parser;
 import java.io.InputStream;
 
 import org.apache.xmlbeans.XmlObject;
-import org.n52.iceland.exception.ows.OwsExceptionReport;
 import org.n52.iceland.ogc.om.OmConstants;
 import org.n52.iceland.util.http.MediaTypes;
+import org.n52.shetland.ogc.om.OmObservation;
 import org.n52.sos.decode.OmDecoderv20;
-import org.n52.sos.ogc.om.OmObservation;
 import org.n52.sos.util.SosConfiguration;
+import org.n52.svalbard.decode.exception.DecodingException;
 import org.n52.wps.io.data.binding.complex.GenericXMLDataBinding;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
 import org.slf4j.Logger;
@@ -108,7 +108,7 @@ public class OMParser extends AbstractParser {
 				}
 				LOGGER.error("O&M decoder output not supported. Type received: '{}'.", parsedObject.getClass().getName());
 				
-			} catch (OwsExceptionReport e) {
+			} catch (DecodingException e) {
 				LOGGER.error("O&M data could not be parsed. Exception thrown!", e);
 				return null;
 			}

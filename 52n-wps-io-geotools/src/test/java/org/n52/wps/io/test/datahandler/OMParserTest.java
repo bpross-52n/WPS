@@ -56,7 +56,7 @@ import static org.junit.Assert.assertThat;
 import java.io.ByteArrayInputStream;
 
 import org.junit.Test;
-import org.n52.sos.ogc.om.OmObservation;
+import org.n52.shetland.ogc.om.OmObservation;
 import org.n52.wps.io.data.binding.complex.OMObservationBinding;
 import org.n52.wps.io.datahandler.parser.OMParser;
 

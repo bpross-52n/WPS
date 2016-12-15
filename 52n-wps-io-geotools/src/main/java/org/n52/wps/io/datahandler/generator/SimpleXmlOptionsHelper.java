@@ -57,7 +57,6 @@ import org.apache.xmlbeans.XmlOptions;
 import org.n52.iceland.config.annotation.Configurable;
 import org.n52.iceland.config.annotation.Setting;
 import org.n52.iceland.ogc.OGCConstants;
-import org.n52.iceland.util.Producer;
 import org.n52.iceland.util.Validation;
 import org.n52.iceland.w3c.W3CConstants;
 
@@ -68,7 +67,7 @@ import org.n52.iceland.w3c.W3CConstants;
  *
  */
 @Configurable
-public final class SimpleXmlOptionsHelper implements Producer<XmlOptions> {
+public final class SimpleXmlOptionsHelper implements org.n52.janmayen.Producer<XmlOptions> {
 
     private final ReentrantLock lock = new ReentrantLock();
     private XmlOptions xmlOptions;

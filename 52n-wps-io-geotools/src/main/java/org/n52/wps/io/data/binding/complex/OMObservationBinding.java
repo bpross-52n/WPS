@@ -47,7 +47,7 @@
  */
 package org.n52.wps.io.data.binding.complex;
 
-import org.n52.sos.ogc.om.OmObservation;
+import org.n52.shetland.ogc.om.OmObservation;
 import org.n52.wps.io.data.IComplexData;
 
 /**
