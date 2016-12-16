@@ -297,8 +297,9 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
             log.debug("RESULT: " + Arrays.toString(result.entrySet().toArray()));
 
             session.cleanUp();
-            workspace.cleanUpInR(originalWorkDir);
-            workspace.cleanUpWithWPS();
+            //TODO investigate why this isn't working. On linux, the work dir gets deleted before the outputs could be written
+//            workspace.cleanUpInR(originalWorkDir);
+//            workspace.cleanUpWithWPS();
 
             return result;
         }
