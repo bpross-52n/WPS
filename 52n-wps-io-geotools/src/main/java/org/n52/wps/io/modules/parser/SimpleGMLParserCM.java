@@ -65,7 +65,7 @@ public class SimpleGMLParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public SimpleGMLParserCM(){
+    public SimpleGMLParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

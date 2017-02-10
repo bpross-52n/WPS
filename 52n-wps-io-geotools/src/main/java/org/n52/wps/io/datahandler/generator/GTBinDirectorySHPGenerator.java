@@ -108,10 +108,10 @@ public class GTBinDirectorySHPGenerator {
         FeatureIterator iterator = fc.features();
         String uuid = UUID.randomUUID().toString();
         int i = 0;
-        while(iterator.hasNext()){
+        while(iterator.hasNext()) {
             SimpleFeature feature = (SimpleFeature) iterator.next();
 
-            if(i==0){
+            if (i==0) {
                 featureType = GTHelper.createFeatureType(feature.getProperties(), (Geometry)feature.getDefaultGeometry(), uuid, feature.getFeatureType().getCoordinateReferenceSystem());
                 QName qname = GTHelper.createGML3SchemaForFeatureType(featureType);
                 SchemaRepository.registerSchemaLocation(qname.getNamespaceURI(), qname.getLocalPart());
@@ -168,7 +168,7 @@ public class GTBinDirectorySHPGenerator {
                 .createNewDataStore(params);
 
         newDataStore.createSchema((SimpleFeatureType) collection.getSchema());
-        if(collection.getSchema().getCoordinateReferenceSystem()==null){
+        if (collection.getSchema().getCoordinateReferenceSystem()==null) {
             try {
                 newDataStore.forceSchemaCRS(CRS.decode("4326"));
             } catch (NoSuchAuthorityCodeException e) {
@@ -178,7 +178,7 @@ public class GTBinDirectorySHPGenerator {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             newDataStore.forceSchemaCRS(collection.getSchema()
                 .getCoordinateReferenceSystem());
         }

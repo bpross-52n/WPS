@@ -87,7 +87,7 @@ public abstract class AnnotationBinding<M extends AccessibleObject & Member> {
         public void execute(Object annotatedInstance) {
             try {
                 getMember().invoke(annotatedInstance);
-            }catch (IllegalAccessException ex) {
+            } catch (IllegalAccessException ex) {
                 throw new RuntimeException("Internal error executing process", ex);
             } catch (IllegalArgumentException ex) {
                 throw new RuntimeException("Internal error executing process", ex);
@@ -281,7 +281,7 @@ public abstract class AnnotationBinding<M extends AccessibleObject & Member> {
         public abstract IData get(Object annotatedInstance);
 
         private synchronized Constructor<? extends IData> getConstructor() {
-            if (bindingConstructor == null ){
+            if (bindingConstructor == null ) {
                 try {
                     Class<? extends IData> bindingClass = getDescriptor().getBinding();
                     Class<?> outputPayloadClass = bindingClass.getMethod("getPayload", (Class<?>[]) null).getReturnType();

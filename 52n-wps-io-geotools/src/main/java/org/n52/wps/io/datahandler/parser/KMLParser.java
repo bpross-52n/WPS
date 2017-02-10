@@ -78,7 +78,7 @@ public class KMLParser extends AbstractParser {
             finalizeFiles.add(tempFile); // mark for final delete
             fos = new FileOutputStream(tempFile);
             int i = stream.read();
-            while(i != -1){
+            while(i != -1) {
                 fos.write(i);
                 i = stream.read();
             }

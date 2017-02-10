@@ -67,7 +67,7 @@ public class GeotiffGeneratorTest extends AbstractTestCase<GeotiffGenerator> {
     @Test
     public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

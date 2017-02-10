@@ -260,7 +260,7 @@ public class CapabilitiesConfiguration {
                 .addNewProcessOfferings();
         RepositoryManager rm = RepositoryManagerSingletonWrapper.getInstance();
         List<String> algorithms = rm.getAlgorithms();
-        if (algorithms.isEmpty()){
+        if (algorithms.isEmpty()) {
             LOG.warn("No algorithms found in repository manager.");
         }
 
@@ -358,7 +358,7 @@ public class CapabilitiesConfiguration {
             if (configurationManager == null) {
                 configurationManager = WPSConfig
                         .getInstance().getConfigurationManager();
-            }if(configurationManager != null){
+            }if (configurationManager != null) {
                 serverConfigurationModule = (Server) configurationManager
                         .getConfigurationServices().getConfigurationModule(
                                 Server.class.getName());

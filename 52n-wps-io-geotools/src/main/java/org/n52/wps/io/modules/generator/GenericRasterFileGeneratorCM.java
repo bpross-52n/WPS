@@ -65,7 +65,7 @@ public class GenericRasterFileGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericRasterFileGeneratorCM(){
+    public GenericRasterFileGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

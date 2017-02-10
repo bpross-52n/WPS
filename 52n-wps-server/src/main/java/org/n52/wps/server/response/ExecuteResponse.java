@@ -47,11 +47,11 @@ public class ExecuteResponse extends Response {
         return this.builder.getAsStream();
     }
 
-    public ExecuteResponseBuilder getExecuteResponseBuilder(){
+    public ExecuteResponseBuilder getExecuteResponseBuilder() {
         return builder;
     }
 
-    public String getMimeType(){
+    public String getMimeType() {
         return builder.getMimeType();
     }
 }

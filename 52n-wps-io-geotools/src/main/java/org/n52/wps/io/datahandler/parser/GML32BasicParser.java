@@ -130,7 +130,7 @@ public class GML32BasicParser extends AbstractParser {
             return parse(new FileInputStream(tempFile), schematypeTuple);
         }
         catch (IOException e) {
-            if (fos != null){
+            if (fos != null) {
                 try { fos.close(); }
                 catch (Exception e1) { }
             }
@@ -159,14 +159,14 @@ public class GML32BasicParser extends AbstractParser {
         FeatureCollection fc = null;
         try {
             Object parsedData = parser.parse(input);
-            if (parsedData instanceof FeatureCollection){
+            if (parsedData instanceof FeatureCollection) {
                 fc = (FeatureCollection) parsedData;
             } else {
                 List<SimpleFeature> featureList = ((ArrayList<SimpleFeature>)((HashMap) parsedData).get("featureMember"));
-                if (featureList != null){
-                        if(featureList.size() > 0){
+                if (featureList != null) {
+                        if (featureList.size() > 0) {
                         fc = new ListFeatureCollection(featureList.get(0).getFeatureType(), featureList);
-                        }else{
+                        } else {
                             fc = new DefaultFeatureCollection();
                         }
                 } else {
@@ -180,7 +180,7 @@ public class GML32BasicParser extends AbstractParser {
 
                 if (feature.getDefaultGeometry() == null) {
                     Collection<Property> properties = feature.getProperties();
-                    for (Property property : properties){
+                    for (Property property : properties) {
                         try {
                             Geometry g = (Geometry) property.getValue();
                             if (g != null) {
@@ -200,7 +200,7 @@ public class GML32BasicParser extends AbstractParser {
                                 feature.setDefaultGeometry(g);
 
                             }
-                        } catch (ClassCastException e){
+                        } catch (ClassCastException e) {
                             //do nothing
                         }
 
@@ -229,17 +229,17 @@ public class GML32BasicParser extends AbstractParser {
         Configuration configuration = null;
         if (schematypeTuple != null) {
             String schemaLocation =  schematypeTuple.getLocalPart();
-            if (schemaLocation.startsWith("http://schemas.opengis.net/gml/3.2")){
+            if (schemaLocation.startsWith("http://schemas.opengis.net/gml/3.2")) {
                 configuration = new GMLConfiguration();
             } else {
-                if (schemaLocation != null && schematypeTuple.getNamespaceURI()!=null){
+                if (schemaLocation != null && schematypeTuple.getNamespaceURI()!=null) {
                     SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
                     configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
                 } else {
                     configuration = new GMLConfiguration();
                 }
             }
-        } else{
+        } else {
             configuration = new GMLConfiguration();
         }
 
@@ -256,7 +256,7 @@ public class GML32BasicParser extends AbstractParser {
 
             String schemaUrl = handler.getSchemaUrl();
 
-            if(schemaUrl == null){
+            if (schemaUrl == null) {
                 return null;
             }
 

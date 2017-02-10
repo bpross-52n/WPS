@@ -58,7 +58,7 @@ public abstract class AbstractClientGETRequest {
      * @return the URL enriched with additional parameters
      */
     public String getRequest(String url) {
-        if(! url.contains("?")) {
+        if (! url.contains("?")) {
             url = url + "?";
         }
         for(Entry<String, String> entry : requestParams.entrySet()) {

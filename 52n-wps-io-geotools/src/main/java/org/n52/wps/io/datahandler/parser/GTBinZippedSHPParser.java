@@ -63,7 +63,7 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
 
 public class GTBinZippedSHPParser extends AbstractParser {
 
-    public GTBinZippedSHPParser(){
+    public GTBinZippedSHPParser() {
         super();
         supportedIDataTypes.add(GTVectorDataBinding.class);
     }

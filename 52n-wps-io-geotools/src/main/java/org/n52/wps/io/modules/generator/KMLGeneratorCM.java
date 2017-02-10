@@ -65,7 +65,7 @@ public class KMLGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public KMLGeneratorCM(){
+    public KMLGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

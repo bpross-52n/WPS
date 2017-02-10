@@ -39,7 +39,7 @@ public class GeotiffBinding implements IComplexData{
     protected File geotiff;
     protected String mimeType;
 
-    public GeotiffBinding(File geotiff){
+    public GeotiffBinding(File geotiff) {
         this.geotiff = geotiff;
         mimeType = "image/tiff";
     }
@@ -59,7 +59,7 @@ public class GeotiffBinding implements IComplexData{
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
         FileUtils.deleteQuietly(geotiff);
     }
 }

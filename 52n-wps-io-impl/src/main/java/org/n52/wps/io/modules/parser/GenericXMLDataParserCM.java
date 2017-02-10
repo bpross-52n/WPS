@@ -47,7 +47,7 @@ public class GenericXMLDataParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericXMLDataParserCM(){
+    public GenericXMLDataParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

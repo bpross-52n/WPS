@@ -46,7 +46,7 @@ public class WCPSGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public WCPSGeneratorCM(){
+    public WCPSGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

@@ -65,7 +65,7 @@ public class GTBinZippedSHPGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GTBinZippedSHPGeneratorCM(){
+    public GTBinZippedSHPGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

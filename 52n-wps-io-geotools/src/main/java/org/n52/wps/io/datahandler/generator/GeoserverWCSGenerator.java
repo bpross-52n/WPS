@@ -91,7 +91,7 @@ public class GeoserverWCSGenerator extends AbstractGeoserverWXSGenerator {
             Document doc = storeLayer(data);
             String xmlString = XMLUtil.nodeToString(doc);
             stream = new ByteArrayInputStream(xmlString.getBytes("UTF-8"));
-        } catch(TransformerException e){
+        } catch(TransformerException e) {
             LOGGER.error("Error generating WCS output. Reason: ", e);
             throw new RuntimeException("Error generating WCS output. Reason: " + e);
         } catch (IOException e) {
@@ -108,12 +108,12 @@ public class GeoserverWCSGenerator extends AbstractGeoserverWXSGenerator {
         File file = null;
         String storeName = "";
 
-        if(coll instanceof GTRasterDataBinding){
+        if (coll instanceof GTRasterDataBinding) {
             GTRasterDataBinding gtData = (GTRasterDataBinding) coll;
             GenericFileDataWithGT fileData = new GenericFileDataWithGT(gtData.getPayload(), null);
             file = fileData.getBaseFile(true);
         }
-        if(coll instanceof GeotiffBinding){
+        if (coll instanceof GeotiffBinding) {
             GeotiffBinding data = (GeotiffBinding) coll;
             file = (File) data.getPayload();
         }
@@ -125,7 +125,7 @@ public class GeoserverWCSGenerator extends AbstractGeoserverWXSGenerator {
 
         String result = geoserverUploader.createWorkspace();
         LOGGER.debug(result);
-        if(coll instanceof GTRasterDataBinding){
+        if (coll instanceof GTRasterDataBinding) {
             result = geoserverUploader.uploadGeotiff(file, storeName);
         }
         LOGGER.debug(result);

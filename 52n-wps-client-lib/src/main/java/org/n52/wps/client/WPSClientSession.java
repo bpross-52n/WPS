@@ -96,7 +96,7 @@ public class WPSClientSession {
      * @result An instance of a WPS Client session.
      */
     public static WPSClientSession getInstance() {
-        if(session == null) {
+        if (session == null) {
             session = new WPSClientSession();
         }
         return session;
@@ -116,16 +116,16 @@ public class WPSClientSession {
      */
     public boolean connect(String url) throws WPSClientException {
         LOGGER.info("CONNECT");
-        if(loggedServices.containsKey(url)) {
+        if (loggedServices.containsKey(url)) {
             LOGGER.info("Service already registered: " + url);
             return false;
         }
         CapabilitiesDocument capsDoc = retrieveCapsViaGET(url);
-        if(capsDoc != null) {
+        if (capsDoc != null) {
             loggedServices.put(url, retrieveCapsViaGET(url));
         }
         ProcessDescriptionsDocument processDescs = describeAllProcesses(url);
-        if(processDescs != null && capsDoc != null) {
+        if (processDescs != null && capsDoc != null) {
             processDescriptions.put(url, processDescs);
             return true;
         }
@@ -138,7 +138,7 @@ public class WPSClientSession {
      * @param url the url of the service that should be disconnected
      */
     public void disconnect(String url) {
-        if(loggedServices.containsKey(url)) {
+        if (loggedServices.containsKey(url)) {
             loggedServices.remove(url);
             processDescriptions.remove(url);
             LOGGER.info("service removed successfully: " + url);
@@ -170,7 +170,7 @@ public class WPSClientSession {
      * @throws IOException if an exception occurred while trying to connect to the WPS
      */
     private ProcessDescriptionsDocument getProcessDescriptionsFromCache(String wpsUrl) throws IOException {
-        if(! descriptionsAvailableInCache(wpsUrl)) {
+        if (! descriptionsAvailableInCache(wpsUrl)) {
             try{
                 connect(wpsUrl);
             }
@@ -193,7 +193,7 @@ public class WPSClientSession {
     public ProcessDescriptionType getProcessDescription(String serverID, String processID) throws IOException {
         ProcessDescriptionType[] processes = getProcessDescriptionsFromCache(serverID).getProcessDescriptions().getProcessDescriptionArray();
         for(ProcessDescriptionType process : processes) {
-            if(process.getIdentifier().getStringValue().equals(processID)) {
+            if (process.getIdentifier().getStringValue().equals(processID)) {
                 return process;
             }
         }
@@ -239,7 +239,7 @@ public class WPSClientSession {
      */
     public ProcessDescriptionsDocument describeAllProcesses(String url) throws WPSClientException {
         CapabilitiesDocument doc = loggedServices.get(url);
-        if(doc == null) {
+        if (doc == null) {
             LOGGER.warn("serviceCaps are null, perhaps server does not exist");
             return null;
         }
@@ -263,12 +263,12 @@ public class WPSClientSession {
         CapabilitiesDocument caps = this.loggedServices.get(serverID);
         Operation[] operations = caps.getCapabilities().getOperationsMetadata().getOperationArray();
         String url = null;
-        for(Operation operation : operations){
-            if(operation.getName().equals("DescribeProcess")) {
+        for(Operation operation : operations) {
+            if (operation.getName().equals("DescribeProcess")) {
                 url = operation.getDCPArray()[0].getHTTP().getGetArray()[0].getHref();
             }
         }
-        if(url == null) {
+        if (url == null) {
             throw new WPSClientException("Missing DescribeOperation in Capabilities");
         }
         return retrieveDescriptionViaGET(processIDs, url);
@@ -287,11 +287,11 @@ public class WPSClientSession {
         Operation[] operations = caps.getCapabilities().getOperationsMetadata().getOperationArray();
         String url = null;
         for(Operation operation : operations) {
-            if(operation.getName().equals("Execute")) {
+            if (operation.getName().equals("Execute")) {
                 url = operation.getDCPArray()[0].getHTTP().getPostArray()[0].getHref();
             }
         }
-        if(url == null) {
+        if (url == null) {
             throw new WPSClientException("Caps does not contain any information about the entry point for process execution");
         }
         execute.getExecute().setVersion(SUPPORTED_VERSION);
@@ -307,9 +307,9 @@ public class WPSClientSession {
      * @throws WPSClientException if an exception occurred during execute
      */
     public Object execute(String serverID, ExecuteDocument execute) throws WPSClientException{
-        if(execute.getExecute().isSetResponseForm()==true && execute.getExecute().isSetResponseForm()==true && execute.getExecute().getResponseForm().isSetRawDataOutput()==true){
+        if (execute.getExecute().isSetResponseForm()==true && execute.getExecute().isSetResponseForm()==true && execute.getExecute().getResponseForm().isSetRawDataOutput()==true) {
             return execute(serverID, execute,true);
-        }else{
+        } else {
             return execute(serverID, execute,false);
         }
 
@@ -363,7 +363,7 @@ public class WPSClientSession {
             obj.save(conn.getOutputStream());
             InputStream input = null;
             String encoding = conn.getContentEncoding();
-            if(encoding != null && encoding.equalsIgnoreCase("gzip")) {
+            if (encoding != null && encoding.equalsIgnoreCase("gzip")) {
                 input = new GZIPInputStream(conn.getInputStream());
             }
             else {
@@ -382,7 +382,7 @@ public class WPSClientSession {
         fac.setNamespaceAware(true);
         try {
             Document doc = fac.newDocumentBuilder().parse(is);
-            if(getFirstElementNode(doc.getFirstChild()).getLocalName().equals("ExceptionReport") && getFirstElementNode(doc.getFirstChild()).getNamespaceURI().equals(OGC_OWS_URI)) {
+            if (getFirstElementNode(doc.getFirstChild()).getLocalName().equals("ExceptionReport") && getFirstElementNode(doc.getFirstChild()).getNamespaceURI().equals(OGC_OWS_URI)) {
                 try {
                     ExceptionReportDocument exceptionDoc = ExceptionReportDocument.Factory.parse(doc);
                     LOGGER.debug(exceptionDoc.xmlText(options));
@@ -403,10 +403,10 @@ public class WPSClientSession {
     }
 
     private Node getFirstElementNode(Node node) {
-        if(node == null) {
+        if (node == null) {
             return null;
         }
-        if(node.getNodeType() == Node.ELEMENT_NODE) {
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
             return node;
         }
         else {
@@ -424,7 +424,7 @@ public class WPSClientSession {
      */
     private Object retrieveExecuteResponseViaPOST(String url, ExecuteDocument doc, boolean rawData) throws WPSClientException{
         InputStream is = retrieveDataViaPOST(doc, url);
-        if(rawData) {
+        if (rawData) {
             return is;
         }
         Document documentObj = checkInputStream(is);
@@ -445,7 +445,7 @@ public class WPSClientSession {
     public String[] getProcessNames(String url) throws IOException {
         ProcessDescriptionType[] processes = getProcessDescriptionsFromCache(url).getProcessDescriptions().getProcessDescriptionArray();
         String[] processNames = new String[processes.length];
-        for(int i = 0; i<processNames.length; i++){
+        for(int i = 0; i<processNames.length; i++) {
             processNames[i] = processes[i].getIdentifier().getStringValue();
         }
         return processNames;
@@ -465,7 +465,7 @@ public class WPSClientSession {
             URL urlObj = new URL(url);
             InputStream is = urlObj.openStream();
 
-            if(executeAsGETString.toUpperCase().contains("RAWDATA")){
+            if (executeAsGETString.toUpperCase().contains("RAWDATA")) {
                 return is;
             }
             Document doc = checkInputStream(is);

@@ -71,7 +71,7 @@ public class GRASSXMLGenerator extends AbstractGenerator {
 //        "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd"
         };
 
-    public GRASSXMLGenerator(){
+    public GRASSXMLGenerator() {
         super();
         supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
     }

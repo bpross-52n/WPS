@@ -74,7 +74,7 @@ public final class CommunicationSizeLogFilter implements Filter {
         myWrappedResp.getOutputStream().close();
         long requestSize = ((RequestSizeInfoStream)myWrappedReq.getInputStream()).getSize();
         long responseSize = ((ResponseSizeInfoStream)myWrappedResp.getOutputStream()).getSize();
-        if(requestSize == 0) {
+        if (requestSize == 0) {
             return;
         }
         BigDecimal result = new BigDecimal((double)responseSize/(double)requestSize).setScale(4, BigDecimal.ROUND_HALF_UP);
@@ -132,7 +132,7 @@ public final class CommunicationSizeLogFilter implements Filter {
         }
 
         public long getSize() {
-            if(this.closed) {
+            if (this.closed) {
                 return streamSize;
             } else {
                 return -1;
@@ -207,7 +207,7 @@ public final class CommunicationSizeLogFilter implements Filter {
        }*/
 
         public long getSize() {
-            if(this.closed) {
+            if (this.closed) {
                 return this.streamSize;
             }
             else {

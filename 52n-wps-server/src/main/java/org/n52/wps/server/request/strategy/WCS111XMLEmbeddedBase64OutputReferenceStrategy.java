@@ -52,10 +52,10 @@ public class WCS111XMLEmbeddedBase64OutputReferenceStrategy implements IReferenc
     @Override
     public boolean isApplicable(InputReference input) {
 
-        if(input.isSetBody()) {
+        if (input.isSetBody()) {
             XmlObject xo = input.getBody();
             return xo.toString().contains("http://www.opengis.net/wcs/1.1.1");
-        }else{
+        } else {
             String dataURLString = input.getHref();
             return (dataURLString.contains("=GetCoverage") && dataURLString.contains("=1.1.1"));
         }
@@ -78,7 +78,7 @@ public class WCS111XMLEmbeddedBase64OutputReferenceStrategy implements IReferenc
             conn.setRequestProperty("Accept-Encoding", "gzip");
             conn.setRequestProperty("Content-type", "multipart/mixed");
             //Handling POST with referenced document
-            if(input.isSetBodyReference()) {
+            if (input.isSetBodyReference()) {
                 String bodyReference = input.getBodyReferenceHref();
                 URL bodyReferenceURL = new URL (bodyReference);
                 URLConnection bodyReferenceConn = bodyReferenceURL.openConnection();
@@ -114,30 +114,30 @@ public class WCS111XMLEmbeddedBase64OutputReferenceStrategy implements IReferenc
 
             int boundaryCount = 0;
 
-            while((line = bRead.readLine()) != null){
+            while((line = bRead.readLine()) != null) {
 
-                if(line.contains("boundary")){
+                if (line.contains("boundary")) {
                     boundary = line.substring(line.indexOf("\"") + 1, line.lastIndexOf("\""));
                     boundaryFound = true;
                     continue;
                 }
-                if(boundaryFound){
-                    if(line.contains(boundary)){
+                if (boundaryFound) {
+                    if (line.contains(boundary)) {
                         boundaryCount++;
                         continue;
                     }
                 }
 
-                if(encodedImagepart){
+                if (encodedImagepart) {
                     encodedImage = encodedImage.concat(line);
                 }
                 //is the image always the third part?!
-                else if(boundaryCount == 2){
-                    if(line.contains("Content-Type")){
+                else if (boundaryCount == 2) {
+                    if (line.contains("Content-Type")) {
                         imageContentType = line.substring(line.indexOf(":") +1).trim();
-                    }else if(line.contains("Content-Transfer-Encoding")){
+                    } else if (line.contains("Content-Transfer-Encoding")) {
                         contentTransferEncoding = line.substring(line.indexOf(":") +1).trim();
-                    }else if(line.contains("Content-ID")){
+                    } else if (line.contains("Content-ID")) {
                         /*    just move further one line (which is hopefully empty)
                          *     and start parsing the encoded image
                          */
@@ -171,10 +171,10 @@ public class WCS111XMLEmbeddedBase64OutputReferenceStrategy implements IReferenc
 
     private InputStream retrievingZippedContent(URLConnection conn) throws IOException{
         String contentType = conn.getContentEncoding();
-        if(contentType != null && contentType.equals("gzip")) {
+        if (contentType != null && contentType.equals("gzip")) {
             return new GZIPInputStream(conn.getInputStream());
         }
-        else{
+        else {
             return conn.getInputStream();
         }
     }

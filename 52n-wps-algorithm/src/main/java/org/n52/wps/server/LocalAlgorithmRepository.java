@@ -75,7 +75,7 @@ public class LocalAlgorithmRepository implements
     }
 
     public IAlgorithm getAlgorithm(String className) {
-        if(getAlgorithmNames().contains(className)){
+        if (getAlgorithmNames().contains(className)) {
             return algorithmMap.get(className);
         }
         return null;

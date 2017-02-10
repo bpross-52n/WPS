@@ -97,24 +97,24 @@ public class AddRasterValues extends AbstractSelfDescribingAlgorithm{
 
     @Override
     public Map<String, IData> run(Map<String, List<IData>> inputData) {
-        if(inputData==null || !inputData.containsKey("dataset1")){
+        if (inputData==null || !inputData.containsKey("dataset1")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
 
         List<IData> dataList1 = inputData.get("dataset1");
-        if(dataList1 == null || dataList1.size() != 1){
+        if (dataList1 == null || dataList1.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         IData dataset1 = dataList1.get(0);
         GridCoverage2D gridCoverage1 = (GridCoverage2D) dataset1.getPayload();
         RenderedImage image1 = gridCoverage1.getRenderedImage();
 
-        if(inputData==null || !inputData.containsKey("dataset2")){
+        if (inputData==null || !inputData.containsKey("dataset2")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
 
         List<IData> dataList2 = inputData.get("dataset2");
-        if(dataList2 == null || dataList2.size() != 1){
+        if (dataList2 == null || dataList2.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         IData dataset2 = dataList2.get(0);

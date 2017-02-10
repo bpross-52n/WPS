@@ -65,7 +65,7 @@ public class GenericFileDataWithGTParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericFileDataWithGTParserCM(){
+    public GenericFileDataWithGTParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

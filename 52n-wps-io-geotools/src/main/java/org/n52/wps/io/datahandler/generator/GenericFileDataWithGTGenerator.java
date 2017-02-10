@@ -60,7 +60,7 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
  */
 public class GenericFileDataWithGTGenerator extends AbstractGenerator {
 
-    public GenericFileDataWithGTGenerator (){
+    public GenericFileDataWithGTGenerator () {
         super();
         supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
     }
@@ -78,7 +78,7 @@ public class GenericFileDataWithGTGenerator extends AbstractGenerator {
      * @param inputFile
      * @return
      */
-    private GenericFileDataWithGT convertFile (GenericFileDataWithGT inputFile){
+    private GenericFileDataWithGT convertFile (GenericFileDataWithGT inputFile) {
         //not implemented
         return null;
     }

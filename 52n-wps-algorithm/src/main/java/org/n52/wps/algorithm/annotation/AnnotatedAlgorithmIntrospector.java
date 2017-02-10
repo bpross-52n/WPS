@@ -160,7 +160,7 @@ public class AnnotatedAlgorithmIntrospector {
                 storeSupported(algorithm.storeSupported()).
                 statusSupported(algorithm.statusSupported());
 
-        if(metadataAnnnotation != null){
+        if (metadataAnnnotation != null) {
             String[] roles = metadataAnnnotation.roles();
             for (int i = 0; i < roles.length; i++) {
                 algorithmBuilder.addMetadataDescriptor(MetadataDescriptor.builder().href(metadataAnnnotation.hrefs()[i]).role(metadataAnnnotation.roles()[i]));
@@ -191,7 +191,7 @@ public class AnnotatedAlgorithmIntrospector {
             }
         }
 
-        if(this.executeMethodBinding == null) {
+        if (this.executeMethodBinding == null) {
             throw new RuntimeException("No execute method binding for class " + this.algorithmClass.getCanonicalName());
         }
 

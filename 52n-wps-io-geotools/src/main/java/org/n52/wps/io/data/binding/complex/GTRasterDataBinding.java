@@ -55,7 +55,7 @@ import org.n52.wps.io.data.IComplexData;
 public class GTRasterDataBinding implements IComplexData {
     protected GridCoverage2D payload;
 
-    public GTRasterDataBinding(GridCoverage2D coverage){
+    public GTRasterDataBinding(GridCoverage2D coverage) {
         this.payload = coverage;
     }
 

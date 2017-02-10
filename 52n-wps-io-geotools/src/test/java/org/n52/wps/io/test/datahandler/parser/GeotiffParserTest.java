@@ -63,9 +63,9 @@ import org.n52.wps.io.test.datahandler.AbstractTestCase;
 public class GeotiffParserTest extends AbstractTestCase<GeotiffParser> {
 
     @Test
-    public void testParser(){
+    public void testParser() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

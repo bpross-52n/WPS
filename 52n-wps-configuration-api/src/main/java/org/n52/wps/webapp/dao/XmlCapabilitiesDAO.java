@@ -81,7 +81,7 @@ public class XmlCapabilitiesDAO implements CapabilitiesDAO {
             while (versionIterator.hasNext()) {
                 Object version = versionIterator.next();
                 String suffix = "";
-                if(versionIterator.hasNext()){
+                if (versionIterator.hasNext()) {
                     suffix = "; ";
                 }
                 sb.append(((Element) version).getValue() + suffix);
@@ -100,7 +100,7 @@ public class XmlCapabilitiesDAO implements CapabilitiesDAO {
             while (keywordIterator.hasNext()) {
                 Object keyword = keywordIterator.next();
                 String suffix = "";
-                if(keywordIterator.hasNext()){
+                if (keywordIterator.hasNext()) {
                     suffix = "; ";
                 }
                 sb.append(((Element) keyword).getValue() + suffix);

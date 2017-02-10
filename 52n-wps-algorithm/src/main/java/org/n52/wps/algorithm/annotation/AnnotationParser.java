@@ -342,7 +342,7 @@ public abstract class AnnotationParser<A extends Annotation, M extends Accessibl
 
         List<MetadataDescriptor> metadataDescriptors = new ArrayList<>();
 
-        if(metadataAnnnotation != null){
+        if (metadataAnnnotation != null) {
             String[] roles = metadataAnnnotation.roles();
             for (int i = 0; i < roles.length; i++) {
                 metadataDescriptors.add(MetadataDescriptor.builder().href(metadataAnnnotation.hrefs()[i]).role(metadataAnnnotation.roles()[i]).build());

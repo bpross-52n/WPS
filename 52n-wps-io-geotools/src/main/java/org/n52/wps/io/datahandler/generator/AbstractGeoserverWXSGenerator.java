@@ -64,26 +64,26 @@ public abstract class AbstractGeoserverWXSGenerator extends AbstractGenerator {
         this.supportedIDataTypes.add(GTRasterDataBinding.class);
         this.supportedIDataTypes.add(GeotiffBinding.class);
 
-        for(ConfigurationEntry<?> property : properties){
-            if(property.getKey().equalsIgnoreCase("Geoserver_username")){
+        for(ConfigurationEntry<?> property : properties) {
+            if (property.getKey().equalsIgnoreCase("Geoserver_username")) {
                 username = property.getValue().toString();
             }
-            if(property.getKey().equalsIgnoreCase("Geoserver_password")){
+            if (property.getKey().equalsIgnoreCase("Geoserver_password")) {
                 password = property.getValue().toString();
             }
-            if(property.getKey().equalsIgnoreCase("Geoserver_host")){
+            if (property.getKey().equalsIgnoreCase("Geoserver_host")) {
                 host = property.getValue().toString();
             }
-            if(property.getKey().equalsIgnoreCase("Geoserver_port")){
+            if (property.getKey().equalsIgnoreCase("Geoserver_port")) {
                 port = property.getValue().toString();
             }
         }
-        if(port == null){
+        if (port == null) {
             port = "" + WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().getHostport();
         }
 
-        for(String supportedFormat : supportedFormats){
-            if(supportedFormat.equals("text/xml")){
+        for(String supportedFormat : supportedFormats) {
+            if (supportedFormat.equals("text/xml")) {
                 supportedFormats.remove(supportedFormat);
             }
         }

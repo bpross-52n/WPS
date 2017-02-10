@@ -65,7 +65,7 @@ public class KMLParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public KMLParserCM(){
+    public KMLParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

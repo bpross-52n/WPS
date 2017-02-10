@@ -79,7 +79,7 @@ public class ClassUtil {
 
     public static Class<?> unwrap(Class<?> clazz) {
         Class<?> unwrapped = FROM_WRAPPER.get(clazz);
-        if (unwrapped == null){
+        if (unwrapped == null) {
             return clazz;
         }
         return unwrapped;
@@ -88,7 +88,7 @@ public class ClassUtil {
 
     public static Class<?> wrap(Class<?> clazz) {
         Class<?> wrapped = TO_WRAPPER.get(clazz);
-        if (wrapped == null){
+        if (wrapped == null) {
             return clazz;
         }
         return wrapped;

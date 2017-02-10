@@ -82,7 +82,7 @@ public class GML3BasicParser4Files extends AbstractParser {
             finalizeFiles.add(tempFile); // mark for final delete
             fos = new FileOutputStream(tempFile);
             int i = stream.read();
-            while(i != -1){
+            while(i != -1) {
                 fos.write(i);
                 i = stream.read();
             }
@@ -93,7 +93,7 @@ public class GML3BasicParser4Files extends AbstractParser {
             return data;
         }
         catch(IOException e) {
-            if (fos != null){
+            if (fos != null) {
                 try { fos.close(); }
                 catch (Exception e1) { }
             }

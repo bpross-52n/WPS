@@ -65,7 +65,7 @@ public class GRASSKMLParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GRASSKMLParserCM(){
+    public GRASSKMLParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

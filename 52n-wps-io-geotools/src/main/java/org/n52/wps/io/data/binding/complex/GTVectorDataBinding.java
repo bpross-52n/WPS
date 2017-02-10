@@ -76,7 +76,7 @@ public class GTVectorDataBinding implements IComplexData{
             return featureCollection;
     }
 
-    public File getPayloadAsShpFile(){
+    public File getPayloadAsShpFile() {
         try {
             return GenericFileDataWithGT.getShpFile(featureCollection);
         } catch (IOException e) {

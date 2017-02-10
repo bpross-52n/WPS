@@ -45,7 +45,7 @@ public class GetStatusResponseV200 extends Response {
      * Serves the Request with a Response
      * @param request The GetCapabilities request
      */
-    public GetStatusResponseV200(GetStatusRequestV200 request){
+    public GetStatusResponseV200(GetStatusRequestV200 request) {
         super(request);
     }
 

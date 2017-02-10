@@ -105,7 +105,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             }
 
             //grid extent for raster layers (if needed)
-            if (algorithm.getUserCanDefineAnalysisExtent()){
+            if (algorithm.getUserCanDefineAnalysisExtent()) {
                 addGridExtent(inputs, algorithm.requiresRasterLayers());
             }
 
@@ -127,7 +127,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
 
     }
 
-    private void addGridExtent(DataInputs inputs, boolean bOptional){
+    private void addGridExtent(DataInputs inputs, boolean bOptional) {
 
         addDoubleValue(inputs, GRID_EXTENT_X_MIN, "xMin", bOptional);
         addDoubleValue(inputs, GRID_EXTENT_X_MAX, "xMax", bOptional);
@@ -137,11 +137,11 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
 
     }
 
-    private void addDoubleValue(DataInputs inputs, String name, String description, boolean bOptional){
+    private void addDoubleValue(DataInputs inputs, String name, String description, boolean bOptional) {
 
         int iMinOccurs = 1;
 
-        if (bOptional){
+        if (bOptional) {
             iMinOccurs = 0;
         }
 
@@ -166,7 +166,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
         output.addNewAbstract().setStringValue(out.getDescription());
         output.addNewIdentifier().setStringValue(out.getName());
         output.addNewTitle().setStringValue(out.getDescription());
-        if (out instanceof OutputRasterLayer){
+        if (out instanceof OutputRasterLayer) {
             SupportedComplexDataType complexOutput = output.addNewComplexOutput();
             complexOutput.addNewDefault().addNewFormat().setMimeType("image/tiff");
             ComplexDataDescriptionType supportedFormat = complexOutput.addNewSupported().addNewFormat();
@@ -175,7 +175,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
 
 
         }
-        else if (out instanceof OutputVectorLayer){
+        else if (out instanceof OutputVectorLayer) {
             SupportedComplexDataType complexOutput = output.addNewComplexOutput();
             addVectorOutputFormats(complexOutput);
             /*ComplexDataDescriptionType deafult = complexOutput.addNewDefault().addNewFormat();
@@ -189,13 +189,13 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             supportedFormat.setMimeType(IOHandler.MIME_TYPE_ZIPPED_SHP);
             supportedFormat.setEncoding(IOHandler.ENCODING_BASE64);*/
         }
-        else if (out instanceof OutputTable){
+        else if (out instanceof OutputTable) {
             //TODO:
         }
-        else if (out instanceof OutputText){
+        else if (out instanceof OutputText) {
             output.addNewComplexOutput().addNewDefault().addNewFormat().setMimeType("text/html");
         }
-        else if (out instanceof OutputChart){
+        else if (out instanceof OutputChart) {
             //TODO:
         }
 
@@ -210,7 +210,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
         input.addNewTitle().setStringValue(param.getParameterDescription());
         input.addNewIdentifier().setStringValue(param.getParameterName());
 
-        if (param instanceof ParameterRasterLayer){
+        if (param instanceof ParameterRasterLayer) {
             AdditionalInfoRasterLayer ai = (AdditionalInfoRasterLayer) param.getParameterAdditionalInfo();
             SupportedComplexDataInputType complex = input.addNewComplexData();
             ComplexDataCombinationsType supported = complex.addNewSupported();
@@ -221,14 +221,14 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             format.setEncoding(IOHandler.ENCODING_BASE64);
             ComplexDataDescriptionType defaultFormat = complex.addNewDefault().addNewFormat();
             defaultFormat.setMimeType("image/tiff");
-            if (ai.getIsMandatory()){
+            if (ai.getIsMandatory()) {
                 input.setMinOccurs(BigInteger.valueOf(1));
             }
-            else{
+            else {
                 input.setMinOccurs(BigInteger.valueOf(0));
             }
             input.setMaxOccurs(BigInteger.valueOf(1));
-        }else if (param instanceof ParameterVectorLayer){
+        } else if (param instanceof ParameterVectorLayer) {
             //TODO:add shape type
             AdditionalInfoVectorLayer ai = (AdditionalInfoVectorLayer) param.getParameterAdditionalInfo();
             SupportedComplexDataInputType complex = input.addNewComplexData();
@@ -243,10 +243,10 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             defaultFormat.setMimeType(IOHandler.DEFAULT_MIMETYPE);
             defaultFormat.setSchema("http://geoserver.itc.nl:8080/wps/schemas/gml/2.1.2/gmlpacket.xsd");
             */
-            if (ai.getIsMandatory()){
+            if (ai.getIsMandatory()) {
                 input.setMinOccurs(BigInteger.valueOf(1));
             }
-            else{
+            else {
                 input.setMinOccurs(BigInteger.valueOf(0));
             }
             input.setMaxOccurs(BigInteger.valueOf(1));
@@ -254,7 +254,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             addVectorInputsFormats(complex);
 
         }
-        else if (param instanceof ParameterNumericalValue){
+        else if (param instanceof ParameterNumericalValue) {
             AdditionalInfoNumericalValue ai = (AdditionalInfoNumericalValue) param.getParameterAdditionalInfo();
             LiteralInputType literal = input.addNewLiteralData();
             DomainMetadataType dataType = literal.addNewDataType();
@@ -267,7 +267,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             range.addNewMinimumValue().setStringValue("" + Double.NEGATIVE_INFINITY);
             literal.setDefaultValue(Double.toString(ai.getDefaultValue()));
         }
-        else if (param instanceof ParameterString){
+        else if (param instanceof ParameterString) {
             LiteralInputType literal = input.addNewLiteralData();
             input.setMinOccurs(BigInteger.valueOf(1));
             input.setMaxOccurs(BigInteger.valueOf(1));
@@ -276,56 +276,56 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             dataType.setReference("xs:string");
             literal.setDataType(dataType);
         }
-        else if (param instanceof ParameterMultipleInput){
+        else if (param instanceof ParameterMultipleInput) {
             AdditionalInfoMultipleInput ai = (AdditionalInfoMultipleInput) param.getParameterAdditionalInfo();
             SupportedComplexDataInputType complex = input.addNewComplexData();
-            switch (ai.getDataType()){
+            switch (ai.getDataType()) {
             case AdditionalInfoMultipleInput.DATA_TYPE_RASTER:
                 complex.addNewDefault().addNewFormat().setMimeType("image/tiff");
-                if (ai.getIsMandatory()){
+                if (ai.getIsMandatory()) {
                     input.setMinOccurs(BigInteger.valueOf(1));
                 }
-                else{
+                else {
                     input.setMinOccurs(BigInteger.valueOf(0));
                 }
                 input.setMaxOccurs(BigInteger.valueOf(1));
                 break;
             case AdditionalInfoMultipleInput.DATA_TYPE_VECTOR_ANY:
                 addVectorInputsFormats(complex);
-                if (ai.getIsMandatory()){
+                if (ai.getIsMandatory()) {
                     input.setMinOccurs(BigInteger.valueOf(1));
                 }
-                else{
+                else {
                     input.setMinOccurs(BigInteger.valueOf(0));
                 }
                 input.setMaxOccurs(BigInteger.valueOf(1));
                 break;
             case AdditionalInfoMultipleInput.DATA_TYPE_VECTOR_LINE:
                 addVectorInputsFormats(complex);
-                if (ai.getIsMandatory()){
+                if (ai.getIsMandatory()) {
                     input.setMinOccurs(BigInteger.valueOf(1));
                 }
-                else{
+                else {
                     input.setMinOccurs(BigInteger.valueOf(0));
                 }
                 input.setMaxOccurs(BigInteger.valueOf(1));
                 break;
             case AdditionalInfoMultipleInput.DATA_TYPE_VECTOR_POINT:
                 addVectorInputsFormats(complex);
-                if (ai.getIsMandatory()){
+                if (ai.getIsMandatory()) {
                     input.setMinOccurs(BigInteger.valueOf(1));
                 }
-                else{
+                else {
                     input.setMinOccurs(BigInteger.valueOf(0));
                 }
                 input.setMaxOccurs(BigInteger.valueOf(1));
                 break;
             case AdditionalInfoMultipleInput.DATA_TYPE_VECTOR_POLYGON:
                 addVectorInputsFormats(complex);
-                if (ai.getIsMandatory()){
+                if (ai.getIsMandatory()) {
                     input.setMinOccurs(BigInteger.valueOf(1));
                 }
-                else{
+                else {
                     input.setMinOccurs(BigInteger.valueOf(0));
                 }
                 input.setMaxOccurs(BigInteger.valueOf(1));
@@ -334,7 +334,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
                 throw new UnsupportedGeoAlgorithmException();
             }
         }
-        else if (param instanceof ParameterSelection){
+        else if (param instanceof ParameterSelection) {
             AdditionalInfoSelection ai = (AdditionalInfoSelection) param.getParameterAdditionalInfo();
             String[] values = ai.getValues();
             LiteralInputType literal = input.addNewLiteralData();
@@ -347,7 +347,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             DomainMetadataType dataType = literal.addNewDataType();
             dataType.setReference("xs:string");
         }
-        else if (param instanceof ParameterTableField ){
+        else if (param instanceof ParameterTableField ) {
             //This has to be improved, to add the information about the parent parameter
             //the value is the zero-based index of the field
             LiteralInputType literal = input.addNewLiteralData();
@@ -360,7 +360,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             DomainMetadataType dataType = literal.addNewDataType();
             dataType.setReference("xs:int");
         }
-        else if (param instanceof ParameterBand){
+        else if (param instanceof ParameterBand) {
             //This has to be improved, to add the information about the parent parameter
             LiteralInputType literal = input.addNewLiteralData();
             input.setMinOccurs(BigInteger.valueOf(1));
@@ -372,7 +372,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             DomainMetadataType dataType = literal.addNewDataType();
             dataType.setReference("xs:int");
         }
-        else if (param instanceof ParameterPoint){
+        else if (param instanceof ParameterPoint) {
             //points are entered as x and y coordinates separated by a comma (any idea
             //about how to better do this?)
             LiteralInputType literal = input.addNewLiteralData();
@@ -382,7 +382,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             DomainMetadataType dataType = literal.addNewDataType();
             dataType.setReference("xs:string");
         }
-        else if (param instanceof ParameterBoolean){
+        else if (param instanceof ParameterBoolean) {
             LiteralInputType literal = input.addNewLiteralData();
             input.setMinOccurs(BigInteger.valueOf(1));
             DomainMetadataType dataType = literal.addNewDataType();
@@ -393,7 +393,7 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
             input.setMaxOccurs(BigInteger.valueOf(1));
             literal.setDefaultValue("false");
         }
-        else if (param instanceof ParameterFixedTable){
+        else if (param instanceof ParameterFixedTable) {
             //TODO:
             throw new UnsupportedGeoAlgorithmException();
         }
@@ -405,8 +405,8 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
         List<IParser> foundParsers = new ArrayList<IParser>();
         for(IParser parser : parsers) {
             Class<?>[] supportedClasses = parser.getSupportedDataBindings();
-            for(Class<?> clazz : supportedClasses){
-                if(clazz.equals(GTVectorDataBinding.class)){
+            for(Class<?> clazz : supportedClasses) {
+                if (clazz.equals(GTVectorDataBinding.class)) {
                     foundParsers.add(parser);
                 }
 
@@ -469,15 +469,15 @@ public class SextanteProcessDescriptionCreator implements SextanteConstants{
 
     }
 
-    private void addVectorOutputFormats(SupportedComplexDataType complex){
+    private void addVectorOutputFormats(SupportedComplexDataType complex) {
 
 
         List<IGenerator> generators = GeneratorFactory.getInstance().getAllGenerators();
         List<IGenerator> foundGenerators = new ArrayList<IGenerator>();
         for(IGenerator generator : generators) {
             Class<?>[] supportedClasses = generator.getSupportedDataBindings();
-            for(Class<?> clazz : supportedClasses){
-                if(clazz.equals(GTVectorDataBinding.class)){
+            for(Class<?> clazz : supportedClasses) {
+                if (clazz.equals(GTVectorDataBinding.class)) {
                     foundGenerators.add(generator);
                 }
             }

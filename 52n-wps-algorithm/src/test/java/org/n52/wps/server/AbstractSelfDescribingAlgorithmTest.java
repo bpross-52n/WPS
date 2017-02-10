@@ -91,11 +91,11 @@ public class AbstractSelfDescribingAlgorithmTest extends AbstractITClass {
         options.setSavePrettyPrint();
         options.setSaveOuter();
         HashMap ns = new HashMap();
-        if(xmlObject instanceof ProcessDescriptionType){
+        if (xmlObject instanceof ProcessDescriptionType) {
             ns.put("http://www.opengis.net/wps/1.0.0", "wps");
             ns.put("http://www.opengis.net/ows/1.1", "ows");
         }
-        else if(xmlObject instanceof ProcessOffering){
+        else if (xmlObject instanceof ProcessOffering) {
             ns.put("http://www.opengis.net/wps/2.0", "wps");
             ns.put("http://www.opengis.net/ows/2.0", "ows");
         }

@@ -65,7 +65,7 @@ public class GeoJSONGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GeoJSONGeneratorCM(){
+    public GeoJSONGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

@@ -82,9 +82,9 @@ public class DescribeProcessRequest extends Request {
         for (int i = 0; i < nnm.getLength(); i++) {
 
             Node n = nnm.item(i);
-            if(n.getLocalName().equalsIgnoreCase("service")){
+            if (n.getLocalName().equalsIgnoreCase("service")) {
             map.put(n.getLocalName(), new String[]{n.getNodeValue()});
-            }else if(n.getLocalName().equalsIgnoreCase("version")){
+            } else if (n.getLocalName().equalsIgnoreCase("version")) {
                 map.put(n.getLocalName(), new String[]{n.getNodeValue()});
             }
         }
@@ -97,15 +97,15 @@ public class DescribeProcessRequest extends Request {
 
         for (int i = 0; i < nList.getLength(); i++) {
             Node n = nList.item(i);
-            if(n.getLocalName() != null && n.getLocalName().equalsIgnoreCase("identifier")){
+            if (n.getLocalName() != null && n.getLocalName().equalsIgnoreCase("identifier")) {
                 identifierParameterExists = true;
                 String s = n.getTextContent();
-                if(s != null && !s.isEmpty()){
+                if (s != null && !s.isEmpty()) {
                     identifierList = identifierList.concat(s + ",");
                 }
             }
         }
-        if(identifierParameterExists){
+        if (identifierParameterExists) {
             map.put("identifier", new String[]{identifierList});
         }
     }
@@ -122,7 +122,7 @@ public class DescribeProcessRequest extends Request {
         return true;
     }
 
-    public Object getAttachedResult(){
+    public Object getAttachedResult() {
         return document;
     }
 
@@ -146,21 +146,21 @@ public class DescribeProcessRequest extends Request {
         document.getProcessDescriptions().setService("WPS");
         document.getProcessDescriptions().setVersion("1.0.0");//FIXME set to requested version
 
-        if(identifiers.length==1 && identifiers[0].equalsIgnoreCase("all")){
+        if (identifiers.length==1 && identifiers[0].equalsIgnoreCase("all")) {
             List<String> identifierList = RepositoryManagerSingletonWrapper.getInstance().getAlgorithms();
             identifiers = new String[identifierList.size()];
-            for(int i = 0;i<identifierList.size();i++){
+            for(int i = 0;i<identifierList.size();i++) {
                 identifiers[i] = identifierList.get(i);
             }
         }
 
-//        if(identifiers.length == 0){
+//        if (identifiers.length == 0) {
 //            throw new ExceptionReport("No process identifier specified for describe process operation.",
 //                    ExceptionReport.MISSING_PARAMETER_VALUE,
 //                    "parameter: identifier");
-//        }else
-        if(identifiers.length == 1){
-            if(identifiers[0] == null || identifiers[0].isEmpty()){
+//        } else
+        if (identifiers.length == 1) {
+            if (identifiers[0] == null || identifiers[0].isEmpty()) {
                 throw new ExceptionReport("Process description request with empty identifier.",
                         ExceptionReport.INVALID_PARAMETER_VALUE,
                         "identifier");
@@ -168,7 +168,7 @@ public class DescribeProcessRequest extends Request {
         }
 
         for(String algorithmName : identifiers) {
-            if(!RepositoryManagerSingletonWrapper.getInstance().containsAlgorithm(algorithmName)) {
+            if (!RepositoryManagerSingletonWrapper.getInstance().containsAlgorithm(algorithmName)) {
                 throw new ExceptionReport("Algorithm does not exist: " + algorithmName,
                                             ExceptionReport.INVALID_PARAMETER_VALUE,
                                             "identifier");

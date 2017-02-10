@@ -73,7 +73,7 @@ public class BasicXMLTypeFactory {
         DATATYPE_FACTORY = datatypeFactory;
     }
 
-    private BasicXMLTypeFactory(){
+    private BasicXMLTypeFactory() {
 
     }
 

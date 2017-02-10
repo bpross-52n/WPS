@@ -65,7 +65,7 @@ public class AsciiGrassParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public AsciiGrassParserCM(){
+    public AsciiGrassParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

@@ -128,7 +128,7 @@ public class MapserverWMSGenerator extends AbstractGenerator {
             Document doc = storeLayer(data);
             String xmlString = XMLUtil.nodeToString(doc);
             stream = new ByteArrayInputStream(xmlString.getBytes("UTF-8"));
-        } catch(TransformerException ex){
+        } catch(TransformerException ex) {
             LOGGER.error("Error generating MapServer WMS output. Reason: " + ex);
             throw new RuntimeException("Error generating MapServer WMS output. Reason: " + ex);
         } catch (IOException e) {
@@ -161,7 +161,7 @@ public class MapserverWMSGenerator extends AbstractGenerator {
         try {
             //MapserverProperties.getInstance().testMapscriptLibrary();
             LOGGER.info("Mapscript is running correctly");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             LOGGER.warn("Mapscript isn't running correctly");
             return null;

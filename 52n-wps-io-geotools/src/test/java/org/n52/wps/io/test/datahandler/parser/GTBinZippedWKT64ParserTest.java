@@ -77,9 +77,9 @@ import org.n52.wps.io.test.datahandler.AbstractTestCase;
 public class GTBinZippedWKT64ParserTest extends AbstractTestCase<GTBinZippedWKT64Parser> {
 
     @Test
-    public void testParser(){
+    public void testParser() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 
@@ -113,7 +113,7 @@ public class GTBinZippedWKT64ParserTest extends AbstractTestCase<GTBinZippedWKT6
 
             FeatureIterator<?> featureIterator = collection.features();
 
-            while(featureIterator.hasNext()){
+            while(featureIterator.hasNext()) {
                 Feature f = featureIterator.next();
 
                 System.out.println(f.getDefaultGeometryProperty());

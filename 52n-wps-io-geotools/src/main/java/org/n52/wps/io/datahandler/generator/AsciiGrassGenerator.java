@@ -76,7 +76,7 @@ public class AsciiGrassGenerator extends AbstractGenerator {
     public InputStream generateStream(IData data, String mimeType, String schema) throws IOException {
 
 //        // check for correct request before returning the stream
-//        if (!(this.isSupportedGenerate(data.getSupportedClass(), mimeType, schema))){
+//        if (!(this.isSupportedGenerate(data.getSupportedClass(), mimeType, schema))) {
 //            throw new IOException("I don't support the incoming datatype");
 //        }
 

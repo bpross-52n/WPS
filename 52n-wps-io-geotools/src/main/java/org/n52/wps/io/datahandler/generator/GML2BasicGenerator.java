@@ -84,18 +84,18 @@ public class GML2BasicGenerator extends AbstractGenerator {
 
     private static Logger LOGGER = LoggerFactory.getLogger(GML2BasicGenerator.class);
 
-    public GML2BasicGenerator(){
+    public GML2BasicGenerator() {
         super();
         supportedIDataTypes.add(GTVectorDataBinding.class);
 
         featureTransformerIncludeBounding = false;
         featureTransformerDecimalPlaces = 4;
-        for(ConfigurationEntry<?> property : properties){
-            if(property.getKey().equalsIgnoreCase("featureTransformerIncludeBounding")){
+        for(ConfigurationEntry<?> property : properties) {
+            if (property.getKey().equalsIgnoreCase("featureTransformerIncludeBounding")) {
                 featureTransformerIncludeBounding = new Boolean(property.getValue().toString());
 
             }
-            if(property.getKey().equalsIgnoreCase("featureTransformerDecimalPlaces")){
+            if (property.getKey().equalsIgnoreCase("featureTransformerDecimalPlaces")) {
                 featureTransformerDecimalPlaces = new Integer(property.getValue().toString());
 
             }
@@ -105,7 +105,7 @@ public class GML2BasicGenerator extends AbstractGenerator {
     private void write(IData data, Writer writer) throws IOException {
         FeatureCollection<?,?> fc = ((GTVectorDataBinding)data).getPayload();
         // this might be a workaround...
-        if(fc == null || fc.size() == 0) {
+        if (fc == null || fc.size() == 0) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
             writer.write("<wfs:FeatureCollection xmlns:wfs=\"http://www.opengis.net/wfs\" xmlns:gml=\"http://www.opengis.net/gml\"/>");
             writer.flush();
@@ -121,9 +121,9 @@ public class GML2BasicGenerator extends AbstractGenerator {
         if (srs instanceof String) {
             srsName = (String) srs;
         }
-        else if(srs instanceof CoordinateReferenceSystem) {
+        else if (srs instanceof CoordinateReferenceSystem) {
             Iterator<ReferenceIdentifier> iter = ((CoordinateReferenceSystem)srs).getIdentifiers().iterator();
-            if(iter.hasNext()){
+            if (iter.hasNext()) {
                 srsName= iter.next().toString();
             }
         }
@@ -147,7 +147,7 @@ public class GML2BasicGenerator extends AbstractGenerator {
             ftNamespaces.put(uri, uri);
         }
 
-        if(srsName != null) {
+        if (srsName != null) {
             tx.setSrsName(srsName);
         }
 

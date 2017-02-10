@@ -333,14 +333,14 @@ public abstract class AbstractDatabase implements IDatabase{
         try{
             //there should be only one
             databaseConfigModule = activeDatabaseConfigModules.get(activeDatabaseConfigModules.keySet().iterator().next());
-        }catch(Exception e){
+        } catch(Exception e) {
             throw new RuntimeException("Could not load any active database configuration module.");
         }
 
         List<? extends ConfigurationEntry<?>> configurationEntries = databaseConfigModule.getConfigurationEntries();
 
-        for(ConfigurationEntry<?> property : configurationEntries){
-            if(property.getKey().equalsIgnoreCase(propertyName)){
+        for(ConfigurationEntry<?> property : configurationEntries) {
+            if (property.getKey().equalsIgnoreCase(propertyName)) {
                 return property.getValue().toString();
             }
         }
@@ -360,12 +360,12 @@ public abstract class AbstractDatabase implements IDatabase{
         if (dbPath == null || dbPath.compareTo("") == 0) {
             // TODO:  parameterize base path
             dbPath = System.getProperty("java.io.tmpdir", ".") + File.separator + "Databases";
-            if(dbTypeName!=null && !dbTypeName.equals("")) {
+            if (dbTypeName!=null && !dbTypeName.equals("")) {
                 dbPath += File.separator + dbTypeName.toUpperCase();
             } else {
                 dbPath += File.separator + "DERBY";
             }
-            if(dbName!=null && !dbName.equals("")) {
+            if (dbName!=null && !dbName.equals("")) {
                 dbPath += File.separator + dbName.toUpperCase();
             } else {
                 dbPath += File.separator + "wps";

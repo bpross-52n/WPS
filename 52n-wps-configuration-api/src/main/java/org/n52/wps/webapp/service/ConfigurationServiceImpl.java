@@ -205,13 +205,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         String errorMessage = null;
         if (value == null) {
             errorMessage = "Value is null.";
-        }else if (requiredType == null) {
+        } else if (requiredType == null) {
             errorMessage = "Required type is null.";
-        }else if (!requiredType.isAssignableFrom(value.getClass())) {
+        } else if (!requiredType.isAssignableFrom(value.getClass())) {
             errorMessage = "The value '" + value + "' cannot be assigned to a/an '"
                     + requiredType.getSimpleName() + "' type.";
         }
-        if(errorMessage != null){
+        if (errorMessage != null) {
             throw new WPSConfigurationException(errorMessage);
         }
         LOGGER.debug("Value '{}' of type '{}' for configuration entry '{}' in module '{}' is retrieved.", value,
@@ -328,7 +328,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
         for (AlgorithmEntry entry : configurationDAO.getAlgorithmEntries(module.getClass().getName())) {
 
-            if(!moduleAlgorithmNames.contains(entry.getAlgorithm())){
+            if (!moduleAlgorithmNames.contains(entry.getAlgorithm())) {
                 try {
                     module.getAlgorithmEntries().add(entry);
                 } catch (Exception e) {
@@ -369,7 +369,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
         for (FormatEntry entry : configurationDAO.getFormatEntries(module.getClass().getName())) {
 
-            if(!moduleFormats.contains(entry)){
+            if (!moduleFormats.contains(entry)) {
                 module.getFormatEntries().add(entry);
             }
         }
@@ -547,7 +547,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         while (algorithmEntryIterator.hasNext()) {
             AlgorithmEntry algorithmEntry = (AlgorithmEntry) algorithmEntryIterator
                     .next();
-            if(algorithmEntry.getAlgorithm().equals(algorithmName)){
+            if (algorithmEntry.getAlgorithm().equals(algorithmName)) {
                 algorithmEntryIterator.remove();
                 break;
             }
@@ -588,7 +588,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         while (formatEntryIterator.hasNext()) {
             FormatEntry formatEntry = (FormatEntry) formatEntryIterator
                     .next();
-            if(formatEntry.equals(tempFormatEntryForComparison)){
+            if (formatEntry.equals(tempFormatEntryForComparison)) {
                 formatEntryIterator.remove();
                 break;
             }
@@ -604,7 +604,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         while (algorithmEntryIterator.hasNext()) {
             AlgorithmEntry algorithmEntry = (AlgorithmEntry) algorithmEntryIterator
                             .next();
-            if(algorithmEntry.getAlgorithm().equals(oldAlgorithmName)){
+            if (algorithmEntry.getAlgorithm().equals(oldAlgorithmName)) {
                     algorithmEntryIterator.remove();
                     break;
             }

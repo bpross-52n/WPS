@@ -255,9 +255,9 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
                 String mimeType = executeRequest.getExecuteResponseBuilder()
                         .getMimeType(documentOutputDefinitionType);
 
-                if(identifier.contains("Complex")){
+                if (identifier.contains("Complex")) {
                     assertTrue(mimeType.equals(originalMimeType));
-                }else{
+                } else {
                     assertTrue(mimeType.equals("text/plain") || mimeType.equals("text/xml"));
                 }
 
@@ -297,9 +297,9 @@ public class ExecuteResponseBuilderTest extends AbstractITClass{
                 String mimeType = executeRequest.getExecuteResponseBuilder()
                         .getMimeType(documentOutputDefinitionType);
 
-                if(identifier.contains("Complex")){
+                if (identifier.contains("Complex")) {
                     assertTrue(mimeType.equals(originalMimeType));
-                }else{
+                } else {
                     assertTrue(mimeType.equals("text/plain") || mimeType.equals("text/xml"));
                 }
 

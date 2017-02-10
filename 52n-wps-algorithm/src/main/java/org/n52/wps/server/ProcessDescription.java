@@ -72,20 +72,20 @@ public class ProcessDescription {
 
         XmlObject result = versionDescriptionTypeMap.get(version);
 
-        if(result == null && version.equals(WPSConfig.VERSION_200)){
+        if (result == null && version.equals(WPSConfig.VERSION_200)) {
             ProcessDescriptionType processDescriptionV100 = (ProcessDescriptionType) versionDescriptionTypeMap.get(WPSConfig.VERSION_100);
-            if(processDescriptionV100 != null){
+            if (processDescriptionV100 != null) {
                 result = createProcessDescriptionV200fromV100(processDescriptionV100);
             }
         }
         return result;
     }
 
-    public void addProcessDescriptionForVersion(XmlObject processDescription, String version){
+    public void addProcessDescriptionForVersion(XmlObject processDescription, String version) {
         versionDescriptionTypeMap.put(version, processDescription);
     }
 
-    public static ProcessOffering createProcessDescriptionV200fromV100(ProcessDescriptionType processDescriptionV100){
+    public static ProcessOffering createProcessDescriptionV200fromV100(ProcessDescriptionType processDescriptionV100) {
 
         ProcessOffering processOffering = ProcessOffering.Factory.newInstance();
 
@@ -98,7 +98,7 @@ public class ProcessDescription {
 
             jobControlOptions.add(WPSConfig.JOB_CONTROL_OPTION_SYNC_EXECUTE);
 
-            if(processDescriptionV100.getStatusSupported()){
+            if (processDescriptionV100.getStatusSupported()) {
                 jobControlOptions.add(WPSConfig.JOB_CONTROL_OPTION_ASYNC_EXECUTE);
             }
 
@@ -148,7 +148,7 @@ public class ProcessDescription {
 
                     String dataType = literalInputType.getDataType().getStringValue();
 
-                    if(dataType == null || dataType.equals("")){
+                    if (dataType == null || dataType.equals("")) {
                         dataType = literalInputType.getDataType().getReference();
                     }
 
@@ -171,17 +171,17 @@ public class ProcessDescription {
                             net.opengis.ows.x20.RangeType newRange = allowed.addNewRange();
                             String minimumValue = range.getMinimumValue() != null ? range.getMinimumValue().getStringValue() : "";
 
-                            if(minimumValue != null && !minimumValue.equals("")){
+                            if (minimumValue != null && !minimumValue.equals("")) {
                                 newRange.addNewMinimumValue().setStringValue(minimumValue);
                             }
                             String maximumValue = range.getMaximumValue() != null ? range.getMaximumValue().getStringValue() : "";
 
-                            if(maximumValue != null && !maximumValue.equals("")){
+                            if (maximumValue != null && !maximumValue.equals("")) {
                                 newRange.addNewMaximumValue().setStringValue(maximumValue);
                             }
                             String spacing = range.getSpacing() != null ? range.getSpacing().getStringValue() : "";
 
-                            if(spacing != null && !spacing.equals("")){
+                            if (spacing != null && !spacing.equals("")) {
                                 newRange.addNewSpacing().setStringValue(spacing);
                             }
                         }
@@ -210,7 +210,7 @@ public class ProcessDescription {
                     complexDataDocumentName = new QName(complexDataDocumentName.getNamespaceURI(), complexDataDocumentName.getLocalPart(), "wps");
 
                     XMLUtil.qualifySubstitutionGroup(dataInput.getDataDescription(), complexDataDocumentName, null);
-                }else if(inputDescriptionType.getBoundingBoxData() != null){
+                } else if (inputDescriptionType.getBoundingBoxData() != null) {
 
                     BoundingBoxData boundingBoxData = BoundingBoxData.Factory.newInstance();
 
@@ -280,7 +280,7 @@ public class ProcessDescription {
 
                     XMLUtil.qualifySubstitutionGroup(dataOutput.getDataDescription(), complexDataDocumentName, null);
 
-                } else if(outputDescription.getBoundingBoxOutput() != null){
+                } else if (outputDescription.getBoundingBoxOutput() != null) {
 
                     BoundingBoxData boundingBoxData = BoundingBoxData.Factory.newInstance();
 
@@ -297,7 +297,7 @@ public class ProcessDescription {
 
     private static void transformBBoxDataFromV100ToV200(
                 BoundingBoxData boundingBoxData,
-                SupportedCRSsType supportedCRSsType){
+                SupportedCRSsType supportedCRSsType) {
 
         Format defaultFormat = boundingBoxData.addNewFormat();
 
@@ -307,7 +307,7 @@ public class ProcessDescription {
 
         Default defaultCRS = supportedCRSsType.getDefault();
 
-        if(defaultCRS != null){
+        if (defaultCRS != null) {
 
             SupportedCRS wps20DefaultCRS = boundingBoxData.addNewSupportedCRS();
 
@@ -333,9 +333,9 @@ public class ProcessDescription {
 
         ComplexDataCombinationType defaultFormat = ComplexDataCombinationType.Factory.newInstance();
 
-        if(complexData instanceof SupportedComplexDataType){
+        if (complexData instanceof SupportedComplexDataType) {
             defaultFormat = ((SupportedComplexDataType)complexData).getDefault();
-        }else if(complexData instanceof SupportedComplexDataInputType){
+        } else if (complexData instanceof SupportedComplexDataInputType) {
             defaultFormat = ((SupportedComplexDataInputType)complexData).getDefault();
         }
 
@@ -347,9 +347,9 @@ public class ProcessDescription {
 
         ComplexDataDescriptionType[] supportedFormats = new ComplexDataDescriptionType[0];
 
-        if(complexData instanceof SupportedComplexDataType){
+        if (complexData instanceof SupportedComplexDataType) {
             supportedFormats = ((SupportedComplexDataType)complexData).getSupported().getFormatArray();
-        }else if(complexData instanceof SupportedComplexDataInputType){
+        } else if (complexData instanceof SupportedComplexDataInputType) {
             supportedFormats = ((SupportedComplexDataInputType)complexData).getSupported().getFormatArray();
         }
 
@@ -360,9 +360,9 @@ public class ProcessDescription {
             String schema = complexDataDescriptionType.getSchema();
 
             //prevent duplicate format
-            if(!((encoding == null ? encoding == defaultEncoding : encoding.equals(defaultEncoding)) &&
+            if (!((encoding == null ? encoding == defaultEncoding : encoding.equals(defaultEncoding)) &&
                     (mimeType == null ? mimeType == defaultMimeType : mimeType.equals(defaultMimeType))&&
-                    (schema == null ? schema == defaultSchema : schema.equals(defaultSchema)))){
+                    (schema == null ? schema == defaultSchema : schema.equals(defaultSchema)))) {
                 addFormatAndSubstitute(complexDataType, mimeType, encoding, schema);
             }
         }
@@ -371,18 +371,18 @@ public class ProcessDescription {
            private static void addFormatAndSubstitute(DataDescriptionType dataDescriptionType,
                     String mimeType,
                     String encoding,
-                    String schema){
+                    String schema) {
                addFormatAndSubstitute(dataDescriptionType, mimeType, encoding, schema, false);
             }
 
     private static void addFormatAndSubstitute(DataDescriptionType dataDescriptionType,
                 String mimeType,
                 String encoding,
-                String schema, boolean defaulFormat){
+                String schema, boolean defaulFormat) {
 
             Format supportedFormat = dataDescriptionType.addNewFormat();
 
-            if(defaulFormat){
+            if (defaulFormat) {
                 supportedFormat.setDefault(defaulFormat);
             }
 

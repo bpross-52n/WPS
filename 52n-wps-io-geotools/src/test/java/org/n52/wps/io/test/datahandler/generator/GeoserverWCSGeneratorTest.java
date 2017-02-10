@@ -76,16 +76,16 @@ public class GeoserverWCSGeneratorTest extends AbstractTestCase<GeoserverWCSGene
     @Test
     public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
-//        if(!isDataHandlerActive()){
+//        if (!isDataHandlerActive()) {
 //            return;
 //        }
 //
 //        String className = t.getClass().getSimpleName();
 //
-//        if(!WPSConfig.getInstance().isGeneratorActive(className)){
+//        if (!WPSConfig.getInstance().isGeneratorActive(className)) {
 //            LOGGER.info("Skipping inactive Generator: " + className);
 //            return;
 //        }
@@ -126,7 +126,7 @@ public class GeoserverWCSGeneratorTest extends AbstractTestCase<GeoserverWCSGene
 
                 String line = "";
 
-                while((line = bufferedReader.readLine()) != null){
+                while((line = bufferedReader.readLine()) != null) {
                     System.out.println(line);
                 }
 

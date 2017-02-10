@@ -74,7 +74,7 @@ public class ShapefileBinding implements IComplexData{
     protected File shpFile;
     protected String mimeType;
 
-    public ShapefileBinding(File shapeFile){
+    public ShapefileBinding(File shapeFile) {
         this.shpFile = shapeFile;
         mimeType = IOHandler.MIME_TYPE_ZIPPED_SHP;
     }
@@ -93,7 +93,7 @@ public class ShapefileBinding implements IComplexData{
         return mimeType;
     }
 
-    public File getZippedPayload(){
+    public File getZippedPayload() {
         String path = shpFile.getAbsolutePath();
         String baseName = path.substring(0, path.length() - ".shp".length());
         File shx = new File(baseName + ".shx");
@@ -109,7 +109,7 @@ public class ShapefileBinding implements IComplexData{
 
     }
 
-    public GTVectorDataBinding getPayloadAsGTVectorDataBinding(){
+    public GTVectorDataBinding getPayloadAsGTVectorDataBinding() {
         try {
             DataStore store = new ShapefileDataStore(shpFile.toURI().toURL());
             FeatureCollection features = store.getFeatureSource(store.getTypeNames()[0]).getFeatures();
@@ -125,7 +125,7 @@ public class ShapefileBinding implements IComplexData{
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
         FileUtils.deleteQuietly(shpFile);
     }
 

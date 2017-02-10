@@ -65,7 +65,7 @@ public class ProxyGMLGenerator4FilesCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public ProxyGMLGenerator4FilesCM(){
+    public ProxyGMLGenerator4FilesCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

@@ -197,10 +197,10 @@ public class OutputDataItemTest extends AbstractITClass{
             String bytesAsIntegerValues = "[";
 
             for (int i = 0; i < bytes.length; i++) {
-                if(i < bytes.length -1){
+                if (i < bytes.length -1) {
                 bytesAsIntegerValues = bytesAsIntegerValues
                         .concat((int) bytes[i] + ", ");
-                }else{
+                } else {
                     bytesAsIntegerValues = bytesAsIntegerValues
                             .concat((int) bytes[i] + "]");
                 }

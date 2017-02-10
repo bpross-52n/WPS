@@ -47,7 +47,7 @@ public class CustomClassLoader extends ClassLoader {
     private static Logger LOGGER = LoggerFactory
             .getLogger(CustomClassLoader.class);
 
-    public CustomClassLoader(String baseDir){
+    public CustomClassLoader(String baseDir) {
         this.baseDir = baseDir;
     }
 
@@ -105,10 +105,10 @@ public class CustomClassLoader extends ClassLoader {
 
         File classFile = new File(pathToClassFile);
 
-        if(classFile.isAbsolute()){
+        if (classFile.isAbsolute()) {
             //absolute file path was passed, so try to load file
             classBytesStream = new FileInputStream(classFile);
-        }else{
+        } else {
             //relative path was passed, so try to get resource as stream
             classBytesStream =  UploadedAlgorithmRepository.class.getClassLoader().getResourceAsStream(pathToClassFile);
         }

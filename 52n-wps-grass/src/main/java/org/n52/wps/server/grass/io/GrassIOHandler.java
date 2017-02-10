@@ -101,9 +101,9 @@ public class GrassIOHandler {
     public static final String OS_Name = System.getProperty("os.name");
     private static final String LOGS_DIR_NAME = "GRASS_LOGS";
 
-    public GrassIOHandler(){
+    public GrassIOHandler() {
 
-        if(!OS_Name.startsWith("Windows")){
+        if (!OS_Name.startsWith("Windows")) {
             pythonName = "python";
         }
 
@@ -116,7 +116,7 @@ public class GrassIOHandler {
 
         File tmpDirectory = new File(tmpDir);
 
-        if(!tmpDirectory.exists()){
+        if (!tmpDirectory.exists()) {
             tmpDirectory.mkdir();
         }
     }
@@ -132,7 +132,7 @@ public class GrassIOHandler {
      * @param outputSchema the schema of the output
      * @return a GenericFileDataBinding containing the generated ouput
      */
-    public IData executeGrassProcess(String processID, Map<String, List<IData>> complexInputData, Map<String, List<IData>> literalInputData, String outputID, String outputMimeType, String outputSchema, boolean isAddon){
+    public IData executeGrassProcess(String processID, Map<String, List<IData>> complexInputData, Map<String, List<IData>> literalInputData, String outputID, String outputMimeType, String outputSchema, boolean isAddon) {
 
         String outputFileName = "";
 
@@ -142,7 +142,7 @@ public class GrassIOHandler {
 
         boolean success = createInputTxt(processID, complexInputData, literalInputData, outputID, outputFileName, outputMimeType, outputSchema);
 
-        if(!success){
+        if (!success) {
             inputTxtFilename = null;
             return null;
         }
@@ -152,7 +152,7 @@ public class GrassIOHandler {
 
         File outputFile = new File(outputFileName);
 
-        if(!outputFile.exists()){
+        if (!outputFile.exists()) {
             inputTxtFilename = null;
             return null;
         }
@@ -177,7 +177,7 @@ public class GrassIOHandler {
 
     private String getCommand() {
 
-        if(command == null){
+        if (command == null) {
             uuid = UUID.randomUUID().toString().substring(0, 7);
             command  = getPythonHome() + fileSeparator + pythonName + " "
             + grassModuleStarterHome + fileSeparator + "GrassModuleStarter.py -f " + getInputTxtFilename() +" -l " + tmpDir + fileSeparator + uuid + logFilename + " -o " + tmpDir + fileSeparator + stdOutFilename + " -e " + tmpDir + fileSeparator + stdErrorFilename;
@@ -235,7 +235,7 @@ public class GrassIOHandler {
 
     private String getInputTxtFilename() {
 
-        if(inputTxtFilename == null){
+        if (inputTxtFilename == null) {
 
             String txtID = UUID.randomUUID().toString();
 
@@ -247,7 +247,7 @@ public class GrassIOHandler {
     }
 
     private String getSystemBlock() {
-        if(systemBlock == null){
+        if (systemBlock == null) {
             systemBlock = "[System]" + lineSeparator + " WorkDir=" + WORKDIR
             + lineSeparator + " OutputDir=" + OUTPUTDIR + lineSeparator;
         }
@@ -255,7 +255,7 @@ public class GrassIOHandler {
     }
 
     private String getGrassBlock() {
-        if(grassBlock == null){
+        if (grassBlock == null) {
             grassBlock = "[GRASS]"
                 + lineSeparator
                 + " GISBASE=" + grassHome
@@ -268,7 +268,7 @@ public class GrassIOHandler {
     }
 
     private String getComplexInputDataBlock() {
-        if(complexInputDataBlock == null){
+        if (complexInputDataBlock == null) {
             complexInputDataBlock  = "[ComplexData]" + lineSeparator
             + " Identifier=" + INPUT_IDENTIFIER + lineSeparator
             + " MaxOccurs=1" + lineSeparator
@@ -280,7 +280,7 @@ public class GrassIOHandler {
     }
 
     private String getLiteralInputDataBlock() {
-        if(literalInputDataBlock == null){
+        if (literalInputDataBlock == null) {
             literalInputDataBlock = "[LiteralData]" + lineSeparator
             + " Identifier=" + INPUT_IDENTIFIER + lineSeparator + " DataType=" + DATA_TYPE + lineSeparator
             + " Value=" + VALUE + lineSeparator;
@@ -289,7 +289,7 @@ public class GrassIOHandler {
     }
 
     private String getOutputDataBlock() {
-        if(outputDataBlock == null){
+        if (outputDataBlock == null) {
             outputDataBlock = "[ComplexOutput]" + lineSeparator
             + " Identifier=" + OUTPUT_IDENTIFIER + lineSeparator
             + " PathToFile=" + OUTPUT_PATH + lineSeparator + " MimeType=" + MIMETYPE + lineSeparator
@@ -300,7 +300,7 @@ public class GrassIOHandler {
     }
 
     private String getPythonHome() {
-        if(pythonHome == null){
+        if (pythonHome == null) {
             pythonHome = grassHome + "\\extrabin";
         }
         return pythonHome;
@@ -323,7 +323,7 @@ public class GrassIOHandler {
      *            suggested mimetype of the result of the GRASS-process
      * @return true, if everything worked, otherwise false
      */
-    private boolean createInputTxt(String processID, Map<String, List<IData>> complexInputData, Map<String, List<IData>> literalInputData, String outputID, String outputFileName, String outputMimeType, String outputSchema){
+    private boolean createInputTxt(String processID, Map<String, List<IData>> complexInputData, Map<String, List<IData>> literalInputData, String outputID, String outputFileName, String outputMimeType, String outputSchema) {
 
         try {
 
@@ -340,9 +340,9 @@ public class GrassIOHandler {
             inputTxtWriter.write(lineSeparator);
 
             tmpBlock  = getGrassBlock().replace(PROCESS_IDENTIFIER, processID);
-            if(isAddon){
+            if (isAddon) {
                 tmpBlock  = tmpBlock.replace(GRASS_ADDON_PATH, addonPath);
-            }else{
+            } else {
                 tmpBlock  = tmpBlock.replace(GRASS_ADDON_PATH, "");
             }
 
@@ -355,61 +355,61 @@ public class GrassIOHandler {
 
                 for (IData data : dataList) {
 
-                if(!(data instanceof GenericFileDataWithGTBinding)){
+                if (!(data instanceof GenericFileDataWithGTBinding)) {
                     continue;
                 }
 
                 String mimetype = ((GenericFileDataWithGTBinding)data).getPayload().getMimeType();
 
-                if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_TIFF)){
+                if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_TIFF)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, mimetype);
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if( mimetype.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)){
+                } else if ( mimetype.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "APPLICATION/SHP");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_PLAIN_TEXT)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_PLAIN_TEXT)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, GenericFileDataConstants.MIME_TYPE_PLAIN_TEXT);
                     tmpBlock = tmpBlock.replace(ENCODING, "UTF-8");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_TEXT_XML)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_TEXT_XML)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "TEXT/XML");
                     tmpBlock = tmpBlock.replace(ENCODING, "UTF-8");
                     tmpBlock = tmpBlock.replace(SCHEMA, "GML");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_KML)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_KML)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "TEXT/XML");
                     tmpBlock = tmpBlock.replace(ENCODING, "UTF-8");
                     tmpBlock = tmpBlock.replace(SCHEMA, "KML");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_PNG)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_PNG)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "IMAGE/PNG");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_JPEG)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_JPEG)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "IMAGE/JPEG");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GIF)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GIF)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "IMAGE/GIF");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GEOTIFF)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GEOTIFF)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "IMAGE/GEOTIFF");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_HDF)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_HDF)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "APPLICATION/HDF4Image");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_X_ERDAS_HFA)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_X_ERDAS_HFA)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "APPLICATION/X-ERDAS-HFA");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_NETCDF)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_NETCDF)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "APPLICATION/NETCDF");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
-                }else if(mimetype.equals(GenericFileDataConstants.MIME_TYPE_DGN)){
+                } else if (mimetype.equals(GenericFileDataConstants.MIME_TYPE_DGN)) {
                     tmpBlock = getComplexInputDataBlock().replace(MIMETYPE, "APPLICATION/DGN");
                     tmpBlock = tmpBlock.replace(ENCODING, "");
                     tmpBlock = tmpBlock.replace(SCHEMA, "");
@@ -435,17 +435,17 @@ public class GrassIOHandler {
 
                 Class<?> supportedClass = data.getSupportedClass();
 
-                if(supportedClass.equals(Float.class)){
+                if (supportedClass.equals(Float.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "float");
-                }else if(supportedClass.equals(Double.class)){
+                } else if (supportedClass.equals(Double.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "double");
-                }else if(supportedClass.equals(Integer.class)){
+                } else if (supportedClass.equals(Integer.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "integer");
-                }else if(supportedClass.equals(Long.class)){
+                } else if (supportedClass.equals(Long.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "integer");
-                }else if(supportedClass.equals(String.class)){
+                } else if (supportedClass.equals(String.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "string");
-                }else if(supportedClass.equals(Boolean.class)){
+                } else if (supportedClass.equals(Boolean.class)) {
                     tmpBlock = tmpBlock.replace(DATA_TYPE, "boolean");
                 }
 
@@ -460,55 +460,55 @@ public class GrassIOHandler {
             tmpBlock = getOutputDataBlock().replace(OUTPUT_IDENTIFIER, outputID);
             tmpBlock = tmpBlock.replace(OUTPUT_PATH, outputFileName);
 
-            if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_PLAIN_TEXT)){
+            if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_PLAIN_TEXT)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "text/plain");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "APPLICATION/SHP");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_TIFF) || outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_GEOTIFF)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_TIFF) || outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_GEOTIFF)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, GenericFileDataConstants.MIME_TYPE_TIFF);
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_TEXT_XML)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_TEXT_XML)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, GenericFileDataConstants.MIME_TYPE_TEXT_XML);
                 tmpBlock = tmpBlock.replace(ENCODING, "UTF-8");
                 tmpBlock = tmpBlock.replace(SCHEMA, "http://schemas.opengis.net/gml/3.1.0/polygon.xsd");//TODO change to gml2.1.2?!
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_KML)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_KML)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "TEXT/XML");
                 tmpBlock = tmpBlock.replace(ENCODING, "UTF-8");
                 tmpBlock = tmpBlock.replace(SCHEMA, "KML");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_PNG)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_PNG)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "IMAGE/PNG");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_JPEG)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_JPEG)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "IMAGE/JPEG");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GIF)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GIF)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "IMAGE/GIF");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GEOTIFF)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_IMAGE_GEOTIFF)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "IMAGE/GEOTIFF");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_HDF)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_HDF)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "APPLICATION/HDF4Image");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_X_ERDAS_HFA)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_X_ERDAS_HFA)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "APPLICATION/X-ERDAS-HFA");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_NETCDF)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_NETCDF)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "APPLICATION/NETCDF");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
-            }else if(outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_DGN)){
+            } else if (outputMimeType.equals(GenericFileDataConstants.MIME_TYPE_DGN)) {
                 tmpBlock = tmpBlock.replace(MIMETYPE, "APPLICATION/DGN");
                 tmpBlock = tmpBlock.replace(ENCODING, "");
                 tmpBlock = tmpBlock.replace(SCHEMA, "");
@@ -572,16 +572,16 @@ public class GrassIOHandler {
                 proc.destroy();
             }
 
-            if(!errors.equals("")){
+            if (!errors.equals("")) {
                 String baseDir = WebProcessingService.getApplicationBaseDir() + File.separator + LOGS_DIR_NAME;
                 File baseDirFile = new File(baseDir);
-                if(!baseDirFile.exists()){
+                if (!baseDirFile.exists()) {
                     baseDirFile.mkdir();
                 }
                 File tmpLog = new File(tmpDir + fileSeparator + uuid + logFilename);
                 File serverLog = new File(baseDir + fileSeparator + uuid + logFilename);
 
-                if(tmpLog.exists()){
+                if (tmpLog.exists()) {
                     FileInputStream fis  = new FileInputStream(tmpLog);
                     FileOutputStream fos = new FileOutputStream(serverLog);
                     try {
@@ -603,7 +603,7 @@ public class GrassIOHandler {
                         }
                     }
 
-                }else{
+                } else {
                     BufferedWriter bufWrite = new BufferedWriter(new FileWriter(serverLog));
                     bufWrite.write(errors);
                     bufWrite.flush();

@@ -41,7 +41,7 @@ import org.n52.wps.util.XMLBeansHelper;
 
 public class DescribeProcessResponse extends Response{
 
-    public DescribeProcessResponse(Request request){
+    public DescribeProcessResponse(Request request) {
         super(request);
     }
 
@@ -51,15 +51,15 @@ public class DescribeProcessResponse extends Response{
             //TODO change to Request.getMapValue
             String[] requestedVersions = (String[]) getRequest().getMap().get("version");
 
-            if(requestedVersions != null && requestedVersions.length > 0){
+            if (requestedVersions != null && requestedVersions.length > 0) {
 
                 String requestedVersion = requestedVersions[0];
 
-                if(requestedVersion.equals(WPSConfig.VERSION_100)){
+                if (requestedVersion.equals(WPSConfig.VERSION_100)) {
 
                     return ((ProcessDescriptionsDocument)request.getAttachedResult()).newInputStream(XMLBeansHelper.getXmlOptions());
 
-                }else if(requestedVersion.equals(WPSConfig.VERSION_200)){
+                } else if (requestedVersion.equals(WPSConfig.VERSION_200)) {
 
                     return ((ProcessOfferingsDocument)request.getAttachedResult()).newInputStream(XMLBeansHelper.getXmlOptions());
 

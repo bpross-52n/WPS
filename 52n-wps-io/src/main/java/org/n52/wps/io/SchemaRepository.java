@@ -24,7 +24,7 @@ public class SchemaRepository {
     private static Map<String, String> repository;
     private static Map<String, String> gmlNamespaces;
 
-    public static synchronized String getSchemaLocation(String namespaceURI){
+    public static synchronized String getSchemaLocation(String namespaceURI) {
         if (repository==null) {
             repository = new HashMap<String, String>();
         }
@@ -32,7 +32,7 @@ public class SchemaRepository {
 
     }
 
-    public static synchronized void registerSchemaLocation(String namespaceURI, String schemaLocation){
+    public static synchronized void registerSchemaLocation(String namespaceURI, String schemaLocation) {
         if (repository==null) {
             repository = new HashMap<String, String>();
         }
@@ -40,7 +40,7 @@ public class SchemaRepository {
 
     }
 
-    public static synchronized void registerGMLVersion(String namespaceURI, String gmlNamespace){
+    public static synchronized void registerGMLVersion(String namespaceURI, String gmlNamespace) {
         if (gmlNamespaces==null) {
             gmlNamespaces = new HashMap<String, String>();
         }

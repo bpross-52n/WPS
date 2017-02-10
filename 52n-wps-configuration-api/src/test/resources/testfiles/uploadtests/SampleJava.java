@@ -147,7 +147,7 @@ public class ConvexHullAlgorithm extends AbstractSelfDescribingAlgorithm {
             Geometry geom = (Geometry) feature.getDefaultGeometry();
 
             Coordinate[] coordinateArray = geom.getCoordinates();
-            for(Coordinate coordinate : coordinateArray){
+            for(Coordinate coordinate : coordinateArray) {
                 coordinateList.add(coordinate);
             }
 
@@ -155,7 +155,7 @@ public class ConvexHullAlgorithm extends AbstractSelfDescribingAlgorithm {
 
         Coordinate[] coordinateArray = new Coordinate[coordinateList.size()];
 
-        for(int i = 0; i<coordinateList.size(); i++){
+        for(int i = 0; i<coordinateList.size(); i++) {
             coordinateArray[i] = coordinateList.get(i);
         }
         ConvexHull convexHull = new ConvexHull(coordinateArray, new GeometryFactory());

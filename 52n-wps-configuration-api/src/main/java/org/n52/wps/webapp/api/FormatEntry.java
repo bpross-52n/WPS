@@ -79,30 +79,30 @@ public class FormatEntry {
     @Override
     public boolean equals(Object obj) {
 
-        if(obj instanceof FormatEntry){
+        if (obj instanceof FormatEntry) {
             FormatEntry formatEntry = (FormatEntry)obj;
 
             boolean mimeTypesEqual = false;
             boolean schemasEqual = false;
             boolean encodingsEqual = false;
 
-            if(mimeType != null){
+            if (mimeType != null) {
                 mimeTypesEqual = mimeType.equals(formatEntry.getMimeType());
-                if(!mimeTypesEqual){
+                if (!mimeTypesEqual) {
                     return false;
                 }
             }
 
-            if(schema != null){
+            if (schema != null) {
                 schemasEqual = schema.equals(formatEntry.getSchema());
-                if(!schemasEqual){
+                if (!schemasEqual) {
                     return false;
                 }
             }
 
-            if(encoding != null){
+            if (encoding != null) {
                 encodingsEqual = encoding.equals(formatEntry.getEncoding());
-                if(!encodingsEqual){
+                if (!encodingsEqual) {
                     return false;
                 }
             }

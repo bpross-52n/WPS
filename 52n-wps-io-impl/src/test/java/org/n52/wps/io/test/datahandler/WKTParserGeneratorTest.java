@@ -52,7 +52,7 @@ public class WKTParserGeneratorTest extends AbstractTestCase<WKTGenerator> {
     @Test
     public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

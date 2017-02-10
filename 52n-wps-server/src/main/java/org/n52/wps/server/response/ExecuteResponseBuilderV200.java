@@ -94,7 +94,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
         this.identifier = request.getAlgorithmIdentifier().trim();
         superDescription = RepositoryManagerSingletonWrapper.getInstance().getProcessDescription(this.identifier);
         description = (ProcessOffering) superDescription.getProcessDescriptionType(WPSConfig.VERSION_200);
-        if(description==null){
+        if (description==null) {
             throw new RuntimeException("Error while accessing the process description for "+ identifier);
         }
     }
@@ -108,12 +108,12 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
                 // Get the outputdescriptions from the algorithm
 
                 OutputDescriptionType[] outputDescs = description.getProcess().getOutputArray();
-                if(request.isRawData()) {
+                if (request.isRawData()) {
                     //TODO check how this should be handled
                     OutputDefinitionType rawDataOutput = request.getExecute().getOutputArray(0);
                     String id = rawDataOutput.getId();
                     OutputDescriptionType desc = XMLBeansHelper.findOutputByID(id, outputDescs);
-                    if(desc.getDataDescription() instanceof ComplexDataType) {
+                    if (desc.getDataDescription() instanceof ComplexDataType) {
                         String encoding = getEncoding(rawDataOutput);
                         String schema = getSchema(rawDataOutput);
                         String responseMimeType = getMimeType(rawDataOutput);
@@ -142,10 +142,10 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
                     OutputDefinitionType definition = request.getExecute().getOutputArray(i);
                     String responseID = definition.getId();
                     OutputDescriptionType desc = XMLBeansHelper.findOutputByID(responseID, outputDescs);
-                    if(desc==null){
+                    if (desc==null) {
                         throw new ExceptionReport("Could not find the output id " + responseID, ExceptionReport.INVALID_PARAMETER_VALUE);
                     }
-                    if(desc.getDataDescription() instanceof ComplexDataType) {
+                    if (desc.getDataDescription() instanceof ComplexDataType) {
                         String mimeType = getMimeType(definition);
                         String schema = getSchema(definition);
                         String encoding = getEncoding(definition);
@@ -166,7 +166,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
                     else if (desc.getDataDescription() instanceof BoundingBoxData) {
                         generateBBOXOutput(responseID, resultDoc, false, desc.getTitleArray(0));
                     }
-                    else{
+                    else {
                         throw new ExceptionReport("Requested type not supported: BBOX", ExceptionReport.INVALID_PARAMETER_VALUE);
                     }
                 }
@@ -178,7 +178,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
      */
     private static String getSchema(OutputDefinitionType def) {
         String schema = null;
-        if(def != null) {
+        if (def != null) {
             schema = def.getSchema();
         }
 
@@ -187,7 +187,7 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 
     private static String getEncoding(OutputDefinitionType def) {
         String encoding = null;
-        if(def != null) {
+        if (def != null) {
             encoding = def.getEncoding();
         }
         return encoding;
@@ -248,12 +248,12 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 
     private void generateComplexDataOutput(String responseID, boolean asReference, boolean rawData, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport{
         IData obj = request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
         }
         else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
-            if(asReference) {
+            if (asReference) {
                 handler.updateResponseAsReference(resultDoc, (request.getUniqueId()).toString(),mimeType);
             }
             else {
@@ -265,9 +265,9 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 
     private void generateLiteralDataOutput(String responseID, ResultDocument res, boolean rawData, String dataTypeReference, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport {
         IData obj = request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
-        }else{
+        } else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
             handler.updateResponseForLiteralData(res, dataTypeReference);
         }
@@ -275,9 +275,9 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 
     private void generateBBOXOutput(String responseID, ResultDocument res, boolean rawData, LanguageStringType title) throws ExceptionReport {
         IBBOXData obj = (IBBOXData) request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
-        }else{
+        } else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription);
             handler.updateResponseForBBOXData(res, obj);
         }
@@ -285,13 +285,13 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
     }
 
     public InputStream getAsStream() throws ExceptionReport{
-        if(request.isRawData() && rawDataHandler != null) {
+        if (request.isRawData() && rawDataHandler != null) {
             return rawDataHandler.getAsStream();
         }
 
-        if(request.getExecute().getMode().equals(ExecuteRequestType.Mode.SYNC)){
+        if (request.getExecute().getMode().equals(ExecuteRequestType.Mode.SYNC)) {
             return resultDoc.newInputStream(XMLBeansHelper.getXmlOptions());
-        }else if(statusInfoDoc.getStatusInfo().getStatus().equals(Status.Succeeded.toString())){
+        } else if (statusInfoDoc.getStatusInfo().getStatus().equals(Status.Succeeded.toString())) {
             //save last status info and return result document
                 XMLBeansHelper.addSchemaLocationToXMLObject(statusInfoDoc, "http://www.opengis.net/wps/2.0 http://schemas.opengis.net/wps/2.0/wps.xsd");
             DatabaseFactory.getDatabase().insertResponse(
@@ -304,12 +304,12 @@ public class ExecuteResponseBuilderV200 implements ExecuteResponseBuilder{
 
     public void setStatus(XmlObject statusObject) {
 
-        if(statusObject instanceof StatusInfo){
+        if (statusObject instanceof StatusInfo) {
 
             StatusInfo status = (StatusInfo)statusObject;
 
             statusInfoDoc.setStatusInfo(status);
-        }else{
+        } else {
             LOGGER.warn(String.format("XMLObject not of type \"net.opengis.wps.x20.StatusInfoDocument.StatusInfo\", but {}. Cannot not set status. ", statusObject.getClass()));
         }
     }

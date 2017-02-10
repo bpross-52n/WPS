@@ -44,7 +44,7 @@ public class GenericXMLDataBinding implements IComplexData {
 
     private XmlObject payload;
 
-    public GenericXMLDataBinding(XmlObject payload){
+    public GenericXMLDataBinding(XmlObject payload) {
         this.payload = payload;
     }
 

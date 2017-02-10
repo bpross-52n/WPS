@@ -142,7 +142,7 @@ public class GTBinZippedWKT64Parser extends AbstractParser {
 
             //read wkt file
             //please not that only 1 geometry is returned. If multiple geometries are included, perhaps use the read(String wktstring) method
-            for(int i = 0; i<wktFiles.size();i++){
+            for(int i = 0; i<wktFiles.size();i++) {
                 File wktFile = wktFiles.get(i);
                 Reader fileReader = new FileReader(wktFile);
 
@@ -174,10 +174,10 @@ public class GTBinZippedWKT64Parser extends AbstractParser {
         }
     }
 
-    private SimpleFeatureCollection createFeatureCollection(List<com.vividsolutions.jts.geom.Geometry> geometries, CoordinateReferenceSystem coordinateReferenceSystem){
+    private SimpleFeatureCollection createFeatureCollection(List<com.vividsolutions.jts.geom.Geometry> geometries, CoordinateReferenceSystem coordinateReferenceSystem) {
 
         SimpleFeatureTypeBuilder typeBuilder = new SimpleFeatureTypeBuilder();
-        if(coordinateReferenceSystem==null){
+        if (coordinateReferenceSystem==null) {
             try {
                 coordinateReferenceSystem = CRS.decode("EPSG:4326");
             } catch (NoSuchAuthorityCodeException e) {
@@ -202,7 +202,7 @@ public class GTBinZippedWKT64Parser extends AbstractParser {
 
         SimpleFeatureType featureType = typeBuilder.buildFeatureType();
 
-        for(int i = 0; i<geometries.size();i++){
+        for(int i = 0; i<geometries.size();i++) {
                 SimpleFeature feature = GTHelper.createFeature(""+i, geometries.get(i), featureType, new ArrayList<Property>());
                 simpleFeatureList.add(feature);        }
 

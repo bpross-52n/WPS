@@ -111,7 +111,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
 
 
-    public JSONGeometryGenerator(){
+    public JSONGeometryGenerator() {
         super();
         //supportedIDataTypes.add(GTVectorDataBinding.class);
         supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
@@ -125,15 +125,15 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
         // Extract input data (as feature collection)
         GTVectorDataBinding gvdb = null;
-        if (data instanceof GenericFileDataWithGTBinding){
+        if (data instanceof GenericFileDataWithGTBinding) {
             LOGGER.debug("The data passed from the algorithm to the generator is GenericFileDataBinding");
             try {
                 gvdb = ((GenericFileDataWithGT) data.getPayload()).getAsGTVectorDataBinding();
                 isShapefile = true;
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new IOException("The data passed from the algorithm to the generator is a file, but no shapefile");
             }
-        } else if (data instanceof GTVectorDataBinding){
+        } else if (data instanceof GTVectorDataBinding) {
             LOGGER.debug("The data passed from the algorithm to the generator is GTVectorDataBinding");
             gvdb = (GTVectorDataBinding) data;
             isShapefile = false;
@@ -142,14 +142,14 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         }
         FeatureCollection fc = gvdb.getPayload();
 
-        if(fc == null || fc.size() == 0) {
+        if (fc == null || fc.size() == 0) {
             throw new IOException("No feature was passed to the generator!");
         }
 
         // Transform features to JSON
         FeatureIterator fi = fc.features();
         String jsonString = "";
-        if (fc.size() == 1){
+        if (fc.size() == 1) {
             // only one feature: make a simple json geometry
             SimpleFeature f = (SimpleFeature) fi.next();
             Geometry geom = this.getGeometry(f);
@@ -185,13 +185,13 @@ public class JSONGeometryGenerator extends AbstractGenerator {
     private Geometry getGeometry(SimpleFeature simpleFeature) throws IOException {
 
         Geometry geom = null;
-        if(simpleFeature.getDefaultGeometry()==null && simpleFeature.getAttributeCount()>0
-                && simpleFeature.getAttribute(0) instanceof Geometry){
+        if (simpleFeature.getDefaultGeometry()==null && simpleFeature.getAttributeCount()>0
+                && simpleFeature.getAttribute(0) instanceof Geometry) {
             geom = (Geometry)simpleFeature.getAttribute(0);
-        }else{
+        } else {
             geom = (Geometry)simpleFeature.getDefaultGeometry();
         }
-        if ((geom == null) || !(geom instanceof Geometry)){
+        if ((geom == null) || !(geom instanceof Geometry)) {
             LOGGER.error("Geometry could not be extracted");
             throw new IOException("Geometry could not be extracted!");
         }
@@ -216,20 +216,20 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         String jsonString = "";
 
         // simple geometries:
-        if (geom instanceof Point){
+        if (geom instanceof Point) {
             jsonString = transformPointToJsonPoint((Point) geom);
-        } else if (geom instanceof LineString){
+        } else if (geom instanceof LineString) {
             jsonString = transformLineStringToJsonLineString((LineString) geom);
-        } else if (geom instanceof Polygon){
+        } else if (geom instanceof Polygon) {
             jsonString = transformPolygonToJsonPolygon((Polygon) geom);
         }
 
         // multipoint
-        else if (geom instanceof MultiPoint){
+        else if (geom instanceof MultiPoint) {
             MultiPoint multipoint = (MultiPoint) geom;
 
             // if only one point inside, make normal point out of it
-            if (multipoint.getNumGeometries() == 1){
+            if (multipoint.getNumGeometries() == 1) {
                 Point point = (Point) multipoint.getGeometryN(0);
                 jsonString = transformPointToJsonPoint(point);
             } else {
@@ -238,17 +238,17 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
 
         // multilinestring
-        } else if (geom instanceof MultiLineString){
+        } else if (geom instanceof MultiLineString) {
             MultiLineString multiline = (MultiLineString) geom;
 
             // if only one linestring inside, make normal linestring out of it
-            if (multiline.getNumGeometries() == 1){
+            if (multiline.getNumGeometries() == 1) {
                 LineString line = (LineString) multiline.getGeometryN(0);
                 jsonString = transformLineStringToJsonLineString(line);
             }
             // real multilinestring
             else {
-                if (multiGeometriesToArray){
+                if (multiGeometriesToArray) {
                     jsonString = transformMultiLineStringToJsonLineStringArray(multiline);
                 } else {
                     jsonString = transformMultiLineStringToJsonLineString(multiline);
@@ -257,18 +257,18 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
 
         // multipolygon
-        } else if (geom instanceof MultiPolygon){
+        } else if (geom instanceof MultiPolygon) {
             MultiPolygon multipoly = (MultiPolygon) geom;
 
             // if only one polygon inside, make normal polygon out of it
-            if (multipoly.getNumGeometries() == 1){
+            if (multipoly.getNumGeometries() == 1) {
                 Polygon poly = (Polygon) multipoly.getGeometryN(0);
                 jsonString = transformPolygonToJsonPolygon(poly);
             }
 
             // real multi polygon
             else {
-                if (multiGeometriesToArray){
+                if (multiGeometriesToArray) {
                     jsonString = transformMultiPolygonToJsonPolygonArray(multipoly);
                 } else {
                     jsonString = transformMultiPolygonToJsonPolygon(multipoly);
@@ -292,7 +292,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
     /* *** Transformations for points *** */
     // Simple point
-    private String transformPointToJsonPoint(Point p){
+    private String transformPointToJsonPoint(Point p) {
 
         LOGGER.info("Transforming point to JSON point.");
 
@@ -316,7 +316,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         // x and y were wrongly given to GML input!
         double eastwest;
         double northsouth;
-        if (isShapefile){
+        if (isShapefile) {
             // In GTVectorBindings made of shapefiles,
             // the x seems to stand for north-south
             // and the y seems to stand for east-west
@@ -347,7 +347,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         return jsonString;
     }
     // Multipoint
-    private String transformMultiPointToJsonMultiPoint(MultiPoint multipoint){
+    private String transformMultiPointToJsonMultiPoint(MultiPoint multipoint) {
 
         LOGGER.info("Transforming multipoint to json multipoint");
 
@@ -374,7 +374,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
         // Step (2)
         boolean firstElement = true;
-        for (int i = 0; i < multipoint.getNumGeometries(); i++){
+        for (int i = 0; i < multipoint.getNumGeometries(); i++) {
 
             /* Treat one point of the multipoint: */
             Point point = (Point) multipoint.getGeometryN(i);
@@ -389,7 +389,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
             // x and y were wrongly given to GML input!
             double eastwest;
             double northsouth;
-            if (isShapefile){
+            if (isShapefile) {
                 // In GTVectorBindings made of shapefiles,
                 // the x seems to stand for north-south
                 // and the y seems to stand for east-west
@@ -406,7 +406,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
              * Lines are like this [eastwest, northsouth] */
             onePointString = onePointString.concat(eastwest + "," + northsouth + "]");
 
-            if (firstElement){
+            if (firstElement) {
                 jsonString = jsonString.concat(onePointString);
                 firstElement = false;
             } else {
@@ -421,7 +421,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
     /* *** Transformations for lines *** */
     // Simple linestring
-    private String transformLineStringToJsonLineString(LineString linestring){
+    private String transformLineStringToJsonLineString(LineString linestring) {
 
         LOGGER.info("Transforming linestring to JSON linestring");
 
@@ -445,7 +445,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         return aJsonLine;
     }
     // Multilinestring
-    private String transformMultiLineStringToJsonLineString(MultiLineString multilinestring){
+    private String transformMultiLineStringToJsonLineString(MultiLineString multilinestring) {
 
         LOGGER.info("Transforming multilinestring to JSON linestring with several paths in it.");
 
@@ -466,10 +466,10 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         // (1) make paths, and concatenate them, comma separated
         String allPaths = "";
         boolean firstElement = true;
-        for (int i = 0; i < multilinestring.getNumGeometries(); i++){
+        for (int i = 0; i < multilinestring.getNumGeometries(); i++) {
             LineString linestring = (LineString) multilinestring.getGeometryN(i);
             String aPath = linestringToJsonPath(linestring);
-            if (firstElement){
+            if (firstElement) {
                 allPaths = allPaths.concat(aPath);
                 firstElement = false;
             } else {
@@ -481,7 +481,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         String jsonString = assembleLine(allPaths, multilinestring);
         return jsonString;
     }
-    private String transformMultiLineStringToJsonLineStringArray(MultiLineString multilinestring){
+    private String transformMultiLineStringToJsonLineStringArray(MultiLineString multilinestring) {
 
         LOGGER.info("Transforming multilinestring to JSON linestring array");
 
@@ -491,10 +491,10 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
         String lineArray = "[";
         boolean firstElement = true;
-        for (int i = 0; i < multilinestring.getNumGeometries(); i++){
+        for (int i = 0; i < multilinestring.getNumGeometries(); i++) {
             LineString linestring = (LineString) multilinestring.getGeometryN(i);
             String aLine = transformLineStringToJsonLineString(linestring);
-            if (firstElement){
+            if (firstElement) {
                 lineArray = lineArray.concat(aLine);
                 firstElement = false;
             } else {
@@ -505,7 +505,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         return lineArray;
     }
     // Helpers
-    private String assembleLine(String aPathOrSeveralPaths, Geometry geometry){
+    private String assembleLine(String aPathOrSeveralPaths, Geometry geometry) {
 
         /* Lines are like this: {"paths":[[[-122.68,45.53], [-122.58,45.55],[-122.57,45.58],[-122.53,45.6]]],
         "spatialReference":{"wkid":4326}}
@@ -532,7 +532,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
 
     }
-    private String linestringToJsonPath(LineString ls){
+    private String linestringToJsonPath(LineString ls) {
 
         /* A path is like this:
          *     [
@@ -546,14 +546,14 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         Coordinate[] coordinateArray = ls.getCoordinates();
         String aPath = "[";
         boolean firstElement = true;
-        for (Coordinate coordinatePair : coordinateArray){
+        for (Coordinate coordinatePair : coordinateArray) {
 
             // Assign x and y to eastwest or northeast, depending on input
             // TODO There should not be this difference!! I think the error is that
             // x and y were wrongly given to GML input!
             double eastwest = 0.0;
             double northsouth = 0.0;
-            if (isShapefile){
+            if (isShapefile) {
                 // In GTVectorBindings made of shapefiles,
                 // the x seems to stand for north-south
                 // and the y seems to stand for east-west
@@ -571,7 +571,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
             String coordinatePairString = "";
             /* In JSONGEOMETRY, x stands for EAST/WEST coordinate, y for NORTH/SOUTH.
              * Lines are like this [eastwest, northsouth] */
-            if (firstElement){
+            if (firstElement) {
                 coordinatePairString = "[" + eastwest + "," + northsouth + "]";
                 firstElement = false;
             } else {
@@ -588,7 +588,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
     /* *** Transformations for polygons *** */
     // Simple polygon
-    private String transformPolygonToJsonPolygon(Polygon polygon){
+    private String transformPolygonToJsonPolygon(Polygon polygon) {
 
         LOGGER.info("Transforming simple polygon to JSON polygon");
 
@@ -616,7 +616,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
     }
     // Multipolygon
-    private String transformMultiPolygonToJsonPolygon(MultiPolygon multipolygon){
+    private String transformMultiPolygonToJsonPolygon(MultiPolygon multipolygon) {
 
 
         LOGGER.info("Transforming multipolygon to JSON polygon with several rings in it.");
@@ -638,10 +638,10 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         // (1) make paths, and concatenate them, comma separated
         String allRings = "";
         boolean firstElement = true;
-        for (int i = 0; i < multipolygon.getNumGeometries(); i++){
+        for (int i = 0; i < multipolygon.getNumGeometries(); i++) {
             Polygon polygon = (Polygon) multipolygon.getGeometryN(i);
             String aRing = getPathFromPolygon(polygon);
-            if (firstElement){
+            if (firstElement) {
                 allRings = allRings.concat(aRing);
                 firstElement = false;
             } else {
@@ -653,7 +653,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         String jsonString = assemblePolygon(allRings, multipolygon);
         return jsonString;
     }
-    private String transformMultiPolygonToJsonPolygonArray(MultiPolygon multipolygon){
+    private String transformMultiPolygonToJsonPolygonArray(MultiPolygon multipolygon) {
 
         LOGGER.info("Transforming multipolygon to JSON polygon array");
 
@@ -663,10 +663,10 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
         String polygonArray = "[";
         boolean firstElement = true;
-        for (int i = 0; i < multipolygon.getNumGeometries(); i++){
+        for (int i = 0; i < multipolygon.getNumGeometries(); i++) {
             Polygon polygon = (Polygon) multipolygon.getGeometryN(i);
             String aPolygon = transformPolygonToJsonPolygon(polygon);
-            if (firstElement){
+            if (firstElement) {
                 polygonArray = polygonArray.concat(aPolygon);
                 firstElement = false;
             } else {
@@ -677,13 +677,13 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         return polygonArray;
     }
     // Helpers
-    private String getPathFromPolygon(Polygon polygon){
+    private String getPathFromPolygon(Polygon polygon) {
 
         // Make a path (=ring) from a simple polygon
 
         // Does the polygon have holes?
         int holes = polygon.getNumInteriorRing();
-        if (holes < 0){
+        if (holes < 0) {
             LOGGER.info("The polygon that is being transformed to an json geometry " +
                     "has holes. Holes are not accepted. Only the outer ring will be " +
                     "transformed.");
@@ -697,7 +697,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
 
         return aRing;
     }
-    private String assemblePolygon(String aRingOrSeveralRings, Geometry geometry){
+    private String assemblePolygon(String aRingOrSeveralRings, Geometry geometry) {
 
         /* Polygons are like this:
          *         (a) {"rings":[
@@ -725,7 +725,7 @@ public class JSONGeometryGenerator extends AbstractGenerator {
         // Get CRS from geometry
         String wkid = "";
         int refsys = geom.getSRID();
-        if (refsys != 0){
+        if (refsys != 0) {
             Integer i = new Integer(refsys);
             wkid = i.toString();
         } else {

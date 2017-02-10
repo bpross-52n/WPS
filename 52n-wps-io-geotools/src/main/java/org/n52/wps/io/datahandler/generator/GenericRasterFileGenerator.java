@@ -60,7 +60,7 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
  */
 public class GenericRasterFileGenerator extends AbstractGenerator {
 
-    public GenericRasterFileGenerator (){
+    public GenericRasterFileGenerator () {
         super();
         supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
     }
@@ -78,7 +78,7 @@ public class GenericRasterFileGenerator extends AbstractGenerator {
      * @param inputFile
      * @return
      */
-    private GenericFileDataWithGT convertFile (GenericFileDataWithGT inputFile){
+    private GenericFileDataWithGT convertFile (GenericFileDataWithGT inputFile) {
         //not implemented
         return null;
     }

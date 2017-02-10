@@ -49,7 +49,7 @@ public class CapabilitiesResponse extends Response {
      * Serves the Request with a Response
      * @param request The GetCapabilities request
      */
-    public CapabilitiesResponse(CapabilitiesRequest request){
+    public CapabilitiesResponse(CapabilitiesRequest request) {
         super(request);
     }
 
@@ -65,15 +65,15 @@ public class CapabilitiesResponse extends Response {
              */
             String[] requestedVersions = (String[]) getRequest().getMap().get("version");
 
-            if(requestedVersions != null && requestedVersions.length != 0){
+            if (requestedVersions != null && requestedVersions.length != 0) {
 
                 for (int i = 0; i < requestedVersions.length; i++) {
                     String requestedVersion = requestedVersions[i].trim();
-                    if(WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)){
+                    if (WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)) {
 
-                        if(requestedVersion.equals(WPSConfig.VERSION_100)){
+                        if (requestedVersion.equals(WPSConfig.VERSION_100)) {
                             return CapabilitiesConfiguration.getInstance().newInputStream(XMLBeansHelper.getXmlOptions());
-                        }else if(requestedVersion.equals(WPSConfig.VERSION_200)){
+                        } else if (requestedVersion.equals(WPSConfig.VERSION_200)) {
                             return CapabilitiesConfigurationV200.getInstance().newInputStream(XMLBeansHelper.getXmlOptions());
                         }
                     }

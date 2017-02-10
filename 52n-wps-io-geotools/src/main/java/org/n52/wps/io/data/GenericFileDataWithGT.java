@@ -120,7 +120,7 @@ public class GenericFileDataWithGT {
         this.mimeType = mimeType;
         this.fileExtension = GenericFileDataConstants.mimeTypeFileTypeLUT()
                 .get(mimeType);
-        if(fileExtension == null){
+        if (fileExtension == null) {
             this.fileExtension = "dat";
         }
     }
@@ -150,7 +150,7 @@ public class GenericFileDataWithGT {
 
             File[] allFiles = new File[extensions.length + 1];
 
-            for (int i = 0; i < extensions.length; i++){
+            for (int i = 0; i < extensions.length; i++) {
                 allFiles[i] = new File(directory, baseFile + "."
                         + extensions[i]);
             }
@@ -162,17 +162,17 @@ public class GenericFileDataWithGT {
             // but only filenames).
             int numberOfFiles = allFiles.length;
             int numberOfMissing = 0;
-            for (int i = 0; i < numberOfFiles; i++){
-                if (!allFiles[i].exists()){
+            for (int i = 0; i < numberOfFiles; i++) {
+                if (!allFiles[i].exists()) {
                     LOGGER.info("File " + (i+1) + " of " + numberOfFiles + " missing (" + allFiles[i].getName() + ").");
                     numberOfMissing ++;
                 }
             }
-            if ((numberOfFiles - numberOfMissing) == 0){
+            if ((numberOfFiles - numberOfMissing) == 0) {
                 String message = "There is no files to generate data from!";
                 LOGGER.error(message);
                 throw new FileNotFoundException(message);
-            } else if ((numberOfMissing > 0)){
+            } else if ((numberOfMissing > 0)) {
                 LOGGER.info("Not all files are available, but the available ones are zipped.");
             }
 
@@ -201,7 +201,7 @@ public class GenericFileDataWithGT {
             IOUtils.copy(is,outputStream);
             is.close();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             LOGGER.error("Could not generate GeoTiff.");
         }
     }
@@ -244,11 +244,11 @@ public class GenericFileDataWithGT {
                 Property geomProperty = sf.getDefaultGeometryProperty();
 
                 //TODO: check if that makes any sense at all
-                if(geomProperty.getType().getBinding().getSimpleName().equals("Geometry")){
+                if (geomProperty.getType().getBinding().getSimpleName().equals("Geometry")) {
                 Geometry g = (Geometry)geomProperty.getValue();
-                if(g!=null){
+                if (g!=null) {
                     GeometryAttribute geo = null;
-                    if(g instanceof MultiPolygon){
+                    if (g instanceof MultiPolygon) {
 
                     GeometryAttribute oldGeometryDescriptor = sf.getDefaultGeometryProperty();
                     GeometryType type1 = new GeometryTypeImpl(geomProperty.getName(),MultiPolygon.class, oldGeometryDescriptor.getType().getCoordinateReferenceSystem(),oldGeometryDescriptor.getType().isIdentified(),oldGeometryDescriptor.getType().isAbstract(),oldGeometryDescriptor.getType().getRestrictions(),oldGeometryDescriptor.getType().getSuper(),oldGeometryDescriptor.getType().getDescription());
@@ -258,15 +258,15 @@ public class GenericFileDataWithGT {
                     geo = new GeometryAttributeImpl((Object)g,newGeometryDescriptor, identifier);
                     sf.setDefaultGeometryProperty(geo);
                     sf.setDefaultGeometry(g);
-                    }else{
+                    } else {
                         //TODO: implement other cases
                     }
-                    if(geo != null){
+                    if (geo != null) {
                     builder.add(geo.getName().getLocalPart(), geo
                             .getType().getBinding());
                     }
                 }
-                }else if (isSupportedShapefileType(geomProperty.getType())
+                } else if (isSupportedShapefileType(geomProperty.getType())
                         && (geomProperty.getValue() != null)) {
                     builder.add(geomProperty.getName().getLocalPart(), geomProperty
                             .getType().getBinding());
@@ -278,7 +278,7 @@ public class GenericFileDataWithGT {
                         /*
                          * skip, was handled before
                          */
-                    }else if (isSupportedShapefileType(prop.getType())
+                    } else if (isSupportedShapefileType(prop.getType())
                             && (prop.getValue() != null)) {
                         builder.add(prop.getName().getLocalPart(), prop
                                 .getType().getBinding());
@@ -374,7 +374,7 @@ public class GenericFileDataWithGT {
 
             String fileName = baseFileName + "." + currentExtension;
             File currentFile = new File(writeDirectory, fileName);
-            if (!writeDirectory.exists()){
+            if (!writeDirectory.exists()) {
                 writeDirectory.mkdir();
             }
             currentFile.createNewFile();
@@ -399,7 +399,7 @@ public class GenericFileDataWithGT {
 
         fileName = baseFileName + "." + extension;
         File currentFile = new File(writeDirectory, fileName);
-        if (!writeDirectory.exists()){
+        if (!writeDirectory.exists()) {
             writeDirectory.mkdir();
         }
         currentFile.createNewFile();
@@ -420,7 +420,7 @@ public class GenericFileDataWithGT {
 
     public GTVectorDataBinding getAsGTVectorDataBinding() {
 
-        if(mimeType.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)){
+        if (mimeType.equals(GenericFileDataConstants.MIME_TYPE_ZIPPED_SHP)) {
             String tmpDirPath = System.getProperty("java.io.tmpdir");
             String dirName = tmpDirPath + File.separator + "tmp" + UUID.randomUUID();
             File tempDir = null;
@@ -452,11 +452,11 @@ public class GenericFileDataWithGT {
                         e);
             }
         }
-        if(mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML200)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML211) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML212)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML2121)){
+        if (mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML200)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML211) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML212)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML2121)) {
             GML2BasicParser parser = new GML2BasicParser();
             return parser.parse(getDataStream(), mimeType, null);
         }
-        if(mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML300)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML301) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML310)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML311) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML321)){
+        if (mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML300)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML301) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML310)|| mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML311) || mimeType.equals(GenericFileDataConstants.MIME_TYPE_GML321)) {
             GML3BasicParser parser = new GML3BasicParser();
             return parser.parse(getDataStream(), mimeType, null);
         }
@@ -472,21 +472,21 @@ public class GenericFileDataWithGT {
 
     public File getBaseFile(boolean unzipIfPossible) {
         String extension = fileExtension;
-        if(primaryFile==null && dataStream!=null){
+        if (primaryFile==null && dataStream!=null) {
             try{
 
-            if(fileExtension.equals("shp")){
+            if (fileExtension.equals("shp")) {
                 extension = "zip";
             }
             primaryFile = File.createTempFile(UUID.randomUUID().toString(), "."+extension);
             OutputStream out = new FileOutputStream(primaryFile);
             byte buf[]=new byte[1024];
             int len;
-            while((len=dataStream.read(buf))>0){
+            while((len=dataStream.read(buf))>0) {
               out.write(buf,0,len);
             }
             out.close();
-            }catch(Exception e){
+            } catch(Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new RuntimeException(
                         "Something went wrong while writing the input stream to the file system",
@@ -494,7 +494,7 @@ public class GenericFileDataWithGT {
             }
 
         }
-        if(unzipIfPossible && extension.contains("zip")){
+        if (unzipIfPossible && extension.contains("zip")) {
             try{
             File tempFile1 = File.createTempFile(UUID.randomUUID().toString(),"");
             File dir = new File(tempFile1.getParentFile()+"/"+UUID.randomUUID().toString());
@@ -513,12 +513,12 @@ public class GenericFileDataWithGT {
              zis.close();
 
              File[] files = dir.listFiles();
-             for(File file : files){
-                 if(file.getName().contains(".shp") || file.getName().contains(".SHP")){
+             for(File file : files) {
+                 if (file.getName().contains(".shp") || file.getName().contains(".SHP")) {
                      primaryFile = file;
                  }
              }
-            }catch(Exception e){
+            } catch(Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new RuntimeException("Error while unzipping input data", e);
             }
@@ -527,21 +527,21 @@ public class GenericFileDataWithGT {
     }
 
     @Override
-    protected void finalize(){
+    protected void finalize() {
         try{
             if (primaryFile != null) {
                 primaryFile.delete();
             }
-        }catch(Exception e){
+        } catch(Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
 
-    public String getMimeType(){
+    public String getMimeType() {
         return mimeType;
     }
 
-    public String getFileExtension(){
+    public String getFileExtension() {
         return fileExtension;
     }
 

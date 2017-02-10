@@ -80,7 +80,7 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
     private final String dataTypeDouble = "double";
 
 
-    public GrassProcessDelegator(String processID, ProcessDescription processDescriptionType, boolean isAddon){
+    public GrassProcessDelegator(String processID, ProcessDescription processDescriptionType, boolean isAddon) {
         this.processID = processID;
         this.isAddon = isAddon;
         this.processDescription = processDescriptionType;
@@ -88,7 +88,7 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
         mapInputAndOutputTypes((ProcessDescriptionType) processDescriptionType.getProcessDescriptionType("1.0.0"));
     }
 
-    private void mapInputAndOutputTypes(ProcessDescriptionType processDescriptionType){
+    private void mapInputAndOutputTypes(ProcessDescriptionType processDescriptionType) {
 
         complexInputTypes = new HashMap<String, Class<?>>();
         literalInputTypes = new HashMap<String, Class<?>>();
@@ -116,15 +116,15 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
 
                 String datatype = literalType.getDataType().getStringValue();
 
-                if(datatype.equals(dataTypeFloat)){
+                if (datatype.equals(dataTypeFloat)) {
                     literalInputTypes.put(identifierString, LiteralFloatBinding.class);
-                }else if(datatype.equals(dataTypeBoolean)){
+                } else if (datatype.equals(dataTypeBoolean)) {
                     literalInputTypes.put(identifierString, LiteralBooleanBinding.class);
-                }else if(datatype.equals(dataTypeString)){
+                } else if (datatype.equals(dataTypeString)) {
                     literalInputTypes.put(identifierString, LiteralStringBinding.class);
-                }else if(datatype.equals(dataTypeInteger)){
+                } else if (datatype.equals(dataTypeInteger)) {
                     literalInputTypes.put(identifierString, LiteralIntBinding.class);
-                }else if(datatype.equals(dataTypeDouble)){
+                } else if (datatype.equals(dataTypeDouble)) {
                     literalInputTypes.put(identifierString, LiteralDoubleBinding.class);
                 }
 
@@ -159,11 +159,11 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
 
     @Override
     public Class<?> getInputDataType(String id) {
-        if(complexInputTypes.containsKey(id)){
+        if (complexInputTypes.containsKey(id)) {
             return complexInputTypes.get(id);
-        }else if(literalInputTypes.containsKey(id)){
+        } else if (literalInputTypes.containsKey(id)) {
             return literalInputTypes.get(id);
-        }else {
+        } else {
             return null;
         }
     }
@@ -218,14 +218,14 @@ public class GrassProcessDelegator extends GenericGrassAlgorithm{
             }
         }
 
-        if(outputMimeType == null || outputMimeType.equals("")){
+        if (outputMimeType == null || outputMimeType.equals("")) {
             outputMimeType = outputTypeMimeTypeMap.get(outputIdentifier);
         }
 
         IData outputFileDB = new GrassIOHandler().executeGrassProcess(
                 processID, firstInputMap, secondInputMap, outputIdentifier, outputMimeType, outputSchema, isAddon);
 
-        if(outputIdentifier == null || outputIdentifier.equals("")){
+        if (outputIdentifier == null || outputIdentifier.equals("")) {
             outputIdentifier = "output";
         }
 

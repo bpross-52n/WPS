@@ -61,7 +61,7 @@ import junit.framework.TestCase;
 
 public class GenericFileDataTest extends TestCase{
 
-    public void testUnzipData(){
+    public void testUnzipData() {
 
         File f = new File(this.getClass().getProtectionDomain().getCodeSource()
                 .getLocation().getFile());

@@ -65,7 +65,7 @@ public class GTBinZippedSHPParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GTBinZippedSHPParserCM(){
+    public GTBinZippedSHPParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

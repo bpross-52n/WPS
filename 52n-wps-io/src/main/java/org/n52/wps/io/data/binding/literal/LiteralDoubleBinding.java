@@ -25,7 +25,7 @@ public class LiteralDoubleBinding extends AbstractLiteralDataBinding {
     private static final long serialVersionUID = 3355214481832627325L;
     private transient Double payload;
 
-    public LiteralDoubleBinding(Double payload){
+    public LiteralDoubleBinding(Double payload) {
         this.payload = payload;
     }
 

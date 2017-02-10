@@ -58,7 +58,7 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataWithGTBinding;
  */
 public class GRASSKMLParser extends AbstractParser {
 
-    public GRASSKMLParser(){
+    public GRASSKMLParser() {
         super();
         supportedIDataTypes.add(GenericFileDataWithGTBinding.class);
     }

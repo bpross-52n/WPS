@@ -74,8 +74,8 @@ public class MCProcessDelegator implements IAlgorithm {
 
         AbstractProcessor processor = null;
         //  try to isolate a package that is supported by a registered processor
-        for (MovingCodePackage currentMC : allMCs){
-            if (ProcessorFactory.getInstance().supportsPackage(currentMC)){
+        for (MovingCodePackage currentMC : allMCs) {
+            if (ProcessorFactory.getInstance().supportsPackage(currentMC)) {
                 processor = ProcessorFactory.getInstance().newProcessor(currentMC);
                 break;
             }

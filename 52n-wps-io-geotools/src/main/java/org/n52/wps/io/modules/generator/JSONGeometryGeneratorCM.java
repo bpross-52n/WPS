@@ -65,7 +65,7 @@ public class JSONGeometryGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public JSONGeometryGeneratorCM(){
+    public JSONGeometryGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

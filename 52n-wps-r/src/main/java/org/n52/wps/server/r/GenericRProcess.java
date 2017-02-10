@@ -246,7 +246,7 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
 
             REXP tmpStatusFileREXP = rCon.eval("tmpStatusFile");
 
-            if(tmpStatusFileREXP.isString()){
+            if (tmpStatusFileREXP.isString()) {
                     try {
                         tmpStatusFile = new File(tmpStatusFileREXP.asString());
 
@@ -347,7 +347,7 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
                 }
             }
 
-            if(updateThread != null && updateThread.isAlive()){
+            if (updateThread != null && updateThread.isAlive()) {
                 stopUpdateThread = true;
             }
         }
@@ -370,15 +370,15 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
         return sb.toString();
     }
 
-    private void startUpdateListener(final File tmpStatusFile){
+    private void startUpdateListener(final File tmpStatusFile) {
 
-        updateThread = new Thread("WPS4R-update-thread"){
+        updateThread = new Thread("WPS4R-update-thread") {
 
             @Override
             public void run() {
 
-                while(true){
-                    if(stopUpdateThread){
+                while(true) {
+                    if (stopUpdateThread) {
                         break;
                     }
 
@@ -389,14 +389,14 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
                     }
 
                     //lock exists continue
-                    if(new File(tmpStatusFile.getAbsolutePath().concat(R_Config.LOCK_SUFFIX)).exists()){
+                    if (new File(tmpStatusFile.getAbsolutePath().concat(R_Config.LOCK_SUFFIX)).exists()) {
                         continue;
                     }
 
                     try {
                         String updateMessage = readTmpStatusFile(tmpStatusFile);
 
-                        if(updateMessage == null || updateMessage.isEmpty()){
+                        if (updateMessage == null || updateMessage.isEmpty()) {
                             continue;
                         }
 
@@ -407,7 +407,7 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
 
                             update(percentage);
 
-                        }catch(NumberFormatException e){
+                        } catch(NumberFormatException e) {
                             log.info("Status could not be parsed to integer: " + updateMessage);
 
                             //update status with message (works only for WPS 1.0)
@@ -435,13 +435,13 @@ public class GenericRProcess extends AbstractObservableAlgorithm {
 
         log.debug("File modified: " + (statusFileModified > lastStatusUpdate));
 
-        if(lastStatusUpdate == 0 || statusFileModified > lastStatusUpdate){
+        if (lastStatusUpdate == 0 || statusFileModified > lastStatusUpdate) {
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(tmpStatusFile));
 
             String line = "";
 
-            while((line = bufferedReader.readLine()) != null){
+            while((line = bufferedReader.readLine()) != null) {
                 content = content.concat(line + "\n");
             }
 

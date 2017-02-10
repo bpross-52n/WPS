@@ -77,7 +77,7 @@ public class MultiReferenceBinaryInputAlgorithm extends AbstractAnnotatedAlgorit
 
             f = gfd.getBaseFile(false);
 
-            if(!f.exists()){
+            if (!f.exists()) {
                 throw new RuntimeException("Input file does not exist for identifier data.");
             }
         }

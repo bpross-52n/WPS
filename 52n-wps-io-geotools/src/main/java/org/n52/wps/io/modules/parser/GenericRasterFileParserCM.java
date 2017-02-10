@@ -65,7 +65,7 @@ public class GenericRasterFileParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericRasterFileParserCM(){
+    public GenericRasterFileParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

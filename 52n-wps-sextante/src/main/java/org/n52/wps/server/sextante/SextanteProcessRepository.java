@@ -64,7 +64,7 @@ public class SextanteProcessRepository implements IAlgorithmRepository{
     private ConfigurationModule sextanteAlgorithmRepoConfigModule;
 
 
-    public SextanteProcessRepository(){
+    public SextanteProcessRepository() {
         LOGGER.info("Initializing Sextante Repository");
         registeredProcesses = new HashMap<String, ProcessDescription>();
 
@@ -86,9 +86,9 @@ public class SextanteProcessRepository implements IAlgorithmRepository{
         HashMap<String, GeoAlgorithm> algorithmMap = sextanteMap.get("SEXTANTE");
         Set<String> keys = algorithmMap.keySet();
         SextanteProcessDescriptionCreator descriptionCreator = new SextanteProcessDescriptionCreator();
-        for(Object keyObject : keys){
+        for(Object keyObject : keys) {
             String key = (String) keyObject;
-            if(!processList.contains(key)){
+            if (!processList.contains(key)) {
                 LOGGER.info("Did not add Sextante Process : " + key +". Not in Repository properties or not active.");
                 continue;
             }
@@ -117,7 +117,7 @@ public class SextanteProcessRepository implements IAlgorithmRepository{
     }
 
     public IAlgorithm getAlgorithm(String processID) {
-        if(!containsAlgorithm(processID)){
+        if (!containsAlgorithm(processID)) {
             throw new RuntimeException("Could not allocate Process");
         }
         return new GenericSextanteProcessDelegator(processID, registeredProcesses.get(processID));

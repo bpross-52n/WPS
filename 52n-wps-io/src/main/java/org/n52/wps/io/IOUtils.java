@@ -160,7 +160,7 @@ public class IOUtils {
             in.close();
         }
 
-        if (deleteAfterwards){
+        if (deleteAfterwards) {
             deleteResources(files);
         }
 
@@ -175,7 +175,7 @@ public class IOUtils {
 
     public static File zipDirectory(String targetFileName, File directory) throws IOException {
         String filename = targetFileName;
-        if (targetFileName.endsWith(".zip")){
+        if (targetFileName.endsWith(".zip")) {
             filename = targetFileName.replace(".zip", "");
         }
         File zip = File.createTempFile(filename, ".zip");
@@ -187,7 +187,7 @@ public class IOUtils {
         LOGGER.debug("Zipping directoy {} to file {}", directory, zip);
 
         try (FileOutputStream fout = new FileOutputStream(zip);) {
-            try(ZipOutputStream zout = new ZipOutputStream(fout);){
+            try(ZipOutputStream zout = new ZipOutputStream(fout);) {
                 zipSubDirectory("", directory, zout);
             }
         }

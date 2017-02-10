@@ -65,7 +65,7 @@ public final class GenericFileDataConstants {
 
     private static HashMap<String, String> lut;
 
-    public static final HashMap<String, String> mimeTypeFileTypeLUT(){
+    public static final HashMap<String, String> mimeTypeFileTypeLUT() {
 
         if (lut == null) {
 
@@ -92,17 +92,17 @@ public final class GenericFileDataConstants {
         return lut;
     }
 
-    public static final String[] getMimeTypes (){
+    public static final String[] getMimeTypes () {
         return mimeTypeFileTypeLUT().keySet().toArray(new String[0]);
     }
 
-    public static final String[] getIncludeFilesByMimeType(String mimeType){
+    public static final String[] getIncludeFilesByMimeType(String mimeType) {
 
         String[] returnValue = null;
 
-        if (mimeType != null && mimeType.equalsIgnoreCase("application/x-zipped-shp")){
+        if (mimeType != null && mimeType.equalsIgnoreCase("application/x-zipped-shp")) {
             returnValue = additionalSHPFileItems;
-        } if (mimeType != null && mimeType.equalsIgnoreCase("application/dbase")){
+        } if (mimeType != null && mimeType.equalsIgnoreCase("application/dbase")) {
             returnValue = additionalDBFFileItems;
         }
 

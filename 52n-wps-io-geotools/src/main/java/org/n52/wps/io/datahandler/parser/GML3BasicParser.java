@@ -111,7 +111,7 @@ public class GML3BasicParser extends AbstractParser {
             finalizeFiles.add(tempFile); // mark for final delete
             fos = new FileOutputStream(tempFile);
             int i = stream.read();
-            while(i != -1){
+            while(i != -1) {
                 fos.write(i);
                 i = stream.read();
             }
@@ -121,7 +121,7 @@ public class GML3BasicParser extends AbstractParser {
             return data;
         }
         catch(IOException e) {
-            if (fos != null){
+            if (fos != null) {
                 try { fos.close(); }
                 catch (Exception e1) { }
             }
@@ -149,7 +149,7 @@ public class GML3BasicParser extends AbstractParser {
      * @param file File containing a SimpleFeatureCollection
      * @return The parsed SimpleFeatureCollection
      */
-    public SimpleFeatureCollection parseFeatureCollection(File file){
+    public SimpleFeatureCollection parseFeatureCollection(File file) {
         QName schematypeTuple = determineFeatureTypeSchema(file);
 
         boolean schemaLocationIsRelative = false;
@@ -160,7 +160,7 @@ public class GML3BasicParser extends AbstractParser {
         Configuration configuration = null;
 
         boolean shouldSetParserStrict = true;
-        if(schematypeTuple != null) {
+        if (schematypeTuple != null) {
 
             String schemaLocation =  schematypeTuple.getLocalPart();
 
@@ -168,14 +168,14 @@ public class GML3BasicParser extends AbstractParser {
                 schemaLocation = new File(file.getParentFile(), schemaLocation).getAbsolutePath();
             }
 
-            if(schemaLocation.equals("http://schemas.opengis.net/gml/3.1.1/base/gml.xsd")){
+            if (schemaLocation.equals("http://schemas.opengis.net/gml/3.1.1/base/gml.xsd")) {
                 configuration = new GMLConfiguration();
                 shouldSetParserStrict = false;
-            }else{
-                if(schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null){
+            } else {
+                if (schemaLocation!= null && schematypeTuple.getNamespaceURI()!=null) {
                     SchemaRepository.registerSchemaLocation(schematypeTuple.getNamespaceURI(), schemaLocation);
                     configuration =  new ApplicationSchemaConfiguration(schematypeTuple.getNamespaceURI(), schemaLocation);
-                }else{
+                } else {
                     configuration = new GMLConfiguration();
                     shouldSetParserStrict = false;
                 }
@@ -200,7 +200,7 @@ public class GML3BasicParser extends AbstractParser {
      * @param shouldSetParserStrict Boolean specifying whether the Parser should be set to strict or not.
      * @return The parsed SimpleFeatureCollection
      */
-    public SimpleFeatureCollection parseFeatureCollection(File file, Configuration configuration, boolean shouldSetParserStrict){
+    public SimpleFeatureCollection parseFeatureCollection(File file, Configuration configuration, boolean shouldSetParserStrict) {
 
         org.geotools.xml.Parser parser = new org.geotools.xml.Parser(configuration);
 
@@ -210,21 +210,21 @@ public class GML3BasicParser extends AbstractParser {
         SimpleFeatureCollection fc = DefaultFeatureCollections.newCollection();
         try {
             Object parsedData =  parser.parse( new FileInputStream(file));
-            if(parsedData instanceof FeatureCollection){
+            if (parsedData instanceof FeatureCollection) {
                 fc = (SimpleFeatureCollection) parsedData;
-            }else if(parsedData instanceof HashMap){
+            } else if (parsedData instanceof HashMap) {
                 List<?> possibleSimpleFeatureList = ((ArrayList<?>)((HashMap<?,?>) parsedData).get("featureMember"));
 
-                if(possibleSimpleFeatureList!=null){
+                if (possibleSimpleFeatureList!=null) {
                     List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
 
                     SimpleFeatureType sft = null;
 
                     for (Object possibleSimpleFeature : possibleSimpleFeatureList) {
 
-                        if(possibleSimpleFeature instanceof SimpleFeature){
+                        if (possibleSimpleFeature instanceof SimpleFeature) {
                             SimpleFeature sf = ((SimpleFeature)possibleSimpleFeature);
-                            if(sft == null){
+                            if (sft == null) {
                                 sft = sf.getType();
                             }
                             simpleFeatureList.add(sf);
@@ -232,23 +232,23 @@ public class GML3BasicParser extends AbstractParser {
                     }
 
                     fc = new ListFeatureCollection(sft, simpleFeatureList);
-                }else{
+                } else {
                     fc = (SimpleFeatureCollection) ((HashMap<?,?>) parsedData).get("FeatureCollection");
                 }
-            }else if(parsedData instanceof SimpleFeature){
+            } else if (parsedData instanceof SimpleFeature) {
 
                 Collection<? extends Property> values = ((SimpleFeature) parsedData).getValue();
-                for(Property value : values){
+                for(Property value : values) {
                     Object tempValue = value.getValue();
-                    if(value.getType().getBinding().isAssignableFrom(FeatureCollection.class)){
-                        if(tempValue instanceof ArrayList){
+                    if (value.getType().getBinding().isAssignableFrom(FeatureCollection.class)) {
+                        if (tempValue instanceof ArrayList) {
                             ArrayList<?> list = (ArrayList<?>) tempValue;
                             List<SimpleFeature> simpleFeatureList = new ArrayList<SimpleFeature>();
                             SimpleFeatureType sft = null;
-                            for(Object listValue : list){
-                                if(listValue instanceof SimpleFeature){
+                            for(Object listValue : list) {
+                                if (listValue instanceof SimpleFeature) {
                                     SimpleFeature sf = ((SimpleFeature)listValue);
-                                    if(sft == null){
+                                    if (sft == null) {
                                         sft = sf.getType();
                                     }
                                     simpleFeatureList.add(sf);
@@ -262,14 +262,14 @@ public class GML3BasicParser extends AbstractParser {
             }
 
         FeatureIterator<?> featureIterator = fc.features();
-        while(featureIterator.hasNext()){
+        while(featureIterator.hasNext()) {
             SimpleFeature feature = (SimpleFeature) featureIterator.next();
-            if(feature.getDefaultGeometry()==null){
+            if (feature.getDefaultGeometry()==null) {
                 Collection<org.opengis.feature.Property>properties = feature.getProperties();
-                for(org.opengis.feature.Property property : properties){
+                for(org.opengis.feature.Property property : properties) {
                     try{
                         Geometry g = (Geometry)property.getValue();
-                        if(g!=null){
+                        if (g!=null) {
                             GeometryAttribute oldGeometryDescriptor = feature.getDefaultGeometryProperty();
                             GeometryType type = new GeometryTypeImpl(property.getName(),(Class<?>)oldGeometryDescriptor.getType().getBinding(),oldGeometryDescriptor.getType().getCoordinateReferenceSystem(),oldGeometryDescriptor.getType().isIdentified(),oldGeometryDescriptor.getType().isAbstract(),oldGeometryDescriptor.getType().getRestrictions(),oldGeometryDescriptor.getType().getSuper(),oldGeometryDescriptor.getType().getDescription());
 
@@ -280,7 +280,7 @@ public class GML3BasicParser extends AbstractParser {
                             feature.setDefaultGeometry(g);
 
                         }
-                    }catch(ClassCastException e){
+                    } catch(ClassCastException e) {
                         //do nothing
                     }
 
@@ -301,7 +301,7 @@ public class GML3BasicParser extends AbstractParser {
             factory.setNamespaceAware(true);
             factory.newSAXParser().parse(new FileInputStream(file), (DefaultHandler)handler);
             String schemaUrl = handler.getSchemaUrl();
-            if(schemaUrl == null){
+            if (schemaUrl == null) {
                 return null;
             }
             String namespaceURI = handler.getNameSpaceURI();

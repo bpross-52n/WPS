@@ -84,7 +84,7 @@ public class GeotiffGenerator  extends AbstractGenerator {
 
         InputStream stream = null;
 
-        if((data instanceof GTRasterDataBinding)){
+        if ((data instanceof GTRasterDataBinding)) {
 
             GridCoverage coverage = ((GTRasterDataBinding)data).getPayload();
             GeoTiffWriter geoTiffWriter = null;
@@ -104,7 +104,7 @@ public class GeotiffGenerator  extends AbstractGenerator {
                 throw new IOException("Could not create output due to an IO error");
             }
         }
-        if(data instanceof GeotiffBinding){
+        if (data instanceof GeotiffBinding) {
             File geotiff = ((GeotiffBinding)data).getPayload();
             try {
                 stream = new FileInputStream(geotiff);
@@ -116,7 +116,7 @@ public class GeotiffGenerator  extends AbstractGenerator {
         return stream;
     }
 
-    private void writeGeotiff(GeoTiffWriter geoTiffWriter, GridCoverage coverage){
+    private void writeGeotiff(GeoTiffWriter geoTiffWriter, GridCoverage coverage) {
         GeoTiffFormat format = new GeoTiffFormat();
 
         GeoTiffWriteParams wp = new GeoTiffWriteParams();
@@ -126,7 +126,7 @@ public class GeotiffGenerator  extends AbstractGenerator {
         wp.setTilingMode(GeoToolsWriteParams.MODE_EXPLICIT);
         int width = ((GridCoverage2D) coverage).getRenderedImage().getWidth();
         int tileWidth = 1024;
-        if(width<2048){
+        if (width<2048) {
             tileWidth = new Double(Math.sqrt(width)).intValue();
         }
         wp.setTiling(tileWidth, tileWidth);

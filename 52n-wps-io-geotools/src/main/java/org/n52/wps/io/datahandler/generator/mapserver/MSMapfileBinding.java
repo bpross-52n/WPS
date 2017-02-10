@@ -339,10 +339,10 @@ public final class MSMapfileBinding {
             e.printStackTrace();
 
         } finally {
-            if (inCh != null){
+            if (inCh != null) {
                 inCh.close();
             }
-            if (outCh != null){
+            if (outCh != null) {
                 outCh.close();
             }
         }
@@ -407,7 +407,7 @@ public final class MSMapfileBinding {
             shapefilePath = workspacePath + dataRepository + "shape_"
                     + TYPE.getName().getLocalPart().toLowerCase() + "_"
                     + System.currentTimeMillis() + ".shp";
-        } else{
+        } else {
             shapefilePath = workspacePath + dataRepository + "/shape_"
                     + TYPE.getName().getLocalPart().toLowerCase() + "_"
                     + System.currentTimeMillis() + ".shp";

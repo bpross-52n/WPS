@@ -63,7 +63,7 @@ import org.n52.wps.io.data.binding.complex.GTVectorDataBinding;
  */
 public class GTBinZippedSHPGenerator extends AbstractGenerator {
 
-    public GTBinZippedSHPGenerator(){
+    public GTBinZippedSHPGenerator() {
         super();
         supportedIDataTypes.add(GTVectorDataBinding.class);
     }
@@ -72,7 +72,7 @@ public class GTBinZippedSHPGenerator extends AbstractGenerator {
     public InputStream generateStream(IData data, String mimeType, String schema) throws IOException {
 
 //        // check for correct request before returning the stream
-//        if (!(this.isSupportedGenerate(data.getSupportedClass(), mimeType, schema))){
+//        if (!(this.isSupportedGenerate(data.getSupportedClass(), mimeType, schema))) {
 //            throw new IOException("I don't support the incoming datatype");
 //        }
         GTBinDirectorySHPGenerator directoryShp = new GTBinDirectorySHPGenerator();

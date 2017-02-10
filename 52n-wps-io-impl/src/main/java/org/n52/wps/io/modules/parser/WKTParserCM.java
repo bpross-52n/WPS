@@ -47,7 +47,7 @@ public class WKTParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public WKTParserCM(){
+    public WKTParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

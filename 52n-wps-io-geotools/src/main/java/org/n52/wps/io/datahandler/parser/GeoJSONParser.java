@@ -151,12 +151,12 @@ public class GeoJSONParser extends AbstractParser {
                 LOGGER.info("Could not read GeometryCollection from inputstream.");
             }
 
-        } else if(geojsonstring.contains("Point") ||
+        } else if (geojsonstring.contains("Point") ||
                 geojsonstring.contains("LineString") ||
                 geojsonstring.contains("Polygon") ||
                 geojsonstring.contains("MultiPoint") ||
                 geojsonstring.contains("MultiLineString") ||
-                geojsonstring.contains("MultiPolygon")){
+                geojsonstring.contains("MultiPolygon")) {
 
             try {
                 Geometry g = new GeometryJSON().read(geojsonstring);

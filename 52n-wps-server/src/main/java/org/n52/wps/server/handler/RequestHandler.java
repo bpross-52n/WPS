@@ -108,7 +108,7 @@ public class RequestHandler {
             throws ExceptionReport {
         this.os = os;
         //sleepingTime is 0, by default.
-        /*if(WPSConfiguration.getInstance().exists(PROPERTY_NAME_COMPUTATION_TIMEOUT)) {
+        /*if (WPSConfiguration.getInstance().exists(PROPERTY_NAME_COMPUTATION_TIMEOUT)) {
             this.sleepingTime = Integer.parseInt(WPSConfiguration.getInstance().getProperty(PROPERTY_NAME_COMPUTATION_TIMEOUT));
         }
         String sleepTime = WPSConfig.getInstance().getWPSConfig().getServer().getComputationTimeoutMilliSeconds();
@@ -124,7 +124,7 @@ public class RequestHandler {
          */
         String serviceType = Request.getMapValue("service", ciMap, true);
 
-        if(!serviceType.equalsIgnoreCase("WPS")){
+        if (!serviceType.equalsIgnoreCase("WPS")) {
             throw new ExceptionReport("Parameter <service> is not correct, expected: WPS, got: " + serviceType,
                     ExceptionReport.INVALID_PARAMETER_VALUE, "service");
         }
@@ -135,7 +135,7 @@ public class RequestHandler {
          */
         String language = Request.getMapValue("language", ciMap, false);
 
-        if(language != null){
+        if (language != null) {
             Request.checkLanguageSupported(language);
         }
 
@@ -149,11 +149,11 @@ public class RequestHandler {
 
             requestedVersion = Request.getMapValue("version", ciMap, true);
 
-            if(requestedVersion.equals(WPSConfig.VERSION_100)){
+            if (requestedVersion.equals(WPSConfig.VERSION_100)) {
                 req = new DescribeProcessRequest(ciMap);
-            }else if(requestedVersion.equals(WPSConfig.VERSION_200)){
+            } else if (requestedVersion.equals(WPSConfig.VERSION_200)) {
                 req = new DescribeProcessRequestV200(ciMap);
-            }else{
+            } else {
                 throw new ExceptionReport("Version not supported." , ExceptionReport.INVALID_PARAMETER_VALUE, "version");
             }
         }
@@ -161,28 +161,28 @@ public class RequestHandler {
 
             requestedVersion = Request.getMapValue("version", ciMap, true);
 
-            if(requestedVersion.equals(WPSConfig.VERSION_100)){
+            if (requestedVersion.equals(WPSConfig.VERSION_100)) {
                 req = new ExecuteRequestV100(ciMap);
                 setResponseMimeType((ExecuteRequestV100)req);
-            }else{
+            } else {
                 throw new ExceptionReport("Version not supported." , ExceptionReport.INVALID_PARAMETER_VALUE, "version");
             }
         }
         else if (requestType.equalsIgnoreCase("GetStatus")) {
             requestedVersion = Request.getMapValue("version", ciMap, true);
 
-            if(requestedVersion.equals(WPSConfig.VERSION_200)){
+            if (requestedVersion.equals(WPSConfig.VERSION_200)) {
                 req = new GetStatusRequestV200(ciMap);
-                }else{
+                } else {
                 throw new ExceptionReport("Version not supported." , ExceptionReport.INVALID_PARAMETER_VALUE, "version");
             }
         }
         else if (requestType.equalsIgnoreCase("GetResult")) {
             requestedVersion = Request.getMapValue("version", ciMap, true);
 
-            if(requestedVersion.equals(WPSConfig.VERSION_200)){
+            if (requestedVersion.equals(WPSConfig.VERSION_200)) {
                 req = new GetResultRequestV200(ciMap);
-            }else{
+            } else {
                 throw new ExceptionReport("Version not supported." , ExceptionReport.INVALID_PARAMETER_VALUE, "version");
             }
         }
@@ -244,19 +244,19 @@ public class RequestHandler {
              */
             Node serviceNode = child.getAttributes().getNamedItem("service");
 
-            if(serviceNode == null){
+            if (serviceNode == null) {
                 throw new ExceptionReport("Parameter <service> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, "service");
-            }else{
-                if(!serviceNode.getNodeValue().equalsIgnoreCase("WPS")){
+            } else {
+                if (!serviceNode.getNodeValue().equalsIgnoreCase("WPS")) {
                     throw new ExceptionReport("Parameter <service> not specified.", ExceptionReport.INVALID_PARAMETER_VALUE, "service");
                 }
             }
 
             isCapabilitiesNode = nodeName.toLowerCase().contains("capabilities");
-            if(versionNode == null && !isCapabilitiesNode) {
+            if (versionNode == null && !isCapabilitiesNode) {
                 throw new ExceptionReport("Parameter <version> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, "version");
             }
-            if(!isCapabilitiesNode){
+            if (!isCapabilitiesNode) {
                 requestedVersion = child.getAttributes().getNamedItem("version").getNodeValue();
             }
             /*
@@ -264,7 +264,7 @@ public class RequestHandler {
              * Fix for https://bugzilla.52north.org/show_bug.cgi?id=905
              */
             Node languageNode = child.getAttributes().getNamedItem("language");
-            if(languageNode != null){
+            if (languageNode != null) {
                 String language = languageNode.getNodeValue();
                 Request.checkLanguageSupported(language);
             }
@@ -283,40 +283,40 @@ public class RequestHandler {
                     ExceptionReport.NO_APPLICABLE_CODE, e);
         }
         //Fix for Bug 904 https://bugzilla.52north.org/show_bug.cgi?id=904
-        if(!isCapabilitiesNode && requestedVersion == null) {
+        if (!isCapabilitiesNode && requestedVersion == null) {
             throw new ExceptionReport("Parameter <version> not specified." , ExceptionReport.MISSING_PARAMETER_VALUE, "version");
         }
-        if(!isCapabilitiesNode && !WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)) {
+        if (!isCapabilitiesNode && !WPSConfig.SUPPORTED_VERSIONS.contains(requestedVersion)) {
             throw new ExceptionReport("Version not supported." , ExceptionReport.INVALID_PARAMETER_VALUE, "version");
         }
         // get the request type
 
-        if (nodeURI.equals(XMLBeansHelper.NS_WPS_1_0_0)){
+        if (nodeURI.equals(XMLBeansHelper.NS_WPS_1_0_0)) {
 
             if (localName.equals("Execute")) {
                 req = new ExecuteRequestV100(doc);
                 setResponseMimeType((ExecuteRequestV100)req);
-            }else if (localName.equals("GetCapabilities")){
+            } else if (localName.equals("GetCapabilities")) {
                 req = new CapabilitiesRequest(doc);
                 this.responseMimeType = "text/xml";
             } else if (localName.equals("DescribeProcess")) {
                 req = new DescribeProcessRequest(doc);
                 this.responseMimeType = "text/xml";
 
-            }  else if(!localName.equals("Execute")){
+            }  else if (!localName.equals("Execute")) {
                 throw new ExceptionReport("The requested Operation not supported or not applicable to the specification: "
                         + nodeName, ExceptionReport.OPERATION_NOT_SUPPORTED, localName);
             }
-            else{
+            else {
                 throw new ExceptionReport("specified namespace is not supported: "
                         + nodeURI, ExceptionReport.INVALID_PARAMETER_VALUE);
             }
-        }else if (nodeURI.equals(XMLBeansHelper.NS_WPS_2_0)){
+        } else if (nodeURI.equals(XMLBeansHelper.NS_WPS_2_0)) {
 
             if (localName.equals("Execute")) {
                 req = new ExecuteRequestV200(doc);
                 setResponseMimeType((ExecuteRequestV200)req);
-            }else if (localName.equals("GetCapabilities")){
+            } else if (localName.equals("GetCapabilities")) {
                 req = new CapabilitiesRequest(doc);
                 this.responseMimeType = "text/xml";
                 } else if (localName.equals("DescribeProcess")) {
@@ -346,7 +346,7 @@ public class RequestHandler {
      */
     public void handle() throws ExceptionReport {
         Response resp = null;
-        if(req ==null){
+        if (req ==null) {
             throw new ExceptionReport("Internal Error","");
         }
         if (req instanceof ExecuteRequest) {
@@ -397,14 +397,14 @@ public class RequestHandler {
                         throw exceptionReport;
                     }
                     // send the result to the outputstream of the client.
-                /*    if(((ExecuteRequest) req).isQuickStatus()) {
+                /*    if (((ExecuteRequest) req).isQuickStatus()) {
                         resp = new ExecuteResponse(execReq);
                     }*/
-                    else if(resp == null) {
+                    else if (resp == null) {
                         LOGGER.warn("null response handling ExecuteRequest.");
                         throw new ExceptionReport("Problem with handling threads in RequestHandler", ExceptionReport.NO_APPLICABLE_CODE);
                     }
-                    if(!execReq.isStoreResponse()) {
+                    if (!execReq.isStoreResponse()) {
                         InputStream is = resp.getAsStream();
                         IOUtils.copy(is, os);
                         is.close();
@@ -440,22 +440,22 @@ public class RequestHandler {
 
     protected void setResponseMimeType(Request req) {
 
-        if(req instanceof ExecuteRequestV100){
+        if (req instanceof ExecuteRequestV100) {
 
             ExecuteRequestV100 executeRequest = (ExecuteRequestV100)req;
 
-            if(executeRequest.isRawData()){
+            if (executeRequest.isRawData()) {
                 responseMimeType = executeRequest.getExecuteResponseBuilder().getMimeType();
-            }else{
+            } else {
                 responseMimeType = "text/xml";
             }
-        }else if(req instanceof ExecuteRequestV200){
+        } else if (req instanceof ExecuteRequestV200) {
 
             ExecuteRequestV200 executeRequest = (ExecuteRequestV200)req;
 
-            if(executeRequest.isRawData()){
+            if (executeRequest.isRawData()) {
                 responseMimeType = executeRequest.getExecuteResponseBuilder().getMimeType();
-            }else{
+            } else {
                 responseMimeType = "text/xml";
             }
         }
@@ -464,8 +464,8 @@ public class RequestHandler {
 
 
 
-    public String getResponseMimeType(){
-        if(responseMimeType == null){
+    public String getResponseMimeType() {
+        if (responseMimeType == null) {
             return "text/xml";
         }
         return responseMimeType.toLowerCase();

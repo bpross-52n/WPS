@@ -225,7 +225,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
                     String attributeValue = inputItems[i]
                             .substring(attributePos + 1);
                     //attribute is input name
-                    if(attributeName.equals(key)){
+                    if (attributeName.equals(key)) {
                         continue;
                     }
                     try {
@@ -308,17 +308,17 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
                             ExceptionReport.MISSING_PARAMETER_VALUE);
                 }
                 data.setStringValue(value);
-                if(uom != null){
+                if (uom != null) {
                     data.setUom(uom);
                 }
-                if(dataType != null){
+                if (dataType != null) {
                     data.setDataType(dataType);
                 }
             } else if (inputDesc.isSetBoundingBoxData()) {
                 BoundingBoxType data = input.addNewData().addNewBoundingBoxData();
                 String[] values = value.split(",");
 
-                if(values.length<4){
+                if (values.length<4) {
                     throw new ExceptionReport("Invalid Number of BBOX Values: "
                             + inputDesc.getIdentifier().getStringValue(),
                             ExceptionReport.MISSING_PARAMETER_VALUE);
@@ -333,11 +333,11 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
                 upperCorner.add(values[3]);
                 data.setUpperCorner(upperCorner);
 
-                if(values.length>4){
+                if (values.length>4) {
                     data.setCrs(values[4]);
                 }
 
-                if(values.length>5){
+                if (values.length>5) {
                     data.setDimensions(BigInteger.valueOf(Long.valueOf(values[5])));
                 }
             }
@@ -488,11 +488,11 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
          * getMapValue("store").equals("true");
          *  // Specifies if Execute operation response shall be returned quickly
          * with status information status =
-         * getMapValue("status").equals("true"); }catch(ExceptionReport e){ //
+         * getMapValue("status").equals("true"); } catch(ExceptionReport e) { //
          * if parameters "store" or "status" are not included, they default to
          * false; }
          *  // just testing if the number of arguments is even... String[]
-         * diArray = getMapValue("DataInputs").split(","); if(diArray.length % 2 !=
+         * diArray = getMapValue("DataInputs").split(","); if (diArray.length % 2 !=
          * 0) { throw new ExceptionReport("Incorrect number of arguments for
          * parameter dataInputs, please only a even number of parameter values",
          * ExceptionReport.INVALID_PARAMETER_VALUE); }
@@ -507,7 +507,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
         //Fix for bug https://bugzilla.52north.org/show_bug.cgi?id=906
         String identifier = getAlgorithmIdentifier();
 
-        if(identifier == null){
+        if (identifier == null) {
             throw new ExceptionReport(
                     "No process identifier supplied.",
                     ExceptionReport.MISSING_PARAMETER_VALUE, "identifier");
@@ -532,12 +532,12 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 
         // Get the inputdescriptions of the algorithm
 
-        if(desc.getDataInputs()!=null){
+        if (desc.getDataInputs()!=null) {
             InputDescriptionType[] inputDescs = desc.getDataInputs().getInputArray();
 
         //prevent NullPointerException for zero input values in execute request (if only default values are used)
         InputType[] inputs;
-        if(getExecute().getDataInputs()==null) {
+        if (getExecute().getDataInputs()==null) {
                 inputs=new InputType[0];
         } else {
             inputs = getExecute().getDataInputs().getInputArray();
@@ -566,7 +566,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
                                 if (inputDesc.getLiteralData() != null) {
                                     if (inputDesc.getLiteralData().getDataType() != null) {
                                         if (inputDesc.getLiteralData()
-                                                .getDataType().getReference() != null){
+                                                .getDataType().getReference() != null) {
 
                                             if (!input
                                                     .getData()
@@ -638,7 +638,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
 
             // parse the input
             InputType[] inputs = new InputType[0];
-            if( getExecute().getDataInputs()!=null){
+            if ( getExecute().getDataInputs()!=null) {
                 inputs = getExecute().getDataInputs().getInputArray();
             }
             InputHandler parser = new InputHandler.Builder(new Input(inputs), getAlgorithmIdentifier()).build();
@@ -654,12 +654,12 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
              */
             algorithm = RepositoryManagerSingletonWrapper.getInstance().getAlgorithm(getAlgorithmIdentifier());
 
-            if(algorithm instanceof ISubject){
+            if (algorithm instanceof ISubject) {
                 ISubject subject = (ISubject) algorithm;
                 subject.addObserver(this);
             }
 
-            if(algorithm instanceof AbstractTransactionalAlgorithm){
+            if (algorithm instanceof AbstractTransactionalAlgorithm) {
                 returnResults = ((AbstractTransactionalAlgorithm)algorithm).run(execDom);
             } else {
                 inputMap = parser.getParsedInputData();
@@ -732,7 +732,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
      */
     public String getAlgorithmIdentifier() {
         //Fix for bug https://bugzilla.52north.org/show_bug.cgi?id=906
-        if(getExecute().getIdentifier() != null){
+        if (getExecute().getIdentifier() != null) {
             return getExecute().getIdentifier().getStringValue();
         }
         return null;
@@ -798,7 +798,7 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
         if (state instanceof Integer) {
             percentage = (Integer) state;
             status.addNewProcessStarted().setPercentCompleted(percentage);
-        }else if(state instanceof String){
+        } else if (state instanceof String) {
             status.addNewProcessStarted().setStringValue((String)state);
         }
         updateStatus(status);
@@ -878,9 +878,9 @@ public class ExecuteRequestV100 extends ExecuteRequest implements IObserver  {
             for (Object key : map.keySet()) {
                 Object value = map.get(key);
                 String valueString = "";
-                if(value instanceof String[]){
+                if (value instanceof String[]) {
                     valueString = ((String[])value)[0];
-                }else{
+                } else {
                     valueString = value.toString();
                 }
                 w.append(key.toString()).append('=').append(valueString);

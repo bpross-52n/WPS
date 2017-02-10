@@ -76,8 +76,8 @@ public abstract class ResponseData {
         OutputDescriptionType outputType =null;
 
         OutputDescriptionType[] describeProcessOutput = ((ProcessDescriptionType)description.getProcessDescriptionType(WPSConfig.VERSION_100)).getProcessOutputs().getOutputArray();
-        for(OutputDescriptionType tempOutputType : describeProcessOutput){
-            if(tempOutputType.getIdentifier().getStringValue().equalsIgnoreCase(id)){
+        for(OutputDescriptionType tempOutputType : describeProcessOutput) {
+            if (tempOutputType.getIdentifier().getStringValue().equalsIgnoreCase(id)) {
                 outputType = tempOutputType;
             }
         }
@@ -102,112 +102,112 @@ public abstract class ResponseData {
         String finalMimeType = null;
         String finalEncoding = null;
 
-        if (outputType.isSetComplexOutput()){
-            if (mimeType != null){
+        if (outputType.isSetComplexOutput()) {
+            if (mimeType != null) {
                 //mime type in request
                 ComplexDataDescriptionType format = null;
 
                 String defaultMimeType = outputType.getComplexOutput().getDefault().getFormat().getMimeType();
 
                 boolean canUseDefault = false;
-                if(defaultMimeType.equalsIgnoreCase(mimeType)){
+                if (defaultMimeType.equalsIgnoreCase(mimeType)) {
                     ComplexDataDescriptionType potenitalFormat = outputType.getComplexOutput().getDefault().getFormat();
-                    if(schema != null && encoding == null){
-                        if(schema.equalsIgnoreCase(potenitalFormat.getSchema())){
+                    if (schema != null && encoding == null) {
+                        if (schema.equalsIgnoreCase(potenitalFormat.getSchema())) {
                             canUseDefault = true;
                             format = potenitalFormat;
                         }
                     }
-                    if(schema == null && encoding != null){
-                        if(encoding.equalsIgnoreCase(potenitalFormat.getEncoding())){
-                            canUseDefault = true;
-                            format = potenitalFormat;
-                        }
-
-                    }
-                    if(schema != null && encoding != null){
-                        if(schema.equalsIgnoreCase(potenitalFormat.getSchema()) && encoding.equalsIgnoreCase(potenitalFormat.getEncoding())){
+                    if (schema == null && encoding != null) {
+                        if (encoding.equalsIgnoreCase(potenitalFormat.getEncoding())) {
                             canUseDefault = true;
                             format = potenitalFormat;
                         }
 
                     }
-                    if(schema == null && encoding == null){
+                    if (schema != null && encoding != null) {
+                        if (schema.equalsIgnoreCase(potenitalFormat.getSchema()) && encoding.equalsIgnoreCase(potenitalFormat.getEncoding())) {
+                            canUseDefault = true;
+                            format = potenitalFormat;
+                        }
+
+                    }
+                    if (schema == null && encoding == null) {
                         canUseDefault = true;
                         format = potenitalFormat;
                     }
 
                 }
-                if(!canUseDefault){
+                if (!canUseDefault) {
                      ComplexDataDescriptionType[] formats =outputType.getComplexOutput().getSupported().getFormatArray();
-                     for(ComplexDataDescriptionType potenitalFormat : formats){
-                         if(potenitalFormat.getMimeType().equalsIgnoreCase(mimeType)){
-                             if(schema != null && encoding == null){
-                                    if(schema.equalsIgnoreCase(potenitalFormat.getSchema())){
+                     for(ComplexDataDescriptionType potenitalFormat : formats) {
+                         if (potenitalFormat.getMimeType().equalsIgnoreCase(mimeType)) {
+                             if (schema != null && encoding == null) {
+                                    if (schema.equalsIgnoreCase(potenitalFormat.getSchema())) {
                                         format = potenitalFormat;
                                     }
                                 }
-                                if(schema == null && encoding != null){
-                                    if(encoding.equalsIgnoreCase(potenitalFormat.getEncoding()) || potenitalFormat.getEncoding() == null){
-                                        format = potenitalFormat;
-                                    }
-
-                                }
-                                if(schema != null && encoding != null){
-                                    if(schema.equalsIgnoreCase(potenitalFormat.getSchema()) && ((encoding.equalsIgnoreCase(potenitalFormat.getEncoding()) || potenitalFormat.getEncoding() == null) )){
+                                if (schema == null && encoding != null) {
+                                    if (encoding.equalsIgnoreCase(potenitalFormat.getEncoding()) || potenitalFormat.getEncoding() == null) {
                                         format = potenitalFormat;
                                     }
 
                                 }
-                                if(schema == null && encoding == null){
+                                if (schema != null && encoding != null) {
+                                    if (schema.equalsIgnoreCase(potenitalFormat.getSchema()) && ((encoding.equalsIgnoreCase(potenitalFormat.getEncoding()) || potenitalFormat.getEncoding() == null) )) {
+                                        format = potenitalFormat;
+                                    }
+
+                                }
+                                if (schema == null && encoding == null) {
                                     format = potenitalFormat;
                                 }
                          }
                      }
                 }
-                if(format == null){
+                if (format == null) {
                     throw new ExceptionReport("Could not determine output format", ExceptionReport.INVALID_PARAMETER_VALUE);
                 }
 
                 finalMimeType = format.getMimeType();
 
-                if(format.isSetEncoding()){
+                if (format.isSetEncoding()) {
                     //no encoding provided--> select default one for mimeType
                     finalEncoding = format.getEncoding();
                 }
 
-                if(format.isSetSchema()){
+                if (format.isSetSchema()) {
                     //no encoding provided--> select default one for mimeType
                     finalSchema = format.getSchema();
                 }
 
-            }else{
+            } else {
 
                 //mimeType not in request
-                if(mimeType==null && encoding==null && schema == null){
+                if (mimeType==null && encoding==null && schema == null) {
                         //nothing set, use default values
                         finalSchema = outputType.getComplexOutput().getDefault().getFormat().getSchema();
                         finalMimeType = outputType.getComplexOutput().getDefault().getFormat().getMimeType();
                         finalEncoding = outputType.getComplexOutput().getDefault().getFormat().getEncoding();
 
-                }else{
+                } else {
                         //do a smart search an look if a mimeType can be found for either schema and/or encoding
 
-                    if(mimeType==null){
-                        if(encoding!=null && schema==null){
+                    if (mimeType==null) {
+                        if (encoding!=null && schema==null) {
                                 //encoding set only
                                 ComplexDataDescriptionType encodingFormat = null;
                                 String defaultEncoding = outputType.getComplexOutput().getDefault().getFormat().getEncoding();
                                 int found = 0;
                                 String foundEncoding = null;
-                                if(defaultEncoding.equalsIgnoreCase(encoding)){
+                                if (defaultEncoding.equalsIgnoreCase(encoding)) {
                                     foundEncoding = outputType.getComplexOutput().getDefault().getFormat().getEncoding();
                                     encodingFormat = outputType.getComplexOutput().getDefault().getFormat();
                                     found = found +1;
-                                }else{
+                                } else {
                                      ComplexDataDescriptionType[] formats = outputType.getComplexOutput().getSupported().getFormatArray();
-                                     for(ComplexDataDescriptionType tempFormat : formats){
-                                         if(tempFormat.getEncoding().equalsIgnoreCase(encoding)){
+                                     for(ComplexDataDescriptionType tempFormat : formats) {
+                                         if (tempFormat.getEncoding().equalsIgnoreCase(encoding)) {
                                              foundEncoding = tempFormat.getEncoding();
                                              encodingFormat = tempFormat;
                                              found = found +1;
@@ -215,31 +215,31 @@ public abstract class ResponseData {
                                      }
                                 }
 
-                                if(found == 1){
+                                if (found == 1) {
                                     finalEncoding = foundEncoding;
                                     finalMimeType = encodingFormat.getMimeType();
-                                    if(encodingFormat.isSetSchema()){
+                                    if (encodingFormat.isSetSchema()) {
                                         finalSchema = encodingFormat.getSchema();
                                     }
-                                }else{
+                                } else {
                                     throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                                 }
 
                             }
-                            if(schema != null && encoding==null){
+                            if (schema != null && encoding==null) {
                                 //schema set only
                                 ComplexDataDescriptionType schemaFormat = null;
                                 String defaultSchema = outputType.getComplexOutput().getDefault().getFormat().getSchema();
                                 int found = 0;
                                 String foundSchema = null;
-                                if(defaultSchema.equalsIgnoreCase(schema)){
+                                if (defaultSchema.equalsIgnoreCase(schema)) {
                                     foundSchema = outputType.getComplexOutput().getDefault().getFormat().getSchema();
                                     schemaFormat = outputType.getComplexOutput().getDefault().getFormat();
                                     found = found +1;
-                                }else{
+                                } else {
                                      ComplexDataDescriptionType[] formats = outputType.getComplexOutput().getSupported().getFormatArray();
-                                     for(ComplexDataDescriptionType tempFormat : formats){
-                                         if(tempFormat.getEncoding().equalsIgnoreCase(schema)){
+                                     for(ComplexDataDescriptionType tempFormat : formats) {
+                                         if (tempFormat.getEncoding().equalsIgnoreCase(schema)) {
                                              foundSchema = tempFormat.getSchema();
                                              schemaFormat =tempFormat;
                                              found = found +1;
@@ -247,18 +247,18 @@ public abstract class ResponseData {
                                      }
                                 }
 
-                                if(found == 1){
+                                if (found == 1) {
                                     finalSchema = foundSchema;
                                     finalMimeType = schemaFormat.getMimeType();
-                                    if(schemaFormat.isSetEncoding()){
+                                    if (schemaFormat.isSetEncoding()) {
                                         finalEncoding = schemaFormat.getEncoding();
                                     }
-                                }else{
+                                } else {
                                     throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given schema not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                                 }
 
                             }
-                            if(encoding!=null && schema!=null){
+                            if (encoding!=null && schema!=null) {
                                 //schema and encoding set
 
 
@@ -266,14 +266,14 @@ public abstract class ResponseData {
                                 String defaultEncoding = outputType.getComplexOutput().getDefault().getFormat().getEncoding();
 
                                 List<ComplexDataDescriptionType> foundEncodingList = new ArrayList<ComplexDataDescriptionType>();
-                                if(defaultEncoding.equalsIgnoreCase(encoding)){
+                                if (defaultEncoding.equalsIgnoreCase(encoding)) {
                                     foundEncodingList.add(outputType.getComplexOutput().getDefault().getFormat());
 
 
-                                }else{
+                                } else {
                                      ComplexDataDescriptionType[] formats = outputType.getComplexOutput().getSupported().getFormatArray();
-                                     for(ComplexDataDescriptionType tempFormat : formats){
-                                         if(tempFormat.getEncoding().equalsIgnoreCase(encoding)){
+                                     for(ComplexDataDescriptionType tempFormat : formats) {
+                                         if (tempFormat.getEncoding().equalsIgnoreCase(encoding)) {
                                              foundEncodingList.add(tempFormat);
                                          }
                                 }
@@ -284,12 +284,12 @@ public abstract class ResponseData {
                                 //schema
                                 List<ComplexDataDescriptionType> foundSchemaList = new ArrayList<ComplexDataDescriptionType>();
                                 String defaultSchema = outputType.getComplexOutput().getDefault().getFormat().getSchema();
-                                if(defaultSchema.equalsIgnoreCase(schema)){
+                                if (defaultSchema.equalsIgnoreCase(schema)) {
                                     foundSchemaList.add(outputType.getComplexOutput().getDefault().getFormat());
-                                }else{
+                                } else {
                                      formats = outputType.getComplexOutput().getSupported().getFormatArray();
-                                     for(ComplexDataDescriptionType tempFormat : formats){
-                                         if(tempFormat.getEncoding().equalsIgnoreCase(schema)){
+                                     for(ComplexDataDescriptionType tempFormat : formats) {
+                                         if (tempFormat.getEncoding().equalsIgnoreCase(schema)) {
                                              foundSchemaList.add(tempFormat);
                                          }
                                      }
@@ -298,9 +298,9 @@ public abstract class ResponseData {
 
                                 //results
                                 ComplexDataDescriptionType foundCommonFormat = null;
-                                for(ComplexDataDescriptionType encodingFormat : foundEncodingList){
-                                    for(ComplexDataDescriptionType schemaFormat : foundSchemaList){
-                                        if(encodingFormat.equals(schemaFormat)){
+                                for(ComplexDataDescriptionType encodingFormat : foundEncodingList) {
+                                    for(ComplexDataDescriptionType schemaFormat : foundSchemaList) {
+                                        if (encodingFormat.equals(schemaFormat)) {
                                             foundCommonFormat = encodingFormat;
                                         }
                                     }
@@ -308,15 +308,15 @@ public abstract class ResponseData {
 
                                 }
 
-                                if(foundCommonFormat!=null){
+                                if (foundCommonFormat!=null) {
                                     mimeType = foundCommonFormat.getMimeType();
-                                    if(foundCommonFormat.isSetEncoding()){
+                                    if (foundCommonFormat.isSetEncoding()) {
                                         finalEncoding = foundCommonFormat.getEncoding();
                                     }
-                                    if(foundCommonFormat.isSetSchema()){
+                                    if (foundCommonFormat.isSetSchema()) {
                                         finalSchema = foundCommonFormat.getSchema();
                                     }
-                                }else{
+                                } else {
                                     throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding and schema are not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                                 }
 
@@ -331,7 +331,7 @@ public abstract class ResponseData {
         }
 
         this.schema = finalSchema;
-        if(this.encoding==null){
+        if (this.encoding==null) {
             this.encoding = finalEncoding;
         }
         this.mimeType = finalMimeType;
@@ -349,10 +349,10 @@ public abstract class ResponseData {
         GeneratorFactory factory = GeneratorFactory.getInstance();
         this.generator =  factory.getGenerator(this.schema, this.mimeType, this.encoding, algorithmOutput);
 
-        if(this.generator != null){
+        if (this.generator != null) {
             LOGGER.info("Using generator " + generator.getClass().getName() + " for Schema: " + schema);
         }
-        if(this.generator == null) {
+        if (this.generator == null) {
             throw new ExceptionReport("Could not find an appropriate generator based on given mimetype/schema/encoding for output", ExceptionReport.NO_APPLICABLE_CODE);
         }
     }

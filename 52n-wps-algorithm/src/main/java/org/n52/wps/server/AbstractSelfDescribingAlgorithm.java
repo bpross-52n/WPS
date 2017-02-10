@@ -71,11 +71,11 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
         //2. Inputs
         List<String> identifiers = this.getInputIdentifiers();
         DataInputs dataInputs = null;
-        if(identifiers.size()>0){
+        if (identifiers.size()>0) {
             dataInputs = processDescription.addNewDataInputs();
         }
 
-        for(String identifier : identifiers){
+        for(String identifier : identifiers) {
             InputDescriptionType dataInput = dataInputs.addNewInput();
             dataInput.setMinOccurs(getMinOccurs(identifier));
             dataInput.setMaxOccurs(getMaxOccurs(identifier));
@@ -86,44 +86,44 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
             Class<?>[] interfaces = inputDataTypeClass.getInterfaces();
 
             //we have to add this because of the new AbstractLiteralDataBinding class
-            if(interfaces.length == 0){
+            if (interfaces.length == 0) {
                 interfaces = inputDataTypeClass.getSuperclass().getInterfaces();
             }
 
-            for(Class<?> implementedInterface : interfaces){
-                if(implementedInterface.equals(ILiteralData.class)){
+            for(Class<?> implementedInterface : interfaces) {
+                if (implementedInterface.equals(ILiteralData.class)) {
                     LiteralInputType literalData = dataInput.addNewLiteralData();
                     String inputClassType = "";
 
                     Constructor<?>[] constructors = inputDataTypeClass.getConstructors();
-                    for(Constructor<?> constructor : constructors){
+                    for(Constructor<?> constructor : constructors) {
                         Class<?>[] parameters = constructor.getParameterTypes();
-                        if(parameters.length==1){
+                        if (parameters.length==1) {
                             inputClassType    = parameters[0].getSimpleName();
                         }
                     }
 
-                    if(inputClassType.length()>0){
+                    if (inputClassType.length()>0) {
                         DomainMetadataType datatype = literalData.addNewDataType();
                         datatype.setReference("xs:"+inputClassType.toLowerCase());
                         literalData.addNewAnyValue();
                     }
-                }else if(implementedInterface.equals(IBBOXData.class)){
+                } else if (implementedInterface.equals(IBBOXData.class)) {
                         SupportedCRSsType bboxData = dataInput.addNewBoundingBoxData();
                         String[] supportedCRSAray = getSupportedCRSForBBOXInput(identifier);
-                        for(int i = 0; i<supportedCRSAray.length; i++){
-                            if(i==0){
+                        for(int i = 0; i<supportedCRSAray.length; i++) {
+                            if (i==0) {
                                 Default defaultCRS = bboxData.addNewDefault();
                                 defaultCRS.setCRS(supportedCRSAray[0]);
-                                if(supportedCRSAray.length==1){
+                                if (supportedCRSAray.length==1) {
                                     CRSsType supportedCRS = bboxData.addNewSupported();
                                     supportedCRS.addCRS(supportedCRSAray[0]);
                                 }
-                            }else{
-                                if(i==1){
+                            } else {
+                                if (i==1) {
                                     CRSsType supportedCRS = bboxData.addNewSupported();
                                     supportedCRS.addCRS(supportedCRSAray[1]);
-                                }else{
+                                } else {
                                     bboxData.getSupported().addCRS(supportedCRSAray[i]);
                                 }
                             }
@@ -132,14 +132,14 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
 
 
 
-                }else if(implementedInterface.equals(IComplexData.class)){
+                } else if (implementedInterface.equals(IComplexData.class)) {
                     SupportedComplexDataInputType complexData = dataInput.addNewComplexData();
                     List<IParser> parsers = ParserFactory.getInstance().getAllParsers();
                     List<IParser> foundParsers = new ArrayList<IParser>();
                     for(IParser parser : parsers) {
                         Class<?>[] supportedClasses = parser.getSupportedDataBindings();
-                        for(Class<?> clazz : supportedClasses){
-                            if(clazz.equals(inputDataTypeClass)){
+                        for(Class<?> clazz : supportedClasses) {
+                            if (clazz.equals(inputDataTypeClass)) {
                                 foundParsers.add(parser);
                             }
 
@@ -155,7 +155,7 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
         //3. Outputs
         ProcessOutputs dataOutputs = processDescription.addNewProcessOutputs();
         List<String> outputIdentifiers = this.getOutputIdentifiers();
-        for(String identifier : outputIdentifiers){
+        for(String identifier : outputIdentifiers) {
             OutputDescriptionType dataOutput = dataOutputs.addNewOutput();
 
 
@@ -167,50 +167,50 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
             Class<?>[] interfaces = outputDataTypeClass.getInterfaces();
 
             //we have to add this because of the new AbstractLiteralDataBinding class
-            if(interfaces.length == 0){
+            if (interfaces.length == 0) {
                 interfaces = outputDataTypeClass.getSuperclass().getInterfaces();
             }
-            for(Class<?> implementedInterface : interfaces){
+            for(Class<?> implementedInterface : interfaces) {
 
 
-                if(implementedInterface.equals(ILiteralData.class)){
+                if (implementedInterface.equals(ILiteralData.class)) {
                     LiteralOutputType literalData = dataOutput.addNewLiteralOutput();
                     String outputClassType = "";
 
                     Constructor<?>[] constructors = outputDataTypeClass.getConstructors();
-                    for(Constructor<?> constructor : constructors){
+                    for(Constructor<?> constructor : constructors) {
                         Class<?>[] parameters = constructor.getParameterTypes();
-                        if(parameters.length==1){
+                        if (parameters.length==1) {
                             outputClassType    = parameters[0].getSimpleName();
                         }
                     }
 
-                    if(outputClassType.length()>0){
+                    if (outputClassType.length()>0) {
                         literalData.addNewDataType().setReference("xs:"+outputClassType.toLowerCase());
                     }
 
-                }else if(implementedInterface.equals(IBBOXData.class)){
+                } else if (implementedInterface.equals(IBBOXData.class)) {
                     SupportedCRSsType bboxData = dataOutput.addNewBoundingBoxOutput();
                     String[] supportedCRSAray = getSupportedCRSForBBOXOutput(identifier);
-                    for(int i = 0; i<supportedCRSAray.length; i++){
-                        if(i==0){
+                    for(int i = 0; i<supportedCRSAray.length; i++) {
+                        if (i==0) {
                             Default defaultCRS = bboxData.addNewDefault();
                             defaultCRS.setCRS(supportedCRSAray[0]);
-                            if(supportedCRSAray.length==1){
+                            if (supportedCRSAray.length==1) {
                                 CRSsType supportedCRS = bboxData.addNewSupported();
                                 supportedCRS.addCRS(supportedCRSAray[0]);
                             }
-                        }else{
-                            if(i==1){
+                        } else {
+                            if (i==1) {
                                 CRSsType supportedCRS = bboxData.addNewSupported();
                                 supportedCRS.addCRS(supportedCRSAray[1]);
-                            }else{
+                            } else {
                                 bboxData.getSupported().addCRS(supportedCRSAray[i]);
                             }
                         }
                     }
 
-                }else if(implementedInterface.equals(IComplexData.class)){
+                } else if (implementedInterface.equals(IComplexData.class)) {
 
                         SupportedComplexDataType complexData = dataOutput.addNewComplexOutput();
 
@@ -218,8 +218,8 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
                         List<IGenerator> foundGenerators = new ArrayList<IGenerator>();
                         for(IGenerator generator : generators) {
                             Class<?>[] supportedClasses = generator.getSupportedDataBindings();
-                            for(Class<?> clazz : supportedClasses){
-                                if(clazz.equals(outputDataTypeClass)){
+                            for(Class<?> clazz : supportedClasses) {
+                                if (clazz.equals(outputDataTypeClass)) {
                                     foundGenerators.add(generator);
                                 }
 
@@ -244,7 +244,7 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
      * @param identifier ID of the input BBOXType
      * @return an array containing Strings representing the supported CRSs for inputs
      */
-    public String[] getSupportedCRSForBBOXInput(String identifier){
+    public String[] getSupportedCRSForBBOXInput(String identifier) {
         return new String[0];
     }
 
@@ -253,14 +253,14 @@ public abstract class AbstractSelfDescribingAlgorithm extends AbstractAlgorithm 
      * @param identifier ID of the input BBOXType
      * @return an array containing Strings representing the supported CRSs for outputs
      */
-    public String[] getSupportedCRSForBBOXOutput(String identifier){
+    public String[] getSupportedCRSForBBOXOutput(String identifier) {
         return new String[0];
     }
 
-    public BigInteger getMinOccurs(String identifier){
+    public BigInteger getMinOccurs(String identifier) {
         return new BigInteger("1");
     }
-    public BigInteger getMaxOccurs(String identifier){
+    public BigInteger getMaxOccurs(String identifier) {
         return new BigInteger("1");
     }
 

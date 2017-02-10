@@ -59,7 +59,7 @@ public class HttpInputTest {
         InputType[] inputArray = execDoc.getExecute().getDataInputs().getInputArray();
 
         // Act & Assert
-        for (InputType currentInput : inputArray){
+        for (InputType currentInput : inputArray) {
             System.out.println("Testing input " + currentInput.getIdentifier().getStringValue());
 
             IReferenceStrategy strategy = new DefaultReferenceStrategy();

@@ -91,11 +91,11 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
 
     public Map<String, IData> run(Map<String, List<IData>> inputData) {
         /*----------------------Polygons Input------------------------------------------*/
-        if(inputData==null || !inputData.containsKey("Polygons1")){
+        if (inputData==null || !inputData.containsKey("Polygons1")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         List<IData> dataList = inputData.get("Polygons1");
-        if(dataList == null || dataList.size() != 1){
+        if (dataList == null || dataList.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         IData firstInputData = dataList.get(0);
@@ -103,11 +103,11 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
         FeatureCollection polygons = ((GTVectorDataBinding) firstInputData).getPayload();
 
         /*----------------------LineStrings Input------------------------------------------*/
-        if(inputData==null || !inputData.containsKey("Polygons2")){
+        if (inputData==null || !inputData.containsKey("Polygons2")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         List<IData> dataListLS = inputData.get("Polygons2");
-        if(dataListLS == null || dataListLS.size() != 1){
+        if (dataListLS == null || dataListLS.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         IData secondInputData = dataListLS.get(0);
@@ -126,7 +126,7 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
         int j = 1;
 
         String uuid = UUID.randomUUID().toString();
-        while(polygonIterator.hasNext()){
+        while(polygonIterator.hasNext()) {
             SimpleFeature polygon = (SimpleFeature) polygonIterator.next();
 
 
@@ -134,7 +134,7 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
             int i = 1;
             System.out.println("Polygon = " + j +"/"+ polygons.size());
             SimpleFeatureType featureType = null;
-            while(lineStringIterator.hasNext()){
+            while(lineStringIterator.hasNext()) {
                 SimpleFeature lineString = (SimpleFeature) lineStringIterator.next();
                 Geometry lineStringGeometry = null;
                 lineStringGeometry = (Geometry) lineString.getDefaultGeometry();
@@ -142,7 +142,7 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
                 try{
                     Geometry polygonGeometry = (Geometry) polygon.getDefaultGeometry();
                     Geometry intersection = polygonGeometry.difference(lineStringGeometry);
-                    if(i==1){
+                    if (i==1) {
                          featureType = GTHelper.createFeatureType(polygon.getProperties(), intersection, uuid, polygon.getFeatureType().getCoordinateReferenceSystem());
                          QName qname = GTHelper.createGML3SchemaForFeatureType(featureType);
                          SchemaRepository.registerSchemaLocation(qname.getNamespaceURI(), qname.getLocalPart());
@@ -150,19 +150,19 @@ public class DifferenceAlgorithm extends AbstractSelfDescribingAlgorithm {
 
 
                     SimpleFeature resultFeature = GTHelper.createFeature(""+j+"_"+i, intersection,featureType, polygon.getProperties());
-                    if(resultFeature!=null){
+                    if (resultFeature!=null) {
 
                         featureList.add(resultFeature);
                         System.out.println("result feature added. resultCollection = " + featureList.size());
                     }
-                }catch(Exception e){
+                } catch(Exception e) {
                         e.printStackTrace();
                     }
 
                 i++;
             }
             j++;
-            //if(featureCollection.size()>10){
+            //if (featureCollection.size()>10) {
             //    break;
             //}
         }

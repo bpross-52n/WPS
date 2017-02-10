@@ -69,7 +69,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
     @Test
     public void testParseWriteGeoJSONPoint() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 
@@ -130,7 +130,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
     }
 
     @Test
-    public void testParseWriteGeoJSONFeatureCollection(){
+    public void testParseWriteGeoJSONFeatureCollection() {
 
         String featureCollectionString = "{ \"type\": \"FeatureCollection\",                                       "+
                 "  \"features\": [                                                        "+
@@ -175,7 +175,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
         IData theBinding = theParser.parse(in, mimetype,
                 null);
 
-        if(!(theBinding instanceof GTVectorDataBinding)){
+        if (!(theBinding instanceof GTVectorDataBinding)) {
             Assert.fail();
         }
 
@@ -193,7 +193,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
             IData theGeneratedParsedBinding = theParser.parse(is, mimetype,
                     null);
 
-            if(!(theGeneratedParsedBinding instanceof GTVectorDataBinding)){
+            if (!(theGeneratedParsedBinding instanceof GTVectorDataBinding)) {
                 Assert.fail();
             }
 
@@ -212,7 +212,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
     }
 
     @Test
-    public void testParseWriteGeoJSONFeature(){
+    public void testParseWriteGeoJSONFeature() {
 
         String featureCollectionString = "{\"type\":\"Feature\", \"properties\":{}, \"geometry\":{\"type\":\"Polygon\", \"coordinates\":[[[56.390622854233, 29.90625500679], [67.640622854233, 49.59375500679], [82.406247854233, 39.75000500679], [69.749997854233, 23.57813000679], [56.390622854233, 29.90625500679]]]}, \"crs\":{\"type\":\"name\", \"properties\":{\"name\":\"EPSG:4326\"}}}";
 
@@ -227,7 +227,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
         IData theBinding = theParser.parse(in, mimetype,
                 null);
 
-        if(!(theBinding instanceof GTVectorDataBinding)){
+        if (!(theBinding instanceof GTVectorDataBinding)) {
             Assert.fail();
         }
 
@@ -245,7 +245,7 @@ public class GeoJSONParserGeneratorTest extends AbstractTestCase<GeoJSONGenerato
             IData theGeneratedParsedBinding = theParser.parse(is, mimetype,
                     null);
 
-            if(!(theGeneratedParsedBinding instanceof GTVectorDataBinding)){
+            if (!(theGeneratedParsedBinding instanceof GTVectorDataBinding)) {
                 Assert.fail();
             }
 

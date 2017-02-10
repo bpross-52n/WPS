@@ -62,7 +62,7 @@ public class GenericFileData {
         this.mimeType = mimeType;
         this.fileExtension = GenericFileDataConstants.mimeTypeFileTypeLUT()
                 .get(mimeType);
-        if(fileExtension == null){
+        if (fileExtension == null) {
             this.fileExtension = "dat";
         }
     }
@@ -87,7 +87,7 @@ public class GenericFileData {
 
             File[] allFiles = new File[extensions.length + 1];
 
-            for (int i = 0; i < extensions.length; i++){
+            for (int i = 0; i < extensions.length; i++) {
                 allFiles[i] = new File(directory, baseFile + "."
                         + extensions[i]);
             }
@@ -99,17 +99,17 @@ public class GenericFileData {
             // but only filenames).
             int numberOfFiles = allFiles.length;
             int numberOfMissing = 0;
-            for (int i = 0; i < numberOfFiles; i++){
-                if (!allFiles[i].exists()){
+            for (int i = 0; i < numberOfFiles; i++) {
+                if (!allFiles[i].exists()) {
                     LOGGER.info("File " + (i+1) + " of " + numberOfFiles + " missing (" + allFiles[i].getName() + ").");
                     numberOfMissing ++;
                 }
             }
-            if ((numberOfFiles - numberOfMissing) == 0){
+            if ((numberOfFiles - numberOfMissing) == 0) {
                 String message = "There is no files to generate data from!";
                 LOGGER.error(message);
                 throw new FileNotFoundException(message);
-            } else if ((numberOfMissing > 0)){
+            } else if ((numberOfMissing > 0)) {
                 LOGGER.info("Not all files are available, but the available ones are zipped.");
             }
 
@@ -161,7 +161,7 @@ public class GenericFileData {
 
             String fileName = baseFileName + "." + currentExtension;
             File currentFile = new File(writeDirectory, fileName);
-            if (!writeDirectory.exists()){
+            if (!writeDirectory.exists()) {
                 writeDirectory.mkdir();
             }
             currentFile.createNewFile();
@@ -186,7 +186,7 @@ public class GenericFileData {
 
         fileName = baseFileName + "." + extension;
         File currentFile = new File(writeDirectory, fileName);
-        if (!writeDirectory.exists()){
+        if (!writeDirectory.exists()) {
             writeDirectory.mkdir();
         }
         currentFile.createNewFile();
@@ -207,21 +207,21 @@ public class GenericFileData {
 
     public File getBaseFile(boolean unzipIfPossible) {
         String extension = fileExtension;
-        if(primaryFile==null && dataStream!=null){
+        if (primaryFile==null && dataStream!=null) {
             try{
 
-            if(fileExtension.equals("shp")){
+            if (fileExtension.equals("shp")) {
                 extension = "zip";
             }
             primaryFile = File.createTempFile(UUID.randomUUID().toString(), "."+extension);
             OutputStream out = new FileOutputStream(primaryFile);
             byte buf[]=new byte[1024];
             int len;
-            while((len=dataStream.read(buf))>0){
+            while((len=dataStream.read(buf))>0) {
               out.write(buf,0,len);
             }
             out.close();
-            }catch(Exception e){
+            } catch(Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new RuntimeException(
                         "Something went wrong while writing the input stream to the file system",
@@ -229,7 +229,7 @@ public class GenericFileData {
             }
 
         }
-        if(unzipIfPossible && extension.contains("zip")){
+        if (unzipIfPossible && extension.contains("zip")) {
             try{
             File tempFile1 = File.createTempFile(UUID.randomUUID().toString(),"");
             File dir = new File(tempFile1.getParentFile()+"/"+UUID.randomUUID().toString());
@@ -248,12 +248,12 @@ public class GenericFileData {
              zis.close();
 
              File[] files = dir.listFiles();
-             for(File file : files){
-                 if(file.getName().contains(".shp") || file.getName().contains(".SHP")){
+             for(File file : files) {
+                 if (file.getName().contains(".shp") || file.getName().contains(".SHP")) {
                      primaryFile = file;
                  }
              }
-            }catch(Exception e){
+            } catch(Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new RuntimeException("Error while unzipping input data", e);
             }
@@ -262,21 +262,21 @@ public class GenericFileData {
     }
 
     @Override
-    protected void finalize(){
+    protected void finalize() {
         try{
             if (primaryFile != null) {
                 primaryFile.delete();
             }
-        }catch(Exception e){
+        } catch(Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
 
-    public String getMimeType(){
+    public String getMimeType() {
         return mimeType;
     }
 
-    public String getFileExtension(){
+    public String getFileExtension() {
         return fileExtension;
     }
 

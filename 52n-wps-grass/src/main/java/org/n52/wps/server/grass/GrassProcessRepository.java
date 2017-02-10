@@ -105,10 +105,10 @@ public class GrassProcessRepository implements IAlgorithmRepository {
                 } else if (property.getKey().equalsIgnoreCase(
                         GrassProcessRepositoryCM.gisrcDirKey)) {
                     gisrcDir = property.getValue().toString();
-                }else if (property.getKey().equalsIgnoreCase(
+                } else if (property.getKey().equalsIgnoreCase(
                         GrassProcessRepositoryCM.addonDirKey)) {
                     addonPath = property.getValue().toString();
-                }else if (property.getKey().equalsIgnoreCase(
+                } else if (property.getKey().equalsIgnoreCase(
                         GrassProcessRepositoryCM.pythonPathKey)) {
                     pythonPath = property.getValue().toString();
                 }
@@ -118,7 +118,7 @@ public class GrassProcessRepository implements IAlgorithmRepository {
             ArrayList<String> processList = new ArrayList<String>(algorithmEntries.size());
 
             for (AlgorithmEntry algorithmEntry : algorithmEntries) {
-                if(algorithmEntry.isActive()){
+                if (algorithmEntry.isActive()) {
                     processList.add(algorithmEntry.getAlgorithm());
                 }
             }
@@ -210,7 +210,7 @@ public class GrassProcessRepository implements IAlgorithmRepository {
 
             }
 
-            if(addonPath != null && !addonPath.equalsIgnoreCase("N/A")){
+            if (addonPath != null && !addonPath.equalsIgnoreCase("N/A")) {
 
             File addonDirectory = new File(addonPath);
 
@@ -233,7 +233,7 @@ public class GrassProcessRepository implements IAlgorithmRepository {
 
                         ProcessDescription pDescType;
                         try {
-                            if(registeredProcesses.keySet().contains(process)){
+                            if (registeredProcesses.keySet().contains(process)) {
                                 LOGGER.info("Skipping duplicate process " + process);
                                 continue;
                             }

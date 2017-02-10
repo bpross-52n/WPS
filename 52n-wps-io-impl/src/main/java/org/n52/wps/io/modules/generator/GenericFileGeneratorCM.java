@@ -46,7 +46,7 @@ public class GenericFileGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericFileGeneratorCM(){
+    public GenericFileGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

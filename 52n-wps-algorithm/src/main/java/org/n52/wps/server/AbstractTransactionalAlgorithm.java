@@ -29,7 +29,7 @@ public abstract class AbstractTransactionalAlgorithm implements IAlgorithm{
     protected String algorithmID;
 
 
-    public AbstractTransactionalAlgorithm(String algorithmID){
+    public AbstractTransactionalAlgorithm(String algorithmID) {
         this.algorithmID = algorithmID;
 
     }

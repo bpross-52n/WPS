@@ -64,15 +64,15 @@ public class GeneratorFactory {
         });
     }
 
-    private void loadAllGenerators(Map<String, ConfigurationModule> generatorMap){
+    private void loadAllGenerators(Map<String, ConfigurationModule> generatorMap) {
         registeredGenerators = new ArrayList<IGenerator>();
         for(String currentGeneratorName : generatorMap.keySet()) {
 
 //            // remove inactive properties
 //            Property[] activeProperties = {};
 //            ArrayList<Property> activeProps = new ArrayList<Property>();
-//            for(int i=0; i< currentGenerator.getPropertyArray().length; i++){
-//                if(currentGenerator.getPropertyArray()[i].getActive()){
+//            for(int i=0; i< currentGenerator.getPropertyArray().length; i++) {
+//                if (currentGenerator.getPropertyArray()[i].getActive()) {
 //                    activeProps.add(currentGenerator.getPropertyArray()[i]);
 //                }
 //            }
@@ -82,7 +82,7 @@ public class GeneratorFactory {
 
             String generatorClass = "";
 
-            if(currentGenerator instanceof ClassKnowingModule){
+            if (currentGenerator instanceof ClassKnowingModule) {
                 generatorClass = ((ClassKnowingModule)currentGenerator).getClassName();
             }
 
@@ -99,7 +99,7 @@ public class GeneratorFactory {
             catch(InstantiationException e) {
                 LOGGER.error("One of the generators could not be loaded: " + generatorClass, e);
             }
-            if(generator != null) {
+            if (generator != null) {
                 LOGGER.info("Generator class registered: " + generatorClass);
                 registeredGenerators.add(generator);
             }
@@ -107,7 +107,7 @@ public class GeneratorFactory {
     }
 
     public static GeneratorFactory getInstance() {
-        if(factory == null){
+        if (factory == null) {
             Map<String, ConfigurationModule> generatorMap = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getActiveConfigurationModulesByCategory(ConfigurationCategory.GENERATOR);
             initialize(generatorMap);
         }
@@ -117,15 +117,15 @@ public class GeneratorFactory {
     public IGenerator getGenerator(String schema, String format, String encoding, Class<?> outputInternalClass) {
 
         // dealing with NULL encoding
-        if (encoding == null || encoding.isEmpty()){
+        if (encoding == null || encoding.isEmpty()) {
             encoding = IOHandler.DEFAULT_ENCODING;
         }
 
         for(IGenerator generator : registeredGenerators) {
             Class<?>[] supportedBindings = generator.getSupportedDataBindings();
-            for(Class<?> clazz : supportedBindings){
-                if(clazz.equals(outputInternalClass)) {
-                    if(generator.isSupportedSchema(schema) && generator.isSupportedEncoding(encoding) && generator.isSupportedFormat(format)){
+            for(Class<?> clazz : supportedBindings) {
+                if (clazz.equals(outputInternalClass)) {
+                    if (generator.isSupportedSchema(schema) && generator.isSupportedEncoding(encoding) && generator.isSupportedFormat(format)) {
                         return generator;
                     }
                 }

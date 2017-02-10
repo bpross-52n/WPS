@@ -113,7 +113,7 @@ package org.n52.wps.io;
                          while (len > 0) {
                                  Block s = last();
                                  if (s.isFull()) {
-                                         if (reachedInCoreLimit()){
+                                         if (reachedInCoreLimit()) {
                                                  break;
                                          }
 
@@ -129,7 +129,7 @@ package org.n52.wps.io;
                          }
                  }
 
-                 if (len > 0){
+                 if (len > 0) {
                          diskOut.write(b, off, len);
                  }
          }
@@ -139,7 +139,7 @@ package org.n52.wps.io;
          }
 
          private boolean reachedInCoreLimit() throws IOException {
-                 if (blocks.size() * Block.SZ < inCoreLimit){
+                 if (blocks.size() * Block.SZ < inCoreLimit) {
                          return false;
                  }
 
@@ -147,7 +147,7 @@ package org.n52.wps.io;
                  diskOut = new FileOutputStream(onDiskFile);
 
                  final Block last = blocks.remove(blocks.size() - 1);
-                 for (final Block b : blocks){
+                 for (final Block b : blocks) {
                          diskOut.write(b.buffer, 0, b.count);
                  }
                  blocks = null;
@@ -175,7 +175,7 @@ package org.n52.wps.io;
           * @return total length of the buffer, in bytes.
           */
          public long length() {
-                 if (onDiskFile != null){
+                 if (onDiskFile != null) {
                          return onDiskFile.length();
                  }
 
@@ -236,7 +236,7 @@ package org.n52.wps.io;
                  }
 
                 if (onDiskFile != null) {
-                         if (!onDiskFile.delete()){
+                         if (!onDiskFile.delete()) {
                                  onDiskFile.deleteOnExit();
                          }
                        onDiskFile = null;

@@ -99,7 +99,7 @@ public class ExecutePostIT {
     }
 
     @Before
-    public void before(){
+    public void before() {
 
         WPSClientSession wpsClient = WPSClientSession.getInstance();
 
@@ -276,7 +276,7 @@ public class ExecutePostIT {
         }
     }
 
-    private InputType createComplexInlineInput(String identifier, String value, String schema, String encoding, String mimeType){
+    private InputType createComplexInlineInput(String identifier, String value, String schema, String encoding, String mimeType) {
 
         InputType inputType = InputType.Factory.newInstance();
 
@@ -1995,7 +1995,7 @@ public class ExecutePostIT {
         return responseObject;
     }
 
-    private OutputDataType getFirstOutputData(ExecuteResponseDocument executeResponseDocument){
+    private OutputDataType getFirstOutputData(ExecuteResponseDocument executeResponseDocument) {
         ProcessOutputs outputs = executeResponseDocument.getExecuteResponse().getProcessOutputs();
 
         assertThat(outputs, not(nullValue()));
@@ -2006,14 +2006,14 @@ public class ExecutePostIT {
         return outputDataType;
     }
 
-    private void checkIdentifier(ExecuteResponseDocument executeResponseDocument, String outputID){
+    private void checkIdentifier(ExecuteResponseDocument executeResponseDocument, String outputID) {
 
         String identifier = getFirstOutputData(executeResponseDocument).getIdentifier().getStringValue();
 
         assertThat(identifier, is(equalTo(outputID)));
     }
 
-    private DataType getData(ExecuteResponseDocument executeResponseDocument){
+    private DataType getData(ExecuteResponseDocument executeResponseDocument) {
 
         OutputDataType outputDataType = getFirstOutputData(executeResponseDocument);
 
@@ -2026,7 +2026,7 @@ public class ExecutePostIT {
         return data;
     }
 
-    private void checkIfResultContainsTestXMLData(ExecuteResponseDocument executeResponseDocument){
+    private void checkIfResultContainsTestXMLData(ExecuteResponseDocument executeResponseDocument) {
 
         DataType data = getData(executeResponseDocument);
 
@@ -2053,7 +2053,7 @@ public class ExecutePostIT {
 
     }
 
-    private void checkIfResultContainsTestStringData(ExecuteResponseDocument executeResponseDocument){
+    private void checkIfResultContainsTestStringData(ExecuteResponseDocument executeResponseDocument) {
 
         DataType data = getData(executeResponseDocument);
 

@@ -74,10 +74,10 @@ public class RawData extends ResponseData {
 
     public InputStream getAsStream() throws ExceptionReport {
         try {
-            if(obj instanceof ILiteralData){
+            if (obj instanceof ILiteralData) {
                 return new ByteArrayInputStream(String.valueOf(obj.getPayload()).getBytes(Charsets.UTF_8));
             }
-            if(obj instanceof IBBOXData){
+            if (obj instanceof IBBOXData) {
                 IBBOXData bbox  = (IBBOXData) obj;
                 StringBuilder builder = new StringBuilder();
 
@@ -102,10 +102,10 @@ public class RawData extends ResponseData {
                 return new ByteArrayInputStream(builder.toString().getBytes(Charsets.UTF_8));
             }
             //complexdata
-            if(encoding == null || "".equals(encoding) || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+            if (encoding == null || "".equals(encoding) || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
                 return generator.generateStream(obj, mimeType, schema);
             }
-            else if(encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                 return generator.generateBase64Stream(obj, mimeType, schema);
 
             }

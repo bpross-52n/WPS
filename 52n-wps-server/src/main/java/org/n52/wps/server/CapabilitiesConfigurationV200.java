@@ -235,7 +235,7 @@ public class CapabilitiesConfigurationV200 {
         try {
             if (capabilitiesDocumentObj == null || reload) {
 
-                if(loadingStrategy == null){
+                if (loadingStrategy == null) {
                     loadingStrategy = new CreateInstanceStrategy();
                 }
 
@@ -574,7 +574,7 @@ public class CapabilitiesConfigurationV200 {
             String[] versionArray = serviceIdentificationConfigurationModule.getServiceTypeVersions().split(";");
 
             for (String version : versionArray) {
-                if(version.trim() != ""){
+                if (version.trim() != "") {
                     serviceIdentification.addNewServiceTypeVersion().setStringValue(version);
                 }
             }
@@ -586,7 +586,7 @@ public class CapabilitiesConfigurationV200 {
             KeywordsType keywordsType = serviceIdentification.addNewKeywords();
 
             for (String keyword : keywordArray) {
-                if(keyword.trim() != ""){
+                if (keyword.trim() != "") {
                     keywordsType.addNewKeyword().setStringValue(keyword);
                 }
             }
@@ -638,7 +638,7 @@ public class CapabilitiesConfigurationV200 {
             return instance;
         }
 
-        private void addOperation(OperationsMetadata operationsMetadata, String operationName, String getHREF, String postHREF){
+        private void addOperation(OperationsMetadata operationsMetadata, String operationName, String getHREF, String postHREF) {
 
             Operation operation = operationsMetadata.addNewOperation();
 
@@ -646,10 +646,10 @@ public class CapabilitiesConfigurationV200 {
 
             HTTP http = operation.addNewDCP().addNewHTTP();
 
-            if(getHREF != null && !getHREF.equals("")){
+            if (getHREF != null && !getHREF.equals("")) {
                 http.addNewGet().setHref(getHREF);
             }
-            if(postHREF != null && !postHREF.equals("")){
+            if (postHREF != null && !postHREF.equals("")) {
                 http.addNewPost().setHref(postHREF);
             }
 

@@ -192,10 +192,10 @@ public class AlgorithmDescriptorTest extends TestCase {
         descriptor = createAlgorithmDescriptorWithTwoMetadataDescriptors().build();
 
         for (MetadataDescriptor metadataDescriptor : descriptor.getMetadataDescriptors()) {
-            if(metadataDescriptor.getRole().equals(PROCESS_ROLE_1)){
+            if (metadataDescriptor.getRole().equals(PROCESS_ROLE_1)) {
                 assertTrue(metadataDescriptor.getHref().equals(PROCESS_HREF_1));
             }
-            if(metadataDescriptor.getRole().equals(PROCESS_ROLE_2)){
+            if (metadataDescriptor.getRole().equals(PROCESS_ROLE_2)) {
                 assertTrue(metadataDescriptor.getHref().equals(PROCESS_HREF_2));
             }
         }
@@ -216,10 +216,10 @@ public class AlgorithmDescriptorTest extends TestCase {
         descriptor = createAlgorithmDescriptorWithTwoMetadataDescriptors().build();
 
         for (MetadataDescriptor metadataDescriptor : descriptor.getMetadataDescriptors()) {
-            if(metadataDescriptor.getRole().equals(PROCESS_ROLE_1)){
+            if (metadataDescriptor.getRole().equals(PROCESS_ROLE_1)) {
                 assertTrue(metadataDescriptor.getHref().equals(PROCESS_HREF_1));
             }
-            if(metadataDescriptor.getRole().equals(PROCESS_ROLE_2)){
+            if (metadataDescriptor.getRole().equals(PROCESS_ROLE_2)) {
                 assertTrue(metadataDescriptor.getHref().equals(PROCESS_HREF_2));
             }
         }

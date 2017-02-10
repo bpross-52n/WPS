@@ -181,7 +181,7 @@ public class GrassIT {
         AllTestsIT.checkInlineResultBase64(response);
     }
 
-    private XmlObject createPayloadReplacingHostAndPort(String resourceURL){
+    private XmlObject createPayloadReplacingHostAndPort(String resourceURL) {
 
         URL resource = GrassIT.class
                 .getResource(resourceURL);
@@ -193,12 +193,12 @@ public class GrassIT {
 
             String line = "";
 
-            while((line = bufferedReader.readLine()) != null){
+            while((line = bufferedReader.readLine()) != null) {
 
-                if(line.contains(hostExp)){
+                if (line.contains(hostExp)) {
                     line = line.replace(hostExp, AllTestsIT.getHost());
                 }
-                if(line.contains(portExp)){
+                if (line.contains(portExp)) {
                     line = line.replace(portExp, ""+AllTestsIT.getPort());
                 }
                 payload = payload.concat(line);

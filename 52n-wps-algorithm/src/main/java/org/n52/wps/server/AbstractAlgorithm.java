@@ -74,10 +74,10 @@ public abstract class AbstractAlgorithm implements IAlgorithm
 
         InputStream xmlDesc;
 
-        if(this.getClass().getClassLoader() instanceof CustomClassLoader){
+        if (this.getClass().getClassLoader() instanceof CustomClassLoader) {
             String baseDir = ((CustomClassLoader)this.getClass().getClassLoader()).getBaseDir();
             xmlDesc = UploadedAlgorithmRepository.class.getClassLoader().getResourceAsStream(baseDir + File.separator + className + ".xml");
-        }else{
+        } else {
                 xmlDesc = this.getClass().getResourceAsStream("/" + className + ".xml");
         }
 
@@ -85,13 +85,13 @@ public abstract class AbstractAlgorithm implements IAlgorithm
             XmlOptions option = new XmlOptions();
             option.setLoadTrimTextBuffer();
             ProcessDescriptionsDocument doc = ProcessDescriptionsDocument.Factory.parse(xmlDesc, option);
-            if(doc.getProcessDescriptions().getProcessDescriptionArray().length == 0) {
+            if (doc.getProcessDescriptions().getProcessDescriptionArray().length == 0) {
                 LOGGER.warn("ProcessDescription does not contain correct any description");
                 return null;
             }
 
             // Checking that the process name (full class name or well-known name) matches the identifier.
-            if(!doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getClass().getName()) &&
+            if (!doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getClass().getName()) &&
                     !doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getWellKnownName())) {
                 doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().setStringValue(this.getClass().getName());
                 LOGGER.warn("Identifier was not correct, was changed now temporary for server use to " + this.getClass().getName() + ". Please change it later in the description!");
@@ -122,7 +122,7 @@ public abstract class AbstractAlgorithm implements IAlgorithm
 
     @Override
     public boolean processDescriptionIsValid(String version) {
-        if(getDescription().getProcessDescriptionType(version) == null){
+        if (getDescription().getProcessDescriptionType(version) == null) {
             return false;
         }
         return getDescription().getProcessDescriptionType(version).validate();

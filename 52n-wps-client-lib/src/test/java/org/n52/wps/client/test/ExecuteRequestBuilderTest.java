@@ -68,7 +68,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     private String complexDataString = "testString";
 
     @Before
-    public void setUp(){
+    public void setUp() {
         processDescription = new MultiReferenceBinaryInputAlgorithm().getDescription();
         processDescriptionType = ((ProcessDescriptionType)processDescription.getProcessDescriptionType(WPSConfig.VERSION_100));
         inputID = processDescriptionType.getDataInputs().getInputArray(0).getIdentifier().getStringValue();
@@ -104,7 +104,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     }
 
     @Test
-    public void setSupportedMimeTypeForOutput(){
+    public void setSupportedMimeTypeForOutput() {
         ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
 
         addTestDataByReference(executeRequestBuilder);
@@ -122,7 +122,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
     }
 
     @Test
-    public void setDefaultMimeTypeForOutput(){
+    public void setDefaultMimeTypeForOutput() {
         ExecuteRequestBuilder executeRequestBuilder = new ExecuteRequestBuilder(processDescriptionType);
 
         addTestDataByReference(executeRequestBuilder);
@@ -139,7 +139,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
     }
 
-    private void addTestDataByReference(ExecuteRequestBuilder executeRequestBuilder){
+    private void addTestDataByReference(ExecuteRequestBuilder executeRequestBuilder) {
 
         InputType inputType = InputType.Factory.newInstance();
 
@@ -150,7 +150,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
     }
 
-    private void addTestDataString(ExecuteRequestBuilder executeRequestBuilder){
+    private void addTestDataString(ExecuteRequestBuilder executeRequestBuilder) {
 
         try {
             executeRequestBuilder.addComplexData(inputID, complexDataString, "", "", "text/plain");
@@ -160,7 +160,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
     }
 
-    private String getMimeType(ProcessDescriptionType processDescriptionType, boolean isGetDefaultMimeType){
+    private String getMimeType(ProcessDescriptionType processDescriptionType, boolean isGetDefaultMimeType) {
 
         String result = "";
 
@@ -176,7 +176,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
         assertNotNull(complexDataType);
 
-        if(isGetDefaultMimeType){
+        if (isGetDefaultMimeType) {
             ComplexDataCombinationType defaultFormat = complexDataType.getDefault();
 
             assertNotNull(defaultFormat);
@@ -186,7 +186,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
             assertNotNull(format);
 
             result = format.getMimeType();
-        }else{
+        } else {
             ComplexDataCombinationsType supportedFormats = complexDataType.getSupported();
 
             assertNotNull(supportedFormats);
@@ -201,7 +201,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
         return result;
     }
 
-    private void checkOutputMimeType(Execute execute, String mimeType){
+    private void checkOutputMimeType(Execute execute, String mimeType) {
 
         DocumentOutputDefinitionType outputDefinitionType = getOutputDefinitionType(execute);
 
@@ -209,7 +209,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
     }
 
-    private void checkOutputIdentifier(Execute execute, String identifier){
+    private void checkOutputIdentifier(Execute execute, String identifier) {
 
         DocumentOutputDefinitionType outputDefinitionType = getOutputDefinitionType(execute);
 
@@ -217,7 +217,7 @@ public class ExecuteRequestBuilderTest extends AbstractITClass{
 
     }
 
-    private DocumentOutputDefinitionType getOutputDefinitionType(Execute execute){
+    private DocumentOutputDefinitionType getOutputDefinitionType(Execute execute) {
 
         ResponseFormType responseFormType = execute.getResponseForm();
 

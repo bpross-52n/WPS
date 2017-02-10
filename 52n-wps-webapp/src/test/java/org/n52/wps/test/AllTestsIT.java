@@ -227,7 +227,7 @@ public class AllTestsIT {
 
         String url = data.getHref();
 
-        if(filename != null){
+        if (filename != null) {
             //concat filename to URL
             url = url.concat("&filename=" + filename);
         }
@@ -239,12 +239,12 @@ public class AllTestsIT {
         boolean oneHeaderFieldContainsFilename = false;
 
         for (String field : headerFields) {
-            if(field.contains("filename")){
+            if (field.contains("filename")) {
                 oneHeaderFieldContainsFilename = true;
-                if(suffix != null && !suffix.equals("")){
+                if (suffix != null && !suffix.equals("")) {
                     assertTrue(field.endsWith(suffix + "\""));
                 }
-                if(filename != null && !filename.equals("")){
+                if (filename != null && !filename.equals("")) {
                     assertTrue(field.contains(filename));
                 }
             }
@@ -285,7 +285,7 @@ public class AllTestsIT {
         assertThat(responseAsString, responseAsString, containsString(TIFF_MAGIC));
     }
 
-    public static void checkInlineResultBase64(String response){
+    public static void checkInlineResultBase64(String response) {
 
         ExecuteResponseDocument document = null;
 
@@ -330,21 +330,21 @@ public class AllTestsIT {
 
     }
 
-    public static void checkRawBinaryResultBase64(InputStream stream){
+    public static void checkRawBinaryResultBase64(InputStream stream) {
 
         String responseAsString = saveInputStreamToString(stream);
 
         assertTrue(Base64.isBase64(responseAsString));
     }
 
-    public static void checkRawBinaryResultDefault(InputStream stream){
+    public static void checkRawBinaryResultDefault(InputStream stream) {
 
         String responseAsString = saveInputStreamToString(stream);
 
         assertThat(responseAsString, responseAsString, containsString(TIFF_MAGIC));
     }
 
-    public static String saveInputStreamToString(InputStream stream){
+    public static String saveInputStreamToString(InputStream stream) {
 
         StringBuilder stringBuilder = new StringBuilder();
 

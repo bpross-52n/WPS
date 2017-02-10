@@ -159,7 +159,7 @@ public class InputHandler {
 
         DataInputType[] inputsV200 = builder.inputs.getInputsV200();
 
-        if(inputsV100 != null){
+        if (inputsV100 != null) {
 
         for (InputType input : inputsV100) {
             String inputId = input.getIdentifier().getStringValue().trim();
@@ -173,18 +173,18 @@ public class InputHandler {
                 }
             }
 
-            if(input.getData() != null) {
-                if(input.getData().getComplexData() != null) {
+            if (input.getData() != null) {
+                if (input.getData().getComplexData() != null) {
                     handleComplexData(input, inputId);
                 }
-                else if(input.getData().getLiteralData() != null) {
+                else if (input.getData().getLiteralData() != null) {
                     handleLiteralData(input);
                 }
-                else if(input.getData().getBoundingBoxData() != null) {
+                else if (input.getData().getBoundingBoxData() != null) {
                     handleBBoxValue(input);
                 }
             }
-            else if(input.getReference() != null) {
+            else if (input.getReference() != null) {
                 handleComplexValueReference(input);
             }
             else {
@@ -192,7 +192,7 @@ public class InputHandler {
                         ExceptionReport.INVALID_PARAMETER_VALUE);
             }
         }
-        }else if(inputsV200 != null){
+        } else if (inputsV200 != null) {
 
             for (DataInputType input : inputsV200) {
                 String inputId = input.getId().trim();
@@ -206,23 +206,23 @@ public class InputHandler {
                     }
                 }
 
-                if(input.getData() != null) {
+                if (input.getData() != null) {
 
                     net.opengis.wps.x20.InputDescriptionType inputDescription = XMLBeansHelper.findInputByID(inputId, processOffering.getProcess());
 
                     DataDescriptionType dataDesc = inputDescription.getDataDescription();
 
-                    if(dataDesc instanceof net.opengis.wps.x20.ComplexDataType) {
+                    if (dataDesc instanceof net.opengis.wps.x20.ComplexDataType) {
                         handleComplexData(input, inputId);
                     }
-                    else if(dataDesc instanceof LiteralDataType) {
+                    else if (dataDesc instanceof LiteralDataType) {
                         handleLiteralData(input);
                     }
-                    else if(dataDesc instanceof net.opengis.wps.x20.BoundingBoxDataDocument.BoundingBoxData) {
+                    else if (dataDesc instanceof net.opengis.wps.x20.BoundingBoxDataDocument.BoundingBoxData) {
                         handleBBoxValue(input);
                     }
                 }
-                else if(input.getReference() != null) {
+                else if (input.getReference() != null) {
                     handleComplexValueReference(input);
                 }
                 else {
@@ -313,15 +313,15 @@ public class InputHandler {
         String complexValue;
         try {
             //handle different contents of complexdata
-            if(complexValueNode.getChildNodes().getLength() > 1){
+            if (complexValueNode.getChildNodes().getLength() > 1) {
                 complexValue = complexValueNode.getChildNodes().item(1).getNodeValue();
-                if(complexValue == null){
+                if (complexValue == null) {
                     return XMLUtil.nodeToString(complexValueNode.getChildNodes().item(1));
                 }
-            }else{
+            } else {
                 complexValue = complexValueNode.getFirstChild().getNodeValue();
             }
-            if(complexValue == null){
+            if (complexValue == null) {
                 return XMLUtil.nodeToString(complexValueNode.getFirstChild());
             }
         } catch (TransformerFactoryConfigurationError e1) {
@@ -356,7 +356,7 @@ public class InputHandler {
                 String potentialFormatEncoding = null;
 
         inputReferenceDesc = XMLBeansHelper.findInputByID(inputId, processDesc.getDataInputs());
-        if(inputReferenceDesc == null) {
+        if (inputReferenceDesc == null) {
                     LOGGER.debug("Input cannot be found in description for " + processDesc.getIdentifier().getStringValue() + "," + inputId);
         }
 
@@ -381,49 +381,49 @@ public class InputHandler {
                     //not-->use default values
 
         // overwrite with data format from request if appropriate
-        if (data.isSetMimeType() && dataMimeType != null){
+        if (data.isSetMimeType() && dataMimeType != null) {
                     format = findComplexDataDescriptionType(inputReferenceDesc, dataMimeType, dataSchema, dataEncoding, potentialFormatSchema, potentialFormatEncoding);
 
-                    if(format == null){
+                    if (format == null) {
                         throw new ExceptionReport("Could not determine intput format", ExceptionReport.INVALID_PARAMETER_VALUE);
                     }
 
                     dataMimeType = format.getMimeType();
 
                     //no encoding provided--> select default one for mimeType
-                    if(format.isSetEncoding()){
+                    if (format.isSetEncoding()) {
                         formatEncoding = format.getEncoding();
                     }
 
                     //no encoding provided--> select default one for mimeType
-                    if(format.isSetSchema()){
+                    if (format.isSetSchema()) {
                         formatSchema = format.getSchema();
                     }
         } else {
             //mimeType not in request
-            if(StringUtils.isBlank(dataMimeType) && !data.isSetEncoding() && !data.isSetSchema()){
+            if (StringUtils.isBlank(dataMimeType) && !data.isSetEncoding() && !data.isSetSchema()) {
                             //nothing set, use default values
                             formatSchema = inputReferenceDesc.getComplexData().getDefault().getFormat().getSchema();
                             dataMimeType = inputReferenceDesc.getComplexData().getDefault().getFormat().getMimeType();
                             formatEncoding = inputReferenceDesc.getComplexData().getDefault().getFormat().getEncoding();
-            }else{
+            } else {
                                 //do a smart search an look if a mimeType can be found for either schema and/or encoding
-                if(StringUtils.isBlank(dataMimeType)){
+                if (StringUtils.isBlank(dataMimeType)) {
 
-                    if(data.isSetEncoding() && !data.isSetSchema()){
+                    if (data.isSetEncoding() && !data.isSetSchema()) {
                             //encoding set only
                             int foundCount = 0;
                             String defaultEncoding = inputReferenceDesc.getComplexData().getDefault().getFormat().getEncoding();
                             ComplexDataDescriptionType encodingFormat = null;
                             String foundEncoding = null;
-                            if(defaultEncoding.equalsIgnoreCase(data.getEncoding())){
+                            if (defaultEncoding.equalsIgnoreCase(data.getEncoding())) {
                                 foundEncoding = inputReferenceDesc.getComplexData().getDefault().getFormat().getEncoding();
                                 encodingFormat = inputReferenceDesc.getComplexData().getDefault().getFormat();
                                 foundCount++;
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputReferenceDesc.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(data.getEncoding())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(data.getEncoding())) {
                                          foundEncoding = tempFormat.getEncoding();
                                          encodingFormat = tempFormat;
                                          foundCount++;
@@ -431,17 +431,17 @@ public class InputHandler {
                                  }
                             }
 
-                            if(foundCount == 1){
+                            if (foundCount == 1) {
                                 formatEncoding = foundEncoding;
                                 dataMimeType = encodingFormat.getMimeType();
-                                if(encodingFormat.isSetSchema()){
+                                if (encodingFormat.isSetSchema()) {
                                                                     formatSchema = encodingFormat.getSchema();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
 
-                        } else if(data.isSetSchema() && !data.isSetEncoding()){
+                        } else if (data.isSetSchema() && !data.isSetEncoding()) {
                             //schema set only
                             ComplexDataDescriptionType schemaFormat = null;
                             String defaultSchema = inputReferenceDesc.getComplexData().getDefault().getFormat().getSchema();
@@ -450,29 +450,29 @@ public class InputHandler {
                             //TODO: please review change
                             //Old version causes NullPointerException if default input is given by mimetype and not by schema:
                             /*
-                             if(defaultSchema != null && defaultSchema.equalsIgnoreCase(data.getSchema())){
+                             if (defaultSchema != null && defaultSchema.equalsIgnoreCase(data.getSchema())) {
                                  ...
                              }
 
                              * */
-                            if(!StringUtils.isBlank(defaultSchema) && defaultSchema.equalsIgnoreCase(data.getSchema())){
+                            if (!StringUtils.isBlank(defaultSchema) && defaultSchema.equalsIgnoreCase(data.getSchema())) {
                                 foundSchema = inputReferenceDesc.getComplexData().getDefault().getFormat().getSchema();
                                 schemaFormat = inputReferenceDesc.getComplexData().getDefault().getFormat();
                                 found++;
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputReferenceDesc.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
                                      //TODO: please review change
                                      //Old if-clause wouldn't be true ever and causes NullPointerException if one of the supported types is given by mimetype and not by schema:
                                      /*
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(data.getSchema())){
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(data.getSchema())) {
                                          foundSchema = tempFormat.getSchema();
                                          schemaFormat =tempFormat;
                                          found = found +1;
                                      }
 
                                      */
-                                     if(tempFormat.isSetSchema() && tempFormat.getSchema().equalsIgnoreCase(data.getSchema())){
+                                     if (tempFormat.isSetSchema() && tempFormat.getSchema().equalsIgnoreCase(data.getSchema())) {
                                          foundSchema = tempFormat.getSchema();
                                          schemaFormat =tempFormat;
                                          found++;
@@ -480,28 +480,28 @@ public class InputHandler {
                                  }
                             }
 
-                            if(found == 1){
+                            if (found == 1) {
                                 formatSchema = foundSchema;
                                 dataMimeType = schemaFormat.getMimeType();
-                                if(schemaFormat.isSetEncoding()){
+                                if (schemaFormat.isSetEncoding()) {
                                     formatEncoding = schemaFormat.getEncoding();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given schema not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
 
-                        } else if(data.isSetEncoding() && data.isSetSchema()){
+                        } else if (data.isSetEncoding() && data.isSetSchema()) {
                             //schema and encoding set
                             //encoding
                             String defaultEncoding = inputReferenceDesc.getComplexData().getDefault().getFormat().getEncoding();
 
                             List<ComplexDataDescriptionType> foundEncodingList = new ArrayList<ComplexDataDescriptionType>();
-                            if(defaultEncoding.equalsIgnoreCase(data.getEncoding())){
+                            if (defaultEncoding.equalsIgnoreCase(data.getEncoding())) {
                                 foundEncodingList.add(inputReferenceDesc.getComplexData().getDefault().getFormat());
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputReferenceDesc.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(data.getEncoding())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(data.getEncoding())) {
                                          foundEncodingList.add(tempFormat);
                                      }
                                                                 }
@@ -512,23 +512,23 @@ public class InputHandler {
                             //TODO: please review change
                             //Old version causes NullPointerException if default input is given by mimetype and not by schema:
                             //
-                            //if(defaultSchema.equalsIgnoreCase(data.getSchema())){...
+                            //if (defaultSchema.equalsIgnoreCase(data.getSchema())) {...
                             //
-                            if(defaultSchema!= null && defaultSchema.equalsIgnoreCase(data.getSchema())){
+                            if (defaultSchema!= null && defaultSchema.equalsIgnoreCase(data.getSchema())) {
                                 foundSchemaList.add(inputReferenceDesc.getComplexData().getDefault().getFormat());
-                            }else{
+                            } else {
                                  formats = inputReferenceDesc.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
                                      /*
                                       * TODO please review Change
                                       * Old if-clause wouldn't be true ever and causes NullPointerException if one of the supported types is given by mimetype and not by schema:
                                       *
                                       * old code:
-                                      if(tempFormat.getEncoding().equalsIgnoreCase(data.getSchema())){
+                                      if (tempFormat.getEncoding().equalsIgnoreCase(data.getSchema())) {
                                          foundSchemaList.add(tempFormat);
                                      }
                                      */
-                                     if(tempFormat.getSchema()!=null && tempFormat.getSchema().equalsIgnoreCase(data.getSchema())){
+                                     if (tempFormat.getSchema()!=null && tempFormat.getSchema().equalsIgnoreCase(data.getSchema())) {
                                          foundSchemaList.add(tempFormat);
                                      }
                                  }
@@ -537,23 +537,23 @@ public class InputHandler {
 
                             //results
                             ComplexDataDescriptionType foundCommonFormat = null;
-                            for(ComplexDataDescriptionType encodingFormat : foundEncodingList){
-                                for(ComplexDataDescriptionType schemaFormat : foundSchemaList){
-                                    if(encodingFormat.equals(schemaFormat)){
+                            for(ComplexDataDescriptionType encodingFormat : foundEncodingList) {
+                                for(ComplexDataDescriptionType schemaFormat : foundSchemaList) {
+                                    if (encodingFormat.equals(schemaFormat)) {
                                         foundCommonFormat = encodingFormat;
                                     }
                                 }
                             }
 
-                            if(foundCommonFormat!=null){
+                            if (foundCommonFormat!=null) {
                                 dataMimeType = foundCommonFormat.getMimeType();
-                                if(foundCommonFormat.isSetEncoding()){
+                                if (foundCommonFormat.isSetEncoding()) {
                                     formatEncoding = foundCommonFormat.getEncoding();
                                 }
-                                if(foundCommonFormat.isSetSchema()){
+                                if (foundCommonFormat.isSetSchema()) {
                                     formatSchema = foundCommonFormat.getSchema();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding and schema are not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
                         }
@@ -575,7 +575,7 @@ public class InputHandler {
             throw new ExceptionReport("Error obtaining input data", ExceptionReport.NO_APPLICABLE_CODE, e);
         }
 
-        if(parser == null) {
+        if (parser == null) {
                     throw new ExceptionReport("Error. No applicable parser found for " + formatSchema + "," + dataMimeType + "," + formatEncoding, ExceptionReport.NO_APPLICABLE_CODE);
         }
 
@@ -583,7 +583,7 @@ public class InputHandler {
 
         //enable maxoccurs of parameters with the same name.
                 List<IData> list = new ArrayList<IData>();
-        if(inputData.containsKey(inputId)) {
+        if (inputData.containsKey(inputId)) {
                     list = inputData.get(inputId);
         }
                 list.add(collection);
@@ -595,21 +595,21 @@ public class InputHandler {
              boolean canUseDefault = false;
             String defaultMimeType = inputReferenceDesc.getComplexData().getDefault().getFormat().getMimeType();
 
-            if(defaultMimeType.equalsIgnoreCase(dataMimeType)){
+            if (defaultMimeType.equalsIgnoreCase(dataMimeType)) {
                 ComplexDataDescriptionType potentialFormat = inputReferenceDesc.getComplexData().getDefault().getFormat();
-                if(dataSchema != null && dataEncoding == null){
-                    if(dataSchema.equalsIgnoreCase(potentialFormatSchema)){
+                if (dataSchema != null && dataEncoding == null) {
+                    if (dataSchema.equalsIgnoreCase(potentialFormatSchema)) {
                         canUseDefault = true;
                         result = potentialFormat;
                     }
-                } else if(dataSchema != null && dataEncoding != null) {
-                    if(dataSchema.equalsIgnoreCase(potentialFormatSchema)
-                                                && dataEncoding.equalsIgnoreCase(potentialFormatEncoding)){
+                } else if (dataSchema != null && dataEncoding != null) {
+                    if (dataSchema.equalsIgnoreCase(potentialFormatSchema)
+                                                && dataEncoding.equalsIgnoreCase(potentialFormatEncoding)) {
                         canUseDefault = true;
                         result = potentialFormat;
                     }
-                } else if(dataSchema == null && dataEncoding != null){
-                    if(dataEncoding.equalsIgnoreCase(potentialFormatEncoding)){
+                } else if (dataSchema == null && dataEncoding != null) {
+                    if (dataEncoding.equalsIgnoreCase(potentialFormatEncoding)) {
                         canUseDefault = true;
                         result = potentialFormat;
                     }
@@ -765,8 +765,8 @@ public class InputHandler {
                         // Old version causes NullPointerException if default
                         // input is given by mimetype and not by schema:
                         /*
-                         * if(defaultSchema != null &&
-                         * defaultSchema.equalsIgnoreCase(data.getSchema())){
+                         * if (defaultSchema != null &&
+                         * defaultSchema.equalsIgnoreCase(data.getSchema())) {
                          * ... }
                          */
                         if (!StringUtils.isBlank(defaultSchema)
@@ -784,8 +784,8 @@ public class InputHandler {
                                 // supported types is given by mimetype and not
                                 // by schema:
                                 /*
-                                 * if(tempFormat.getEncoding().equalsIgnoreCase(data
-                                 * .getSchema())){ foundSchema =
+                                 * if (tempFormat.getEncoding().equalsIgnoreCase(data
+                                 * .getSchema())) { foundSchema =
                                  * tempFormat.getSchema(); schemaFormat
                                  * =tempFormat; found = found +1; }
                                  */
@@ -838,7 +838,7 @@ public class InputHandler {
                             // default input is given by mimetype and not by
                             // schema:
                             //
-                            // if(defaultSchema.equalsIgnoreCase(data.getSchema())){...
+                            // if (defaultSchema.equalsIgnoreCase(data.getSchema())) {...
                             //
                             if (defaultSchema != null
                                     && defaultSchema.equalsIgnoreCase(data
@@ -855,8 +855,8 @@ public class InputHandler {
                                      * not by schema:
                                      *
                                      * old code:
-                                     * if(tempFormat.getEncoding().equalsIgnoreCase
-                                     * (data.getSchema())){
+                                     * if (tempFormat.getEncoding().equalsIgnoreCase
+                                     * (data.getSchema())) {
                                      * foundSchemaList.add(tempFormat); }
                                      */
                                     if (tempFormat.getSchema() != null
@@ -1470,10 +1470,10 @@ public class InputHandler {
 
     }
 
-    private Format getDefaultFormat(Format[] formatArray){
+    private Format getDefaultFormat(Format[] formatArray) {
 
         for (Format format : formatArray) {
-            if(format.isSetDefault()){
+            if (format.isSetDefault()) {
                 return format;
             }
         }
@@ -1569,16 +1569,16 @@ public class InputHandler {
              String complexValueCopy = complexValue.toString();
              // encoding is UTF-8 (or nothing and we default to UTF-8)
         // everything that goes to this condition should be inline xml data
-        if (StringUtils.isBlank(formatEncoding) || formatEncoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+        if (StringUtils.isBlank(formatEncoding) || formatEncoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
             try {
-                if(!complexValueCopy.contains("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"")){
+                if (!complexValueCopy.contains("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"")) {
                                     complexValueCopy = complexValueCopy.replace("xsi:schemaLocation", "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation");
                 }
                 idata = parser.parse(new ByteArrayInputStream(complexValueCopy.getBytes()), dataMimeType, formatSchema);
             } catch(RuntimeException e) {
                 throw new ExceptionReport("Error occured, while XML parsing", ExceptionReport.NO_APPLICABLE_CODE, e);
             }
-        } else if (formatEncoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+        } else if (formatEncoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                     // in case encoding is base64
                     // everything that goes to this condition should be inline base64 data
                     idata = getBase64EncodedData(complexValue, parser, dataMimeType, formatSchema);
@@ -1629,14 +1629,14 @@ public class InputHandler {
 
         InputDescriptionType inputDesc = XMLBeansHelper.findInputByID(inputID, processDesc.getDataInputs());
 
-        if(xmlDataType == null) {
+        if (xmlDataType == null) {
             DomainMetadataType dataType = inputDesc.getLiteralData().getDataType();
             xmlDataType = dataType != null ? dataType.getReference() : null;
         }
         //still null, assume string as default
-        if(xmlDataType == null) {
+        if (xmlDataType == null) {
             xmlDataType = BasicXMLTypeFactory.STRING_URI;
-        } else if(xmlDataType.contains("http://www.w3.org/TR/xmlschema-2#")){
+        } else if (xmlDataType.contains("http://www.w3.org/TR/xmlschema-2#")) {
             xmlDataType = xmlDataType.replace("http://www.w3.org/TR/xmlschema-2#","xs:");
         }
         xmlDataType = xmlDataType.toLowerCase();
@@ -1650,45 +1650,45 @@ public class InputHandler {
         }
 
         //validate allowed values.
-        if(inputDesc.getLiteralData().isSetAllowedValues()){
-            if((!inputDesc.getLiteralData().isSetAnyValue())){
+        if (inputDesc.getLiteralData().isSetAllowedValues()) {
+            if ((!inputDesc.getLiteralData().isSetAnyValue())) {
                 ValueType[] allowedValues = inputDesc.getLiteralData().getAllowedValues().getValueArray();
                 boolean foundAllowedValue = false;
-                for(ValueType allowedValue : allowedValues){
-                    if(input.getData().getLiteralData().getStringValue().equals(allowedValue.getStringValue())){
+                for(ValueType allowedValue : allowedValues) {
+                    if (input.getData().getLiteralData().getStringValue().equals(allowedValue.getStringValue())) {
                         foundAllowedValue = true;
 
                     }
                 }
                 RangeType[] allowedRanges = {};
-                if(parameterObj instanceof LiteralIntBinding || parameterObj instanceof LiteralDoubleBinding || parameterObj instanceof LiteralShortBinding || parameterObj instanceof LiteralFloatBinding || parameterObj instanceof LiteralLongBinding || parameterObj instanceof LiteralByteBinding){
+                if (parameterObj instanceof LiteralIntBinding || parameterObj instanceof LiteralDoubleBinding || parameterObj instanceof LiteralShortBinding || parameterObj instanceof LiteralFloatBinding || parameterObj instanceof LiteralLongBinding || parameterObj instanceof LiteralByteBinding) {
 
                     allowedRanges = inputDesc.getLiteralData().getAllowedValues().getRangeArray();
-                    for(RangeType allowedRange : allowedRanges){
+                    for(RangeType allowedRange : allowedRanges) {
                         foundAllowedValue = checkRange(parameterObj, allowedRange);
                     }
                 }
 
-                if(!foundAllowedValue && (allowedValues.length!=0 || allowedRanges.length!=0)){
+                if (!foundAllowedValue && (allowedValues.length!=0 || allowedRanges.length!=0)) {
                     throw new ExceptionReport("Input with ID " + inputID + " does not contain an allowed value. See ProcessDescription.", ExceptionReport.INVALID_PARAMETER_VALUE);
                 }
 
             }
         }
 
-        if(parameterObj == null) {
+        if (parameterObj == null) {
             throw new ExceptionReport("XML datatype as LiteralParameter is not supported by the server: dataType " + xmlDataType,
                     ExceptionReport.INVALID_PARAMETER_VALUE);
         }
 
-        if(uom != null && !uom.equals("")){
-            if(parameterObj instanceof AbstractLiteralDataBinding){
+        if (uom != null && !uom.equals("")) {
+            if (parameterObj instanceof AbstractLiteralDataBinding) {
                 ((AbstractLiteralDataBinding)parameterObj).setUnitOfMeasurement(uom);
             }
         }
 
         //enable maxxoccurs of parameters with the same name.
-        if(inputData.containsKey(inputID)) {
+        if (inputData.containsKey(inputID)) {
             List<IData> list = inputData.get(inputID);
             list.add(parameterObj);
         }
@@ -1715,7 +1715,7 @@ public class InputHandler {
         for (int i = 0; i < dataNode.getChildNodes().getLength(); i++) {
             Node childNode = dataNode.getChildNodes().item(i);
             String localName = childNode.getLocalName();
-                    if(childNode != null && localName!= null && localName.equals(LOCAL_NAME_LITERAL_VALUE)){
+                    if (childNode != null && localName!= null && localName.equals(LOCAL_NAME_LITERAL_VALUE)) {
                         try {
                             literalValueDocument = LiteralValueDocument.Factory.parse(childNode);
                             break;
@@ -1736,9 +1736,9 @@ public class InputHandler {
         String xmlDataType = dataType != null ? dataType.getReference() : null;
 
         //still null, assume string as default
-        if(xmlDataType == null) {
+        if (xmlDataType == null) {
             xmlDataType = BasicXMLTypeFactory.STRING_URI;
-        } else if(xmlDataType.contains("http://www.w3.org/TR/xmlschema-2#")){
+        } else if (xmlDataType.contains("http://www.w3.org/TR/xmlschema-2#")) {
             xmlDataType = xmlDataType.replace("http://www.w3.org/TR/xmlschema-2#","xs:");
         }
         xmlDataType = xmlDataType.toLowerCase();
@@ -1752,39 +1752,39 @@ public class InputHandler {
         }
 
         //validate allowed values.
-        if(literalDataDomain.isSetAllowedValues()){
-            if((!literalDataDomain.isSetAnyValue())){
+        if (literalDataDomain.isSetAllowedValues()) {
+            if ((!literalDataDomain.isSetAnyValue())) {
                 net.opengis.ows.x20.ValueType[] allowedValues = literalDataDomain.getAllowedValues().getValueArray();
                 boolean foundAllowedValue = false;
-                for(net.opengis.ows.x20.ValueType allowedValue : allowedValues){
-                    if(parameter.equals(allowedValue.getStringValue())){
+                for(net.opengis.ows.x20.ValueType allowedValue : allowedValues) {
+                    if (parameter.equals(allowedValue.getStringValue())) {
                         foundAllowedValue = true;
 
                     }
                 }
                 net.opengis.ows.x20.RangeType[] allowedRanges = {};
-                if(parameterObj instanceof LiteralIntBinding || parameterObj instanceof LiteralDoubleBinding || parameterObj instanceof LiteralShortBinding || parameterObj instanceof LiteralFloatBinding || parameterObj instanceof LiteralLongBinding || parameterObj instanceof LiteralByteBinding){
+                if (parameterObj instanceof LiteralIntBinding || parameterObj instanceof LiteralDoubleBinding || parameterObj instanceof LiteralShortBinding || parameterObj instanceof LiteralFloatBinding || parameterObj instanceof LiteralLongBinding || parameterObj instanceof LiteralByteBinding) {
 
                     allowedRanges = literalDataDomain.getAllowedValues().getRangeArray();
-                    for(net.opengis.ows.x20.RangeType allowedRange : allowedRanges){
+                    for(net.opengis.ows.x20.RangeType allowedRange : allowedRanges) {
                         foundAllowedValue = checkRangeV200(parameterObj, allowedRange);
                     }
                 }
 
-                if(!foundAllowedValue && (allowedValues.length!=0 || allowedRanges.length!=0)){
+                if (!foundAllowedValue && (allowedValues.length!=0 || allowedRanges.length!=0)) {
                     throw new ExceptionReport("Input with ID " + inputID + " does not contain an allowed value. See ProcessDescription.", ExceptionReport.INVALID_PARAMETER_VALUE);
                 }
 
             }
         }
 
-        if(parameterObj == null) {
+        if (parameterObj == null) {
             throw new ExceptionReport("XML datatype as LiteralParameter is not supported by the server: dataType " + xmlDataType,
                     ExceptionReport.INVALID_PARAMETER_VALUE);
         }
 
         //enable maxxoccurs of parameters with the same name.
-        if(inputData.containsKey(inputID)) {
+        if (inputData.containsKey(inputID)) {
             List<IData> list = inputData.get(inputID);
             list.add(parameterObj);
         }
@@ -1796,54 +1796,54 @@ public class InputHandler {
 
     }
 
-    private boolean checkRange(IData parameterObj, RangeType allowedRange){
+    private boolean checkRange(IData parameterObj, RangeType allowedRange) {
 
         List<?> l = allowedRange.getRangeClosure();
 
         /*
          * no closure info or RangeClosure is "closed", so include boundaries
          */
-        if(l == null || l.isEmpty() || l.get(0).equals("closed")){
+        if (l == null || l.isEmpty() || l.get(0).equals("closed")) {
 
-            if((parameterObj instanceof LiteralIntBinding)){
+            if ((parameterObj instanceof LiteralIntBinding)) {
                 int min = new Integer(allowedRange.getMinimumValue().getStringValue());
                 int max = new Integer(allowedRange.getMaximumValue().getStringValue());
-                if((Integer)(parameterObj.getPayload())>=min && (Integer)parameterObj.getPayload()<=max){
+                if ((Integer)(parameterObj.getPayload())>=min && (Integer)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralDoubleBinding)){
+            if ((parameterObj instanceof LiteralDoubleBinding)) {
                 Double min = new Double(allowedRange.getMinimumValue().getStringValue());
                 Double max = new Double(allowedRange.getMaximumValue().getStringValue());
-                if((Double)(parameterObj.getPayload())>=min && (Double)parameterObj.getPayload()<=max){
+                if ((Double)(parameterObj.getPayload())>=min && (Double)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralShortBinding)){
+            if ((parameterObj instanceof LiteralShortBinding)) {
                 Short min = new Short(allowedRange.getMinimumValue().getStringValue());
                 Short max = new Short(allowedRange.getMaximumValue().getStringValue());
-                if((Short)(parameterObj.getPayload())>=min && (Short)parameterObj.getPayload()<=max){
+                if ((Short)(parameterObj.getPayload())>=min && (Short)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralFloatBinding)){
+            if ((parameterObj instanceof LiteralFloatBinding)) {
                 Float min = new Float(allowedRange.getMinimumValue().getStringValue());
                 Float max = new Float(allowedRange.getMaximumValue().getStringValue());
-                if((Float)(parameterObj.getPayload())>=min && (Float)parameterObj.getPayload()<=max){
+                if ((Float)(parameterObj.getPayload())>=min && (Float)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralLongBinding)){
+            if ((parameterObj instanceof LiteralLongBinding)) {
                 Long min = new Long(allowedRange.getMinimumValue().getStringValue());
                 Long max = new Long(allowedRange.getMaximumValue().getStringValue());
-                if((Long)(parameterObj.getPayload())>=min && (Long)parameterObj.getPayload()<=max){
+                if ((Long)(parameterObj.getPayload())>=min && (Long)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralByteBinding)){
+            if ((parameterObj instanceof LiteralByteBinding)) {
                 Byte min = new Byte(allowedRange.getMinimumValue().getStringValue());
                 Byte max = new Byte(allowedRange.getMaximumValue().getStringValue());
-                if((Byte)(parameterObj.getPayload())>=min && (Byte)parameterObj.getPayload()<=max){
+                if ((Byte)(parameterObj.getPayload())>=min && (Byte)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
@@ -1856,54 +1856,54 @@ public class InputHandler {
         return false;
     }
 
-    private boolean checkRangeV200(IData parameterObj, net.opengis.ows.x20.RangeType allowedRange){
+    private boolean checkRangeV200(IData parameterObj, net.opengis.ows.x20.RangeType allowedRange) {
 
         List<?> l = allowedRange.getRangeClosure();
 
         /*
          * no closure info or RangeClosure is "closed", so include boundaries
          */
-        if(l == null || l.isEmpty() || l.get(0).equals("closed")){
+        if (l == null || l.isEmpty() || l.get(0).equals("closed")) {
 
-            if((parameterObj instanceof LiteralIntBinding)){
+            if ((parameterObj instanceof LiteralIntBinding)) {
                 int min = new Integer(allowedRange.getMinimumValue().getStringValue());
                 int max = new Integer(allowedRange.getMaximumValue().getStringValue());
-                if((Integer)(parameterObj.getPayload())>=min && (Integer)parameterObj.getPayload()<=max){
+                if ((Integer)(parameterObj.getPayload())>=min && (Integer)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralDoubleBinding)){
+            if ((parameterObj instanceof LiteralDoubleBinding)) {
                 Double min = new Double(allowedRange.getMinimumValue().getStringValue());
                 Double max = new Double(allowedRange.getMaximumValue().getStringValue());
-                if((Double)(parameterObj.getPayload())>=min && (Double)parameterObj.getPayload()<=max){
+                if ((Double)(parameterObj.getPayload())>=min && (Double)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralShortBinding)){
+            if ((parameterObj instanceof LiteralShortBinding)) {
                 Short min = new Short(allowedRange.getMinimumValue().getStringValue());
                 Short max = new Short(allowedRange.getMaximumValue().getStringValue());
-                if((Short)(parameterObj.getPayload())>=min && (Short)parameterObj.getPayload()<=max){
+                if ((Short)(parameterObj.getPayload())>=min && (Short)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralFloatBinding)){
+            if ((parameterObj instanceof LiteralFloatBinding)) {
                 Float min = new Float(allowedRange.getMinimumValue().getStringValue());
                 Float max = new Float(allowedRange.getMaximumValue().getStringValue());
-                if((Float)(parameterObj.getPayload())>=min && (Float)parameterObj.getPayload()<=max){
+                if ((Float)(parameterObj.getPayload())>=min && (Float)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralLongBinding)){
+            if ((parameterObj instanceof LiteralLongBinding)) {
                 Long min = new Long(allowedRange.getMinimumValue().getStringValue());
                 Long max = new Long(allowedRange.getMaximumValue().getStringValue());
-                if((Long)(parameterObj.getPayload())>=min && (Long)parameterObj.getPayload()<=max){
+                if ((Long)(parameterObj.getPayload())>=min && (Long)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
-            if((parameterObj instanceof LiteralByteBinding)){
+            if ((parameterObj instanceof LiteralByteBinding)) {
                 Byte min = new Byte(allowedRange.getMinimumValue().getStringValue());
                 Byte max = new Byte(allowedRange.getMaximumValue().getStringValue());
-                if((Byte)(parameterObj.getPayload())>=min && (Byte)parameterObj.getPayload()<=max){
+                if ((Byte)(parameterObj.getPayload())>=min && (Byte)parameterObj.getPayload()<=max) {
                     return true;
                 }
             }
@@ -1938,12 +1938,12 @@ public class InputHandler {
          */
         InputDescriptionType inputPD = null;
         for(InputDescriptionType tempDesc : this.processDesc.getDataInputs().getInputArray()) {
-            if(inputID.equals(tempDesc.getIdentifier().getStringValue())) {
+            if (inputID.equals(tempDesc.getIdentifier().getStringValue())) {
                 inputPD = tempDesc;
                 break;
             }
         }
-        if(inputPD == null) { // check if there is a corresponding input identifier in the process description
+        if (inputPD == null) { // check if there is a corresponding input identifier in the process description
             LOGGER.debug("Input cannot be found in description for " + this.processDesc.getIdentifier().getStringValue() + "," + inputID);
             throw new RuntimeException("Input cannot be found in description for " + this.processDesc.getIdentifier().getStringValue() + "," + inputID);
         }
@@ -1975,7 +1975,7 @@ public class InputHandler {
         // overwrite with data format from request if appropriate
         InputReferenceType referenceData = input.getReference();
 
-        if (referenceData.isSetMimeType() && referenceData.getMimeType() != null){
+        if (referenceData.isSetMimeType() && referenceData.getMimeType() != null) {
             //mime type in request
             mimeType = referenceData.getMimeType();
             ComplexDataDescriptionType format = null;
@@ -1983,62 +1983,62 @@ public class InputHandler {
             String defaultMimeType = inputPD.getComplexData().getDefault().getFormat().getMimeType();
 
             boolean canUseDefault = false;
-            if(defaultMimeType.equalsIgnoreCase(mimeType)){
+            if (defaultMimeType.equalsIgnoreCase(mimeType)) {
                 ComplexDataDescriptionType potentialFormat = inputPD.getComplexData().getDefault().getFormat();
-                if(referenceData.getSchema() != null && referenceData.getEncoding() == null){
-                    if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())){
+                if (referenceData.getSchema() != null && referenceData.getEncoding() == null) {
+                    if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())) {
                         canUseDefault = true;
                         format = potentialFormat;
                     }
                 }
-                if(referenceData.getSchema() == null && referenceData.getEncoding() != null){
-                    if(referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
-                        canUseDefault = true;
-                        format = potentialFormat;
-                    }
-
-                }
-                if(referenceData.getSchema() != null && referenceData.getEncoding() != null){
-                    if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
+                if (referenceData.getSchema() == null && referenceData.getEncoding() != null) {
+                    if (referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
                         canUseDefault = true;
                         format = potentialFormat;
                     }
 
                 }
-                if(referenceData.getSchema() == null && referenceData.getEncoding() == null){
+                if (referenceData.getSchema() != null && referenceData.getEncoding() != null) {
+                    if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
+                        canUseDefault = true;
+                        format = potentialFormat;
+                    }
+
+                }
+                if (referenceData.getSchema() == null && referenceData.getEncoding() == null) {
                     canUseDefault = true;
                     format = potentialFormat;
                 }
 
             }
-            if(!canUseDefault){
+            if (!canUseDefault) {
                  ComplexDataDescriptionType[] formats = inputPD.getComplexData().getSupported().getFormatArray();
-                 for(ComplexDataDescriptionType potentialFormat : formats){
-                     if(potentialFormat.getMimeType().equalsIgnoreCase(mimeType)){
-                         if(referenceData.getSchema() != null && referenceData.getEncoding() == null){
-                                if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())){
+                 for(ComplexDataDescriptionType potentialFormat : formats) {
+                     if (potentialFormat.getMimeType().equalsIgnoreCase(mimeType)) {
+                         if (referenceData.getSchema() != null && referenceData.getEncoding() == null) {
+                                if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())) {
                                     format = potentialFormat;
                                 }
                             }
-                            if(referenceData.getSchema() == null && referenceData.getEncoding() != null){
-                                if(referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
-                                    format = potentialFormat;
-                                }
-
-                            }
-                            if(referenceData.getSchema() != null && referenceData.getEncoding() != null){
-                                if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
+                            if (referenceData.getSchema() == null && referenceData.getEncoding() != null) {
+                                if (referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
                                     format = potentialFormat;
                                 }
 
                             }
-                            if(referenceData.getSchema() == null && referenceData.getEncoding() == null){
+                            if (referenceData.getSchema() != null && referenceData.getEncoding() != null) {
+                                if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
+                                    format = potentialFormat;
+                                }
+
+                            }
+                            if (referenceData.getSchema() == null && referenceData.getEncoding() == null) {
                                 format = potentialFormat;
                             }
                      }
                  }
             }
-            if(format == null){
+            if (format == null) {
                 throw new ExceptionReport("Possibly multiple or none matching generators found for the input data with id = \"" + inputPD.getIdentifier().getStringValue() + "\". Is the MimeType (\"" + referenceData.getMimeType() + "\") correctly set?", ExceptionReport.INVALID_PARAMETER_VALUE);
                 //throw new ExceptionReport("Could not determine format of the input data (id= \"" + inputPD.getIdentifier().getStringValue() + "\"), given the mimetype \"" + referenceData.getMimeType() + "\"", ExceptionReport.INVALID_PARAMETER_VALUE);
 
@@ -2046,87 +2046,87 @@ public class InputHandler {
 
             mimeType = format.getMimeType();
 
-            if(format.isSetEncoding()){
+            if (format.isSetEncoding()) {
                 //no encoding provided--> select default one for mimeType
                 encoding = format.getEncoding();
             }
 
-            if(format.isSetSchema()){
+            if (format.isSetSchema()) {
                 //no encoding provided--> select default one for mimeType
                 schema = format.getSchema();
             }
 
-        }else{
+        } else {
             // mimeType not in request, fetch mimetype from reference response
             mimeType = stream.getMimeType();
-            if(mimeType.contains("GML2")){
+            if (mimeType.contains("GML2")) {
                 mimeType = "text/xml; subtype=gml/2.0.0";
             }
-            if(mimeType.contains("GML3")){
+            if (mimeType.contains("GML3")) {
                 mimeType = "text/xml; subtype=gml/3.0.0";
             }
             ComplexDataDescriptionType format = null;
 
-            if(mimeType != null){
+            if (mimeType != null) {
                 String defaultMimeType = inputPD.getComplexData().getDefault().getFormat().getMimeType();
 
                 boolean canUseDefault = false;
-                if(defaultMimeType.equalsIgnoreCase(mimeType)){
+                if (defaultMimeType.equalsIgnoreCase(mimeType)) {
                     ComplexDataDescriptionType potentialFormat = inputPD.getComplexData().getDefault().getFormat();
-                    if(referenceData.getSchema() != null && referenceData.getEncoding() == null){
-                        if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())){
+                    if (referenceData.getSchema() != null && referenceData.getEncoding() == null) {
+                        if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())) {
                             canUseDefault = true;
                             format = potentialFormat;
                         }
                     }
-                    if(referenceData.getSchema() == null && referenceData.getEncoding() != null){
-                        if(referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
-                            canUseDefault = true;
-                            format = potentialFormat;
-                        }
-
-                    }
-                    if(referenceData.getSchema() != null && referenceData.getEncoding() != null){
-                        if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
+                    if (referenceData.getSchema() == null && referenceData.getEncoding() != null) {
+                        if (referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
                             canUseDefault = true;
                             format = potentialFormat;
                         }
 
                     }
-                    if(referenceData.getSchema() == null && referenceData.getEncoding() == null){
+                    if (referenceData.getSchema() != null && referenceData.getEncoding() != null) {
+                        if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
+                            canUseDefault = true;
+                            format = potentialFormat;
+                        }
+
+                    }
+                    if (referenceData.getSchema() == null && referenceData.getEncoding() == null) {
                         canUseDefault = true;
                         format = potentialFormat;
                     }
 
                 }
-                if(!canUseDefault){
+                if (!canUseDefault) {
                      ComplexDataDescriptionType[] formats = inputPD.getComplexData().getSupported().getFormatArray();
-                     for(ComplexDataDescriptionType potentialFormat : formats){
-                         if(!StringUtils.isBlank(potentialFormat.getMimeType()) && potentialFormat.getMimeType().equalsIgnoreCase(mimeType)){
-                             if(referenceData.getSchema() != null && referenceData.getEncoding() == null){
-                                    if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())){
+                     for(ComplexDataDescriptionType potentialFormat : formats) {
+                         if (!StringUtils.isBlank(potentialFormat.getMimeType()) && potentialFormat.getMimeType().equalsIgnoreCase(mimeType)) {
+                             if (referenceData.getSchema() != null && referenceData.getEncoding() == null) {
+                                    if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema())) {
                                         format = potentialFormat;
                                     }
                                 }
-                                if(referenceData.getSchema() == null && referenceData.getEncoding() != null){
-                                    if(referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
-                                        format = potentialFormat;
-                                    }
-
-                                }
-                                if(referenceData.getSchema() != null && referenceData.getEncoding() != null){
-                                    if(referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())){
+                                if (referenceData.getSchema() == null && referenceData.getEncoding() != null) {
+                                    if (referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
                                         format = potentialFormat;
                                     }
 
                                 }
-                                if(referenceData.getSchema() == null && referenceData.getEncoding() == null){
+                                if (referenceData.getSchema() != null && referenceData.getEncoding() != null) {
+                                    if (referenceData.getSchema().equalsIgnoreCase(potentialFormat.getSchema()) && referenceData.getEncoding().equalsIgnoreCase(potentialFormat.getEncoding())) {
+                                        format = potentialFormat;
+                                    }
+
+                                }
+                                if (referenceData.getSchema() == null && referenceData.getEncoding() == null) {
                                     format = potentialFormat;
                                 }
                          }
                      }
                 }
-                if(format == null){
+                if (format == null) {
                     //throw new ExceptionReport("Could not determine intput format. Possibly multiple or none matching generators found. MimeType Set?", ExceptionReport.INVALID_PARAMETER_VALUE);
                     // TODO Review error message
                     throw new ExceptionReport("Could not determine input format because none of the supported formats match the given schema (\"" + referenceData.getSchema() + "\") and encoding (\"" + referenceData.getEncoding() + "\"). (A mimetype was not specified)", ExceptionReport.INVALID_PARAMETER_VALUE);
@@ -2135,41 +2135,41 @@ public class InputHandler {
 
                 mimeType = format.getMimeType();
 
-                if(format.isSetEncoding()){
+                if (format.isSetEncoding()) {
                     //no encoding provided--> select default one for mimeType
                     encoding = format.getEncoding();
                 }
 
-                if(format.isSetSchema()){
+                if (format.isSetSchema()) {
                     //no encoding provided--> select default one for mimeType
                     schema = format.getSchema();
                 }
             }
 
-            if(mimeType==null && !referenceData.isSetEncoding() && !referenceData.isSetSchema()){
+            if (mimeType==null && !referenceData.isSetEncoding() && !referenceData.isSetSchema()) {
                     //nothing set, use default values
                     schema = inputPD.getComplexData().getDefault().getFormat().getSchema();
                     mimeType = inputPD.getComplexData().getDefault().getFormat().getMimeType();
                     encoding = inputPD.getComplexData().getDefault().getFormat().getEncoding();
 
-            }else{
+            } else {
                     //do a smart search an look if a mimeType can be found for either schema and/or encoding
 
-                if(mimeType==null){
-                    if(referenceData.isSetEncoding() && !referenceData.isSetSchema()){
+                if (mimeType==null) {
+                    if (referenceData.isSetEncoding() && !referenceData.isSetSchema()) {
                             //encoding set only
                             ComplexDataDescriptionType encodingFormat = null;
                             String defaultEncoding = inputPD.getComplexData().getDefault().getFormat().getEncoding();
                             int found = 0;
                             String foundEncoding = null;
-                            if(defaultEncoding.equalsIgnoreCase(referenceData.getEncoding())){
+                            if (defaultEncoding.equalsIgnoreCase(referenceData.getEncoding())) {
                                 foundEncoding = inputPD.getComplexData().getDefault().getFormat().getEncoding();
                                 encodingFormat = inputPD.getComplexData().getDefault().getFormat();
                                 found += 1;
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputPD.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(referenceData.getEncoding())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(referenceData.getEncoding())) {
                                          foundEncoding = tempFormat.getEncoding();
                                          encodingFormat = tempFormat;
                                          found += 1;
@@ -2177,31 +2177,31 @@ public class InputHandler {
                                  }
                             }
 
-                            if(found == 1){
+                            if (found == 1) {
                                 encoding = foundEncoding;
                                 mimeType = encodingFormat.getMimeType();
-                                if(encodingFormat.isSetSchema()){
+                                if (encodingFormat.isSetSchema()) {
                                     schema = encodingFormat.getSchema();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
 
                         }
-                        if(referenceData.isSetSchema() && !referenceData.isSetEncoding()){
+                        if (referenceData.isSetSchema() && !referenceData.isSetEncoding()) {
                             //schema set only
                             ComplexDataDescriptionType schemaFormat = null;
                             String defaultSchema = inputPD.getComplexData().getDefault().getFormat().getSchema();
                             int found = 0;
                             String foundSchema = null;
-                            if(defaultSchema.equalsIgnoreCase(referenceData.getSchema())){
+                            if (defaultSchema.equalsIgnoreCase(referenceData.getSchema())) {
                                 foundSchema = inputPD.getComplexData().getDefault().getFormat().getSchema();
                                 schemaFormat = inputPD.getComplexData().getDefault().getFormat();
                                 found += 1;
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputPD.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(referenceData.getSchema())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(referenceData.getSchema())) {
                                          foundSchema = tempFormat.getSchema();
                                          schemaFormat =tempFormat;
                                          found += 1;
@@ -2209,18 +2209,18 @@ public class InputHandler {
                                  }
                             }
 
-                            if(found == 1){
+                            if (found == 1) {
                                 schema = foundSchema;
                                 mimeType = schemaFormat.getMimeType();
-                                if(schemaFormat.isSetEncoding()){
+                                if (schemaFormat.isSetEncoding()) {
                                     encoding = schemaFormat.getEncoding();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given schema not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
 
                         }
-                        if(referenceData.isSetEncoding() && referenceData.isSetSchema()){
+                        if (referenceData.isSetEncoding() && referenceData.isSetSchema()) {
                             //schema and encoding set
 
 
@@ -2228,14 +2228,14 @@ public class InputHandler {
                             String defaultEncoding = inputPD.getComplexData().getDefault().getFormat().getEncoding();
 
                             List<ComplexDataDescriptionType> foundEncodingList = new ArrayList<ComplexDataDescriptionType>();
-                            if(defaultEncoding.equalsIgnoreCase(referenceData.getEncoding())){
+                            if (defaultEncoding.equalsIgnoreCase(referenceData.getEncoding())) {
                                 foundEncodingList.add(inputPD.getComplexData().getDefault().getFormat());
 
 
-                            }else{
+                            } else {
                                  ComplexDataDescriptionType[] formats = inputPD.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(referenceData.getEncoding())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(referenceData.getEncoding())) {
                                          foundEncodingList.add(tempFormat);
                                      }
                             }
@@ -2246,12 +2246,12 @@ public class InputHandler {
                             //schema
                             List<ComplexDataDescriptionType> foundSchemaList = new ArrayList<ComplexDataDescriptionType>();
                             String defaultSchema = inputPD.getComplexData().getDefault().getFormat().getSchema();
-                            if(defaultSchema.equalsIgnoreCase(referenceData.getSchema())){
+                            if (defaultSchema.equalsIgnoreCase(referenceData.getSchema())) {
                                 foundSchemaList.add(inputPD.getComplexData().getDefault().getFormat());
-                            }else{
+                            } else {
                                  formats = inputPD.getComplexData().getSupported().getFormatArray();
-                                 for(ComplexDataDescriptionType tempFormat : formats){
-                                     if(tempFormat.getEncoding().equalsIgnoreCase(referenceData.getSchema())){
+                                 for(ComplexDataDescriptionType tempFormat : formats) {
+                                     if (tempFormat.getEncoding().equalsIgnoreCase(referenceData.getSchema())) {
                                          foundSchemaList.add(tempFormat);
                                      }
                                  }
@@ -2260,9 +2260,9 @@ public class InputHandler {
 
                             //results
                             ComplexDataDescriptionType foundCommonFormat = null;
-                            for(ComplexDataDescriptionType encodingFormat : foundEncodingList){
-                                for(ComplexDataDescriptionType schemaFormat : foundSchemaList){
-                                    if(encodingFormat.equals(schemaFormat)){
+                            for(ComplexDataDescriptionType encodingFormat : foundEncodingList) {
+                                for(ComplexDataDescriptionType schemaFormat : foundSchemaList) {
+                                    if (encodingFormat.equals(schemaFormat)) {
                                         foundCommonFormat = encodingFormat;
                                     }
                                 }
@@ -2270,15 +2270,15 @@ public class InputHandler {
 
                             }
 
-                            if(foundCommonFormat!=null){
+                            if (foundCommonFormat!=null) {
                                 mimeType = foundCommonFormat.getMimeType();
-                                if(foundCommonFormat.isSetEncoding()){
+                                if (foundCommonFormat.isSetEncoding()) {
                                     encoding = foundCommonFormat.getEncoding();
                                 }
-                                if(foundCommonFormat.isSetSchema()){
+                                if (foundCommonFormat.isSetSchema()) {
                                     schema = foundCommonFormat.getSchema();
                                 }
-                            }else{
+                            } else {
                                 throw new ExceptionReport("Request incomplete. Could not determine a suitable input format based on the given input [mime Type missing and given encoding and schema are not unique]", ExceptionReport.MISSING_PARAMETER_VALUE);
                             }
 
@@ -2299,7 +2299,7 @@ public class InputHandler {
         IParser parser = null;
         try {
             Class<?> algorithmInputClass = RepositoryManagerSingletonWrapper.getInstance().getInputDataTypeForAlgorithm(this.algorithmIdentifier, inputID);
-            if(algorithmInputClass == null) {
+            if (algorithmInputClass == null) {
                 throw new RuntimeException("Could not determine internal input class for input" + inputID);
             }
             LOGGER.info("Looking for matching Parser ..." +
@@ -2309,7 +2309,7 @@ public class InputHandler {
 
             parser = ParserFactory.getInstance().getParser(schema, mimeType, encoding, algorithmInputClass);
 
-            if(parser == null) {
+            if (parser == null) {
                 throw new ExceptionReport("Error. No applicable parser found for schema=\"" + schema + "\", mimeType=\"" + mimeType + "\", encoding=\"" + encoding + "\"", ExceptionReport.NO_APPLICABLE_CODE);
             }
         } catch (RuntimeException e) {
@@ -2320,7 +2320,7 @@ public class InputHandler {
             /****PROXY*****/
             /*String decodedURL = URLDecoder.decode(dataURLString);
             decodedURL = decodedURL.replace("&amp;", "&");
-            if(decodedURL.indexOf("&BBOX")==-1){
+            if (decodedURL.indexOf("&BBOX")==-1) {
                 decodedURL = decodedURL.replace("BBOX", "&BBOX");
                 decodedURL = decodedURL.replace("outputFormat", "&outputFormat");
                 decodedURL = decodedURL.replace("SRS", "&SRS");
@@ -2332,16 +2332,16 @@ public class InputHandler {
 
 
             //TODO lookup WFS -- we can't do that here.
-//            if(dataURLString.toUpperCase().contains("REQUEST=GETFEATURE") &&
-//                dataURLString.toUpperCase().contains("SERVICE=WFS")){
-//                    if(parser instanceof SimpleGMLParser){
+//            if (dataURLString.toUpperCase().contains("REQUEST=GETFEATURE") &&
+//                dataURLString.toUpperCase().contains("SERVICE=WFS")) {
+//                    if (parser instanceof SimpleGMLParser) {
 //                        parser = new GML2BasicParser();
 //                    }
-//                    if(parser instanceof GML2BasicParser && !dataURLString.toUpperCase().contains("OUTPUTFORMAT=GML2")){
+//                    if (parser instanceof GML2BasicParser && !dataURLString.toUpperCase().contains("OUTPUTFORMAT=GML2")) {
 //                        //make sure we get GML2
 //                        dataURLString = dataURLString+"&outputFormat=GML2";
 //                    }
-//                    if(parser instanceof GML3BasicParser && !dataURLString.toUpperCase().contains("OUTPUTFORMAT=GML3")){
+//                    if (parser instanceof GML3BasicParser && !dataURLString.toUpperCase().contains("OUTPUTFORMAT=GML3")) {
 //                        //make sure we get GML3
 //                        dataURLString = dataURLString+"&outputFormat=GML3";
 //                    }
@@ -2352,7 +2352,7 @@ public class InputHandler {
             IData parsedInputData = parser.parse(stream, mimeType, schema);
 
             //enable maxxoccurs of parameters with the same name.
-            if(inputData.containsKey(inputID)) {
+            if (inputData.containsKey(inputID)) {
                 List<IData> list = inputData.get(inputID);
                 list.add(parsedInputData);
                 inputData.put(inputID, list);
@@ -2441,9 +2441,9 @@ public class InputHandler {
         Node dataNode = input.getData().getDomNode();
 
         try {
-            if(dataNode.getChildNodes().getLength() > 1){
+            if (dataNode.getChildNodes().getLength() > 1) {
                 boundingBoxDocument = BoundingBoxDocument.Factory.parse(dataNode.getChildNodes().item(1));
-            }else{
+            } else {
                 boundingBoxDocument = BoundingBoxDocument.Factory.parse(input.getData().getDomNode());
             }
         } catch (XmlException e) {
@@ -2522,17 +2522,17 @@ public class InputHandler {
      * Gets the resulting InputLayers from the parser
      * @return A map with the parsed input
      */
-    public Map<String, List<IData>> getParsedInputData(){
+    public Map<String, List<IData>> getParsedInputData() {
         return inputData;
     }
 
 
 //    private InputStream retrievingZippedContent(URLConnection conn) throws IOException{
 //        String contentType = conn.getContentEncoding();
-//        if(contentType != null && contentType.equals("gzip")) {
+//        if (contentType != null && contentType.equals("gzip")) {
 //            return new GZIPInputStream(conn.getInputStream());
 //        }
-//        else{
+//        else {
 //            return conn.getInputStream();
 //        }
 //    }

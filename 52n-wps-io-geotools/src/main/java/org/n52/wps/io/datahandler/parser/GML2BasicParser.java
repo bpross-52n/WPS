@@ -121,7 +121,7 @@ public class GML2BasicParser extends AbstractParser {
 
             return data;
         } catch (IOException e) {
-            if (fos != null){
+            if (fos != null) {
                 try {
                     fos.close();
                 } catch (Exception e1) {

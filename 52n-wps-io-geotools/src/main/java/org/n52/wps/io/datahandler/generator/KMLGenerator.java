@@ -72,7 +72,7 @@ public class KMLGenerator extends AbstractGenerator {
 
     private static Logger LOGGER = LoggerFactory.getLogger(KMLGenerator.class);
 
-    public KMLGenerator(){
+    public KMLGenerator() {
         super();
         supportedIDataTypes.add(GTVectorDataBinding.class);
     }
@@ -91,7 +91,7 @@ public class KMLGenerator extends AbstractGenerator {
             outputStream.close();
 
             stream = new FileInputStream(tempFile);
-        } catch (IOException e){
+        } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new IOException("Unable to generate KML");
         }
@@ -108,7 +108,7 @@ public class KMLGenerator extends AbstractGenerator {
         try{
             encoder.encode(fc, KML.kml, os);
 
-        }catch(IOException e){
+        } catch(IOException e) {
             throw new RuntimeException(e);
         }
     }

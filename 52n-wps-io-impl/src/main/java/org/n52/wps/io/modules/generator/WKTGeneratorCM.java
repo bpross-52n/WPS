@@ -46,7 +46,7 @@ public class WKTGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public WKTGeneratorCM(){
+    public WKTGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

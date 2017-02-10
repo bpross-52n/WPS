@@ -64,14 +64,14 @@ public class RawDataTest  extends AbstractITClass{
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         algorithm = new DummyTestClass();
         processDescription = algorithm.getDescription();
         identifier = algorithm.getWellKnownName();
     }
 
     @Test
-    public void testBBoxRawDataOutputCRS(){
+    public void testBBoxRawDataOutputCRS() {
 
         IData envelope = new BoundingBoxData(
                    new double[] { 46, 102 },
@@ -95,7 +95,7 @@ public class RawDataTest  extends AbstractITClass{
     }
 
     @Test
-    public void testBBoxRawDataOutput(){
+    public void testBBoxRawDataOutput() {
 
            IData envelope = new BoundingBoxData(
                    new double[] { 46, 102 },

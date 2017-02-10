@@ -52,7 +52,7 @@ public class CapabilitiesGetProcessDescriptionExceptionTest extends AbstractITCl
     public static boolean algorithmTriedToInstantiate;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         RepositoryManager repositoryManager = new RepositoryManager();
         repositoryManager.setApplicationContext(this.wac);
         repositoryManager.init();

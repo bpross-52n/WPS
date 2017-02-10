@@ -126,23 +126,23 @@ public class OutputDataItem extends ResponseData {
             // in case encoding is
             //
             InputStream stream = null;
-            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
                 stream = generator.generateStream(super.obj, mimeType, schema);
             }
 
             // in case encoding is base64 create a new text node
             // and parse the generator's result into it
-            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                 stream = generator.generateBase64Stream(super.obj, mimeType, schema);
             }
             else {
                 throw new ExceptionReport("Unable to generate encoding " + encoding, ExceptionReport.NO_APPLICABLE_CODE);
             }
             complexData = output.addNewData().addNewComplexData();
-            if(mimeType.contains("xml") || mimeType.contains("XML")){
+            if (mimeType.contains("xml") || mimeType.contains("XML")) {
                 complexData.set(XmlObject.Factory.parse(stream));
                 stream.close();
-            }else{
+            } else {
                 DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 Document document = builder.newDocument();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -182,7 +182,7 @@ public class OutputDataItem extends ResponseData {
         }
     }
 
-    public void updateResponseForLiteralData(ExecuteResponseDocument res, String dataTypeReference){
+    public void updateResponseForLiteralData(ExecuteResponseDocument res, String dataTypeReference) {
         OutputDataType output = prepareOutput(res);
         String processValue = BasicXMLTypeFactory.getStringRepresentation(dataTypeReference, obj);
         LiteralDataType literalData = output.addNewData().addNewLiteralData();
@@ -190,9 +190,9 @@ public class OutputDataItem extends ResponseData {
             literalData.setDataType(dataTypeReference);
         }
         literalData.setStringValue(processValue);
-        if(obj instanceof AbstractLiteralDataBinding){
+        if (obj instanceof AbstractLiteralDataBinding) {
             String uom = ((AbstractLiteralDataBinding)obj).getUnitOfMeasurement();
-            if(uom != null && !uom.equals("")){
+            if (uom != null && !uom.equals("")) {
                 literalData.setUom(uom);
             }
         }
@@ -217,12 +217,12 @@ public class OutputDataItem extends ResponseData {
         String storeID = reqID + "" + id;
 
         try {
-            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
                 stream = generator.generateStream(super.obj, mimeType, schema);
             }
 
             // in case encoding is base64
-            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                 stream = generator.generateBase64Stream(super.obj, mimeType, schema);
             }
 
@@ -230,7 +230,7 @@ public class OutputDataItem extends ResponseData {
                 throw new ExceptionReport("Unable to generate encoding " + encoding, ExceptionReport.NO_APPLICABLE_CODE);
             }
         }
-        catch (IOException e){
+        catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ExceptionReport("Error while generating Complex Data out of the process result", ExceptionReport.NO_APPLICABLE_CODE, e);
         }
@@ -243,7 +243,7 @@ public class OutputDataItem extends ResponseData {
         this.mimeType = "text/xml";
     }
 
-    private OutputDataType prepareOutput(ExecuteResponseDocument res){
+    private OutputDataType prepareOutput(ExecuteResponseDocument res) {
         OutputDataType output = res.getExecuteResponse().getProcessOutputs().addNewOutput();
         CodeType identifierCode = output.addNewIdentifier();
         identifierCode.setStringValue(id);
@@ -262,7 +262,7 @@ public class OutputDataItem extends ResponseData {
         bboxData.setDimensions(BigInteger.valueOf(bbox.getDimension()));
     }
 
-    private DataOutputType prepareOutput(ResultDocument res){
+    private DataOutputType prepareOutput(ResultDocument res) {
         DataOutputType output = res.getResult().addNewOutput();
         output.setId(id);
         return output;
@@ -292,9 +292,9 @@ public class OutputDataItem extends ResponseData {
                 LOGGER.error(e.getMessage());
             }
 //            literalData.setStringValue(processValue);
-//            if(obj instanceof AbstractLiteralDataBinding){
+//            if (obj instanceof AbstractLiteralDataBinding) {
 //                    String uom = ((AbstractLiteralDataBinding)obj).getUnitOfMeasurement();
-//                    if(uom != null && !uom.equals("")){
+//                    if (uom != null && !uom.equals("")) {
 //                            literalData.setUom(uom);
 //                    }
 //            }
@@ -321,12 +321,12 @@ public class OutputDataItem extends ResponseData {
         String storeID = reqID + "" + id;
 
         try {
-            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
                 stream = generator.generateStream(super.obj, mimeType, schema);
             }
 
             // in case encoding is base64
-            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                 stream = generator.generateBase64Stream(super.obj, mimeType, schema);
             }
 
@@ -334,7 +334,7 @@ public class OutputDataItem extends ResponseData {
                 throw new ExceptionReport("Unable to generate encoding " + encoding, ExceptionReport.NO_APPLICABLE_CODE);
             }
         }
-        catch (IOException e){
+        catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ExceptionReport("Error while generating Complex Data out of the process result", ExceptionReport.NO_APPLICABLE_CODE, e);
         }
@@ -364,23 +364,23 @@ public class OutputDataItem extends ResponseData {
             // in case encoding is
             //
             InputStream stream = null;
-            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)){
+            if (encoding == null || encoding.equals("") || encoding.equalsIgnoreCase(IOHandler.DEFAULT_ENCODING)) {
                 stream = generator.generateStream(super.obj, mimeType, schema);
             }
 
             // in case encoding is base64 create a new text node
             // and parse the generator's result into it
-            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)){
+            else if (encoding.equalsIgnoreCase(IOHandler.ENCODING_BASE64)) {
                 stream = generator.generateBase64Stream(super.obj, mimeType, schema);
             }
             else {
                 throw new ExceptionReport("Unable to generate encoding " + encoding, ExceptionReport.NO_APPLICABLE_CODE);
             }
             complexData = output.addNewData();
-            if(mimeType.contains("xml") || mimeType.contains("XML")){
+            if (mimeType.contains("xml") || mimeType.contains("XML")) {
                 complexData.set(XmlObject.Factory.parse(stream));
                 stream.close();
-            }else{
+            } else {
                 DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 Document document = builder.newDocument();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();

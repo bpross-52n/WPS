@@ -41,16 +41,16 @@ public class ProcessIDRegistry {
     private volatile boolean lock = false;
     private static ArrayList<String> idList = new ArrayList<String>();
 
-    private ProcessIDRegistry(){
+    private ProcessIDRegistry() {
         //empty private constructor
     }
 
-    public static ProcessIDRegistry getInstance(){
+    public static ProcessIDRegistry getInstance() {
         return instance;
     }
 
-    public boolean addID(String id){
-        while (lock){
+    public boolean addID(String id) {
+        while (lock) {
             //spin
         }
         try{
@@ -64,8 +64,8 @@ public class ProcessIDRegistry {
         }
     }
 
-    public synchronized boolean removeID(String id){
-        while (lock){
+    public synchronized boolean removeID(String id) {
+        while (lock) {
             //spin
         }
         try{
@@ -79,16 +79,16 @@ public class ProcessIDRegistry {
         }
     }
 
-    public boolean containsID(String id){
+    public boolean containsID(String id) {
         return idList.contains(id);
     }
 
-    public String[] getIDs(){
+    public String[] getIDs() {
         return idList.toArray(new String[idList.size()]);
     }
 
-    protected void clearRegistry(){
-        while (lock){
+    protected void clearRegistry() {
+        while (lock) {
             //spin
         }
         try{

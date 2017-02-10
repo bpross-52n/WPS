@@ -77,7 +77,7 @@ abstract public class Request implements Callable <Response> {
      * Returns the user input in Document form
      * @return Document || null if Request(Map, outputstream) was used
      */
-    public Document getDocument(){
+    public Document getDocument() {
         return doc;
     }
 
@@ -85,7 +85,7 @@ abstract public class Request implements Callable <Response> {
      * Returns the user input in Map form
      * @return Map || null if Request(Document, OutputStream) was used
      */
-    public CaseInsensitiveMap getMap(){
+    public CaseInsensitiveMap getMap() {
         return map;
     }
 
@@ -98,12 +98,12 @@ abstract public class Request implements Callable <Response> {
      * @throws ExceptionReport if the key is required but is not present
      */
     public static String getMapValue(String key, CaseInsensitiveMap map, boolean required) throws ExceptionReport{
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             return ((String[]) map.get(key))[0];
-        }else if(!required){
+        } else if (!required) {
             LOGGER.warn("Parameter <" + key + "> not found.");
             return null;
-        }else{
+        } else {
             //Fix for Bug 904 https://bugzilla.52north.org/show_bug.cgi?id=904
             throw new ExceptionReport("Parameter <" + key + "> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, key);
         }
@@ -119,20 +119,20 @@ abstract public class Request implements Callable <Response> {
      * @throws ExceptionReport if the key is required but is not present
      */
     public static String getMapValue(String key, CaseInsensitiveMap map, boolean required, String[] supportedValues) throws ExceptionReport{
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
 
             String value = ((String[]) map.get(key))[0];
 
             for (String string : supportedValues) {
-                if(string.equalsIgnoreCase(value)){
+                if (string.equalsIgnoreCase(value)) {
                     return value;
                 }
             }
             throw new ExceptionReport("Invalid value for parameter <" + key + ">.", ExceptionReport.INVALID_PARAMETER_VALUE, key);
-        }else if(!required){
+        } else if (!required) {
             LOGGER.warn("Parameter <" + key + "> not found.");
             return null;
-        }else{
+        } else {
             //Fix for Bug 904 https://bugzilla.52north.org/show_bug.cgi?id=904
             throw new ExceptionReport("Parameter <" + key + "> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, key);
         }
@@ -147,12 +147,12 @@ abstract public class Request implements Callable <Response> {
      * @throws ExceptionReport if the key is required but is not present
      */
     public static String[] getMapArray(String key, CaseInsensitiveMap map, boolean required) throws ExceptionReport{
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             return (String[]) map.get(key);
-        }else if(!required){
+        } else if (!required) {
             LOGGER.warn("Parameter <" + key + "> not found.");
             return null;
-        }else{
+        } else {
             //Fix for Bug 904 https://bugzilla.52north.org/show_bug.cgi?id=904
             throw new ExceptionReport("Parameter <" + key + "> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, key);
         }
@@ -211,16 +211,16 @@ abstract public class Request implements Callable <Response> {
      */
     public boolean requireVersion(List<String> supportedVersions, boolean mandatory) throws ExceptionReport{
         String[] versions = getRequestedVersions(mandatory);
-        if(mandatory && versions == null) {
+        if (mandatory && versions == null) {
             //Fix for Bug 904 https://bugzilla.52north.org/show_bug.cgi?id=904
             throw new ExceptionReport("Parameter <version> not specified.", ExceptionReport.MISSING_PARAMETER_VALUE, "version");
         }
-        else if(versions == null && ! mandatory) {
+        else if (versions == null && ! mandatory) {
             return true;
         }
         for(String v : versions) {
             //remove possible blanks
-            if(supportedVersions.contains(v.trim())) {
+            if (supportedVersions.contains(v.trim())) {
                 return true;
             }
         }
@@ -236,16 +236,16 @@ abstract public class Request implements Callable <Response> {
         StringBuffer sb = new StringBuffer();
         for(int i = 0; i < strings.length; i++) {
             String s = strings[i];
-            if(!(i == strings.length-1)){
+            if (!(i == strings.length-1)) {
                 sb.append(s + ", ");
-            }else{
+            } else {
                 sb.append(s);
             }
         }
         return sb.toString();
     }
 
-    public UUID getUniqueId(){
+    public UUID getUniqueId() {
         if (id == null) {
             this.id = UUID.randomUUID();
         }
@@ -265,7 +265,7 @@ abstract public class Request implements Callable <Response> {
     public static void checkLanguageSupported(String language) throws ExceptionReport {
 
         for (String supportedLanguage : SUPPORTED_LANGUAGES) {
-            if(supportedLanguage.equals(language)){
+            if (supportedLanguage.equals(language)) {
                 return;
             }
         }

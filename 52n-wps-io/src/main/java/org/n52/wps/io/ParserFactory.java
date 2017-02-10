@@ -70,7 +70,7 @@ public class ParserFactory {
         });
     }
 
-    private void loadAllParsers(Map<String, ConfigurationModule> parserMap){
+    private void loadAllParsers(Map<String, ConfigurationModule> parserMap) {
         registeredParsers = new ArrayList<IParser>();
         for(String currentParserName : parserMap.keySet()) {
 
@@ -79,8 +79,8 @@ public class ParserFactory {
 //            // remove inactive parser
 //            Property[] activeProperties = {};
 //            ArrayList<Property> activePars = new ArrayList<Property>();
-//            for(int i=0; i<currentParser.getPropertyArray().length; i++){
-//                if(currentParser.getPropertyArray()[i].getActive()){
+//            for(int i=0; i<currentParser.getPropertyArray().length; i++) {
+//                if (currentParser.getPropertyArray()[i].getActive()) {
 //                    activePars.add(currentParser.getPropertyArray()[i]);
 //                }
 //            }
@@ -88,7 +88,7 @@ public class ParserFactory {
 
             String parserClass = "";
 
-            if(currentParser instanceof ClassKnowingModule){
+            if (currentParser instanceof ClassKnowingModule) {
                 parserClass = ((ClassKnowingModule)currentParser).getClassName();
             }
 
@@ -107,7 +107,7 @@ public class ParserFactory {
                 LOGGER.error("One of the parsers could not be loaded: " + parserClass, e);
             }
 
-            if(parser != null) {
+            if (parser != null) {
 
                 LOGGER.info("Parser class registered: " + parserClass);
                 registeredParsers.add(parser);
@@ -116,7 +116,7 @@ public class ParserFactory {
     }
 
     public static ParserFactory getInstance() {
-        if(factory == null){
+        if (factory == null) {
             Map<String, ConfigurationModule> parserMap = WPSConfig.getInstance().getConfigurationManager().getConfigurationServices().getActiveConfigurationModulesByCategory(ConfigurationCategory.PARSER);
             initialize(parserMap);
         }
@@ -126,16 +126,16 @@ public class ParserFactory {
     public IParser getParser(String schema, String format, String encoding, Class<?> requiredInputClass) {
 
         // dealing with NULL encoding
-        if (encoding == null || encoding.isEmpty()){
+        if (encoding == null || encoding.isEmpty()) {
             encoding = IOHandler.DEFAULT_ENCODING;
         }
 
         //first, look if we can find a direct way
         for(IParser parser : registeredParsers) {
             Class<?>[] supportedClasses = parser.getSupportedDataBindings();
-            for(Class<?> clazz : supportedClasses){
-                if(clazz.equals(requiredInputClass)) {
-                    if(parser.isSupportedSchema(schema) &&    parser.isSupportedEncoding(encoding) && parser.isSupportedFormat(format)) {
+            for(Class<?> clazz : supportedClasses) {
+                if (clazz.equals(requiredInputClass)) {
+                    if (parser.isSupportedSchema(schema) &&    parser.isSupportedEncoding(encoding) && parser.isSupportedFormat(format)) {
                         LOGGER.info("Matching parser found: " + parser);
                         return parser;
                     }

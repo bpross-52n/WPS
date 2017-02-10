@@ -65,7 +65,7 @@ public class GML3BasicParser4FilesCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GML3BasicParser4FilesCM(){
+    public GML3BasicParser4FilesCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

@@ -119,7 +119,7 @@ public class MSLayerBinding {
             LOGGER.debug("Parsing of the relativ data source path successful.");
             if (this.openShapefile(shapePath)) {
                 LOGGER.debug("Opening and parsing of the shapefile successful.");
-            } else{
+            } else {
                 LOGGER.error("Error while opening and parsing the shapefile.");
             }
         } else {

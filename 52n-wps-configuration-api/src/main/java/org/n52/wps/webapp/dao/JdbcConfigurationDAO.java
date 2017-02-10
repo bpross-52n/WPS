@@ -68,7 +68,7 @@ public class JdbcConfigurationDAO implements ConfigurationDAO {
     private static Logger LOGGER = LoggerFactory.getLogger(JdbcConfigurationDAO.class);
 
     @PostConstruct
-    public void init(){
+    public void init() {
 
         if (namedParameterJdbcTemplate != null) {
 
@@ -440,7 +440,7 @@ public class JdbcConfigurationDAO implements ConfigurationDAO {
         parameters.put("module_class_name", moduleClassName);
         String sql = "SELECT * FROM configurationmodule WHERE module_class_name = :module_class_name";
 
-        Boolean isModulePersistent = namedParameterJdbcTemplate.query(sql, parameters, new ResultSetExtractor<Boolean>(){
+        Boolean isModulePersistent = namedParameterJdbcTemplate.query(sql, parameters, new ResultSetExtractor<Boolean>() {
 
             @Override
             public Boolean extractData(ResultSet rs) throws SQLException, DataAccessException {

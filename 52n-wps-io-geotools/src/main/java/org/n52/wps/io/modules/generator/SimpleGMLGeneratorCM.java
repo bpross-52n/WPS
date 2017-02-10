@@ -65,7 +65,7 @@ public class SimpleGMLGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public SimpleGMLGeneratorCM(){
+    public SimpleGMLGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

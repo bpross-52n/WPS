@@ -70,7 +70,7 @@ public class AsciiGrassParser extends AbstractParser {
 
     private static Logger LOGGER = LoggerFactory.getLogger(AsciiGrassParser.class);
 
-    public AsciiGrassParser(){
+    public AsciiGrassParser() {
         super();
         supportedIDataTypes.add(AsciiGrassDataBinding.class);
     }

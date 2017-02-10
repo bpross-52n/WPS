@@ -65,7 +65,7 @@ public class GeotiffGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GeotiffGeneratorCM(){
+    public GeotiffGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

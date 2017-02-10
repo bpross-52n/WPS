@@ -68,7 +68,7 @@ import com.vividsolutions.jts.geom.Geometry;
  */
 public class GeoJSONGenerator extends AbstractGenerator {
 
-    public GeoJSONGenerator(){
+    public GeoJSONGenerator() {
         super();
         supportedIDataTypes.add(JTSGeometryBinding.class);
         supportedIDataTypes.add(GTVectorDataBinding.class);
@@ -78,7 +78,7 @@ public class GeoJSONGenerator extends AbstractGenerator {
     public InputStream generateStream(IData data, String mimeType, String schema)
             throws IOException {
 
-        if(data instanceof JTSGeometryBinding){
+        if (data instanceof JTSGeometryBinding) {
             Geometry g = ((JTSGeometryBinding)data).getPayload();
 
             File tempFile = File.createTempFile("wps", "json");
@@ -89,7 +89,7 @@ public class GeoJSONGenerator extends AbstractGenerator {
             InputStream is = new FileInputStream(tempFile);
 
             return is;
-        }else if(data instanceof GTVectorDataBinding){
+        } else if (data instanceof GTVectorDataBinding) {
 
             SimpleFeatureCollection f = (SimpleFeatureCollection)data.getPayload();
 

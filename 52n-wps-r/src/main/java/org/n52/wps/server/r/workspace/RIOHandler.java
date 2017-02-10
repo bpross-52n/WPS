@@ -412,12 +412,12 @@ public class RIOHandler {
             String rType = currentAnnotation.getStringValue(RAttribute.TYPE);
             mimeType = dataTypeRegistry.getType(rType).getMimeType();
 
-            if(iClass.equals(GenericFileDataBinding.class)){
+            if (iClass.equals(GenericFileDataBinding.class)) {
                 GenericFileData out = new GenericFileData(outputFile, mimeType);
 
                 return new GenericFileDataBinding(out);
 
-            }else if(iClass.equals(GenericFileDataWithGTBinding.class)){
+            } else if (iClass.equals(GenericFileDataWithGTBinding.class)) {
                 GenericFileDataWithGT out = new GenericFileDataWithGT(outputFile, mimeType);
 
                 return new GenericFileDataWithGTBinding(out);

@@ -378,7 +378,7 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
 
     protected abstract AlgorithmDescriptor createAlgorithmDescriptor();
 
-    private ProcessDescriptionType createProcessDescription100(AlgorithmDescriptor algorithmDescriptor){
+    private ProcessDescriptionType createProcessDescription100(AlgorithmDescriptor algorithmDescriptor) {
 
         ProcessDescriptionsDocument document = ProcessDescriptionsDocument.Factory.newInstance();
         ProcessDescriptions processDescriptions = document.addNewProcessDescriptions();
@@ -480,7 +480,7 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
 
     }
 
-    private ProcessOffering createProcessDescription200(AlgorithmDescriptor algorithmDescriptor){
+    private ProcessOffering createProcessDescription200(AlgorithmDescriptor algorithmDescriptor) {
 
         /*
          * We need to use the ProcessOffering here, because it holds some information that will be
@@ -501,7 +501,7 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
 
             jobControlOptions.add(WPSConfig.JOB_CONTROL_OPTION_SYNC_EXECUTE);
 
-            if(algorithmDescriptor.getStatusSupported()){
+            if (algorithmDescriptor.getStatusSupported()) {
                 jobControlOptions.add(WPSConfig.JOB_CONTROL_OPTION_ASYNC_EXECUTE);
             }
 
@@ -609,7 +609,7 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
 
                 for (Object object : inputParameterMetadataDescriptors) {
 
-                    if(object instanceof MetadataDescriptor){
+                    if (object instanceof MetadataDescriptor) {
                         MetadataDescriptor metadataDescriptor = (MetadataDescriptor)object;
                         MetadataType metadata = dataInput.addNewMetadata();
                         metadata.setRole(metadataDescriptor.getRole());
@@ -673,7 +673,7 @@ public abstract class AbstractDescriptorAlgorithm implements IAlgorithm, ISubjec
 
                 for (Object object : outputParameterMetadataDescriptors) {
 
-                    if(object instanceof MetadataDescriptor){
+                    if (object instanceof MetadataDescriptor) {
                         MetadataDescriptor metadataDescriptor = (MetadataDescriptor)object;
                         MetadataType metadata = dataOutput.addNewMetadata();
                         metadata.setRole(metadataDescriptor.getRole());

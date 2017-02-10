@@ -62,7 +62,7 @@ public class RetrieveResultRequest extends Request {
      * @throws ExceptionReport if an exception occurred during construction
      */
     public Response call() throws ExceptionReport {
-        if(validate()){
+        if (validate()) {
             return new RetrieveResultResponse(this);
         }
         return null;
@@ -75,11 +75,11 @@ public class RetrieveResultRequest extends Request {
      */
     public boolean validate() throws ExceptionReport {
         String req_id = getMapValue("request_id", true);
-        if(req_id.length() == 0){
+        if (req_id.length() == 0) {
             throw new ExceptionReport("The value of parameter <request_id> is not valid.", ExceptionReport.INVALID_PARAMETER_VALUE);
         }
         try{
-        }catch(NumberFormatException e){
+        } catch(NumberFormatException e) {
             throw new ExceptionReport("The value of parameter <request_id> is not an integer identifier", ExceptionReport.INVALID_PARAMETER_VALUE);
         }
         IDatabase db = DatabaseFactory.getDatabase();
@@ -88,7 +88,7 @@ public class RetrieveResultRequest extends Request {
     }
 
     public Object getAttachedResult() throws NullPointerException {
-        if(this.storedResponse == null) {
+        if (this.storedResponse == null) {
             throw new NullPointerException("No stored responses were found!");
         }
         return this.storedResponse;

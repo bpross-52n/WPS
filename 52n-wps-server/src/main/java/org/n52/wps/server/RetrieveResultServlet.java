@@ -94,7 +94,7 @@ public class RetrieveResultServlet {
             errorResponse("id parameter missing", response);
         } else {
 
-            if(!isIDValid(id)){
+            if (!isIDValid(id)) {
                 errorResponse("id parameter not valid", response);
             }
 
@@ -225,23 +225,23 @@ public class RetrieveResultServlet {
         return t.getCause() == null ? t : getRootCause(t.getCause());
     }
 
-    public boolean isIDValid(String id){
+    public boolean isIDValid(String id) {
 
-        if(id.length() <= uuid_length){
+        if (id.length() <= uuid_length) {
 
             try {
                 UUID checkUUID = UUID.fromString(id);
 
-                if(checkUUID.toString().equals(id)){
+                if (checkUUID.toString().equals(id)) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             } catch (Exception e) {
                 return false;
             }
 
-        }else {
+        } else {
 
             String uuidPartOne = id.substring(0, uuid_length);
             String uuidPartTwo = id.substring(id.length() - uuid_length, id.length());

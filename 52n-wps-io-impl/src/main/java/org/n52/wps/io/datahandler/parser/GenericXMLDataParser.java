@@ -41,7 +41,7 @@ public class GenericXMLDataParser extends AbstractParser {
 
     private static Logger LOGGER = LoggerFactory.getLogger(GenericXMLDataParser.class);
 
-    public GenericXMLDataParser(){
+    public GenericXMLDataParser() {
         super();
         supportedIDataTypes.add(GenericXMLDataBinding.class);
     }

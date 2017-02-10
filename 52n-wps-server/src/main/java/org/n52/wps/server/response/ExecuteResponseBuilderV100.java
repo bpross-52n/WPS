@@ -100,7 +100,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
         responseElem.addNewProcess().addNewIdentifier().setStringValue(identifier);
         superDescription = RepositoryManagerSingletonWrapper.getInstance().getProcessDescription(this.identifier);
         description = (ProcessDescriptionType) superDescription.getProcessDescriptionType(WPSConfig.VERSION_100);
-        if(description==null){
+        if (description==null) {
             throw new RuntimeException("Error while accessing the process description for "+ identifier);
         }
 
@@ -116,7 +116,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
         // if status succeeded, update reponse with result
         if (responseElem.getStatus().isSetProcessSucceeded()) {
             // the response only include dataInputs, if the property is set to true;
-            if(new Boolean(WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().isIncludeDataInputsInResponse())){
+            if (new Boolean(WPSConfig.getInstance().getWPSConfig().getServerConfigurationModule().isIncludeDataInputsInResponse())) {
                 dataInputs = request.getExecute().getDataInputs();
                 responseElem.setDataInputs(dataInputs);
             }
@@ -126,11 +126,11 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
                 // Get the outputdescriptions from the algorithm
 
                 OutputDescriptionType[] outputDescs = description.getProcessOutputs().getOutputArray();
-                if(request.isRawData()) {
+                if (request.isRawData()) {
                     OutputDefinitionType rawDataOutput = request.getExecute().getResponseForm().getRawDataOutput();
                     String id = rawDataOutput.getIdentifier().getStringValue();
                     OutputDescriptionType desc = XMLBeansHelper.findOutputByID(id, outputDescs);
-                    if(desc.isSetComplexOutput()) {
+                    if (desc.isSetComplexOutput()) {
                         String encoding = ExecuteResponseBuilderV100.getEncoding(desc, rawDataOutput);
                         String schema = ExecuteResponseBuilderV100.getSchema(desc, rawDataOutput);
                         String responseMimeType = getMimeType(rawDataOutput);
@@ -157,10 +157,10 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
                     DocumentOutputDefinitionType documentDef = request.getExecute().getResponseForm().getResponseDocument().getOutputArray(i);
                     String responseID = definition.getIdentifier().getStringValue();
                     OutputDescriptionType desc = XMLBeansHelper.findOutputByID(responseID, outputDescs);
-                    if(desc==null){
+                    if (desc==null) {
                         throw new ExceptionReport("Could not find the output id " + responseID, ExceptionReport.INVALID_PARAMETER_VALUE);
                     }
-                    if(desc.isSetComplexOutput()) {
+                    if (desc.isSetComplexOutput()) {
                         String mimeType = getMimeType(definition);
                         String schema = ExecuteResponseBuilderV100.getSchema(desc, definition);
                         String encoding = ExecuteResponseBuilderV100.getEncoding(desc, definition);
@@ -177,7 +177,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
                     else if (desc.isSetBoundingBoxOutput()) {
                         generateBBOXOutput(responseID, doc, false, desc.getTitle());
                     }
-                    else{
+                    else {
                         throw new ExceptionReport("Requested type not supported: BBOX", ExceptionReport.INVALID_PARAMETER_VALUE);
                     }
                 }
@@ -188,25 +188,25 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
                 // THIS IS A WORKAROUND AND ACTUALLY NOT COMPLIANT TO THE SPEC.
 
                 ProcessDescriptionType description = (ProcessDescriptionType) RepositoryManagerSingletonWrapper.getInstance().getProcessDescription(request.getExecute().getIdentifier().getStringValue()).getProcessDescriptionType(WPSConfig.VERSION_100);
-                if(description==null){
+                if (description==null) {
                     throw new RuntimeException("Error while accessing the process description for "+ request.getExecute().getIdentifier().getStringValue());
                 }
 
                 OutputDescriptionType [] d = description.getProcessOutputs().getOutputArray();
                 for (int i = 0; i < d.length; i++)
                 {
-                    if(d[i].isSetComplexOutput()) {
+                    if (d[i].isSetComplexOutput()) {
                         String schema = d[i].getComplexOutput().getDefault().getFormat().getSchema();
                         String encoding = d[i].getComplexOutput().getDefault().getFormat().getEncoding();
                         String mimeType = d[i].getComplexOutput().getDefault().getFormat().getMimeType();
                         generateComplexDataOutput(d[i].getIdentifier().getStringValue(), false, false, schema, mimeType, encoding, d[i].getTitle());
                     }
-                    else if(d[i].isSetLiteralOutput()) {
+                    else if (d[i].isSetLiteralOutput()) {
                         generateLiteralDataOutput(d[i].getIdentifier().getStringValue(), doc, false, d[i].getLiteralOutput().getDataType().getReference(), null, null, null, d[i].getTitle());
                     }
                 }
             }
-        } else if(request.isStoreResponse()) {
+        } else if (request.isStoreResponse()) {
             responseElem.setStatusLocation(DatabaseFactory.getDatabase().generateRetrieveResultURL((request.getUniqueId()).toString()));
         }
     }
@@ -218,7 +218,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
      */
     private static String getSchema(OutputDescriptionType desc, OutputDefinitionType def) {
         String schema = null;
-        if(def != null) {
+        if (def != null) {
             schema = def.getSchema();
         }
 
@@ -227,7 +227,7 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
     private static String getEncoding(OutputDescriptionType desc, OutputDefinitionType def) {
         String encoding = null;
-        if(def != null) {
+        if (def != null) {
             encoding = def.getEncoding();
         }
         return encoding;
@@ -325,12 +325,12 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
     private void generateComplexDataOutput(String responseID, boolean asReference, boolean rawData, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport{
         IData obj = request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
         }
         else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
-            if(asReference) {
+            if (asReference) {
                 handler.updateResponseAsReference(doc, (request.getUniqueId()).toString(),mimeType);
             }
             else {
@@ -342,9 +342,9 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
     private void generateLiteralDataOutput(String responseID, ExecuteResponseDocument res, boolean rawData, String dataTypeReference, String schema, String mimeType, String encoding, LanguageStringType title) throws ExceptionReport {
         IData obj = request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, schema, encoding, mimeType, this.identifier, superDescription);
-        }else{
+        } else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, schema, encoding, mimeType, title, this.identifier, superDescription);
             handler.updateResponseForLiteralData(res, dataTypeReference);
         }
@@ -352,9 +352,9 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
     private void generateBBOXOutput(String responseID, ExecuteResponseDocument res, boolean rawData, LanguageStringType title) throws ExceptionReport {
         IBBOXData obj = (IBBOXData) request.getAttachedResult().get(responseID);
-        if(rawData) {
+        if (rawData) {
             rawDataHandler = new RawData(obj, responseID, null, null, null, this.identifier, superDescription);
-        }else{
+        } else {
             OutputDataItem handler = new OutputDataItem(obj, responseID, null, null, null, title, this.identifier, superDescription);
             handler.updateResponseForBBOXData(res, obj);
         }
@@ -362,10 +362,10 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
     }
 
     public InputStream getAsStream() throws ExceptionReport{
-        if(request.isRawData() && rawDataHandler != null) {
+        if (request.isRawData() && rawDataHandler != null) {
             return rawDataHandler.getAsStream();
         }
-        if(request.isStoreResponse()) {
+        if (request.isStoreResponse()) {
             String id = request.getUniqueId().toString();
             String statusLocation = DatabaseFactory.getDatabase().generateRetrieveResultURL(id);
             doc.getExecuteResponse().setStatusLocation(statusLocation);
@@ -380,12 +380,12 @@ public class ExecuteResponseBuilderV100 implements ExecuteResponseBuilder{
 
     public void setStatus(XmlObject statusObject) {
 
-        if(statusObject instanceof StatusType){
+        if (statusObject instanceof StatusType) {
             StatusType status = (StatusType)statusObject;
             //workaround, should be generated either at the creation of the document or when the process has been finished.
             status.setCreationTime(creationTime);
             doc.getExecuteResponse().setStatus(status);
-        }else{
+        } else {
             LOGGER.warn(String.format("XMLObject not of type \"net.opengis.wps.x100.StatusType\", but {}. Cannot not set status. ", statusObject.getClass()));
         }
     }

@@ -182,7 +182,7 @@ public class RAlgorithmRepository implements ITransactionalAlgorithmRepository {
                 .forEach((entry) -> {
             if ( !entry.isActive()) {
                 LOGGER.warn("Inactive algorithm not added: {}", entry.toString());
-            } else{
+            } else {
                 final String algorithm = entry.getAlgorithm();
                 String publicId = config.getPublicScriptId(algorithm);
                 LOGGER.debug("Adding algorithm: {} with publicId: {}", algorithm, publicId);

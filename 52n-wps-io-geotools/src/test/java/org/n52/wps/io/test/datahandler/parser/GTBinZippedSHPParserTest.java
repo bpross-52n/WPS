@@ -63,9 +63,9 @@ import org.n52.wps.io.test.datahandler.AbstractTestCase;
 public class GTBinZippedSHPParserTest extends AbstractTestCase<GTBinZippedSHPParser>{
 
     @Test
-    public void testParser(){
+    public void testParser() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

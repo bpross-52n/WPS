@@ -69,7 +69,7 @@ public class GeoserverWFSGeneratorTest extends AbstractTestCase<GeoserverWFSGene
     @Test
     public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 
@@ -110,7 +110,7 @@ public class GeoserverWFSGeneratorTest extends AbstractTestCase<GeoserverWFSGene
 
                 String line = "";
 
-                while((line = bufferedReader.readLine()) != null){
+                while((line = bufferedReader.readLine()) != null) {
                     System.out.println(line);
                 }
 

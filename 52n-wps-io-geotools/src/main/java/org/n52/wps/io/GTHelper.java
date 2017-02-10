@@ -95,11 +95,11 @@ public class GTHelper {
 
     private static final String GEOMETRY_NAME = "the_geom";
 
-    public static SimpleFeatureType createFeatureType(Collection<Property> attributes, Geometry newGeometry, String uuid, CoordinateReferenceSystem coordinateReferenceSystem){
+    public static SimpleFeatureType createFeatureType(Collection<Property> attributes, Geometry newGeometry, String uuid, CoordinateReferenceSystem coordinateReferenceSystem) {
         String namespace = "http://www.52north.org/"+uuid;
 
         SimpleFeatureTypeBuilder typeBuilder = new SimpleFeatureTypeBuilder();
-        if(coordinateReferenceSystem==null){
+        if (coordinateReferenceSystem==null) {
             coordinateReferenceSystem= getDefaultCRS();
         }
         typeBuilder.setCRS(coordinateReferenceSystem);
@@ -107,14 +107,14 @@ public class GTHelper {
         Name nameType = new NameImpl(namespace, "Feature-"+uuid);
         typeBuilder.setName(nameType);
 
-        for(Property property : attributes){
-            if(property.getValue()!=null){
+        for(Property property : attributes) {
+            if (property.getValue()!=null) {
                 String name = property.getName().getLocalPart();
                 Class<?> binding = property.getType().getBinding();
-                if(binding.equals(Envelope.class)){
+                if (binding.equals(Envelope.class)) {
                     continue;
                 }
-                if(
+                if (
                    (binding.equals(Geometry.class) ||
                     binding.equals(GeometryCollection.class) ||
                    binding.equals(MultiCurve.class) ||
@@ -127,41 +127,41 @@ public class GTHelper {
                    binding.equals(Point.class) ||
                    binding.equals(LineString.class) ||
                    binding.equals(Polygon.class))
-                 &&!name.equals("location")){
+                 &&!name.equals("location")) {
 
 
-                    if(newGeometry.getClass().equals(Point.class) && (!name.equals("location"))){
+                    if (newGeometry.getClass().equals(Point.class) && (!name.equals("location"))) {
                         typeBuilder.add(GEOMETRY_NAME, MultiPoint.class);
-                    }else if(newGeometry.getClass().equals(LineString.class) && (!name.equals("location"))){
+                    } else if (newGeometry.getClass().equals(LineString.class) && (!name.equals("location"))) {
 
                         typeBuilder.add(GEOMETRY_NAME, MultiLineString.class);
-                    }else if( newGeometry.getClass().equals(Polygon.class) && (!name.equals("location"))){
+                    } else if ( newGeometry.getClass().equals(Polygon.class) && (!name.equals("location"))) {
 
                         typeBuilder.add(GEOMETRY_NAME, MultiPolygon.class);
-                    }else if(!binding.equals(Object.class)){
+                    } else if (!binding.equals(Object.class)) {
                         typeBuilder.add(GEOMETRY_NAME, newGeometry.getClass());
                     }
-                }else{
-                    if(!name.equals("location") && binding.equals(Object.class)){
+                } else {
+                    if (!name.equals("location") && binding.equals(Object.class)) {
                         try{
                             Geometry g = (Geometry)property.getValue();
-                            if(g.getClass().equals(Point.class) && (!name.equals("location"))){
+                            if (g.getClass().equals(Point.class) && (!name.equals("location"))) {
                                 typeBuilder.add(GEOMETRY_NAME, MultiPoint.class);
-                            }else if(g.getClass().equals(LineString.class) && (!name.equals("location"))){
+                            } else if (g.getClass().equals(LineString.class) && (!name.equals("location"))) {
 
                                 typeBuilder.add(GEOMETRY_NAME, MultiLineString.class);
-                            }else if( g.getClass().equals(Polygon.class) && (!name.equals("location"))){
+                            } else if ( g.getClass().equals(Polygon.class) && (!name.equals("location"))) {
 
                                 typeBuilder.add(GEOMETRY_NAME, MultiPolygon.class);
-                            }else{
+                            } else {
                                 typeBuilder.add(GEOMETRY_NAME, g.getClass());
                             }
 
-                        }catch(ClassCastException e){
+                        } catch(ClassCastException e) {
 
                         }
 
-                    }else if(!name.equals("location")){
+                    } else if (!name.equals("location")) {
                         typeBuilder.add(name, binding);
                     }
                 }
@@ -178,11 +178,11 @@ public class GTHelper {
 
 
 
-    public static SimpleFeatureType createFeatureType(Geometry newGeometry, String uuid, CoordinateReferenceSystem coordinateReferenceSystem){
+    public static SimpleFeatureType createFeatureType(Geometry newGeometry, String uuid, CoordinateReferenceSystem coordinateReferenceSystem) {
         String namespace = "http://www.52north.org/"+uuid;
 
         SimpleFeatureTypeBuilder typeBuilder = new SimpleFeatureTypeBuilder();
-        if(coordinateReferenceSystem==null){
+        if (coordinateReferenceSystem==null) {
             coordinateReferenceSystem= getDefaultCRS();
         }
         typeBuilder.setCRS(coordinateReferenceSystem);
@@ -200,7 +200,7 @@ public class GTHelper {
 
     public static SimpleFeature createFeature(String id, Geometry geometry, SimpleFeatureType featureType, Collection<Property> originalAttributes) {
 
-            if(geometry==null || geometry.isEmpty()){
+            if (geometry==null || geometry.isEmpty()) {
                 return null;
             }
 
@@ -211,33 +211,33 @@ public class GTHelper {
             Object[] newData = new Object[featureType.getDescriptors().size()];
 
             int i = 0;
-            for(PropertyDescriptor propertyDescriptor : featureTypeAttributes){
-                for(Property originalProperty : originalAttributes){
-                    if(propertyDescriptor.getName().getLocalPart().equals(originalProperty.getName().getLocalPart())){
-                        if(propertyDescriptor instanceof GeometryDescriptor){
+            for(PropertyDescriptor propertyDescriptor : featureTypeAttributes) {
+                for(Property originalProperty : originalAttributes) {
+                    if (propertyDescriptor.getName().getLocalPart().equals(originalProperty.getName().getLocalPart())) {
+                        if (propertyDescriptor instanceof GeometryDescriptor) {
                             newData[i] = geometry;
-                        }else{
+                        } else {
                             newData[i] = originalProperty.getValue();
                         }
                     }
                 }
 
-                if(propertyDescriptor instanceof GeometryDescriptor){
-                    if(geometry.getGeometryType().equals("Point")){
+                if (propertyDescriptor instanceof GeometryDescriptor) {
+                    if (geometry.getGeometryType().equals("Point")) {
                         Point[] points = new Point[1];
                         points[0] = (Point)geometry;
                         newData[i] = geometry.getFactory().createMultiPoint(points);
-                    }else
-                        if(geometry.getGeometryType().equals("LineString")){
+                    } else
+                        if (geometry.getGeometryType().equals("LineString")) {
                             LineString[] lineString = new LineString[1];
                             lineString[0] = (LineString)geometry;
                             newData[i] = geometry.getFactory().createMultiLineString(lineString);
-                        }else
-                            if(geometry.getGeometryType().equals("Polygon")){
+                        } else
+                            if (geometry.getGeometryType().equals("Polygon")) {
                             Polygon[] polygons = new Polygon[1];
                             polygons[0] = (Polygon)geometry;
                             newData[i] = geometry.getFactory().createMultiPolygon(polygons);
-                            }else{
+                            } else {
                                 newData[i] = geometry;
                             }
 
@@ -254,7 +254,7 @@ public class GTHelper {
 
     public static SimpleFeature createFeature(String id, Geometry geometry, SimpleFeatureType featureType) {
 
-        if(geometry==null || geometry.isEmpty()){
+        if (geometry==null || geometry.isEmpty()) {
             return null;
         }
 
@@ -265,21 +265,21 @@ public class GTHelper {
 
         int i = 0;
 
-        if(geometry.getGeometryType().equals("Point")){
+        if (geometry.getGeometryType().equals("Point")) {
             Point[] points = new Point[1];
             points[0] = (Point)geometry;
             newData[i] = geometry.getFactory().createMultiPoint(points);
-        }else
-            if(geometry.getGeometryType().equals("LineString")){
+        } else
+            if (geometry.getGeometryType().equals("LineString")) {
                 LineString[] lineString = new LineString[1];
                 lineString[0] = (LineString)geometry;
                 newData[i] = geometry.getFactory().createMultiLineString(lineString);
-            }else
-                if(geometry.getGeometryType().equals("Polygon")){
+            } else
+                if (geometry.getGeometryType().equals("Polygon")) {
                 Polygon[] polygons = new Polygon[1];
                 polygons[0] = (Polygon)geometry;
                 newData[i] = geometry.getFactory().createMultiPolygon(polygons);
-                }else{
+                } else {
                     newData[i] = geometry;
                 }
 
@@ -289,7 +289,7 @@ public class GTHelper {
         return feature;
 }
 
-        public static QName createGML3SchemaForFeatureType(SimpleFeatureType featureType){
+        public static QName createGML3SchemaForFeatureType(SimpleFeatureType featureType) {
 
         String uuid = featureType.getName().getNamespaceURI().replace("http://www.52north.org/", "");
         String namespace = "http://www.52north.org/"+uuid;
@@ -304,23 +304,23 @@ public class GTHelper {
 
         String typeName = featureType.getGeometryDescriptor().getType().getBinding().getName();
         String geometryTypeName = "";
-        if(typeName.contains("Point")){
+        if (typeName.contains("Point")) {
             geometryTypeName = "PointPropertyType";
         }
 
-         if(typeName.contains("MultiPoint")){
+         if (typeName.contains("MultiPoint")) {
              geometryTypeName = "MultiPointPropertyType";
                         }
-         if(typeName.contains("LineString")){
+         if (typeName.contains("LineString")) {
              geometryTypeName = "CurvePropertyType";
          }
-         if(typeName.contains("MultiLineString")){
+         if (typeName.contains("MultiLineString")) {
              geometryTypeName = "MultiCurvePropertyType";
          }
-         if(typeName.contains("Polygon")){
+         if (typeName.contains("Polygon")) {
              geometryTypeName = "SurfacePropertyType";
          }
-         if(typeName.contains("MultiPolygon")){
+         if (typeName.contains("MultiPolygon")) {
              geometryTypeName = "MultiSurfacePropertyType";
          }
 
@@ -336,25 +336,25 @@ public class GTHelper {
 
             //add attributes
             Collection<PropertyDescriptor> attributes = featureType.getDescriptors();
-            for(PropertyDescriptor property : attributes){
+            for(PropertyDescriptor property : attributes) {
                 String attributeName = property.getName().getLocalPart();
-                if(!(property instanceof GeometryDescriptor)){
+                if (!(property instanceof GeometryDescriptor)) {
 
-                    if(property.getType().getBinding().equals(String.class) ){
+                    if (property.getType().getBinding().equals(String.class) ) {
                         schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                         "<xs:simpleType> ";
                         schema = schema + "<xs:restriction base=\"xs:string\"> "+
                         "</xs:restriction> "+
                         "</xs:simpleType> "+
                         "</xs:element> ";
-                    }else if(property.getType().getBinding().equals(Integer.class)|| property.getType().getBinding().equals(BigInteger.class)){
+                    } else if (property.getType().getBinding().equals(Integer.class)|| property.getType().getBinding().equals(BigInteger.class)) {
                         schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                         "<xs:simpleType> ";
                         schema = schema + "<xs:restriction base=\"xs:integer\"> "+
                         "</xs:restriction> "+
                         "</xs:simpleType> "+
                         "</xs:element> ";
-                    }else if(property.getType().getBinding().equals(Double.class)){
+                    } else if (property.getType().getBinding().equals(Double.class)) {
                         schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                         "<xs:simpleType> ";
                         schema = schema + "<xs:restriction base=\"xs:double\"> "+
@@ -383,7 +383,7 @@ public class GTHelper {
 
         }
 
-        public static QName createGML2SchemaForFeatureType(SimpleFeatureType featureType){
+        public static QName createGML2SchemaForFeatureType(SimpleFeatureType featureType) {
 
             String uuid = featureType.getName().getNamespaceURI().replace("http://www.52north.org/", "");
             String namespace = "http://www.52north.org/"+uuid;
@@ -407,25 +407,25 @@ public class GTHelper {
 
                 //add attributes
                 Collection<PropertyDescriptor> attributes = featureType.getDescriptors();
-                for(PropertyDescriptor property : attributes){
+                for(PropertyDescriptor property : attributes) {
                     String attributeName = property.getName().getLocalPart();
-                    if(!(property instanceof GeometryDescriptor)){
+                    if (!(property instanceof GeometryDescriptor)) {
 
-                        if(property.getType().getBinding().equals(String.class) ){
+                        if (property.getType().getBinding().equals(String.class) ) {
                             schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                             "<xs:simpleType> ";
                             schema = schema + "<xs:restriction base=\"xs:string\"> "+
                             "</xs:restriction> "+
                             "</xs:simpleType> "+
                             "</xs:element> ";
-                        }else if(property.getType().getBinding().equals(Integer.class)|| property.getType().getBinding().equals(BigInteger.class)){
+                        } else if (property.getType().getBinding().equals(Integer.class)|| property.getType().getBinding().equals(BigInteger.class)) {
                             schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                             "<xs:simpleType> ";
                             schema = schema + "<xs:restriction base=\"xs:integer\"> "+
                             "</xs:restriction> "+
                             "</xs:simpleType> "+
                             "</xs:element> ";
-                        }else if(property.getType().getBinding().equals(Double.class)){
+                        } else if (property.getType().getBinding().equals(Double.class)) {
                             schema = schema + "<xs:element name=\""+attributeName+"\" minOccurs=\"0\" maxOccurs=\"1\"> "+
                             "<xs:simpleType> ";
                             schema = schema + "<xs:restriction base=\"xs:double\"> "+
@@ -465,7 +465,7 @@ public class GTHelper {
             domain = URLDecoder.decode(domain, "UTF-8");
 
             int startIndex = domain.indexOf("WEB-INF");
-            if(startIndex<0){
+            if (startIndex<0) {
                 //not running as webapp
                 File f = File.createTempFile(uuid, ".xsd");
                 f.deleteOnExit();
@@ -474,13 +474,13 @@ public class GTHelper {
                 writer.flush();
                 writer.close();
                 return "file:"+f.getAbsolutePath();
-            }else{
+            } else {
                 domain = domain.substring(0,startIndex);
                 String baseDirLocation = domain;
 
                 String baseDir = baseDirLocation +  "/static/schemas" + File.separator;
                 File folder = new File(baseDir);
-                if(!folder.exists()){
+                if (!folder.exists()) {
                     folder.mkdirs();
                 }
                 File f = new File(baseDir+uuid+".xsd");
@@ -494,7 +494,7 @@ public class GTHelper {
             }
         }
 
-        private static CoordinateReferenceSystem getDefaultCRS(){
+        private static CoordinateReferenceSystem getDefaultCRS() {
 
             try {
                 return CRS.decode("EPSG:4326");
@@ -504,9 +504,9 @@ public class GTHelper {
             return null;
         }
 
-        public static SimpleFeatureCollection createSimpleFeatureCollectionFromSimpleFeatureList(List<SimpleFeature> featureList){
+        public static SimpleFeatureCollection createSimpleFeatureCollectionFromSimpleFeatureList(List<SimpleFeature> featureList) {
 
-            if(featureList.size() > 0){
+            if (featureList.size() > 0) {
                 return new ListFeatureCollection(featureList.get(0).getFeatureType(), featureList);
             }
             return new DefaultFeatureCollection();

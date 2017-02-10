@@ -90,7 +90,7 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
             Document doc = storeLayer(data);
             String xmlString = XMLUtil.nodeToString(doc);
             stream = new ByteArrayInputStream(xmlString.getBytes("UTF-8"));
-        } catch(TransformerException e){
+        } catch(TransformerException e) {
             LOGGER.error("Error generating WMS output. Reason: ", e);
             throw new RuntimeException("Error generating WMS output. Reason: " + e);
         } catch (IOException e) {
@@ -106,7 +106,7 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
     private Document storeLayer(IData coll) throws HttpException, IOException, ParserConfigurationException{
         File file = null;
         String storeName = "";
-        if(coll instanceof GTVectorDataBinding){
+        if (coll instanceof GTVectorDataBinding) {
             GTVectorDataBinding gtData = (GTVectorDataBinding) coll;
 
             try {
@@ -128,18 +128,18 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
             file = zipped;
 
         }
-        if(coll instanceof GTRasterDataBinding){
+        if (coll instanceof GTRasterDataBinding) {
             GTRasterDataBinding gtData = (GTRasterDataBinding) coll;
             GenericFileDataWithGT fileData = new GenericFileDataWithGT(gtData.getPayload(), null);
             file = fileData.getBaseFile(true);
 
         }
-        if(coll instanceof ShapefileBinding){
+        if (coll instanceof ShapefileBinding) {
             ShapefileBinding data = (ShapefileBinding) coll;
             file = data.getZippedPayload();
 
         }
-        if(coll instanceof GeotiffBinding){
+        if (coll instanceof GeotiffBinding) {
             GeotiffBinding data = (GeotiffBinding) coll;
             file = (File) data.getPayload();
         }
@@ -150,10 +150,10 @@ public class GeoserverWMSGenerator extends AbstractGeoserverWXSGenerator {
 
         String result = geoserverUploader.createWorkspace();
         LOGGER.debug(result);
-        if(coll instanceof GTVectorDataBinding){
+        if (coll instanceof GTVectorDataBinding) {
             result = geoserverUploader.uploadShp(file, storeName);
         }
-        if(coll instanceof GTRasterDataBinding){
+        if (coll instanceof GTRasterDataBinding) {
             result = geoserverUploader.uploadGeotiff(file, storeName);
         }
 

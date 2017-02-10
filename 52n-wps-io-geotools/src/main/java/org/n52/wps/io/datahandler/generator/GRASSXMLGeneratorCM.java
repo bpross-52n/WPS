@@ -64,7 +64,7 @@ public class GRASSXMLGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GRASSXMLGeneratorCM(){
+    public GRASSXMLGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

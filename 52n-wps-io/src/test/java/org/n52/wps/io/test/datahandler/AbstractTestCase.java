@@ -41,20 +41,20 @@ public abstract class AbstractTestCase<T  extends AbstractIOHandler> extends Abs
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initializeDataHandler();
     }
 
-    protected boolean isDataHandlerActive(){
+    protected boolean isDataHandlerActive() {
 
-        if(dataHandler == null){
+        if (dataHandler == null) {
             LOGGER.info("Data handler not initialized in test class " + this.getClass().getName());
             return false;
         }
 
         String className = dataHandler.getClass().getName();
 
-        if(!(WPSConfig.getInstance().isGeneratorActive(className)||WPSConfig.getInstance().isParserActive(className))){
+        if (!(WPSConfig.getInstance().isGeneratorActive(className)||WPSConfig.getInstance().isParserActive(className))) {
             LOGGER.info("Skipping inactive data handler: " + className);
             return false;
         }

@@ -59,7 +59,7 @@ public class ExecuteKvpIT {
     }
 
     @Before
-    public void before(){
+    public void before() {
         try {
             referenceComplexBinaryInputURLEncoded = URLEncoder.encode(AllTestsIT.referenceComplexBinaryInputURL, "UTF-8");
             referenceComplexXMLInputURLEncoded = URLEncoder.encode(AllTestsIT.referenceComplexXMLInputURL, "UTF-8");

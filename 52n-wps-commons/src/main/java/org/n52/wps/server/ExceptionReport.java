@@ -85,7 +85,7 @@ public class ExceptionReport extends Exception {
 
     public XmlObject getExceptionDocument(String version) {
 
-        if(version == null){
+        if (version == null) {
             return createExceptionReportV200();
         }
         switch (version) {
@@ -107,7 +107,7 @@ public class ExceptionReport extends Exception {
         return w.toString();
     }
 
-    private net.opengis.ows.x20.ExceptionReportDocument createExceptionReportV200(){
+    private net.opengis.ows.x20.ExceptionReportDocument createExceptionReportV200() {
 
         // Printing service Exception
         net.opengis.ows.x20.ExceptionReportDocument reportV200 = net.opengis.ows.x20.ExceptionReportDocument.Factory.newInstance();
@@ -133,7 +133,7 @@ public class ExceptionReport extends Exception {
         return reportV200;
     }
 
-    private ExceptionReportDocument createExceptionReportV100(){
+    private ExceptionReportDocument createExceptionReportV100() {
 
         // Printing service Exception
         ExceptionReportDocument report = ExceptionReportDocument.Factory.newInstance();
@@ -160,7 +160,7 @@ public class ExceptionReport extends Exception {
 
     }
 
-    public int getHTTPStatusCode(){
+    public int getHTTPStatusCode() {
 
         switch (errorKey) {
         case OPERATION_NOT_SUPPORTED:

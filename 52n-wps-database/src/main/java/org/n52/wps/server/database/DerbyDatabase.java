@@ -64,26 +64,26 @@ public class DerbyDatabase extends AbstractDatabase {
             LOGGER.error("Database cannot be loaded: " + connectionURL);
             throw new UnsupportedDatabaseException("The database class could not be loaded.");
         }
-        if(!DerbyDatabase.createConnection()) {
+        if (!DerbyDatabase.createConnection()) {
                 throw new RuntimeException("Creating database connection failed.");
         }
-        if(!DerbyDatabase.createResultTable()) {
+        if (!DerbyDatabase.createResultTable()) {
                 throw new RuntimeException("Creating result table failed.");
         }
-        if(!DerbyDatabase.createPreparedStatements()) {
+        if (!DerbyDatabase.createPreparedStatements()) {
                 throw new RuntimeException("Creating prepared statements failed.");
         }
     }
 
     public static synchronized DerbyDatabase getInstance() {
         if (DerbyDatabase.conn == null) {
-            if(!DerbyDatabase.createConnection()) {
+            if (!DerbyDatabase.createConnection()) {
                     throw new RuntimeException("Creating database connection failed.");
             }
-            if(!DerbyDatabase.createResultTable()) {
+            if (!DerbyDatabase.createResultTable()) {
                     throw new RuntimeException("Creating result table failed.");
             }
-            if(!DerbyDatabase.createPreparedStatements()) {
+            if (!DerbyDatabase.createPreparedStatements()) {
                     throw new RuntimeException("Creating prepared statements failed.");
             }
         }
@@ -235,15 +235,15 @@ public class DerbyDatabase extends AbstractDatabase {
      */
     private static boolean closePreparedStatements() {
         try {
-        if(DerbyDatabase.insertSQL != null) {
+        if (DerbyDatabase.insertSQL != null) {
             DerbyDatabase.insertSQL.close();
             DerbyDatabase.insertSQL = null;
         }
-        if(DerbyDatabase.selectSQL != null) {
+        if (DerbyDatabase.selectSQL != null) {
             DerbyDatabase.selectSQL.close();
             DerbyDatabase.selectSQL = null;
         }
-        if(DerbyDatabase.updateSQL != null) {
+        if (DerbyDatabase.updateSQL != null) {
             DerbyDatabase.updateSQL.close();
             DerbyDatabase.updateSQL = null;
         }

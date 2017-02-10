@@ -104,7 +104,7 @@ public class GeotiffParser extends AbstractParser {
 
     }
 
-    private GTRasterDataBinding parseTiff(File file){
+    private GTRasterDataBinding parseTiff(File file) {
         JAI.getDefaultInstance().getTileCache().setMemoryCapacity(256*1024*1024);
 
         Hints hints = new Hints(Hints.FORCE_LONGITUDE_FIRST_AXIS_ORDER,

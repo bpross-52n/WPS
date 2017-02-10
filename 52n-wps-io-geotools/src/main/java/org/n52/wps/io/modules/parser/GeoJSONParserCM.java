@@ -65,7 +65,7 @@ public class GeoJSONParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GeoJSONParserCM(){
+    public GeoJSONParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

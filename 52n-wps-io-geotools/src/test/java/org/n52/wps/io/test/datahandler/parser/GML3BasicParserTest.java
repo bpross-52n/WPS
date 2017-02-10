@@ -65,7 +65,7 @@ public class GML3BasicParserTest extends AbstractTestCase<GML3BasicParser> {
     @Test
     public void testParser() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

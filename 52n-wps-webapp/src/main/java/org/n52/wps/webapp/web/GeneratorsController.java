@@ -101,10 +101,10 @@ public class GeneratorsController extends BaseConfigurationsController {
     public void deleteFormat(@PathVariable String moduleClassName, @PathVariable String mimeType, @PathVariable String schema, @PathVariable String encoding) {
         mimeType = mimeType.replace("forwardslash", "/");
 
-        if(schema.equals("null")){
+        if (schema.equals("null")) {
             schema = "";
         }
-        if(encoding.equals("null")){
+        if (encoding.equals("null")) {
             encoding = "";
         }
 
@@ -133,10 +133,10 @@ public class GeneratorsController extends BaseConfigurationsController {
 
         mimeType = mimeType.replace("forwardslash", "/");
 
-        if(schema.equals("null")){
+        if (schema.equals("null")) {
             schema = "";
         }
-        if(encoding.equals("null")){
+        if (encoding.equals("null")) {
             encoding = "";
         }
 
@@ -167,10 +167,10 @@ public class GeneratorsController extends BaseConfigurationsController {
         @ResponseStatus(value = HttpStatus.OK)
         public void editFormat(@RequestParam("moduleClassName") String moduleClassName, @RequestParam("old_mimetype") String oldMimetype, @RequestParam("old_schema") String oldSchema, @RequestParam("old_encoding") String oldEncoding, @RequestParam("new_mimetype") String newMimetype, @RequestParam("new_schema") String newSchema, @RequestParam("new_encoding") String newEncoding) {
 
-            if(oldSchema.equals("undefined")){
+            if (oldSchema.equals("undefined")) {
                 oldSchema = "";
             }
-            if(oldEncoding.equals("undefined")){
+            if (oldEncoding.equals("undefined")) {
                 oldEncoding = "";
             }
             configurationManager.getConfigurationServices().updateFormatEntry(moduleClassName, oldMimetype, oldSchema, oldEncoding, newMimetype, newSchema, newEncoding);

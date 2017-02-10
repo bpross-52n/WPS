@@ -168,7 +168,7 @@ public class ResponseURLFilter implements Filter {
         public void write(int i) throws IOException {
             byte b = (byte)(i & 0xff);
             if (match) {
-                if(find.get() == b) {
+                if (find.get() == b) {
                     if (!find.hasRemaining()) {
                         // COMPLETE MATCH
                         // 1) write out replacement buffer

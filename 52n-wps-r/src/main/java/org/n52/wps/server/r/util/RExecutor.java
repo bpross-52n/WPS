@@ -141,7 +141,7 @@ public class RExecutor {
                     line = line.replaceFirst("#", "").trim();
                     scriptExecutionString.append(line);
                     scriptExecutionString.append("\n");
-                }else if (line.trim().startsWith(COMMENT_CHARACTER)) {
+                } else if (line.trim().startsWith(COMMENT_CHARACTER)) {
                     if (appendComments) {
                         scriptExecutionString.append(line);
                     }
@@ -182,7 +182,7 @@ public class RExecutor {
         scriptExecutionString.append("});\n\n"); // for "try{..."
         scriptExecutionString.append("hasError <- class(error) == \"try-error\" ");
         scriptExecutionString.append("\n");
-        scriptExecutionString.append("if(hasError) ");
+        scriptExecutionString.append("if (hasError) ");
         scriptExecutionString.append(RWPSSessionVariables.ERROR_MESSAGE);
         scriptExecutionString.append(" <- as.character(error)");
         scriptExecutionString.append("\n");

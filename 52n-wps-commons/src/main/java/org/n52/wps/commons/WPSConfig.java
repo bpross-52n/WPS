@@ -200,7 +200,7 @@ public class WPSConfig implements Serializable {
         return  (module == null) ? new ArrayList<FormatEntry>() : module.getFormatEntries();
     }
 
-    public ConfigurationModule getConfigurationModuleForClass(String name, ConfigurationCategory moduleCategorie){
+    public ConfigurationModule getConfigurationModuleForClass(String name, ConfigurationCategory moduleCategorie) {
 
         Map<String, ConfigurationModule> activeModules = getActiveConfigurationModules(moduleCategorie);
 
@@ -208,18 +208,18 @@ public class WPSConfig implements Serializable {
 
             ConfigurationModule tmpModule = activeModules.get(moduleName);
 
-            if(!(tmpModule instanceof ClassKnowingModule)){
+            if (!(tmpModule instanceof ClassKnowingModule)) {
                 continue;
             }
 
-            if(((ClassKnowingModule)tmpModule).getClassName().equals(name)){
+            if (((ClassKnowingModule)tmpModule).getClassName().equals(name)) {
                 return tmpModule;
             }
         }
         return null;
     }
 
-    private Map<String, ConfigurationModule> getActiveConfigurationModules(ConfigurationCategory moduleCategorie){
+    private Map<String, ConfigurationModule> getActiveConfigurationModules(ConfigurationCategory moduleCategorie) {
         return configurationManager.getConfigurationServices().getActiveConfigurationModulesByCategory(moduleCategorie);
     }
 

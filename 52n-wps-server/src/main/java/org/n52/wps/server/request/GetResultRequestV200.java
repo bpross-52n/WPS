@@ -58,14 +58,14 @@ public class GetResultRequestV200 extends Request {
     public GetResultRequestV200(Document doc) throws ExceptionReport {
         super(doc);
 
-                if(!validate()){
+                if (!validate()) {
                         throw new ExceptionReport("GetResultRequest not valid",
                                         ExceptionReport.NO_APPLICABLE_CODE);
                 }
-                if(getResultDocument.getGetResult() != null){
+                if (getResultDocument.getGetResult() != null) {
                         jobID = getResultDocument.getGetResult().getJobID();
                 }
-                if(jobID == null || jobID.equals("")){
+                if (jobID == null || jobID.equals("")) {
                         throw new ExceptionReport("JobID not valid",
                                         ExceptionReport.INVALID_PARAMETER_VALUE, "jobID");
                 }

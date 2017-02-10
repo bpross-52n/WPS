@@ -65,7 +65,7 @@ public class GenericFileDataWithGTGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GenericFileDataWithGTGeneratorCM(){
+    public GenericFileDataWithGTGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

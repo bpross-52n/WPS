@@ -40,26 +40,26 @@ public class ReferenceStrategyRegister {
     private static ReferenceStrategyRegister instance;
 
 
-    public synchronized static ReferenceStrategyRegister getInstance(){
-        if(instance==null){
+    public synchronized static ReferenceStrategyRegister getInstance() {
+        if (instance==null) {
             instance = new ReferenceStrategyRegister();
         }
         return instance;
     }
 
-    private ReferenceStrategyRegister(){
+    private ReferenceStrategyRegister() {
         registeredStrategies = new ArrayList<IReferenceStrategy>();
         registeredStrategies.add(new WCS111XMLEmbeddedBase64OutputReferenceStrategy());
     }
 
-    protected void registerStrategy(IReferenceStrategy strategy){
+    protected void registerStrategy(IReferenceStrategy strategy) {
         registeredStrategies.add(strategy);
     }
 
     public ReferenceInputStream resolveReference(InputReference input) throws ExceptionReport{
         IReferenceStrategy foundStrategy = new DefaultReferenceStrategy();
-        for(IReferenceStrategy strategy : registeredStrategies){
-            if(strategy.isApplicable(input)){
+        for(IReferenceStrategy strategy : registeredStrategies) {
+            if (strategy.isApplicable(input)) {
                 foundStrategy = strategy;
                 break;
             }

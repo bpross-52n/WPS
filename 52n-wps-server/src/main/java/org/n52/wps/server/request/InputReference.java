@@ -45,11 +45,11 @@ public class InputReference {
 
     private DataInputType inputV200;
 
-    public InputReference(InputType inputs){
+    public InputReference(InputType inputs) {
         inputV100 = inputs;
     }
 
-    public InputReference(DataInputType inputs){
+    public InputReference(DataInputType inputs) {
         inputV200 = inputs;
     }
 

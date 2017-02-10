@@ -41,7 +41,7 @@ import org.n52.wps.io.datahandler.parser.GenericXMLDataParser;
 public class GenericXMLParserGeneratorTest extends AbstractTestCase<GenericXMLDataParser> {
 
     @Test
-    public void testParseGenerateXML(){
+    public void testParseGenerateXML() {
 
         String mimeType = "text/xml";
 

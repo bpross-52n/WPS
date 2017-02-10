@@ -65,7 +65,7 @@ public class MapserverWMSGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public MapserverWMSGeneratorCM(){
+    public MapserverWMSGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

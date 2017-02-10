@@ -60,7 +60,7 @@ public class PropertyUtil {
         fillPropertyNameMap();
     }
 
-    private void fillPropertyNameMap(){
+    private void fillPropertyNameMap() {
         List<? extends ConfigurationEntry<?>> properties = configurationModule.getConfigurationEntries();
         if (properties != null) {
             for (ConfigurationEntry<?> property : properties) {
@@ -104,10 +104,10 @@ public class PropertyUtil {
             LOGGER.debug("Config property \"{}\" not present", valueKey);
         }
 
-        if(configurationModule != null && configurationManager != null){
+        if (configurationModule != null && configurationManager != null) {
             ConfigurationEntry<?> configurationEntry = configurationManager.getConfigurationServices().getConfigurationEntry(configurationModule, valueKey);
 
-            if(configurationEntry != null && configurationEntry.getValue() instanceof Boolean){
+            if (configurationEntry != null && configurationEntry.getValue() instanceof Boolean) {
                 return (Boolean) configurationEntry.getValue();
             }
         }
@@ -156,10 +156,10 @@ public class PropertyUtil {
             LOGGER.debug("Config property \"{}\" not present", valueKey);
         }
 
-        if(configurationModule != null && configurationManager != null){
+        if (configurationModule != null && configurationManager != null) {
             ConfigurationEntry<?> configurationEntry = configurationManager.getConfigurationServices().getConfigurationEntry(configurationModule, valueKey);
 
-            if(configurationEntry != null && configurationEntry.getValue() instanceof Long){
+            if (configurationEntry != null && configurationEntry.getValue() instanceof Long) {
                 return (Long) configurationEntry.getValue();
             }
         }
@@ -208,10 +208,10 @@ public class PropertyUtil {
             LOGGER.debug("Config property \"{}\" not present", valueKey);
         }
 
-        if(configurationModule != null && configurationManager != null){
+        if (configurationModule != null && configurationManager != null) {
             ConfigurationEntry<?> configurationEntry = configurationManager.getConfigurationServices().getConfigurationEntry(configurationModule, valueKey);
 
-            if(configurationEntry != null && configurationEntry.getValue() instanceof Double){
+            if (configurationEntry != null && configurationEntry.getValue() instanceof Double) {
                 return (Double) configurationEntry.getValue();
             }
         }
@@ -250,10 +250,10 @@ public class PropertyUtil {
            LOGGER.debug("Config property \"{}\" not present", valueKey);
         }
 
-        if(configurationModule != null && configurationManager != null){
+        if (configurationModule != null && configurationManager != null) {
             ConfigurationEntry<?> configurationEntry = configurationManager.getConfigurationServices().getConfigurationEntry(configurationModule, valueKey);
 
-            if(configurationEntry != null && configurationEntry.getValue() instanceof String){
+            if (configurationEntry != null && configurationEntry.getValue() instanceof String) {
                 return (String) configurationEntry.getValue();
             }
         }
@@ -312,10 +312,10 @@ public class PropertyUtil {
             LOGGER.debug("Config property for \"{}\"  not present", valueKey);
         }
 
-        if(configurationModule != null && configurationManager != null){
+        if (configurationModule != null && configurationManager != null) {
             ConfigurationEntry<?> configurationEntry = configurationManager.getConfigurationServices().getConfigurationEntry(configurationModule, valueKey);
 
-            if(configurationEntry != null && configurationEntry.getValue() instanceof String){
+            if (configurationEntry != null && configurationEntry.getValue() instanceof String) {
                 periodAsString = (String) configurationEntry.getValue();
 
                 if (periodAsString != null) {

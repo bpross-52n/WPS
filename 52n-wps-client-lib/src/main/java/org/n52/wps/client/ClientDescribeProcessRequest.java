@@ -43,7 +43,7 @@ public class ClientDescribeProcessRequest extends AbstractClientGETRequest {
         String idsString = "";
             for(int i = 0; i < ids.length; i++) {
                 idsString = idsString + ids[i];
-                if(i != ids.length -1) {
+                if (i != ids.length -1) {
                     idsString = idsString + ",";
             }
         }

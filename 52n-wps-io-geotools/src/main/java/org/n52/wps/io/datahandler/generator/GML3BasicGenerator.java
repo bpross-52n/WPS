@@ -82,7 +82,7 @@ public class GML3BasicGenerator extends AbstractGenerator {
 
     private static Logger LOGGER = LoggerFactory.getLogger(GML3BasicGenerator.class);
 
-    public GML3BasicGenerator(){
+    public GML3BasicGenerator() {
         super();
         supportedIDataTypes.add(GTVectorDataBinding.class);
     }
@@ -95,14 +95,14 @@ public class GML3BasicGenerator extends AbstractGenerator {
         FeatureType schema = correctFeatureCollection.getSchema();
         String namespace = null;
         String schemaLocation = null;
-        if(schema !=null){
+        if (schema !=null) {
             namespace = schema.getName().getNamespaceURI();
             schemaLocation = SchemaRepository.getSchemaLocation(namespace);
         }
 
         Configuration configuration = null;
         org.geotools.xml.Encoder encoder = null;
-        if(schemaLocation==null || namespace==null){
+        if (schemaLocation==null || namespace==null) {
             namespace = "http://www.opengis.net/gml";
             schemaLocation = "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd";
             configuration = new GMLConfiguration();//new ApplicationSchemaConfiguration(namespace, schemaLocation);
@@ -111,7 +111,7 @@ public class GML3BasicGenerator extends AbstractGenerator {
             encoder.setNamespaceAware(true);
             encoder.setSchemaLocation("http://www.opengis.net/gml", "http://schemas.opengis.net/gml/3.1.1/base/feature.xsd");
 
-        }else{
+        } else {
 
             configuration = new ApplicationSchemaConfiguration(namespace, schemaLocation);
 
@@ -126,7 +126,7 @@ public class GML3BasicGenerator extends AbstractGenerator {
         QName ns = new QName("http://www.opengis.net/gml","FeatureCollection","wfs");
         try{
             encoder.encode(correctFeatureCollection, ns, os);
-        }catch(IOException e){
+        } catch(IOException e) {
             LOGGER.error("Exception while trying to encode FeatureCollection.", e);
             throw new RuntimeException(e);
         }
@@ -141,7 +141,7 @@ public class GML3BasicGenerator extends AbstractGenerator {
         this.writeToStream(data, outputStream);
         outputStream.flush();
         outputStream.close();
-        if(file.length() <= 0) {
+        if (file.length() <= 0) {
             return null;
         }
         FileInputStream inputStream = new FileInputStream(file);
@@ -157,10 +157,10 @@ public class GML3BasicGenerator extends AbstractGenerator {
         FeatureIterator<?> iterator = fc.features();
         String uuid = UUID.randomUUID().toString();
         int i = 0;
-        while(iterator.hasNext()){
+        while(iterator.hasNext()) {
             SimpleFeature feature = (SimpleFeature) iterator.next();
 
-            if(i==0){
+            if (i==0) {
                 featureType = GTHelper.createFeatureType(feature.getProperties(), (Geometry)feature.getDefaultGeometry(), uuid, feature.getFeatureType().getCoordinateReferenceSystem());
                 QName qname = GTHelper.createGML3SchemaForFeatureType(featureType);
                 SchemaRepository.registerSchemaLocation(qname.getNamespaceURI(), qname.getLocalPart());

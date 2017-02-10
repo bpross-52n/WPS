@@ -47,7 +47,7 @@ public class WCPSQueryParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public WCPSQueryParserCM(){
+    public WCPSQueryParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

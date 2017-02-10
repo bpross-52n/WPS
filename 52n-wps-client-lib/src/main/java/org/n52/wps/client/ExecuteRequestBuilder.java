@@ -191,7 +191,7 @@ public class ExecuteRequestBuilder {
      */
     public void addComplexData(String parameterID, String value, String schema, String encoding, String mimeType, boolean asReference) throws WPSClientException {
 
-        if(asReference){
+        if (asReference) {
             addComplexDataReference(parameterID, value, schema, encoding, mimeType);
         } else {
 
@@ -239,9 +239,9 @@ public class ExecuteRequestBuilder {
 
         InputType[] currentInputTypeArray = execute.getExecute().getDataInputs().getInputArray();
 
-        if(currentInputTypeArray != null){
+        if (currentInputTypeArray != null) {
             newInputTypeArray = Arrays.copyOf(currentInputTypeArray, currentInputTypeArray.length + 1);
-        }else{
+        } else {
             newInputTypeArray = new InputType[1];
         }
 
@@ -346,7 +346,7 @@ public class ExecuteRequestBuilder {
         responseDocument.setStoreExecuteResponse(storeSupport);
 
 //        for(DocumentOutputDefinitionType outputDefTemp: responseDocument.getOutputArray()) {
-//            if(outputDefTemp.getIdentifier().getStringValue().equals(outputName)) {
+//            if (outputDefTemp.getIdentifier().getStringValue().equals(outputName)) {
 //                outputDef = outputDefTemp;
 //                break;
 //            }
@@ -373,7 +373,7 @@ public class ExecuteRequestBuilder {
             execute.getExecute().getResponseForm().addNewResponseDocument();
         }
         for(DocumentOutputDefinitionType outputDefTemp: execute.getExecute().getResponseForm().getResponseDocument().getOutputArray()) {
-            if(outputDefTemp.getIdentifier().getStringValue().equals(outputName)) {
+            if (outputDefTemp.getIdentifier().getStringValue().equals(outputName)) {
                 outputDef = outputDefTemp;
                 break;
             }
@@ -564,7 +564,7 @@ public class ExecuteRequestBuilder {
         return null;
     }
 
-    public boolean setResponseDocument(String outputIdentifier, String schema, String encoding, String mimeType){
+    public boolean setResponseDocument(String outputIdentifier, String schema, String encoding, String mimeType) {
 
         if (!execute.getExecute().isSetResponseForm()) {
             execute.getExecute().addNewResponseForm();
@@ -579,13 +579,13 @@ public class ExecuteRequestBuilder {
                     .getResponseDocument().addNewOutput();
             outputDef.setIdentifier(outputDesc.getIdentifier());
 
-            if(schema != null){
+            if (schema != null) {
                 outputDef.setSchema(schema);
             }
-            if(encoding != null){
+            if (encoding != null) {
                 outputDef.setEncoding(encoding);
             }
-            if(mimeType != null){
+            if (mimeType != null) {
                 outputDef.setMimeType(mimeType);
             }
         }
@@ -637,96 +637,96 @@ public class ExecuteRequestBuilder {
         request = request + "&DataInputs=";
         InputType[] inputs = execute.getExecute().getDataInputs().getInputArray();
         int inputCounter = 0;
-        for(InputType input : inputs){
+        for(InputType input : inputs) {
 
             request = request + input.getIdentifier().getStringValue();
 
-            if(input.isSetReference()){
+            if (input.isSetReference()) {
                 //reference
                 InputReferenceType reference = input.getReference();
                 request = request + "="+"@xlink:href="+ URLEncoder.encode(reference.getHref(), "UTF-8");
-                if(reference.isSetEncoding()){
+                if (reference.isSetEncoding()) {
                     request = request + "@encoding="+reference.getEncoding();
                 }
-                if(reference.isSetMimeType()){
+                if (reference.isSetMimeType()) {
                     request = request + "@format="+reference.getMimeType();
                 }
-                if(reference.isSetEncoding()){
+                if (reference.isSetEncoding()) {
                     request = request + "@schema="+reference.getSchema();
                 }
             }
-            if(input.isSetData()){
-                if(input.getData().isSetComplexData()){
+            if (input.isSetData()) {
+                if (input.getData().isSetComplexData()) {
                     //complex
                     ComplexDataType complexData = input.getData().getComplexData();
                     request = request + "=" + URLEncoder.encode(input.getData().getComplexData().xmlText(), "UTF-8");
-                    if(complexData.isSetEncoding()){
+                    if (complexData.isSetEncoding()) {
                         request = request + "@encoding="+complexData.getEncoding();
                     }
-                    if(complexData.isSetMimeType()){
+                    if (complexData.isSetMimeType()) {
                         request = request + "@format="+complexData.getMimeType();
                     }
-                    if(complexData.isSetEncoding()){
+                    if (complexData.isSetEncoding()) {
                         request = request + "@schema="+complexData.getSchema();
                     }
                 }
-                if(input.getData().isSetLiteralData()){
+                if (input.getData().isSetLiteralData()) {
                     //literal
                     LiteralDataType literalData = input.getData().getLiteralData();
                     request = request + "=" + literalData.getStringValue();
-                    if(literalData.isSetDataType()){
+                    if (literalData.isSetDataType()) {
                         request = request + "@datatype="+literalData.getDataType();
                     }
-                    if(literalData.isSetUom()){
+                    if (literalData.isSetUom()) {
                         request = request + "@datatype="+literalData.getUom();
                     }
                 }
             }
             //concatenation for next input element
             inputCounter = inputCounter +1;
-            if(inputCounter<inputs.length){
+            if (inputCounter<inputs.length) {
                 request = request + ";";
             }
 
         }
-        if(execute.getExecute().getResponseForm().getResponseDocument()==null){
+        if (execute.getExecute().getResponseForm().getResponseDocument()==null) {
             throw new RuntimeException("ResponseDocument missing");
         }
         DocumentOutputDefinitionType[] outputs = execute.getExecute().getResponseForm().getResponseDocument().getOutputArray();
         int outputCounter = 0;
-        if(execute.getExecute().getResponseForm().isSetRawDataOutput()){
+        if (execute.getExecute().getResponseForm().isSetRawDataOutput()) {
             request = request + "&rawdataoutput=";
-        }else{
+        } else {
             request = request + "&responsedocument=";
         }
-        for(DocumentOutputDefinitionType output : outputs){
+        for(DocumentOutputDefinitionType output : outputs) {
             request = request + output.getIdentifier().getStringValue();
-            if(output.isSetEncoding()){
+            if (output.isSetEncoding()) {
                 request = request + "@encoding="+output.getEncoding();
             }
-            if(output.isSetMimeType()){
+            if (output.isSetMimeType()) {
                 request = request + "@format="+output.getMimeType();
             }
-            if(output.isSetEncoding()){
+            if (output.isSetEncoding()) {
                 request = request + "@schema="+output.getSchema();
             }
-            if(output.isSetUom()){
+            if (output.isSetUom()) {
                 request = request + "@datatype="+output.getUom();
             }
             //concatenation for next output element
             outputCounter = outputCounter +1;
-            if(outputCounter<outputs.length){
+            if (outputCounter<outputs.length) {
                 request = request + ";";
             }
         }
 
-        if( execute.getExecute().getResponseForm().getResponseDocument().isSetStoreExecuteResponse()){
+        if ( execute.getExecute().getResponseForm().getResponseDocument().isSetStoreExecuteResponse()) {
             request = request + "&storeExecuteResponse=true";
         }
-        if( execute.getExecute().getResponseForm().getResponseDocument().isSetStatus()){
+        if ( execute.getExecute().getResponseForm().getResponseDocument().isSetStatus()) {
             request = request + "&status=true";
         }
-        if( execute.getExecute().getResponseForm().getResponseDocument().isSetLineage()){
+        if ( execute.getExecute().getResponseForm().getResponseDocument().isSetLineage()) {
             request = request + "&lineage=true";
         }
 
@@ -742,7 +742,7 @@ public class ExecuteRequestBuilder {
     private InputDescriptionType getParameterDescription(String id) {
         InputDescriptionType[] inputDescs = processDesc.getDataInputs().getInputArray();
         for (InputDescriptionType inputDesc : inputDescs) {
-            if(inputDesc.getIdentifier().getStringValue().equals(id))
+            if (inputDesc.getIdentifier().getStringValue().equals(id))
             {
                 return inputDesc;
             }

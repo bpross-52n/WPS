@@ -44,7 +44,7 @@ public class GetResultResponseV200 extends Response {
      * Serves the Request with a Response
      * @param request The GetCapabilities request
      */
-    public GetResultResponseV200(GetResultRequestV200 request){
+    public GetResultResponseV200(GetResultRequestV200 request) {
         super(request);
     }
 

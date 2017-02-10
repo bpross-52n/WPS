@@ -54,8 +54,8 @@ public class DatabaseFactory implements IDatabase
     public static IDatabase getDatabase() {
 
         // FvK: create and register listener to the WPSConfig if not yet happend.
-        if (propertyChangeListener == null){
-            propertyChangeListener =  new PropertyChangeListener(){
+        if (propertyChangeListener == null) {
+            propertyChangeListener =  new PropertyChangeListener() {
                 public void propertyChange(
                     final PropertyChangeEvent propertyChangeEvent) {
                         //shutdown Database connection and instance
@@ -68,12 +68,12 @@ public class DatabaseFactory implements IDatabase
             org.n52.wps.commons.WPSConfig.getInstance().addPropertyChangeListener(org.n52.wps.commons.WPSConfig.WPSCONFIG_PROPERTY_EVENT_NAME, propertyChangeListener);
         }
 
-        if(DatabaseFactory.database == null) {
+        if (DatabaseFactory.database == null) {
             try {
                 String databaseClassName =
                     AbstractDatabase.getDatabaseProperties(PROPERTY_NAME_DATABASE_CLASS_NAME);
                 // if databaseClassName is not defined take derby.
-                if(databaseClassName == null || databaseClassName.equals("")) {
+                if (databaseClassName == null || databaseClassName.equals("")) {
                     LOGGER.info("Database class name was not found in properties. FlatFileDatabase will be used.");
                     databaseClassName = "org.n52.wps.server.database.FlatFileDatabase";
                 }

@@ -47,7 +47,7 @@ public class StaticDataHandlerRepository {
     private static ParserFactory parserFactory;
 
     public static GeneratorFactory getGeneratorFactory() {
-        if(genFactory == null) {
+        if (genFactory == null) {
             Map<String, ConfigurationModule> generators = WPSConfig.getInstance().getActiveRegisteredGeneratorModules();
             GeneratorFactory.initialize(generators);
             genFactory = GeneratorFactory.getInstance();
@@ -56,7 +56,7 @@ public class StaticDataHandlerRepository {
     }
 
     public static ParserFactory getParserFactory() {
-        if(parserFactory == null) {
+        if (parserFactory == null) {
             Map<String, ConfigurationModule> parsers = WPSConfig.getInstance().getActiveRegisteredParserModules();
             ParserFactory.initialize(parsers);
             parserFactory = ParserFactory.getInstance();

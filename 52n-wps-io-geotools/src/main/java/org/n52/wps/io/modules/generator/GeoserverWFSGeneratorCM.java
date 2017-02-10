@@ -65,7 +65,7 @@ public class GeoserverWFSGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GeoserverWFSGeneratorCM(){
+    public GeoserverWFSGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

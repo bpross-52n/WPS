@@ -65,7 +65,7 @@ public class GeotiffParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GeotiffParserCM(){
+    public GeotiffParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

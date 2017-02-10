@@ -40,7 +40,7 @@ import org.n52.wps.io.data.binding.complex.GenericFileDataBinding;
  */
 public class GenericFileGenerator extends AbstractGenerator {
 
-    public GenericFileGenerator (){
+    public GenericFileGenerator () {
         super();
         supportedIDataTypes.add(GenericFileDataBinding.class);
     }

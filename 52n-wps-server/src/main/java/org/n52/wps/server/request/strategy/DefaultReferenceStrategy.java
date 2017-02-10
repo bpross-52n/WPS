@@ -82,7 +82,7 @@ public class DefaultReferenceStrategy implements IReferenceStrategy{
 
         try {
             // Handling POST with referenced document
-            if(input.isSetBodyReference()) {
+            if (input.isSetBodyReference()) {
 
                 String bodyHref = input.getBodyReferenceHref();
 
@@ -136,7 +136,7 @@ public class DefaultReferenceStrategy implements IReferenceStrategy{
 
         HttpGet httpget = new HttpGet(dataURLString);
 
-        if (mimeType != null){
+        if (mimeType != null) {
             httpget.addHeader(new BasicHeader("Content-type", mimeType));
         }
 
@@ -155,7 +155,7 @@ public class DefaultReferenceStrategy implements IReferenceStrategy{
 
         HttpPost httppost = new HttpPost(dataURLString);
 
-        if (mimeType != null){
+        if (mimeType != null) {
             httppost.addHeader(new BasicHeader("Content-type", mimeType));
         }
 

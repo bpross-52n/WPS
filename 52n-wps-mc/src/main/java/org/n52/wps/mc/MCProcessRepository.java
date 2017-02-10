@@ -140,7 +140,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
     @Override
     public List<AlgorithmEntry> getAlgorithmEntries() {
         List<AlgorithmEntry> algos = new ArrayList<>();
-        for (String fid : supportedFunctionIDs){
+        for (String fid : supportedFunctionIDs) {
             algos.add(new AlgorithmEntry(fid, true));
         }
         return algos;
@@ -162,14 +162,14 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
      * 
      * @return
      */
-    private static final List<? extends ConfigurationEntry<?>> readConfig(){
+    private static final List<? extends ConfigurationEntry<?>> readConfig() {
         List<ConfigurationEntry<?>> configList = new ArrayList<>();
         
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream is = classLoader.getResourceAsStream(configFile);
         
         int lineCnt = 0;
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(is))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
             {
                 String line;
                 while((line = br.readLine()) != null) {
@@ -202,7 +202,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
         return configList;
     }
     
-    private static URI toURI(String s){
+    private static URI toURI(String s) {
         try {
             return new URI(s);
         } catch (URISyntaxException e) {
@@ -211,15 +211,15 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
         }
     }
     
-    private static LineType getType(String line){
+    private static LineType getType(String line) {
         String s = line.trim();
-        if (s.length() == 0){
+        if (s.length() == 0) {
             return LineType.EMPTY;
-        }else if (s.startsWith("#")){
+        } else if (s.startsWith("#")) {
             return LineType.COMMENT;
-        } else if (s.startsWith("http://")){
+        } else if (s.startsWith("http://")) {
             return LineType.REMOTE;
-        } else if (s.startsWith("https://")){
+        } else if (s.startsWith("https://")) {
             return LineType.REMOTE;
         } else {
             return LineType.LOCAL;
@@ -231,7 +231,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
         COMMENT, REMOTE, LOCAL, EMPTY
     }
     
-    private synchronized void updateContent(){
+    private synchronized void updateContent() {
 
         // run this block if validFunctionIDs are not yet available
         // checks which available functions can be executed with current configuration
@@ -267,7 +267,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
         
         private final MCProcessRepository master;
         
-        private LoadRepoThread(MCProcessRepository master){
+        private LoadRepoThread(MCProcessRepository master) {
             this.master = master;
         }
         
@@ -277,7 +277,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
             // for each remote repository: add to RepoManager
             for (ConfigurationEntry<?> cEntry : master.configurationEntries) {
                 if (cEntry.getKey().equalsIgnoreCase(REMOTE_REPO_KEY)
-                        && cEntry.getValue() instanceof URI){
+                        && cEntry.getValue() instanceof URI) {
                     // convert value to URL, check and register
                     try {
                         URL repoURL = ((URI) cEntry.getValue()).toURL();
@@ -301,7 +301,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
             // for each local repository: add to RepoManager
             for (ConfigurationEntry<?> cEntry : master.configurationEntries) {
                 if (cEntry.getKey().equalsIgnoreCase(LOCAL_REPO_KEY)
-                        && cEntry.getKey() instanceof String){
+                        && cEntry.getKey() instanceof String) {
                     // identify Folder, check and register
                     try {
                         String repoFolder = (String) cEntry.getValue();
@@ -353,7 +353,7 @@ public class MCProcessRepository extends ClassKnowingModule implements IAlgorith
         // we probably do not need any logic here
     }
     
-    static ProcessDescriptionType filterProcessDescription(ProcessDescriptionType description){
+    static ProcessDescriptionType filterProcessDescription(ProcessDescriptionType description) {
         description.setStatusSupported(true);
         description.setStoreSupported(true);
         return description;

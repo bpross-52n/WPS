@@ -38,7 +38,7 @@ import es.unex.sextante.outputs.IOutputChannel;
 
 public class N52OutputFactory extends GTOutputFactory{
 
-    public N52OutputFactory(){
+    public N52OutputFactory() {
         super();
         new DefaultTaskMonitor(null, false, null);
     }
@@ -51,7 +51,7 @@ public class N52OutputFactory extends GTOutputFactory{
               IOutputChannel channel,
               Object crs) throws UnsupportedOutputChannelException {
 
-        if (channel instanceof FileOutputChannel){
+        if (channel instanceof FileOutputChannel) {
             String sFilename = ((FileOutputChannel)channel).getFilename();
             GTVectorLayer vectorLayer;
             try {
@@ -62,7 +62,7 @@ public class N52OutputFactory extends GTOutputFactory{
             }
             return (IVectorLayer) vectorLayer;
         }
-        else{
+        else {
             throw new UnsupportedOutputChannelException();
         }
 

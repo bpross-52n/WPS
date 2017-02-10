@@ -84,22 +84,22 @@ public class DouglasPeuckerAlgorithm extends AbstractSelfDescribingAlgorithm{
     private Double percentage;
 
     public Map<String, IData> run(Map<String, List<IData>> inputData) {
-        if(inputData==null || !inputData.containsKey("FEATURES")){
+        if (inputData==null || !inputData.containsKey("FEATURES")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         List<IData> dataList = inputData.get("FEATURES");
-        if(dataList == null || dataList.size() != 1){
+        if (dataList == null || dataList.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         IData firstInputData = dataList.get(0);
 
         FeatureCollection<?,?> featureCollection = ((GTVectorDataBinding) firstInputData).getPayload();
 
-        if( !inputData.containsKey("TOLERANCE")){
+        if ( !inputData.containsKey("TOLERANCE")) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         List<IData> widthDataList = inputData.get("TOLERANCE");
-        if(widthDataList == null || widthDataList.size() != 1){
+        if (widthDataList == null || widthDataList.size() != 1) {
             throw new RuntimeException("Error while allocating input parameters");
         }
         Double tolerance = ((LiteralDoubleBinding) widthDataList.get(0)).getPayload();
@@ -156,16 +156,16 @@ public class DouglasPeuckerAlgorithm extends AbstractSelfDescribingAlgorithm{
     }
 
     public Class<?> getInputDataType(String id) {
-        if(id.equalsIgnoreCase("FEATURES")){
+        if (id.equalsIgnoreCase("FEATURES")) {
             return GTVectorDataBinding.class;
-        }else if(id.equalsIgnoreCase("TOLERANCE")){
+        } else if (id.equalsIgnoreCase("TOLERANCE")) {
             return LiteralDoubleBinding.class;
         }
         return null;
     }
 
     public Class<?> getOutputDataType(String id) {
-        if(id.equalsIgnoreCase("SIMPLIFIED_FEATURES")){
+        if (id.equalsIgnoreCase("SIMPLIFIED_FEATURES")) {
             return GTVectorDataBinding.class;
         }
         return null;

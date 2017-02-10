@@ -55,7 +55,7 @@ import com.google.common.collect.Maps;
 public class XMLBeansHelper {
     public static OutputDescriptionType findOutputByID(String outputID, OutputDescriptionType[] outputDescs) {
         for(OutputDescriptionType desc : outputDescs) {
-            if(desc.getIdentifier().getStringValue().equals(outputID)) {
+            if (desc.getIdentifier().getStringValue().equals(outputID)) {
                 return desc;
             }
         }
@@ -64,7 +64,7 @@ public class XMLBeansHelper {
 
     public static InputDescriptionType findInputByID(String outputID, DataInputs inputs) {
         for(InputDescriptionType desc : inputs.getInputArray()) {
-            if(desc.getIdentifier().getStringValue().equals(outputID)) {
+            if (desc.getIdentifier().getStringValue().equals(outputID)) {
                 return desc;
             }
         }
@@ -73,7 +73,7 @@ public class XMLBeansHelper {
 
     public static net.opengis.wps.x20.OutputDescriptionType findOutputByID(String outputID, net.opengis.wps.x20.OutputDescriptionType[] outputDescs) {
         for(net.opengis.wps.x20.OutputDescriptionType desc : outputDescs) {
-            if(desc.getIdentifier().getStringValue().equals(outputID)) {
+            if (desc.getIdentifier().getStringValue().equals(outputID)) {
                 return desc;
             }
         }
@@ -82,7 +82,7 @@ public class XMLBeansHelper {
 
     public static net.opengis.wps.x20.InputDescriptionType findInputByID(String inputID, ProcessDescriptionType descType) {
         for(net.opengis.wps.x20.InputDescriptionType desc : descType.getInputArray()) {
-            if(desc.getIdentifier().getStringValue().equals(inputID)) {
+            if (desc.getIdentifier().getStringValue().equals(inputID)) {
                 return desc;
             }
         }
@@ -117,7 +117,7 @@ public class XMLBeansHelper {
      * @param object the XMLObject
      * @param schemaLocation the schema location
      */
-    public static void addSchemaLocationToXMLObject(XmlObject object, String schemaLocation){
+    public static void addSchemaLocationToXMLObject(XmlObject object, String schemaLocation) {
 
         XmlCursor c = object.newCursor();
         c.toFirstChild();

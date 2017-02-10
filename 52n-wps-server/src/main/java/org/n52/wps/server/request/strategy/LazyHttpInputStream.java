@@ -74,7 +74,7 @@ public class LazyHttpInputStream extends InputStream {
      * @param body the body of the request
      * @param mimeType the mime type of the request
      */
-    public LazyHttpInputStream (final String dataURLString, final String body, final String mimeType){
+    public LazyHttpInputStream (final String dataURLString, final String body, final String mimeType) {
         this.dataURLString = dataURLString;
         this.body = body;
         this.mimeType = mimeType;
@@ -87,7 +87,7 @@ public class LazyHttpInputStream extends InputStream {
      * @param dataURLString the URL of the data to be fetched
      * @param mimeType the mime type of the request
      */
-    public LazyHttpInputStream (final String dataURLString, final String mimeType){
+    public LazyHttpInputStream (final String dataURLString, final String mimeType) {
         this.dataURLString = dataURLString;
         this.body = null;
         this.mimeType = mimeType;
@@ -100,7 +100,7 @@ public class LazyHttpInputStream extends InputStream {
      * @throws IOException if an exception occurred during initialization
      */
     private final void init() throws IOException{
-        if (useHttpGet){
+        if (useHttpGet) {
             is = httpGet(dataURLString, mimeType);
         } else {
             is = httpPost(dataURLString, body, mimeType);
@@ -112,7 +112,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        if (!initDone){
+        if (!initDone) {
             init();
         }
 
@@ -121,7 +121,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public int available() throws IOException {
-        if (!initDone){
+        if (!initDone) {
             init();
         }
         return is.available();
@@ -129,7 +129,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public void close() throws IOException {
-        if (!initDone){
+        if (!initDone) {
             init();
         }
         is.close();
@@ -137,7 +137,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public synchronized void mark(int readlimit) {
-        if (!initDone){
+        if (!initDone) {
             try {
                 init();
             } catch (IOException e) {
@@ -149,7 +149,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public synchronized void reset() throws IOException {
-        if (!initDone){
+        if (!initDone) {
             init();
         }
         is.reset();
@@ -157,7 +157,7 @@ public class LazyHttpInputStream extends InputStream {
 
     @Override
     public boolean markSupported() {
-        if (!initDone){
+        if (!initDone) {
             // silent catch
         }
         return is.markSupported();
@@ -174,7 +174,7 @@ public class LazyHttpInputStream extends InputStream {
 
         HttpGet httpget = new HttpGet(dataURLString);
 
-        if (mimeType != null){
+        if (mimeType != null) {
             httpget.addHeader(new BasicHeader("Content-type", mimeType));
         }
 
@@ -195,7 +195,7 @@ public class LazyHttpInputStream extends InputStream {
 
         HttpPost httppost = new HttpPost(dataURLString);
 
-        if (mimeType != null){
+        if (mimeType != null) {
             httppost.addHeader(new BasicHeader("Content-type", mimeType));
         }
 

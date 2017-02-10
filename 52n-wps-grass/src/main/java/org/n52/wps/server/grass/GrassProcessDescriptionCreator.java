@@ -90,7 +90,7 @@ public class GrassProcessDescriptionCreator {
         Process proc = null;
 
         //addons have their own directory and are python scripts
-        if(addon){
+        if (addon) {
 
             if (!GrassIOHandler.OS_Name.startsWith("Windows")) {
                 proc = rt.exec(addonPath + fileSeparator +
@@ -259,9 +259,9 @@ public class GrassProcessDescriptionCreator {
         return null;
     }
 
-    private void checkForBase64Encoding(SupportedComplexDataType complexData){
+    private void checkForBase64Encoding(SupportedComplexDataType complexData) {
 
-        if(complexData == null){
+        if (complexData == null) {
             return;
         }
 
@@ -274,12 +274,12 @@ public class GrassProcessDescriptionCreator {
 
             String supportedEncoding = complexDataDescriptionType.getEncoding();
 
-            if(supportedMimeType != null && supportedEncoding == null){
+            if (supportedMimeType != null && supportedEncoding == null) {
                 for (String mimeType : genericFileParserMimeTypes) {
-                    if(mimeType.equals(IOHandler.MIME_TYPE_ZIPPED_SHP)){
+                    if (mimeType.equals(IOHandler.MIME_TYPE_ZIPPED_SHP)) {
                         continue;
                     }
-                    if(mimeType.equals(supportedMimeType)){
+                    if (mimeType.equals(supportedMimeType)) {
                         ComplexDataDescriptionType base64Format = complexData.getSupported().addNewFormat();
                         base64Format.setMimeType(supportedMimeType);
                         base64Format.setEncoding(IOHandler.ENCODING_BASE64);
@@ -293,18 +293,18 @@ public class GrassProcessDescriptionCreator {
 
         SupportedComplexDataInputType complexData = inputDescriptionType.getComplexData();
 
-        if(complexData == null){
+        if (complexData == null) {
             return;
         }
 
-        if(complexData.getDefault().getFormat().getSchema() != null && complexData.getDefault().getFormat().getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")){
+        if (complexData.getDefault().getFormat().getSchema() != null && complexData.getDefault().getFormat().getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")) {
             complexData.getDefault().getFormat().setMimeType(GenericFileDataConstants.MIME_TYPE_KML);
             return;
         }
         ComplexDataDescriptionType[] supportedTypes = complexData.getSupported().getFormatArray();
 
         for (ComplexDataDescriptionType complexDataDescriptionType : supportedTypes) {
-            if(complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")){
+            if (complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")) {
                 complexDataDescriptionType.setMimeType(GenericFileDataConstants.MIME_TYPE_KML);
                 return;
             }
@@ -316,13 +316,13 @@ public class GrassProcessDescriptionCreator {
 
         SupportedComplexDataInputType complexData = inputDescriptionType.getComplexData();
 
-        if(complexData == null){
+        if (complexData == null) {
             return;
         }
         ComplexDataDescriptionType[] supportedTypes = complexData.getSupported().getFormatArray();
 
         for (ComplexDataDescriptionType complexDataDescriptionType : supportedTypes) {
-            if(complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/gml/2.1.2/feature.xsd")){
+            if (complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/gml/2.1.2/feature.xsd")) {
                 inputDescriptionType.getComplexData().getSupported().addNewFormat().setMimeType(IOHandler.MIME_TYPE_ZIPPED_SHP);
                 return;
             }
@@ -334,18 +334,18 @@ public class GrassProcessDescriptionCreator {
 
         SupportedComplexDataType complexData = outputDescriptionType.getComplexOutput();
 
-        if(complexData == null){
+        if (complexData == null) {
             return;
         }
 
-        if(complexData.getDefault().getFormat().getSchema() != null && complexData.getDefault().getFormat().getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")){
+        if (complexData.getDefault().getFormat().getSchema() != null && complexData.getDefault().getFormat().getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")) {
             complexData.getDefault().getFormat().setMimeType(GenericFileDataConstants.MIME_TYPE_KML);
             return;
         }
         ComplexDataDescriptionType[] supportedTypes = complexData.getSupported().getFormatArray();
 
         for (ComplexDataDescriptionType complexDataDescriptionType : supportedTypes) {
-            if(complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")){
+            if (complexDataDescriptionType.getSchema() != null && complexDataDescriptionType.getSchema().equals("http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd")) {
                 complexDataDescriptionType.setMimeType(GenericFileDataConstants.MIME_TYPE_KML);
                 return;
             }
@@ -380,7 +380,7 @@ public class GrassProcessDescriptionCreator {
                         "GRASS_GNUPLOT=gnuplot -persist", "GRASS_PAGER=less",
                         "GRASS_PYTHON=python", "GRASS_SH=/bin/sh",
                         "GRASS_VERSION=7.0.svn", "WINGISBASE=" + grassHome };
-            }else{
+            } else {
 
                 envp = new String[] {
                         "GISRC=" + gisrcDir,

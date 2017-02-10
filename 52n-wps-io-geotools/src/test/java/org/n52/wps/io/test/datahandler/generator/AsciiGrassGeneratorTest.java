@@ -69,7 +69,7 @@ public class AsciiGrassGeneratorTest extends AbstractTestCase<AsciiGrassGenerato
     @Test
     public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

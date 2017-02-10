@@ -40,7 +40,7 @@ public abstract class AbstractIOHandler implements IOHandler {
     protected List<? extends ConfigurationEntry<?>> properties;
     protected List<FormatEntry> formats;
 
-    public AbstractIOHandler(){
+    public AbstractIOHandler() {
         this.supportedFormats = new HashSet<String>();
         this.supportedSchemas = new HashSet<String>();
         this.supportedEncodings = new HashSet<String>();
@@ -85,11 +85,11 @@ public abstract class AbstractIOHandler implements IOHandler {
      */
     public boolean isSupportedSchema(String schema) {
         //no schema given. assuming no schema required. therefore accept all schemas
-        if(supportedSchemas.size()==0 && (schema == null || schema.isEmpty())){ // test whether schema is empty, because in ArcToolbox process descriptions, there is empty elements for schemas
+        if (supportedSchemas.size()==0 && (schema == null || schema.isEmpty())) { // test whether schema is empty, because in ArcToolbox process descriptions, there is empty elements for schemas
             return true;
         }
         for(String supportedSchema : supportedSchemas) {
-            if(supportedSchema.equalsIgnoreCase(schema)){
+            if (supportedSchema.equalsIgnoreCase(schema)) {
                 return true;
             }
         }
@@ -102,44 +102,44 @@ public abstract class AbstractIOHandler implements IOHandler {
 
 
     public boolean isSupportedDataBinding(Class<?> binding) {
-        for (Class<?> currentBinding : supportedIDataTypes){
-            if (binding.equals(currentBinding)){
+        for (Class<?> currentBinding : supportedIDataTypes) {
+            if (binding.equals(currentBinding)) {
                 return true;
             }
         }
         return false;
     }
 
-    public String[] getSupportedEncodings(){
+    public String[] getSupportedEncodings() {
         String[] resultArray = supportedEncodings.toArray(new String[supportedEncodings.size()]);
         return resultArray;
         //return IOHandler.SUPPORTED_ENCODINGS;
     }
 
-    public List<FormatEntry> getSupportedFullFormats(){
+    public List<FormatEntry> getSupportedFullFormats() {
         return formats;
     }
 
-    public boolean isSupportedEncoding(String encoding){
-        for (String currentEncoding : this.getSupportedEncodings()){
-            if (currentEncoding.equalsIgnoreCase(encoding)){
+    public boolean isSupportedEncoding(String encoding) {
+        for (String currentEncoding : this.getSupportedEncodings()) {
+            if (currentEncoding.equalsIgnoreCase(encoding)) {
                 return true;
             }
         }
         return false;
     }
 
-    protected boolean isSupportedGenerate (Class<?> binding, String mimeType, String schema){
+    protected boolean isSupportedGenerate (Class<?> binding, String mimeType, String schema) {
 
-        if (!(this.isSupportedFormat(mimeType))){
+        if (!(this.isSupportedFormat(mimeType))) {
             return false;
         }
 
-        if (!(this.isSupportedSchema(schema))){
+        if (!(this.isSupportedSchema(schema))) {
             return false;
         }
 
-        if(!(this.isSupportedDataBinding(binding))){
+        if (!(this.isSupportedDataBinding(binding))) {
             return false;
         }
 

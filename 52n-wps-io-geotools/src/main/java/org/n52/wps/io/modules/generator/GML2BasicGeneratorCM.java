@@ -65,7 +65,7 @@ public class GML2BasicGeneratorCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GML2BasicGeneratorCM(){
+    public GML2BasicGeneratorCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

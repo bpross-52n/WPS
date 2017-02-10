@@ -44,7 +44,7 @@ import org.n52.wps.io.datahandler.parser.AbstractParser;
  */
 public class WCPSQueryParser extends AbstractParser{
 
-    public WCPSQueryParser(){
+    public WCPSQueryParser() {
         super();
         supportedIDataTypes.add(PlainStringBinding.class);
     }
@@ -58,7 +58,7 @@ public class WCPSQueryParser extends AbstractParser{
 
             sw=new StringWriter();
             int k;
-            while((k=br.read())!=-1){
+            while((k=br.read())!=-1) {
                 sw.write(k);
             }
         } catch (UnsupportedEncodingException e) {

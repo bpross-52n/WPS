@@ -66,9 +66,9 @@ import org.n52.wps.io.test.datahandler.AbstractTestCase;
 public class KMLGeneratorTest extends AbstractTestCase<KMLGenerator> {
 
     @Test
-    public void testGenerator(){
+    public void testGenerator() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

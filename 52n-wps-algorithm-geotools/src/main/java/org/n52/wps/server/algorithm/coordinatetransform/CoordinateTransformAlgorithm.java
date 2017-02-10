@@ -252,7 +252,7 @@ public class CoordinateTransformAlgorithm extends
             CoordinateReferenceSystem crs, Collection<Property> properties) {
         String uuid = UUID.randomUUID().toString();
 
-        if(featureType == null){
+        if (featureType == null) {
         featureType = GTHelper.createFeatureType(properties,
                 geometry, uuid, crs);
         GTHelper.createGML3SchemaForFeatureType(featureType);

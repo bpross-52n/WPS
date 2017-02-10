@@ -45,7 +45,7 @@ import com.vividsolutions.jts.io.WKTWriter;
  */
 public class WKTGenerator extends AbstractGenerator {
 
-    public WKTGenerator(){
+    public WKTGenerator() {
         super();
         supportedIDataTypes.add(JTSGeometryBinding.class);
     }
@@ -54,7 +54,7 @@ public class WKTGenerator extends AbstractGenerator {
     public InputStream generateStream(IData data, String mimeType, String schema)
             throws IOException {
 
-        if(data instanceof JTSGeometryBinding){
+        if (data instanceof JTSGeometryBinding) {
             Geometry g = ((JTSGeometryBinding)data).getPayload();
 
             String wktString = new WKTWriter().write(g);

@@ -148,7 +148,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 
 
             int numberOfParameters = parameterSet.getNumberOfParameters();
-            for(int i = 0; i <numberOfParameters; i++){
+            for(int i = 0; i <numberOfParameters; i++) {
                 Parameter parameter = parameterSet.getParameter(i);
                 String parameterName = parameter.getParameterName();
 
@@ -164,41 +164,41 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 
                 boolean missingMandatoryParameter = false;
 
-                if (parameter instanceof ParameterRasterLayer){
+                if (parameter instanceof ParameterRasterLayer) {
                     AdditionalInfoRasterLayer ai = (AdditionalInfoRasterLayer) parameter.getParameterAdditionalInfo();
-                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ){
+                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ) {
                         missingMandatoryParameter = true;
                     }
                 }
-                else if (parameter instanceof ParameterVectorLayer){
+                else if (parameter instanceof ParameterVectorLayer) {
                     AdditionalInfoVectorLayer ai = (AdditionalInfoVectorLayer) parameter.getParameterAdditionalInfo();
-                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ){
+                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ) {
                         missingMandatoryParameter = true;
                     }
 
-                }else if (parameter instanceof ParameterMultipleInput) {
+                } else if (parameter instanceof ParameterMultipleInput) {
                     AdditionalInfoMultipleInput ai = (AdditionalInfoMultipleInput) parameter
                             .getParameterAdditionalInfo();
-                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ){
+                    if (ai.getIsMandatory() && (inputData.get(parameterName) == null) ) {
                         missingMandatoryParameter = true;
                     }
                 }
 
-                if(missingMandatoryParameter){
+                if (missingMandatoryParameter) {
                     LOGGER.error("Missing parameter: " + parameterName);
                     throw new RuntimeException("Error while executing process " + processID + ". Missing parameter: " + parameterName);
                 }
-                if(!(inputData.get(parameterName) == null)){
+                if (!(inputData.get(parameterName) == null)) {
                     Object wrappedInput = wrapSextanteInputs(parameter, inputData.get(parameterName), parameterName, type);
 
-                    if(wrappedInput !=null){
+                    if (wrappedInput !=null) {
                         parameter.setParameterValue(wrappedInput);
                     }
                 }
             }
 
             /* 4. Adjust output grid extent if needed */
-            if (sextanteProcess.getUserCanDefineAnalysisExtent()){
+            if (sextanteProcess.getUserCanDefineAnalysisExtent()) {
                 AnalysisExtent ge = null;
                 try{
                     ge = getGridExtent(
@@ -208,7 +208,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
                             (Double)inputData.get(GRID_EXTENT_Y_MAX).get(0).getPayload(),
                             (Double)inputData.get(GRID_EXTENT_CELLSIZE).get(0).getPayload());
                 }
-                catch(Exception e){}
+                catch(Exception e) {}
                 sextanteProcess.setAnalysisExtent(ge);
             }
 
@@ -234,7 +234,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
              OutputObjectsSet outputs = sextanteProcess.getOutputObjects();
 
              int outputDataCount = outputs.getOutputDataObjectsCount();
-              for(int i = 0; i<outputDataCount; i++){
+              for(int i = 0; i<outputDataCount; i++) {
                  Output outputObject = outputs.getOutput(i);
                  String name = outputObject.getName();
 
@@ -247,7 +247,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
                   * FeatureStore fs = (FeatureStore) result.getBaseDataObject();
                   */
                   IData finalResult = unwrapSextanteResults(outputObject);
-                  if(finalResult==null){
+                  if (finalResult==null) {
                       throw new RuntimeException("Error while executing process " + processID + ". Sextante Results are null");
                   }
                   /* 9. Fill the result hashmap
@@ -290,7 +290,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 
     private AnalysisExtent getGridExtent(double xMin, double xMax,
                                     double yMin, double yMax,
-                                    double cellSize){
+                                    double cellSize) {
 
         AnalysisExtent ge = new AnalysisExtent();
         ge.setCellSize(cellSize);
@@ -302,9 +302,9 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
     }
 
     private Object wrapSextanteInputs(Parameter parameter, List<IData> wpsInputParameters , String parameterName,    String type) throws IOException, NullParameterAdditionalInfoException {
-        if(type.equals("Vector Layer") && wpsInputParameters.size() == 1){
+        if (type.equals("Vector Layer") && wpsInputParameters.size() == 1) {
             IData vectorLayer = wpsInputParameters.get(0);
-            if(vectorLayer==null){
+            if (vectorLayer==null) {
                 return null;
             }
             /* 4. Fill the input parameters with the wps input
@@ -318,52 +318,52 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
         }
         else if (type.equals("Raster Layer")&& wpsInputParameters.size() == 1) {
             IData rasterLayer = wpsInputParameters.get(0);;
-            if(rasterLayer==null){
+            if (rasterLayer==null) {
                 return null;
             }
             return wrapRasterLayer(rasterLayer);
 
 
-        }else if (type.equals("Numerical Value") || type.equals("String")
-                    || type.equals("Band") || type.equals("Table Field")  && wpsInputParameters.size() == 1){
+        } else if (type.equals("Numerical Value") || type.equals("String")
+                    || type.equals("Band") || type.equals("Table Field")  && wpsInputParameters.size() == 1) {
              return wpsInputParameters.get(0).getPayload();
-        }else if (type.equals("Multiple Input")){
+        } else if (type.equals("Multiple Input")) {
             return createMultipleInputArray(parameter, wpsInputParameters);
-        }else if (type.equals("Selection") && wpsInputParameters.size() == 1){
+        } else if (type.equals("Selection") && wpsInputParameters.size() == 1) {
                 IData param = wpsInputParameters.get(0);
-                if(param.getSupportedClass().equals(String.class)){
+                if (param.getSupportedClass().equals(String.class)) {
                     AdditionalInfoSelection ai = (AdditionalInfoSelection) parameter.getParameterAdditionalInfo();
                     String[] values = ai.getValues();
-                    for(int i = 0; i<values.length;i++){
-                        if(values[i].equals(param.getPayload())){
+                    for(int i = 0; i<values.length;i++) {
+                        if (values[i].equals(param.getPayload())) {
                             return new Integer(i);
                         }
                     }
                 }
 
-                /*if(param.getSupportedClass().equals(String.class)){
+                /*if (param.getSupportedClass().equals(String.class)) {
                     AdditionalInfoSelection ai = (AdditionalInfoSelection) parameter.getParameterAdditionalInfo();
                     String[] values = ai.getValues();
-                    for(int i = 0; i<values.length;i++){
-                        if(values[i].equals(param.getPayload())){
+                    for(int i = 0; i<values.length;i++) {
+                        if (values[i].equals(param.getPayload())) {
                             return new Integer(i);
                         }
                     }
                 }*/
-                else{
+                else {
                     return null;
                 }
 
-        }else if (type.equals("Boolean") && wpsInputParameters.size() == 1){
+        } else if (type.equals("Boolean") && wpsInputParameters.size() == 1) {
             IData param = wpsInputParameters.get(0);
-            if(param == null){
+            if (param == null) {
                 return false;
             }
             return param.getPayload();
 
-        }else if (type.equals("Point") && wpsInputParameters.size() == 1){
+        } else if (type.equals("Point") && wpsInputParameters.size() == 1) {
             IData param = wpsInputParameters.get(0);
-            if(param == null){
+            if (param == null) {
                 return false;
             }
             String[] sValue = param.getPayload().toString().split(",");
@@ -372,7 +372,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 
         }
 
-        else if (type.equals("Fixed Table") && wpsInputParameters.size() == 1){
+        else if (type.equals("Fixed Table") && wpsInputParameters.size() == 1) {
             boolean bIsNumberOfRowsFixed;
             int iCols;
             int iRows;
@@ -381,7 +381,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
             int iToken = 0;
             FixedTableModel tableModel;
             IData param = wpsInputParameters.get(0);
-            if(param==null){
+            if (param==null) {
                 return null;
             }
             String sValue = param.getPayload().toString();
@@ -393,18 +393,18 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
             iRows = (int) (st.countTokens() / iCols) + 1;
             bIsNumberOfRowsFixed = ai.isNumberOfRowsFixed();
             tableModel = new FixedTableModel(ai.getCols(), iRows, bIsNumberOfRowsFixed);
-            if (bIsNumberOfRowsFixed){
-                if (iRows != ai.getRowsCount()){
+            if (bIsNumberOfRowsFixed) {
+                if (iRows != ai.getRowsCount()) {
                     return null;
                 }
             }
-            else{
-                if (st.countTokens() % iCols != 0){
+            else {
+                if (st.countTokens() % iCols != 0) {
                     return null;
                 }
             }
 
-            while (st.hasMoreTokens()){
+            while (st.hasMoreTokens()) {
                 iRow =  (int) Math.floor(iToken / (double) iCols);
                 iCol = iToken % iCols;
                 sToken = st.nextToken().trim();
@@ -420,18 +420,18 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
 
     private IData unwrapSextanteResults(Output outputObject) throws Exception {
         Object result = outputObject.getOutputObject();
-        if(result instanceof IVectorLayer){
+        if (result instanceof IVectorLayer) {
 
             IVectorLayer vectorLayer = ((IVectorLayer)result);
             vectorLayer.open();
             FeatureStore<?, ?> fs = (FeatureStore<?, ?>) vectorLayer.getBaseDataObject();
             return new GTVectorDataBinding(fs.getFeatures());
 
-        }else if (result instanceof IRasterLayer){
+        } else if (result instanceof IRasterLayer) {
             IRasterLayer rasterLayer = ((IRasterLayer)result);
             GridCoverage coverage = (GridCoverage) rasterLayer.getBaseDataObject();
             return new GTRasterDataBinding((GridCoverage2D)coverage);
-        }else if(result instanceof ITable){
+        } else if (result instanceof ITable) {
             FileOutputChannel outputChannel = (FileOutputChannel) outputObject.getOutputChannel();
             File output = new File(outputChannel.getFilename());
             return new FileDataBinding(output);
@@ -442,7 +442,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
     }
 
     private GTRasterLayer wrapRasterLayer(IData rasterLayer) {
-        if(!(rasterLayer.getPayload() instanceof GridCoverage)){
+        if (!(rasterLayer.getPayload() instanceof GridCoverage)) {
             return null;
         }
         GridCoverage coverage = (GridCoverage) rasterLayer.getPayload();
@@ -454,7 +454,7 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
     }
 
     private GTVectorLayer wrapVectorLayer(IData vectorLayer) throws IOException {
-        if(!(vectorLayer.getPayload() instanceof FeatureCollection)){
+        if (!(vectorLayer.getPayload() instanceof FeatureCollection)) {
             return null;
         }
         FeatureCollection<SimpleFeatureType, SimpleFeature> fc  = (FeatureCollection<SimpleFeatureType, SimpleFeature>) vectorLayer.getPayload();
@@ -472,9 +472,9 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
     private ArrayList<ILayer> createMultipleInputArray(Parameter parameter, List<IData> wpsInputParameters)
                     throws NullParameterAdditionalInfoException, IOException{
             ArrayList<ILayer> list = new ArrayList<ILayer>();
-            for(IData data : wpsInputParameters){
+            for(IData data : wpsInputParameters) {
                 AdditionalInfoMultipleInput ai = (AdditionalInfoMultipleInput)parameter.getParameterAdditionalInfo();
-                switch (ai.getDataType()){
+                switch (ai.getDataType()) {
                     case AdditionalInfoMultipleInput.DATA_TYPE_RASTER:
                         list.add(wrapRasterLayer(data));
                         break;
@@ -502,60 +502,60 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
         ParametersSet parameterSet = sextanteProcess.getParameters();
 
         int numberOfParameters = parameterSet.getNumberOfParameters();
-        for(int i = 0; i <numberOfParameters; i++){
+        for(int i = 0; i <numberOfParameters; i++) {
             Parameter parameter = parameterSet.getParameter(i);
             String parameterName = parameter.getParameterName();
 
-            if(!parameterName.equals(id)){
+            if (!parameterName.equals(id)) {
                 continue;
             }
             String type = parameter.getParameterTypeName();
 
-            if(type.equals("Vector Layer")){
+            if (type.equals("Vector Layer")) {
                 return GTVectorDataBinding.class;
             }
             else if (type.equals("Raster Layer")) {
                 return GTRasterDataBinding.class;
-            }else if (type.equals("Numerical Value")){
+            } else if (type.equals("Numerical Value")) {
                 return LiteralDoubleBinding.class;
-            }else if (type.equals("String")){
+            } else if (type.equals("String")) {
                 return LiteralStringBinding.class;
-            }else if (type.equals("Multiple Input")){
+            } else if (type.equals("Multiple Input")) {
                 InputDescriptionType[] inputs = ((ProcessDescriptionType)processDescription.getProcessDescriptionType("1.0.0")).getDataInputs().getInputArray();
-                for(InputDescriptionType input : inputs){
-                    if(input.getIdentifier().getStringValue().equals(id)){
-                        if(input.isSetLiteralData()){
+                for(InputDescriptionType input : inputs) {
+                    if (input.getIdentifier().getStringValue().equals(id)) {
+                        if (input.isSetLiteralData()) {
                             String datatype = input.getLiteralData().getDataType().getStringValue();
-                            if(datatype.contains("tring")){
+                            if (datatype.contains("tring")) {
                                     return LiteralStringBinding.class;
                             }
-                            if(datatype.contains("ollean")){
+                            if (datatype.contains("ollean")) {
                                 return LiteralBooleanBinding.class;
                             }
-                            if(datatype.contains("loat") || datatype.contains("ouble")){
+                            if (datatype.contains("loat") || datatype.contains("ouble")) {
                                 return LiteralDoubleBinding.class;
                             }
-                            if(datatype.contains("nt")){
+                            if (datatype.contains("nt")) {
                                 return LiteralIntBinding.class;
                             }
                         }
-                        if(input.isSetComplexData()){
+                        if (input.isSetComplexData()) {
                              String mimeType = input.getComplexData().getDefault().getFormat().getMimeType();
-                             if(mimeType.contains("xml") || (mimeType.contains("XML"))){
+                             if (mimeType.contains("xml") || (mimeType.contains("XML"))) {
                                  return GTVectorDataBinding.class;
-                             }else{
+                             } else {
                                  return GTRasterDataBinding.class;
                              }
                         }
                     }
                 }
 
-            }else if (type.equals("Selection")){
+            } else if (type.equals("Selection")) {
                     return LiteralIntBinding.class;
-            }else if (type.equals("Boolean")){
+            } else if (type.equals("Boolean")) {
                 return LiteralBooleanBinding.class;
             }
-            else if (type.equals("Fixed Table")){
+            else if (type.equals("Fixed Table")) {
                 return LiteralStringBinding.class;
             }
         }
@@ -566,31 +566,31 @@ public class GenericSextanteProcessDelegator implements IAlgorithm, SextanteCons
     public Class<?> getOutputDataType(String id) {
         OutputDescriptionType[] outputs = ((ProcessDescriptionType)processDescription.getProcessDescriptionType("1.0.0")).getProcessOutputs().getOutputArray();
 
-        for(OutputDescriptionType output : outputs){
+        for(OutputDescriptionType output : outputs) {
 
-            if(!output.getIdentifier().getStringValue().equals(id)){
+            if (!output.getIdentifier().getStringValue().equals(id)) {
                 continue;
             }
-            if(output.isSetLiteralOutput()){
+            if (output.isSetLiteralOutput()) {
                 String datatype = output.getLiteralOutput().getDataType().getStringValue();
-                if(datatype.contains("tring")){
+                if (datatype.contains("tring")) {
                     return LiteralStringBinding.class;
                 }
-                if(datatype.contains("ollean")){
+                if (datatype.contains("ollean")) {
                     return LiteralBooleanBinding.class;
                 }
-                if(datatype.contains("loat") || datatype.contains("ouble")){
+                if (datatype.contains("loat") || datatype.contains("ouble")) {
                     return LiteralDoubleBinding.class;
                 }
-                if(datatype.contains("nt")){
+                if (datatype.contains("nt")) {
                     return LiteralIntBinding.class;
                 }
             }
-            if(output.isSetComplexOutput()){
+            if (output.isSetComplexOutput()) {
                 String mimeType = output.getComplexOutput().getDefault().getFormat().getMimeType();
-                if(mimeType.contains("xml") || (mimeType.contains("XML"))){
+                if (mimeType.contains("xml") || (mimeType.contains("XML"))) {
                     return GTVectorDataBinding.class;
-                }else{
+                } else {
                     return GTRasterDataBinding.class;
                 }
             }

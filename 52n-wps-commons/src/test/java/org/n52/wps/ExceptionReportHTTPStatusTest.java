@@ -34,43 +34,43 @@ public class ExceptionReportHTTPStatusTest {
     ExceptionReport exceptionReport;
 
     @Test
-    public void testMissingParameterValueHTTTPStatusErrorCode(){
+    public void testMissingParameterValueHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.MISSING_PARAMETER_VALUE);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_BAD_REQUEST);
     }
 
     @Test
-    public void testInvalidParameterValueHTTTPStatusErrorCode(){
+    public void testInvalidParameterValueHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.INVALID_PARAMETER_VALUE);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_BAD_REQUEST);
     }
 
     @Test
-    public void testOperationNotSupportedHTTTPStatusErrorCode(){
+    public void testOperationNotSupportedHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.OPERATION_NOT_SUPPORTED);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_NOT_IMPLEMENTED);
     }
 
     @Test
-    public void testVersionNegotiationFailedHTTTPStatusErrorCode(){
+    public void testVersionNegotiationFailedHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.VERSION_NEGOTIATION_FAILED);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_BAD_REQUEST);
     }
 
     @Test
-    public void testInvalidUpdateSequenceHTTTPStatusErrorCode(){
+    public void testInvalidUpdateSequenceHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.INVALID_UPDATE_SEQUENCE);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_BAD_REQUEST);
     }
 
     @Test
-    public void testNoApplicableCodeHTTTPStatusErrorCode(){
+    public void testNoApplicableCodeHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", ExceptionReport.NO_APPLICABLE_CODE);
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     @Test
-    public void testDefaultHTTTPStatusErrorCode(){
+    public void testDefaultHTTTPStatusErrorCode() {
         exceptionReport = new ExceptionReport("Test error", "");
         assertTrue(exceptionReport.getHTTPStatusCode() == HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }

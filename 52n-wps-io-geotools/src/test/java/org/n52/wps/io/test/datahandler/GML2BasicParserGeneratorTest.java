@@ -74,7 +74,7 @@ public class GML2BasicParserGeneratorTest extends AbstractTestCase<GML2BasicGene
     @Test
     public void testParser() {
 
-        if(!isDataHandlerActive()){
+        if (!isDataHandlerActive()) {
             return;
         }
 

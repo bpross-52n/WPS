@@ -52,11 +52,11 @@ public class UploadedAlgorithmRepository implements
         ConfigurationModule uploadedAlgorithmRepoConfigModule = WPSConfig.getInstance().getConfigurationModuleForClass(this.getClass().getName(), ConfigurationCategory.REPOSITORY);
 
         // check if the repository is active
-        if(uploadedAlgorithmRepoConfigModule.isActive()){
+        if (uploadedAlgorithmRepoConfigModule.isActive()) {
             List<AlgorithmEntry> algorithmEntries = uploadedAlgorithmRepoConfigModule.getAlgorithmEntries();
 
             for (AlgorithmEntry algorithmEntry : algorithmEntries) {
-                if(algorithmEntry.isActive()){
+                if (algorithmEntry.isActive()) {
                     addAlgorithm(algorithmEntry.getAlgorithm());
                 }
             }
@@ -126,7 +126,7 @@ public class UploadedAlgorithmRepository implements
 
         for (String supportedVersion : WPSConfig.SUPPORTED_VERSIONS) {
 
-            if(!algorithm.processDescriptionIsValid(supportedVersion)) {
+            if (!algorithm.processDescriptionIsValid(supportedVersion)) {
                 LOGGER.warn("Algorithm description is not valid: " + algorithmClassName);//TODO add version to exception/log
                 throw new Exception("Could not load algorithm " +algorithmClassName +". ProcessDescription Not Valid.");
             }

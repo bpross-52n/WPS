@@ -65,7 +65,7 @@ public class GML32BasicParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GML32BasicParserCM(){
+    public GML32BasicParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }

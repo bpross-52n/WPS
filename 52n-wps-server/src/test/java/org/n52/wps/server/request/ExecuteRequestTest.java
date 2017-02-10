@@ -72,7 +72,7 @@ public class ExecuteRequestTest extends AbstractITClass {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
 
         fac = DocumentBuilderFactory.newInstance();

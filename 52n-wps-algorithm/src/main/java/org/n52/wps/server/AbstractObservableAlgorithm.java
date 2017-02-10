@@ -67,7 +67,7 @@ public abstract class AbstractObservableAlgorithm implements IAlgorithm, ISubjec
      */
     public AbstractObservableAlgorithm(String wellKnownName, boolean initializeDescription) {
         this.wkName = wellKnownName;
-        if (initializeDescription){
+        if (initializeDescription) {
             this.description = initializeDescription();
         }
     }
@@ -86,13 +86,13 @@ public abstract class AbstractObservableAlgorithm implements IAlgorithm, ISubjec
             XmlOptions option = new XmlOptions();
             option.setLoadTrimTextBuffer();
             ProcessDescriptionsDocument doc = ProcessDescriptionsDocument.Factory.parse(xmlDesc, option);
-            if(doc.getProcessDescriptions().getProcessDescriptionArray().length == 0) {
+            if (doc.getProcessDescriptions().getProcessDescriptionArray().length == 0) {
                 LOGGER.warn("ProcessDescription does not contain correct any description");
                 return null;
             }
 
             // Checking that the process name (full class name or well-known name) matches the identifier.
-            if(!doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getClass().getName()) &&
+            if (!doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getClass().getName()) &&
                     !doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().getStringValue().equals(this.getWellKnownName())) {
                 doc.getProcessDescriptions().getProcessDescriptionArray(0).getIdentifier().setStringValue(this.getClass().getName());
                 LOGGER.warn("Identifier was not correct, was changed now temporary for server use to " + this.getClass().getName() + ". Please change it later in the description!");

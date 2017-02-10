@@ -65,7 +65,7 @@ public class GTBinZippedWKT64ParserCM extends ClassKnowingModule{
 
     private List<FormatEntry> formatEntries;
 
-    public GTBinZippedWKT64ParserCM(){
+    public GTBinZippedWKT64ParserCM() {
         formatEntries = new ArrayList<>();
         configurationEntries = new ArrayList<>();
     }
