@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ows="http://www.opengis.net/ows/2.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:wps="http://www.opengis.net/wps/2.0"
+	targetNamespace="http://www.opengis.net/wps/2.0" elementFormDefault="qualified"
+	xml:lang="en" version="2.0.0">
+
+	<!-- all-components document include (OGC 06-135r11 s#14) -->
+	<include schemaLocation="http://schemas.opengis.net/wps/2.0/wps.xsd" />
+	<import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.w3.org/1999/xlink.xsd"/>
+
+	<annotation>
+		<documentation>
+			WPS is an OGC Standard.
+			Copyright (c) 2015 Open
+			Geospatial Consortium.
+			To obtain additional rights of use, visit
+			http://www.opengeospatial.org/legal/.
+		</documentation>
+	</annotation>
+
+	<element name="InsertProcess" type="wps:InsertProcessRequestType" />
+
+	<complexType name="InsertProcessRequestType">
+		<sequence>
+			<element name="ProcessSpecification" type="wps:ProcessSpecificationType"
+				minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Referenced or inline process specification.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ProcessSpecificationType">
+		<annotation>
+			<documentation>
+				This structure contains information elements to supply
+				a process specification for the process to be inserted.
+			</documentation>
+		</annotation>
+		<sequence>
+			<choice>
+				<element ref="wps:ProcessSpecificationAsValue" />
+				<element ref="wps:ProcessSpecificationAsReference" />
+			</choice>
+		</sequence>
+		<attribute name="id" type="anyURI" use="required">
+			<annotation>
+				<documentation>
+					Identifier of this process.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<element name="ProcessSpecificationAsValue">
+		<complexType mixed="true">
+			<annotation>
+				<documentation>
+					This element is used to embed the process specification in a WPS
+					request.
+					The content can be XML data, plain character
+					data, or specially encoded binary data (i.e. base64).
+				</documentation>
+			</annotation>
+			<complexContent mixed="true">
+				<extension base="anyType">
+			       <attributeGroup ref="wps:dataEncodingAttributes" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="ProcessSpecificationAsReference" type="wps:ProcessSpecificationAsReferenceType">
+		<annotation>
+			<documentation>
+				This element is used for web accessible references to
+				a process specification
+			</documentation>
+		</annotation>
+	</element>
+	<!-- =========================================================== -->
+	<complexType name="ProcessSpecificationAsReferenceType">
+		<annotation>
+			<documentation>
+				Reference to a process specification that is a web
+				accessible resource.
+			</documentation>
+		</annotation>
+		<attribute ref="xlink:href" use="required">
+			<annotation>
+				<documentation>
+					HTTP URI that points to the remote resource where the
+					process specification may be retrieved.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attributeGroup ref="wps:dataEncodingAttributes" />
+	</complexType>
+
+</schema>

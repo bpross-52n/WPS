@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:ows="http://www.opengis.net/ows/2.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:wps="http://www.opengis.net/wps/2.0"
+	targetNamespace="http://www.opengis.net/wps/2.0"
+	elementFormDefault="qualified"
+	xml:lang="en"
+	version="2.0.0">
+	
+	<!-- all-components document include (OGC 06-135r11 s#14) -->
+	<include schemaLocation="http://schemas.opengis.net/wps/2.0/wps.xsd"/>
+	
+	<annotation>
+		<documentation>
+			WPS is an OGC Standard.
+			Copyright (c) 2015 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/.
+		</documentation>
+	</annotation>
+	
+		<element name="InsertProcessInfo">
+		<annotation>
+			<documentation>
+				InsertProcessInfo document containing information about inserted processes.
+			</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<!-- reference to JobID -->
+				<element ref="wps:processID"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+		<element name="processID" type="string">
+		<annotation>
+			<documentation>
+				Identifier of the new process.
+			</documentation>
+		</annotation>
+	</element>
+	
+</schema>

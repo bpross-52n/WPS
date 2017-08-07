@@ -51,6 +51,7 @@ import org.n52.wps.server.request.ExecuteRequestV100;
 import org.n52.wps.server.request.ExecuteRequestV200;
 import org.n52.wps.server.request.GetResultRequestV200;
 import org.n52.wps.server.request.GetStatusRequestV200;
+import org.n52.wps.server.request.InsertProcessRequestV200;
 import org.n52.wps.server.request.Request;
 import org.n52.wps.server.request.RetrieveResultRequest;
 import org.n52.wps.server.response.ExecuteResponse;
@@ -326,6 +327,8 @@ public class RequestHandler {
                         req = new GetStatusRequestV200(doc);
                     } else if (localName.equals("GetResult")) {
                         req = new GetResultRequestV200(doc);
+                    } else if (localName.equals("InsertProcess")) {
+                        req = new InsertProcessRequestV200(doc);
                     } else if (!localName.equals("Execute")) {
                         throw new ExceptionReport("The requested Operation not supported or not applicable to the specification: " + nodeName, ExceptionReport.OPERATION_NOT_SUPPORTED, localName);
                     } else {
