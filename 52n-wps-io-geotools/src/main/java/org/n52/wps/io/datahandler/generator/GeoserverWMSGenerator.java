@@ -191,7 +191,7 @@ public class GeoserverWMSGenerator extends AbstractGenerator {
 		if(coll instanceof GTVectorDataBinding){
 			result = geoserverUploader.uploadShp(file, storeName);			
 		}
-		if(coll instanceof GTRasterDataBinding){
+		if(coll instanceof GTRasterDataBinding || file.getName().endsWith("tif") || file.getName().endsWith("tiff")){
 			result = geoserverUploader.uploadGeotiff(file, storeName);
 		}
 		
