@@ -5,8 +5,8 @@
 	xml:lang="en" version="2.0.0">
 
 	<!-- all-components document include (OGC 06-135r11 s#14) -->
-	<include schemaLocation="http://schemas.opengis.net/wps/2.0/wps.xsd" />
-	<import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.w3.org/1999/xlink.xsd"/>
+	<include schemaLocation="wps.xsd" />
+	<import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.w3.org/1999/xlink.xsd" />
 
 	<annotation>
 		<documentation>
@@ -21,16 +21,20 @@
 	<element name="InsertProcess" type="wps:InsertProcessRequestType" />
 
 	<complexType name="InsertProcessRequestType">
-		<sequence>
-			<element name="ProcessSpecification" type="wps:ProcessSpecificationType"
-				minOccurs="1" maxOccurs="1">
-				<annotation>
-					<documentation>
-						Referenced or inline process specification.
-					</documentation>
-				</annotation>
-			</element>
-		</sequence>
+		<complexContent>
+			<extension base="wps:RequestBaseType">
+				<sequence>
+					<element name="ProcessSpecification" type="wps:ProcessSpecificationType"
+						minOccurs="1" maxOccurs="1">
+						<annotation>
+							<documentation>
+								Referenced or inline process specification.
+							</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
 	</complexType>
 
 	<complexType name="ProcessSpecificationType">
@@ -59,15 +63,17 @@
 		<complexType mixed="true">
 			<annotation>
 				<documentation>
-					This element is used to embed the process specification in a WPS
+					This element is used to embed the process
+					specification in a WPS
 					request.
-					The content can be XML data, plain character
+					The content can be XML data, plain
+					character
 					data, or specially encoded binary data (i.e. base64).
 				</documentation>
 			</annotation>
 			<complexContent mixed="true">
 				<extension base="anyType">
-			       <attributeGroup ref="wps:dataEncodingAttributes" />
+					<attributeGroup ref="wps:dataEncodingAttributes" />
 				</extension>
 			</complexContent>
 		</complexType>

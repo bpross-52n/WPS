@@ -29,6 +29,8 @@
 package org.n52.wps.server.request;
 
 import org.apache.xmlbeans.XmlException;
+import org.n52.wps.commons.WPSConfig;
+import org.n52.wps.commons.XMLBeansHelper;
 import org.n52.wps.server.ExceptionReport;
 import org.n52.wps.server.response.InsertProcessResponseV200;
 import org.n52.wps.server.response.Response;
@@ -71,7 +73,11 @@ public class InsertProcessRequestV200 extends Request {
 
         response = InsertProcessInfoDocument.Factory.newInstance();
 
-        response.addNewInsertProcessInfo().setProcessID(processID);
+        response.addNewInsertProcessInfo();
+
+        XMLBeansHelper.addSchemaLocationToXMLObject(response, "http://www.opengis.net/wps/2.0 " + WPSConfig.getInstance().getServiceEndpoint().replace("WebProcessingService", "") + "static/schemas/wpsInsertProcess.xsd");
+
+        response.getInsertProcessInfo().setProcessID(processID);
 
         return new InsertProcessResponseV200(this);
     }

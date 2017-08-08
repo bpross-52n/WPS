@@ -26,25 +26,28 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.wps.server.response;
+package org.n52.wps.server;
 
-import java.io.InputStream;
-
+import org.junit.Test;
 import org.n52.wps.commons.XMLBeansHelper;
-import org.n52.wps.server.ExceptionReport;
-import org.n52.wps.server.request.InsertProcessRequestV200;
 
 import net.opengis.wps.x20.InsertProcessInfoDocument;
 
-public class InsertProcessResponseV200 extends Response {
+public class InsertProcessTest {
 
-    public InsertProcessResponseV200(InsertProcessRequestV200 request) {
-        super(request);
-    }
+    @Test
+    public void testInsertProcess(){
 
-    @Override
-    public InputStream getAsStream() throws ExceptionReport {
-        return ((InsertProcessInfoDocument)request.getAttachedResult()).newInputStream(XMLBeansHelper.getXmlOptions());
+        InsertProcessInfoDocument response = InsertProcessInfoDocument.Factory.newInstance();
+
+        response.addNewInsertProcessInfo();
+
+        XMLBeansHelper.addSchemaLocationToXMLObject(response, "http://www.opengis.net/wps/2.0 localhost:8080/wps/static/schemas/wpsInsertProcess.xsd");
+
+        response.getInsertProcessInfo().setProcessID("test");
+
+        System.out.println(response.xmlText(XMLBeansHelper.getXmlOptions()));
+
     }
 
 }
