@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:InsertProcess xmlns:wps="http://www.opengis.net/wps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/wps/2.0 ../wpsInsertProcess.xsd"
+	service="WPS" version="2.0.0">
+
+	<wps:ProcessSpecification id="xyz">
+		<wps:ProcessSpecificationAsValue
+			mimeType="application/x-bpmn">
+			<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+				xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+				xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+				xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+				xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+				id="Definitions_1" exporter="Camunda Modeler" exporterVersion="1.3.2"
+				targetNamespace="http://bpmn.io/schema/bpmn">
+				<bpmn:process id="Process_11231414" isExecutable="true">
+					<bpmn:startEvent id="StartEvent_1">
+						<bpmn:outgoing>SequenceFlow_06rceb2</bpmn:outgoing>
+					</bpmn:startEvent>
+					<bpmn:endEvent id="EndEvent_1ph4yd9">
+						<bpmn:incoming>SequenceFlow_01sv01a</bpmn:incoming>
+					</bpmn:endEvent>
+					<bpmn:subProcess id="SubProcess_0cx5fst">
+						<bpmn:incoming>SequenceFlow_06rceb2</bpmn:incoming>
+						<bpmn:outgoing>SequenceFlow_01sv01a</bpmn:outgoing>
+						<bpmn:multiInstanceLoopCharacteristics>
+							<bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">2</bpmn:loopCardinality>
+						</bpmn:multiInstanceLoopCharacteristics>
+						<bpmn:serviceTask
+							id="iso19157.DQ_PositionalAccuracy.DQ_AbsoluteExternalPositionalAccuracy"
+							camunda:class="org.n52.testbed13.workflow.Test"
+							implementation="http://tb12.dev.52north.org/data-quality-wps/WebProcessingService">
+							<bpmn:incoming>SequenceFlow_15yw1ab</bpmn:incoming>
+							<bpmn:outgoing>SequenceFlow_0c864xg</bpmn:outgoing>
+							<bpmn:dataOutputAssociation id="DataOutputAssociation_0k8spmw">
+								<bpmn:targetRef>DataObjectReference_0tax0zd</bpmn:targetRef>
+							</bpmn:dataOutputAssociation>
+						</bpmn:serviceTask>
+						<bpmn:serviceTask
+							id="org.n52.geoprocessing.geotools.algorithm.CoordinateTransformationAlgorithm"
+							camunda:class="org.n52.testbed13.workflow.Test" implementation="http://ows.dev.52north.org:8080/javaps/service">
+							<bpmn:incoming>SequenceFlow_0c864xg</bpmn:incoming>
+							<bpmn:outgoing>SequenceFlow_1jws3qj</bpmn:outgoing>
+							<bpmn:property id="Property_0xmvxwc" name="__targetRef_placeholder" />
+							<bpmn:dataInputAssociation id="DataInputAssociation_0kg9jgh">
+								<bpmn:sourceRef>DataObjectReference_0tax0zd</bpmn:sourceRef>
+								<bpmn:targetRef>Property_0xmvxwc</bpmn:targetRef>
+							</bpmn:dataInputAssociation>
+						</bpmn:serviceTask>
+						<bpmn:dataObjectReference id="DataObjectReference_0tax0zd"
+							dataObjectRef="DataObject_10yh76b" />
+						<bpmn:dataObject id="DataObject_10yh76b" />
+						<bpmn:startEvent id="StartEvent_0f0k37i">
+							<bpmn:outgoing>SequenceFlow_15yw1ab</bpmn:outgoing>
+						</bpmn:startEvent>
+						<bpmn:endEvent id="EndEvent_1rdftxn">
+							<bpmn:incoming>SequenceFlow_1jws3qj</bpmn:incoming>
+						</bpmn:endEvent>
+						<bpmn:sequenceFlow id="SequenceFlow_0c864xg"
+							sourceRef="iso19157.DQ_PositionalAccuracy.DQ_AbsoluteExternalPositionalAccuracy"
+							targetRef="org.n52.geoprocessing.geotools.algorithm.CoordinateTransformationAlgorithm" />
+						<bpmn:sequenceFlow id="SequenceFlow_15yw1ab"
+							sourceRef="StartEvent_0f0k37i"
+							targetRef="iso19157.DQ_PositionalAccuracy.DQ_AbsoluteExternalPositionalAccuracy" />
+						<bpmn:sequenceFlow id="SequenceFlow_1jws3qj"
+							sourceRef="org.n52.geoprocessing.geotools.algorithm.CoordinateTransformationAlgorithm"
+							targetRef="EndEvent_1rdftxn" />
+					</bpmn:subProcess>
+					<bpmn:sequenceFlow id="SequenceFlow_06rceb2"
+						sourceRef="StartEvent_1" targetRef="SubProcess_0cx5fst" />
+					<bpmn:sequenceFlow id="SequenceFlow_01sv01a"
+						sourceRef="SubProcess_0cx5fst" targetRef="EndEvent_1ph4yd9" />
+				</bpmn:process>
+			</bpmn:definitions>
+		</wps:ProcessSpecificationAsValue>
+	</wps:ProcessSpecification>
+
+</wps:InsertProcess>

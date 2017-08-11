@@ -28,9 +28,15 @@
  */
 package org.n52.wps.server;
 
+import java.io.IOException;
+import java.util.UUID;
+
+import org.apache.xmlbeans.XmlException;
 import org.junit.Test;
 import org.n52.wps.commons.XMLBeansHelper;
+import org.n52.wps.server.util.InsertProcessUtils;
 
+import net.opengis.wps.x20.InsertProcessDocument;
 import net.opengis.wps.x20.InsertProcessInfoDocument;
 
 public class InsertProcessTest {
@@ -47,6 +53,36 @@ public class InsertProcessTest {
         response.getInsertProcessInfo().setProcessID("test");
 
         System.out.println(response.xmlText(XMLBeansHelper.getXmlOptions()));
+
+    }
+
+    @Test
+    public void testGetProcessSpecification() throws XmlException, IOException{
+
+        InsertProcessDocument insertProcessDocument = InsertProcessDocument.Factory.parse(getClass().getResourceAsStream("insertprocess-request.xml"));
+
+        System.out.println(InsertProcessUtils.getInstance().getProcessSpecification(insertProcessDocument));
+
+    }
+
+    @Test
+    public void testCreateMultipartContent() throws XmlException, IOException{
+
+        InsertProcessDocument insertProcessDocument = InsertProcessDocument.Factory.parse(getClass().getResourceAsStream("insertprocess-request.xml"));
+
+        Object o = InsertProcessUtils.getInstance().getProcessSpecification(insertProcessDocument);
+
+        String processSpecification = "";
+
+        if(o instanceof String){
+            processSpecification = (String)o;
+        }
+
+        String boundary = UUID.randomUUID().toString();
+
+        String multipartContent = InsertProcessUtils.getInstance().createMultipartContent(processSpecification, "test-deployment", "test.bpmn", boundary);
+
+        System.out.println(multipartContent);
 
     }
 

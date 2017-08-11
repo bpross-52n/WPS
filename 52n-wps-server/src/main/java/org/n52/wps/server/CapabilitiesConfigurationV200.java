@@ -625,6 +625,7 @@ public class CapabilitiesConfigurationV200 {
             addOperation(operationsMetadata, "Execute", "", postHREF);
             addOperation(operationsMetadata, "GetStatus", getHREF, postHREF);
             addOperation(operationsMetadata, "GetResult", getHREF, postHREF);
+            addOperation(operationsMetadata, "InsertProcess", "", postHREF);
 
             wpsCapabilities.addNewLanguages().addLanguage("en-US");
         }
