@@ -238,7 +238,7 @@
 		<module>52n-wps-database</module>
 		<module>52n-wps-webapp</module>
 		<module>52n-wps-client-lib</module>
-		<module>52n-wps-sextante</module>
+<!-- 		<module>52n-wps-sextante</module> -->
 		<module>52n-wps-grass</module>
 		<module>52n-wps-r</module>
 	</modules>
@@ -853,11 +853,11 @@
 				<artifactId>52n-wps-client-lib</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>52n-wps-sextante</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>${project.groupId}</groupId> -->
+<!-- 				<artifactId>52n-wps-sextante</artifactId> -->
+<!-- 				<version>${project.version}</version> -->
+<!-- 			</dependency> -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>52n-wps-grass</artifactId>
