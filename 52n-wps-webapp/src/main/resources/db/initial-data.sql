@@ -1,11 +1,12 @@
 INSERT INTO users VALUES(DEFAULT, 'wps', 'f0e272b0741e2a259fc10111a65445608294fdbf894a11ca1652bbfdef121ffbc7aecfa0b475a743', 'ROLE_ADMIN');
-INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.JTSConvexHullAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
-INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.DummyTestClass','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.JTSConvexHullAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',false);
+INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.DummyTestClass','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',false);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.LongRunningDummyTestClass','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultipleComplexInAndOutputsDummyTestClass','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.MultiReferenceBinaryInputAlgorithm','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
 INSERT INTO ALGORITHMENTRY VALUES('org.n52.wps.server.algorithm.test.EchoProcess','org.n52.wps.server.modules.LocalAlgorithmRepositoryCM',TRUE);
+INSERT INTO ALGORITHMENTRY VALUES('org.n52.geoprocessing.project.testbed14.gait.GenericGaitToolAlgorithm','org.n52.geoprocessing.project.testbed14.gait.configmodules.GaitToolAlgorithmRepositoryCM',TRUE);
 
 INSERT INTO CONFIGURATIONMODULE VALUES('org.n52.wps.server.r.RConfigurationModule', FALSE);
 
@@ -572,6 +573,8 @@ INSERT INTO FORMATENTRY VALUES('application/hdf4-eos', '', 'base64', 'org.n52.wp
 INSERT INTO FORMATENTRY VALUES('text/plain', '', 'base64', 'org.n52.wps.io.modules.parser.GenericFileDataWithGTParserCM',TRUE);
 
 INSERT INTO FORMATENTRY VALUES('application/x-zipped-shp', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
+INSERT INTO FORMATENTRY VALUES('application/zip', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
+INSERT INTO FORMATENTRY VALUES('application/zip', '', 'base64', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/img', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('image/tiff', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
 INSERT INTO FORMATENTRY VALUES('application/geotiff', '', '', 'org.n52.wps.io.modules.generator.GenericFileGeneratorCM',TRUE);
